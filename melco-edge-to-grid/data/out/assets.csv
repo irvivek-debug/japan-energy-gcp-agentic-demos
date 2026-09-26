@@ -1,0 +1,84 @@
+asset_id,asset_name,asset_class,area,criticality,flex_class,flex_method,rated_kw,flex_kw_nominal,max_shift_h,meter_id,plc_tag,controller
+CR-AHU-01,Clean-room air handler 1,cleanroom_hvac,Clean room ISO 6/7 production (SiC module),critical,none,No trim: production-zone airflow held at 100 % while product is exposed,260.0,0.0,0.0,M-02,iQR-HVAC1/D2010,MELSEC iQ-R series PLC
+CR-AHU-02,Clean-room air handler 2,cleanroom_hvac,Clean room ISO 6/7 production (SiC module),critical,none,No trim: production-zone airflow held at 100 % while product is exposed,260.0,0.0,0.0,M-03,iQR-HVAC1/D2020,MELSEC iQ-R series PLC
+CR-AHU-03,Clean-room air handler 3,cleanroom_hvac,Clean room ISO 6/7 production (SiC module),critical,none,No trim: production-zone airflow held at 100 % while product is exposed,260.0,0.0,0.0,M-04,iQR-HVAC1/D2030,MELSEC iQ-R series PLC
+CR-AHU-04,Clean-room air handler 4,cleanroom_hvac,Clean room ISO 6/7 production (SiC module),critical,none,No trim: production-zone airflow held at 100 % while product is exposed,260.0,0.0,0.0,M-05,iQR-HVAC1/D2040,MELSEC iQ-R series PLC
+CR-AHU-05,Clean-room air handler 5,cleanroom_hvac,"Clean room ISO 8 support (gowning, corridors)",critical,trim,Fan speed trim down to the airflow floor (support zones only),260.0,40.0,0.0,M-06,iQR-HVAC1/D2050,MELSEC iQ-R series PLC
+CR-AHU-06,Clean-room air handler 6,cleanroom_hvac,"Clean room ISO 8 support (gowning, corridors)",critical,trim,Fan speed trim down to the airflow floor (support zones only),260.0,40.0,0.0,M-07,iQR-HVAC1/D2060,MELSEC iQ-R series PLC
+CR-EXF-01,Clean-room exhaust fan 1,cleanroom_exhaust,Clean room,critical,none,Safety exhaust (process gases); never curtailed,50.0,0.0,0.0,M-08,iQR-HVAC1/D2110,MELSEC iQ-R series PLC
+CR-EXF-02,Clean-room exhaust fan 2,cleanroom_exhaust,Clean room,critical,none,Safety exhaust (process gases); never curtailed,50.0,0.0,0.0,M-08,iQR-HVAC1/D2120,MELSEC iQ-R series PLC
+CR-EXF-03,Clean-room exhaust fan 3,cleanroom_exhaust,Clean room,critical,none,Safety exhaust (process gases); never curtailed,50.0,0.0,0.0,M-08,iQR-HVAC1/D2130,MELSEC iQ-R series PLC
+CR-EXF-04,Clean-room exhaust fan 4,cleanroom_exhaust,Clean room,critical,none,Safety exhaust (process gases); never curtailed,50.0,0.0,0.0,M-08,iQR-HVAC1/D2140,MELSEC iQ-R series PLC
+OF-AHU-01,Office air handler 1,office_hvac,Office and admin building,low,setpoint,Zone setpoint +2 C up to the 28 C policy limit,140.0,45.0,0.0,M-09,iQR-BMS1/D3010,MELSEC iQ-R series PLC
+OF-AHU-02,Office air handler 2,office_hvac,Office and admin building,low,setpoint,Zone setpoint +2 C up to the 28 C policy limit,140.0,45.0,0.0,M-09,iQR-BMS1/D3020,MELSEC iQ-R series PLC
+OF-AHU-03,Office air handler 3,office_hvac,Office and admin building,low,setpoint,Zone setpoint +2 C up to the 28 C policy limit,140.0,45.0,0.0,M-10,iQR-BMS1/D3030,MELSEC iQ-R series PLC
+OF-AHU-04,Office air handler 4,office_hvac,Office and admin building,low,setpoint,Zone setpoint +2 C up to the 28 C policy limit,140.0,45.0,0.0,M-10,iQR-BMS1/D3040,MELSEC iQ-R series PLC
+CH-01,Centrifugal chiller 1,chiller,Central utility plant,high,tes_shift,Unload while thermal storage carries the cooling load; chilled-water supply +1.5 C,800.0,0.0,0.0,M-11,iQR-UTIL1/D4010,MELSEC iQ-R series PLC
+CH-02,Centrifugal chiller 2,chiller,Central utility plant,high,tes_shift,Unload while thermal storage carries the cooling load; chilled-water supply +1.5 C,800.0,0.0,0.0,M-12,iQR-UTIL1/D4020,MELSEC iQ-R series PLC
+CH-03,Centrifugal chiller 3,chiller,Central utility plant,high,tes_shift,Unload while thermal storage carries the cooling load; chilled-water supply +1.5 C,800.0,0.0,0.0,M-13,iQR-UTIL1/D4030,MELSEC iQ-R series PLC
+CH-04,Centrifugal chiller 4,chiller,Central utility plant,high,tes_shift,Unload while thermal storage carries the cooling load; chilled-water supply +1.5 C,800.0,0.0,0.0,M-14,iQR-UTIL1/D4040,MELSEC iQ-R series PLC
+TES-01,Chilled-water thermal storage tank (14 MWh-th),thermal_storage,Central utility plant,high,storage,Discharge stored chilled water to unload chillers,0.0,700.0,0.0,,iQR-UTIL1/D4100,MELSEC iQ-R series PLC
+CT-01,Cooling tower fan 1,cooling_aux,Central utility plant,high,none,Follows chiller staging,30.0,0.0,0.0,M-15,iQR-UTIL1/D4210,MELSEC iQ-R series PLC
+CHWP-01,Chilled-water pump 1,cooling_aux,Central utility plant,high,none,Follows chiller staging,37.0,0.0,0.0,M-16,iQR-UTIL1/D4310,MELSEC iQ-R series PLC
+CT-02,Cooling tower fan 2,cooling_aux,Central utility plant,high,none,Follows chiller staging,30.0,0.0,0.0,M-15,iQR-UTIL1/D4220,MELSEC iQ-R series PLC
+CHWP-02,Chilled-water pump 2,cooling_aux,Central utility plant,high,none,Follows chiller staging,37.0,0.0,0.0,M-16,iQR-UTIL1/D4320,MELSEC iQ-R series PLC
+CT-03,Cooling tower fan 3,cooling_aux,Central utility plant,high,none,Follows chiller staging,30.0,0.0,0.0,M-15,iQR-UTIL1/D4230,MELSEC iQ-R series PLC
+CHWP-03,Chilled-water pump 3,cooling_aux,Central utility plant,high,none,Follows chiller staging,37.0,0.0,0.0,M-16,iQR-UTIL1/D4330,MELSEC iQ-R series PLC
+CT-04,Cooling tower fan 4,cooling_aux,Central utility plant,high,none,Follows chiller staging,30.0,0.0,0.0,M-15,iQR-UTIL1/D4240,MELSEC iQ-R series PLC
+CHWP-04,Chilled-water pump 4,cooling_aux,Central utility plant,high,none,Follows chiller staging,37.0,0.0,0.0,M-16,iQR-UTIL1/D4340,MELSEC iQ-R series PLC
+AC-01,Air compressor 1 (250 kW class),compressor,Compressor house,high,none,Header pressure must hold 0.60 MPa with N-1 redundancy,260.0,0.0,0.0,M-17,iQR-UTIL2/D5010,MELSEC iQ-R series PLC
+AC-02,Air compressor 2 (250 kW class),compressor,Compressor house,high,none,Header pressure must hold 0.60 MPa with N-1 redundancy,260.0,0.0,0.0,M-18,iQR-UTIL2/D5020,MELSEC iQ-R series PLC
+AC-03,Air compressor 3 (250 kW class),compressor,Compressor house,high,none,Header pressure must hold 0.60 MPa with N-1 redundancy,260.0,0.0,0.0,M-19,iQR-UTIL2/D5030,MELSEC iQ-R series PLC
+AC-04,Air compressor 4 (250 kW class),compressor,Compressor house,high,standby,Move to standby and let peers carry the load (efficiency gain); header setpoint trim,260.0,45.0,0.0,M-20,iQR-UTIL2/D5040,MELSEC iQ-R series PLC
+AC-05,Air compressor 5 (250 kW class),compressor,Compressor house,high,none,Header pressure must hold 0.60 MPa with N-1 redundancy,260.0,0.0,0.0,M-21,iQR-UTIL2/D5050,MELSEC iQ-R series PLC
+AC-06,Air compressor 6 (250 kW class),compressor,Compressor house,high,none,Header pressure must hold 0.60 MPa with N-1 redundancy,260.0,0.0,0.0,M-22,iQR-UTIL2/D5060,MELSEC iQ-R series PLC
+FN-01,Reflow / sintering furnace 1,furnace,SiC module back-end,high,batch,Standby when idle; batch start deferral only if the batch is not committed at the PLC,1150.0,820.0,3.0,M-23,iQR-FN1/D6010,MELSEC iQ-R series PLC
+FN-02,Reflow / sintering furnace 2,furnace,SiC module back-end,high,batch,Standby when idle; batch start deferral only if the batch is not committed at the PLC,1150.0,820.0,3.0,M-24,iQR-FN2/D6020,MELSEC iQ-R series PLC
+FN-03,Reflow / sintering furnace 3,furnace,SiC module back-end,high,batch,Standby when idle; batch start deferral only if the batch is not committed at the PLC,1150.0,90.0,3.0,M-25,iQR-FN3/D6030,MELSEC iQ-R series PLC
+LN-01,SiC module line 1,production_line,SiC module front/back-end,critical,none,No line stops (production supervisor MES release required),780.0,0.0,0.0,M-26,iQR-LN1/D7010,MELSEC iQ-R series PLC
+LN-02,SiC module line 2,production_line,SiC module front/back-end,critical,none,No line stops (production supervisor MES release required),780.0,0.0,0.0,M-27,iQR-LN2/D7020,MELSEC iQ-R series PLC
+LN-03,SiC module line 3,production_line,SiC module front/back-end,critical,none,No line stops (production supervisor MES release required),780.0,0.0,0.0,M-28,iQR-LN3/D7030,MELSEC iQ-R series PLC
+LN-04,SiC module line 4,production_line,SiC module front/back-end,critical,none,No line stops (production supervisor MES release required),780.0,0.0,0.0,M-29,iQR-LN4/D7040,MELSEC iQ-R series PLC
+LN-05,ECU SMT and end-of-line test line 5,production_line,Automotive ECU assembly,critical,none,No line stops (production supervisor MES release required),480.0,0.0,0.0,M-30,iQR-LN5/D7050,MELSEC iQ-R series PLC
+LN-06,ECU SMT and end-of-line test line 6,production_line,Automotive ECU assembly,critical,none,No line stops (production supervisor MES release required),480.0,0.0,0.0,M-31,iQR-LN6/D7060,MELSEC iQ-R series PLC
+BI-01,Burn-in rack 1,burn_in,ECU reliability test,medium,defer,Defer cycle start up to 3 h (never pause mid-cycle),115.0,112.0,3.0,M-32,iQR-TEST1/D8010,MELSEC iQ-R series PLC
+BI-02,Burn-in rack 2,burn_in,ECU reliability test,medium,defer,Defer cycle start up to 3 h (never pause mid-cycle),115.0,112.0,3.0,M-33,iQR-TEST1/D8020,MELSEC iQ-R series PLC
+BI-03,Burn-in rack 3,burn_in,ECU reliability test,medium,defer,Defer cycle start up to 3 h (never pause mid-cycle),115.0,112.0,3.0,M-34,iQR-TEST1/D8030,MELSEC iQ-R series PLC
+BI-04,Burn-in rack 4,burn_in,ECU reliability test,medium,defer,Defer cycle start up to 3 h (never pause mid-cycle),115.0,112.0,3.0,M-35,iQR-TEST1/D8040,MELSEC iQ-R series PLC
+BI-05,Burn-in rack 5,burn_in,ECU reliability test,medium,defer,Defer cycle start up to 3 h (never pause mid-cycle),115.0,112.0,3.0,M-36,iQR-TEST1/D8050,MELSEC iQ-R series PLC
+BI-06,Burn-in rack 6,burn_in,ECU reliability test,medium,defer,Defer cycle start up to 3 h (never pause mid-cycle),115.0,112.0,3.0,M-37,iQR-TEST1/D8060,MELSEC iQ-R series PLC
+BI-07,Burn-in rack 7,burn_in,ECU reliability test,medium,defer,Defer cycle start up to 3 h (never pause mid-cycle),115.0,112.0,3.0,M-38,iQR-TEST1/D8070,MELSEC iQ-R series PLC
+BI-08,Burn-in rack 8,burn_in,ECU reliability test,medium,defer,Defer cycle start up to 3 h (never pause mid-cycle),115.0,112.0,3.0,M-39,iQR-TEST1/D8080,MELSEC iQ-R series PLC
+EV-01,Forklift charger 1,ev_charger,Logistics yard,low,defer,Forklift chargers follow shift changes,12.0,0.0,0.0,M-40,iQR-LOG1/D8210,MELSEC iQ-R series PLC
+EV-02,Forklift charger 2,ev_charger,Logistics yard,low,defer,Forklift chargers follow shift changes,12.0,0.0,0.0,M-40,iQR-LOG1/D8220,MELSEC iQ-R series PLC
+EV-03,Forklift charger 3,ev_charger,Logistics yard,low,defer,Forklift chargers follow shift changes,12.0,0.0,0.0,M-40,iQR-LOG1/D8230,MELSEC iQ-R series PLC
+EV-04,Forklift charger 4,ev_charger,Logistics yard,low,defer,Forklift chargers follow shift changes,12.0,0.0,0.0,M-40,iQR-LOG1/D8240,MELSEC iQ-R series PLC
+EV-05,Forklift charger 5,ev_charger,Logistics yard,low,defer,Forklift chargers follow shift changes,12.0,0.0,0.0,M-40,iQR-LOG1/D8250,MELSEC iQ-R series PLC
+EV-06,Forklift charger 6,ev_charger,Logistics yard,low,defer,Forklift chargers follow shift changes,12.0,0.0,0.0,M-40,iQR-LOG1/D8260,MELSEC iQ-R series PLC
+EV-07,Delivery van charger 7,ev_charger,Logistics yard,low,defer,Defer charging; vans must reach 80 % by 07:00,50.0,50.0,3.0,M-41,iQR-LOG1/D8270,MELSEC iQ-R series PLC
+EV-08,Delivery van charger 8,ev_charger,Logistics yard,low,defer,Defer charging; vans must reach 80 % by 07:00,50.0,50.0,3.0,M-41,iQR-LOG1/D8280,MELSEC iQ-R series PLC
+EV-09,Delivery van charger 9,ev_charger,Logistics yard,low,defer,Defer charging; vans must reach 80 % by 07:00,50.0,50.0,3.0,M-41,iQR-LOG1/D8290,MELSEC iQ-R series PLC
+EV-10,Delivery van charger 10,ev_charger,Logistics yard,low,defer,Defer charging; vans must reach 80 % by 07:00,50.0,50.0,3.0,M-41,iQR-LOG1/D8300,MELSEC iQ-R series PLC
+LT-01,Office and warehouse lighting panel 1,lighting,Office and warehouse,low,dim,Dim up to 30 % (desk illuminance policy),36.0,11.0,0.0,M-42,iQR-BMS1/D3110,MELSEC iQ-R series PLC
+LT-02,Office and warehouse lighting panel 2,lighting,Office and warehouse,low,dim,Dim up to 30 % (desk illuminance policy),36.0,11.0,0.0,M-42,iQR-BMS1/D3120,MELSEC iQ-R series PLC
+LT-03,Office and warehouse lighting panel 3,lighting,Office and warehouse,low,dim,Dim up to 30 % (desk illuminance policy),36.0,11.0,0.0,M-43,iQR-BMS1/D3130,MELSEC iQ-R series PLC
+LT-04,Office and warehouse lighting panel 4,lighting,Office and warehouse,low,dim,Dim up to 30 % (desk illuminance policy),36.0,11.0,0.0,M-43,iQR-BMS1/D3140,MELSEC iQ-R series PLC
+LT-05,Office and warehouse lighting panel 5,lighting,Office and warehouse,low,dim,Dim up to 30 % (desk illuminance policy),36.0,11.0,0.0,M-44,iQR-BMS1/D3150,MELSEC iQ-R series PLC
+LT-06,Office and warehouse lighting panel 6,lighting,Office and warehouse,low,dim,Dim up to 30 % (desk illuminance policy),36.0,11.0,0.0,M-44,iQR-BMS1/D3160,MELSEC iQ-R series PLC
+WW-01,Wastewater lift pump 1,wastewater,Wastewater treatment,low,shift,Pre-pump the pit then hold for up to 60 min,45.0,45.0,1.0,M-45,iQR-WWT1/D9010,MELSEC iQ-R series PLC
+WW-02,Wastewater lift pump 2,wastewater,Wastewater treatment,low,shift,Pre-pump the pit then hold for up to 60 min,45.0,45.0,1.0,M-45,iQR-WWT1/D9020,MELSEC iQ-R series PLC
+WW-03,Wastewater lift pump 3,wastewater,Wastewater treatment,low,shift,Pre-pump the pit then hold for up to 60 min,45.0,45.0,1.0,M-46,iQR-WWT1/D9030,MELSEC iQ-R series PLC
+WW-04,Wastewater lift pump 4,wastewater,Wastewater treatment,low,shift,Pre-pump the pit then hold for up to 60 min,45.0,45.0,1.0,M-46,iQR-WWT1/D9040,MELSEC iQ-R series PLC
+UPW-01,Ultra-pure water plant,critical_utility,Utility plant,critical,none,Never curtailed,400.0,0.0,0.0,M-47,iQR-UTIL3/D9100,MELSEC iQ-R series PLC
+N2-01,Nitrogen generator,critical_utility,Utility plant,critical,none,Never curtailed,320.0,0.0,0.0,M-48,iQR-UTIL3/D9110,MELSEC iQ-R series PLC
+IT-01,Server and MES room,critical_utility,Admin building,critical,none,Never curtailed,140.0,0.0,0.0,M-49,,
+PCW-01,Process cooling water pump 1,critical_utility,Utility plant,critical,none,Never curtailed,85.0,0.0,0.0,M-50,iQR-UTIL3/D9130,MELSEC iQ-R series PLC
+VAC-01,Process vacuum pump 1,critical_utility,Utility plant,critical,none,Never curtailed,100.0,0.0,0.0,M-51,iQR-UTIL3/D9150,MELSEC iQ-R series PLC
+PCW-02,Process cooling water pump 2,critical_utility,Utility plant,critical,none,Never curtailed,85.0,0.0,0.0,M-50,iQR-UTIL3/D9140,MELSEC iQ-R series PLC
+VAC-02,Process vacuum pump 2,critical_utility,Utility plant,critical,none,Never curtailed,100.0,0.0,0.0,M-52,iQR-UTIL3/D9160,MELSEC iQ-R series PLC
+MISC-01,Admin building and canteen general power,building_general,Admin building,low,none,Not controllable,300.0,0.0,0.0,M-57,,
+PV-01,Rooftop PV array A (1200 kWp),pv,Roof and carport,low,generation,Generation (not a load),1200.0,0.0,0.0,M-53,iQR-PV1/D9310,MELSEC iQ-R series PLC
+PV-02,Rooftop PV array B (1000 kWp),pv,Roof and carport,low,generation,Generation (not a load),1000.0,0.0,0.0,M-54,iQR-PV1/D9320,MELSEC iQ-R series PLC
+PV-03,Carport PV array (800 kWp),pv,Roof and carport,low,generation,Generation (not a load),800.0,0.0,0.0,M-55,iQR-PV1/D9330,MELSEC iQ-R series PLC
+BESS-01,Battery energy storage 4 MW / 8 MWh (BESS-as-a-Service),bess,Substation yard,high,storage,Charge / discharge within SOC 10-95 %,4000.0,4000.0,0.0,M-56,iQR-BESS1/D9500,MELSEC iQ-R series PLC
+GRID-01,66 kV receiving point,receiving_point,Substation,critical,none,Receiving-point meter,16000.0,0.0,0.0,M-01,,

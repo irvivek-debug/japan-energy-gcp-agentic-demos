@@ -1,0 +1,103 @@
+{
+ "eval_set_id": "specialist_cfe",
+ "name": "cfe specialist (chat-mode clone)",
+ "eval_cases": [
+  {
+   "eval_id": "C1_ledger_audit",
+   "conversation": [
+    {
+     "invocation_id": "C1_ledger_audit-1",
+     "user_content": {
+      "role": "user",
+      "parts": [
+       {
+        "text": "Run the August non-fossil certificate ledger audit. Any problems?"
+       }
+      ]
+     },
+     "final_response": {
+      "role": "model",
+      "parts": [
+       {
+        "text": "See rubric."
+       }
+      ]
+     },
+     "intermediate_data": {
+      "tool_uses": [
+       {
+        "name": "audit_nfc_ledger",
+        "args": {
+         "month": "2026-08"
+        }
+       }
+      ]
+     }
+    }
+   ],
+   "session_input": {
+    "app_name": "retail_desk",
+    "user_id": "eval",
+    "state": {}
+   },
+   "rubrics": [
+    {
+     "rubric_id": "c1",
+     "type": "FINAL_RESPONSE_QUALITY",
+     "rubric_content": {
+      "text_property": "Identifies the certificate claimed by two customers and names both customers."
+     }
+    }
+   ]
+  },
+  {
+   "eval_id": "C2_otemachi_hourly",
+   "conversation": [
+    {
+     "invocation_id": "C2_otemachi_hourly-1",
+     "user_content": {
+      "role": "user",
+      "parts": [
+       {
+        "text": "Is Otemachi Edge Center (C-0001) 100% renewable hour by hour in August 2026?"
+       }
+      ]
+     },
+     "final_response": {
+      "role": "model",
+      "parts": [
+       {
+        "text": "See rubric."
+       }
+      ]
+     },
+     "intermediate_data": {
+      "tool_uses": [
+       {
+        "name": "get_cfe_score",
+        "args": {
+         "customer_id": "C-0001",
+         "month": "2026-08"
+        }
+       }
+      ]
+     }
+    }
+   ],
+   "session_input": {
+    "app_name": "retail_desk",
+    "user_id": "eval",
+    "state": {}
+   },
+   "rubrics": [
+    {
+     "rubric_id": "c2",
+     "type": "FINAL_RESPONSE_QUALITY",
+     "rubric_content": {
+      "text_property": "States that the volumetric match is at or above 100% while the hourly matched share is well below 100%."
+     }
+    }
+   ]
+  }
+ ]
+}

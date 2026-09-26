@@ -1,0 +1,302 @@
+eval_set_id,eval_id,metric_name,threshold,score,eval_status,prompt,expected_response,actual_response,expected_tool_calls,actual_tool_calls
+runs_best_diff_tariff_latest,best_diff_tariff_latest,tool_trajectory_avg_score,1.0,1.0,PASSED,"What did the best program in run tariff_pricing.20260926T080035Z change versus the seed, and how much did it gain?",The champion p039-acb6b2de changed the price book logic; train and holdout deltas as recorded [energy_alphaevolve_lab.lab_runs].,"### Synthetic Data Notice
+All market, customer, and run data referenced in this lab is calibrated synthetic data for Kanto Balance Group (KBG).
+
+---
+
+### Key Program Changes Mechanism
+
+The seed program applied a simple fixed margin of 1.5 JPY/kWh on expected cost, linking prices to the market solely for data center customers.
+
+The champion program (`p039-acb6b2de`) introduced five primary strategy changes:
+
+1. **Dynamic Market Indexing ($\alpha$)**: It sets variable market-linked shares based on customer risk appetite (0.70 for high, 0.50 for medium, 0.18 for low), adding bonuses for load flexibility and specific segments (data centers, cold storage, logistics). Market linkage is capped at 0.30 for essential facilities and 0.80 for standard accounts.
+2. **Segment and Procurement Margin Tuning**: It lowers the baseline margin to 1.18 JPY/kWh, offering discounts for tender accounts (-0.38 JPY/kWh) and price-sensitive segments like semiconductor fabs (-0.31 JPY/kWh) and water utilities (-0.25 JPY/kWh), while adjusting dynamically against competitor quote estimates.
+3. **Demand Charge Reduction**: It lowers the fixed demand charge adder from 50.0 JPY/kW/month above basic wheeling to 20.0 JPY/kW/month.
+4. **Demand Response (DR) Monetization**: It introduces a DR discount up to 180.0 JPY/kW/month for eligible flexible customers to encourage enrollment.
+5. **Tightened Deviation Bands**: It restricts contract terms to 1 year and tightens the volume deviation band from 10.0% to 5.0%, while raising the deviation penalty from 1.0 JPY/kWh to 2.2 JPY/kWh.
+
+---
+
+### Performance and Validated Uplift
+
+* **Seed Train Score**: -8800.354 JPY M [energy_alphaevolve_lab.lab_runs]
+* **Best Candidate Train Score**: -2033.209 JPY M [energy_alphaevolve_lab.lab_runs]
+* **Train Delta vs Seed**: +6767.146 JPY M [energy_alphaevolve_lab.lab_runs]
+* **Holdout Delta (Validated Uplift)**: **None / Null** [energy_alphaevolve_lab.lab_runs]
+
+### Why There Is No Validated Uplift
+
+Train score improvements reflect search progress rather than validated uplift. Under the lab evidence rules, candidate programs must satisfy all policy invariants on the holdout set to demonstrate validated uplift.
+
+The champion candidate (`p039-acb6b2de`) failed the holdout evaluation due to a violation of the **churn** policy invariant [energy_alphaevolve_lab.lab_runs]:
+* Segment churn for `semiconductor_fab` rose from 18.9% to 25.0% [energy_alphaevolve_lab.lab_runs].
+* Segment churn for `university` rose from 17.0% to 22.8% [energy_alphaevolve_lab.lab_runs].
+
+Because pricing customers out beyond regulatory churn guard bands violates the policy invariant, the program was rejected on holdout, resulting in no validated uplift (`uplift_valid = false`) [energy_alphaevolve_lab.lab_runs].
+
+---
+
+### Run Metadata Notice
+This run used the source `local-gemini-controller` [energy_alphaevolve_lab.lab_runs], which indicates an AlphaEvolve-compatible run on a local controller. The deployment status (`evolved`) remains `false`.",id=None args={'run_id': 'tariff_pricing.20260926T080035Z'} name='get_best_program_diff' partial_args=None will_continue=None,"id='call_104415' args={'run_id': 'tariff_pricing.20260926T080035Z'} name='get_run_summary' partial_args=None will_continue=None
+id='call_104416' args={'run_id': 'tariff_pricing.20260926T080035Z'} name='get_best_program_diff' partial_args=None will_continue=None
+id='call_104417' args={'run_id': 'tariff_pricing.20260926T080035Z'} name='get_holdout_result' partial_args=None will_continue=None
+id='call_45285' args={'run_id': 'tariff_pricing.20260926T080035Z'} name='get_invariant_catches' partial_args=None will_continue=None"
+runs_best_diff_tariff_latest,best_diff_tariff_latest,rubric_based_final_response_quality_v1,0.8,0.75,FAILED,"What did the best program in run tariff_pricing.20260926T080035Z change versus the seed, and how much did it gain?",The champion p039-acb6b2de changed the price book logic; train and holdout deltas as recorded [energy_alphaevolve_lab.lab_runs].,"### Synthetic Data Notice
+All market, customer, and run data referenced in this lab is calibrated synthetic data for Kanto Balance Group (KBG).
+
+---
+
+### Key Program Changes Mechanism
+
+The seed program applied a simple fixed margin of 1.5 JPY/kWh on expected cost, linking prices to the market solely for data center customers.
+
+The champion program (`p039-acb6b2de`) introduced five primary strategy changes:
+
+1. **Dynamic Market Indexing ($\alpha$)**: It sets variable market-linked shares based on customer risk appetite (0.70 for high, 0.50 for medium, 0.18 for low), adding bonuses for load flexibility and specific segments (data centers, cold storage, logistics). Market linkage is capped at 0.30 for essential facilities and 0.80 for standard accounts.
+2. **Segment and Procurement Margin Tuning**: It lowers the baseline margin to 1.18 JPY/kWh, offering discounts for tender accounts (-0.38 JPY/kWh) and price-sensitive segments like semiconductor fabs (-0.31 JPY/kWh) and water utilities (-0.25 JPY/kWh), while adjusting dynamically against competitor quote estimates.
+3. **Demand Charge Reduction**: It lowers the fixed demand charge adder from 50.0 JPY/kW/month above basic wheeling to 20.0 JPY/kW/month.
+4. **Demand Response (DR) Monetization**: It introduces a DR discount up to 180.0 JPY/kW/month for eligible flexible customers to encourage enrollment.
+5. **Tightened Deviation Bands**: It restricts contract terms to 1 year and tightens the volume deviation band from 10.0% to 5.0%, while raising the deviation penalty from 1.0 JPY/kWh to 2.2 JPY/kWh.
+
+---
+
+### Performance and Validated Uplift
+
+* **Seed Train Score**: -8800.354 JPY M [energy_alphaevolve_lab.lab_runs]
+* **Best Candidate Train Score**: -2033.209 JPY M [energy_alphaevolve_lab.lab_runs]
+* **Train Delta vs Seed**: +6767.146 JPY M [energy_alphaevolve_lab.lab_runs]
+* **Holdout Delta (Validated Uplift)**: **None / Null** [energy_alphaevolve_lab.lab_runs]
+
+### Why There Is No Validated Uplift
+
+Train score improvements reflect search progress rather than validated uplift. Under the lab evidence rules, candidate programs must satisfy all policy invariants on the holdout set to demonstrate validated uplift.
+
+The champion candidate (`p039-acb6b2de`) failed the holdout evaluation due to a violation of the **churn** policy invariant [energy_alphaevolve_lab.lab_runs]:
+* Segment churn for `semiconductor_fab` rose from 18.9% to 25.0% [energy_alphaevolve_lab.lab_runs].
+* Segment churn for `university` rose from 17.0% to 22.8% [energy_alphaevolve_lab.lab_runs].
+
+Because pricing customers out beyond regulatory churn guard bands violates the policy invariant, the program was rejected on holdout, resulting in no validated uplift (`uplift_valid = false`) [energy_alphaevolve_lab.lab_runs].
+
+---
+
+### Run Metadata Notice
+This run used the source `local-gemini-controller` [energy_alphaevolve_lab.lab_runs], which indicates an AlphaEvolve-compatible run on a local controller. The deployment status (`evolved`) remains `false`.",id=None args={'run_id': 'tariff_pricing.20260926T080035Z'} name='get_best_program_diff' partial_args=None will_continue=None,"id='call_104415' args={'run_id': 'tariff_pricing.20260926T080035Z'} name='get_run_summary' partial_args=None will_continue=None
+id='call_104416' args={'run_id': 'tariff_pricing.20260926T080035Z'} name='get_best_program_diff' partial_args=None will_continue=None
+id='call_104417' args={'run_id': 'tariff_pricing.20260926T080035Z'} name='get_holdout_result' partial_args=None will_continue=None
+id='call_45285' args={'run_id': 'tariff_pricing.20260926T080035Z'} name='get_invariant_catches' partial_args=None will_continue=None"
+runs_best_diff_tariff_latest,best_diff_tariff_latest,hallucinations_v1,0.8,1.0,PASSED,"What did the best program in run tariff_pricing.20260926T080035Z change versus the seed, and how much did it gain?",The champion p039-acb6b2de changed the price book logic; train and holdout deltas as recorded [energy_alphaevolve_lab.lab_runs].,"### Synthetic Data Notice
+All market, customer, and run data referenced in this lab is calibrated synthetic data for Kanto Balance Group (KBG).
+
+---
+
+### Key Program Changes Mechanism
+
+The seed program applied a simple fixed margin of 1.5 JPY/kWh on expected cost, linking prices to the market solely for data center customers.
+
+The champion program (`p039-acb6b2de`) introduced five primary strategy changes:
+
+1. **Dynamic Market Indexing ($\alpha$)**: It sets variable market-linked shares based on customer risk appetite (0.70 for high, 0.50 for medium, 0.18 for low), adding bonuses for load flexibility and specific segments (data centers, cold storage, logistics). Market linkage is capped at 0.30 for essential facilities and 0.80 for standard accounts.
+2. **Segment and Procurement Margin Tuning**: It lowers the baseline margin to 1.18 JPY/kWh, offering discounts for tender accounts (-0.38 JPY/kWh) and price-sensitive segments like semiconductor fabs (-0.31 JPY/kWh) and water utilities (-0.25 JPY/kWh), while adjusting dynamically against competitor quote estimates.
+3. **Demand Charge Reduction**: It lowers the fixed demand charge adder from 50.0 JPY/kW/month above basic wheeling to 20.0 JPY/kW/month.
+4. **Demand Response (DR) Monetization**: It introduces a DR discount up to 180.0 JPY/kW/month for eligible flexible customers to encourage enrollment.
+5. **Tightened Deviation Bands**: It restricts contract terms to 1 year and tightens the volume deviation band from 10.0% to 5.0%, while raising the deviation penalty from 1.0 JPY/kWh to 2.2 JPY/kWh.
+
+---
+
+### Performance and Validated Uplift
+
+* **Seed Train Score**: -8800.354 JPY M [energy_alphaevolve_lab.lab_runs]
+* **Best Candidate Train Score**: -2033.209 JPY M [energy_alphaevolve_lab.lab_runs]
+* **Train Delta vs Seed**: +6767.146 JPY M [energy_alphaevolve_lab.lab_runs]
+* **Holdout Delta (Validated Uplift)**: **None / Null** [energy_alphaevolve_lab.lab_runs]
+
+### Why There Is No Validated Uplift
+
+Train score improvements reflect search progress rather than validated uplift. Under the lab evidence rules, candidate programs must satisfy all policy invariants on the holdout set to demonstrate validated uplift.
+
+The champion candidate (`p039-acb6b2de`) failed the holdout evaluation due to a violation of the **churn** policy invariant [energy_alphaevolve_lab.lab_runs]:
+* Segment churn for `semiconductor_fab` rose from 18.9% to 25.0% [energy_alphaevolve_lab.lab_runs].
+* Segment churn for `university` rose from 17.0% to 22.8% [energy_alphaevolve_lab.lab_runs].
+
+Because pricing customers out beyond regulatory churn guard bands violates the policy invariant, the program was rejected on holdout, resulting in no validated uplift (`uplift_valid = false`) [energy_alphaevolve_lab.lab_runs].
+
+---
+
+### Run Metadata Notice
+This run used the source `local-gemini-controller` [energy_alphaevolve_lab.lab_runs], which indicates an AlphaEvolve-compatible run on a local controller. The deployment status (`evolved`) remains `false`.",id=None args={'run_id': 'tariff_pricing.20260926T080035Z'} name='get_best_program_diff' partial_args=None will_continue=None,"id='call_104415' args={'run_id': 'tariff_pricing.20260926T080035Z'} name='get_run_summary' partial_args=None will_continue=None
+id='call_104416' args={'run_id': 'tariff_pricing.20260926T080035Z'} name='get_best_program_diff' partial_args=None will_continue=None
+id='call_104417' args={'run_id': 'tariff_pricing.20260926T080035Z'} name='get_holdout_result' partial_args=None will_continue=None
+id='call_45285' args={'run_id': 'tariff_pricing.20260926T080035Z'} name='get_invariant_catches' partial_args=None will_continue=None"
+runs_best_diff_tariff_latest,best_diff_tariff_latest,tool_call_count_v1,,4.0,INFORMATIONAL,"What did the best program in run tariff_pricing.20260926T080035Z change versus the seed, and how much did it gain?",The champion p039-acb6b2de changed the price book logic; train and holdout deltas as recorded [energy_alphaevolve_lab.lab_runs].,"### Synthetic Data Notice
+All market, customer, and run data referenced in this lab is calibrated synthetic data for Kanto Balance Group (KBG).
+
+---
+
+### Key Program Changes Mechanism
+
+The seed program applied a simple fixed margin of 1.5 JPY/kWh on expected cost, linking prices to the market solely for data center customers.
+
+The champion program (`p039-acb6b2de`) introduced five primary strategy changes:
+
+1. **Dynamic Market Indexing ($\alpha$)**: It sets variable market-linked shares based on customer risk appetite (0.70 for high, 0.50 for medium, 0.18 for low), adding bonuses for load flexibility and specific segments (data centers, cold storage, logistics). Market linkage is capped at 0.30 for essential facilities and 0.80 for standard accounts.
+2. **Segment and Procurement Margin Tuning**: It lowers the baseline margin to 1.18 JPY/kWh, offering discounts for tender accounts (-0.38 JPY/kWh) and price-sensitive segments like semiconductor fabs (-0.31 JPY/kWh) and water utilities (-0.25 JPY/kWh), while adjusting dynamically against competitor quote estimates.
+3. **Demand Charge Reduction**: It lowers the fixed demand charge adder from 50.0 JPY/kW/month above basic wheeling to 20.0 JPY/kW/month.
+4. **Demand Response (DR) Monetization**: It introduces a DR discount up to 180.0 JPY/kW/month for eligible flexible customers to encourage enrollment.
+5. **Tightened Deviation Bands**: It restricts contract terms to 1 year and tightens the volume deviation band from 10.0% to 5.0%, while raising the deviation penalty from 1.0 JPY/kWh to 2.2 JPY/kWh.
+
+---
+
+### Performance and Validated Uplift
+
+* **Seed Train Score**: -8800.354 JPY M [energy_alphaevolve_lab.lab_runs]
+* **Best Candidate Train Score**: -2033.209 JPY M [energy_alphaevolve_lab.lab_runs]
+* **Train Delta vs Seed**: +6767.146 JPY M [energy_alphaevolve_lab.lab_runs]
+* **Holdout Delta (Validated Uplift)**: **None / Null** [energy_alphaevolve_lab.lab_runs]
+
+### Why There Is No Validated Uplift
+
+Train score improvements reflect search progress rather than validated uplift. Under the lab evidence rules, candidate programs must satisfy all policy invariants on the holdout set to demonstrate validated uplift.
+
+The champion candidate (`p039-acb6b2de`) failed the holdout evaluation due to a violation of the **churn** policy invariant [energy_alphaevolve_lab.lab_runs]:
+* Segment churn for `semiconductor_fab` rose from 18.9% to 25.0% [energy_alphaevolve_lab.lab_runs].
+* Segment churn for `university` rose from 17.0% to 22.8% [energy_alphaevolve_lab.lab_runs].
+
+Because pricing customers out beyond regulatory churn guard bands violates the policy invariant, the program was rejected on holdout, resulting in no validated uplift (`uplift_valid = false`) [energy_alphaevolve_lab.lab_runs].
+
+---
+
+### Run Metadata Notice
+This run used the source `local-gemini-controller` [energy_alphaevolve_lab.lab_runs], which indicates an AlphaEvolve-compatible run on a local controller. The deployment status (`evolved`) remains `false`.",id=None args={'run_id': 'tariff_pricing.20260926T080035Z'} name='get_best_program_diff' partial_args=None will_continue=None,"id='call_104415' args={'run_id': 'tariff_pricing.20260926T080035Z'} name='get_run_summary' partial_args=None will_continue=None
+id='call_104416' args={'run_id': 'tariff_pricing.20260926T080035Z'} name='get_best_program_diff' partial_args=None will_continue=None
+id='call_104417' args={'run_id': 'tariff_pricing.20260926T080035Z'} name='get_holdout_result' partial_args=None will_continue=None
+id='call_45285' args={'run_id': 'tariff_pricing.20260926T080035Z'} name='get_invariant_catches' partial_args=None will_continue=None"
+runs_best_diff_tariff_latest,best_diff_tariff_latest,inference_call_count_v1,,3.0,INFORMATIONAL,"What did the best program in run tariff_pricing.20260926T080035Z change versus the seed, and how much did it gain?",The champion p039-acb6b2de changed the price book logic; train and holdout deltas as recorded [energy_alphaevolve_lab.lab_runs].,"### Synthetic Data Notice
+All market, customer, and run data referenced in this lab is calibrated synthetic data for Kanto Balance Group (KBG).
+
+---
+
+### Key Program Changes Mechanism
+
+The seed program applied a simple fixed margin of 1.5 JPY/kWh on expected cost, linking prices to the market solely for data center customers.
+
+The champion program (`p039-acb6b2de`) introduced five primary strategy changes:
+
+1. **Dynamic Market Indexing ($\alpha$)**: It sets variable market-linked shares based on customer risk appetite (0.70 for high, 0.50 for medium, 0.18 for low), adding bonuses for load flexibility and specific segments (data centers, cold storage, logistics). Market linkage is capped at 0.30 for essential facilities and 0.80 for standard accounts.
+2. **Segment and Procurement Margin Tuning**: It lowers the baseline margin to 1.18 JPY/kWh, offering discounts for tender accounts (-0.38 JPY/kWh) and price-sensitive segments like semiconductor fabs (-0.31 JPY/kWh) and water utilities (-0.25 JPY/kWh), while adjusting dynamically against competitor quote estimates.
+3. **Demand Charge Reduction**: It lowers the fixed demand charge adder from 50.0 JPY/kW/month above basic wheeling to 20.0 JPY/kW/month.
+4. **Demand Response (DR) Monetization**: It introduces a DR discount up to 180.0 JPY/kW/month for eligible flexible customers to encourage enrollment.
+5. **Tightened Deviation Bands**: It restricts contract terms to 1 year and tightens the volume deviation band from 10.0% to 5.0%, while raising the deviation penalty from 1.0 JPY/kWh to 2.2 JPY/kWh.
+
+---
+
+### Performance and Validated Uplift
+
+* **Seed Train Score**: -8800.354 JPY M [energy_alphaevolve_lab.lab_runs]
+* **Best Candidate Train Score**: -2033.209 JPY M [energy_alphaevolve_lab.lab_runs]
+* **Train Delta vs Seed**: +6767.146 JPY M [energy_alphaevolve_lab.lab_runs]
+* **Holdout Delta (Validated Uplift)**: **None / Null** [energy_alphaevolve_lab.lab_runs]
+
+### Why There Is No Validated Uplift
+
+Train score improvements reflect search progress rather than validated uplift. Under the lab evidence rules, candidate programs must satisfy all policy invariants on the holdout set to demonstrate validated uplift.
+
+The champion candidate (`p039-acb6b2de`) failed the holdout evaluation due to a violation of the **churn** policy invariant [energy_alphaevolve_lab.lab_runs]:
+* Segment churn for `semiconductor_fab` rose from 18.9% to 25.0% [energy_alphaevolve_lab.lab_runs].
+* Segment churn for `university` rose from 17.0% to 22.8% [energy_alphaevolve_lab.lab_runs].
+
+Because pricing customers out beyond regulatory churn guard bands violates the policy invariant, the program was rejected on holdout, resulting in no validated uplift (`uplift_valid = false`) [energy_alphaevolve_lab.lab_runs].
+
+---
+
+### Run Metadata Notice
+This run used the source `local-gemini-controller` [energy_alphaevolve_lab.lab_runs], which indicates an AlphaEvolve-compatible run on a local controller. The deployment status (`evolved`) remains `false`.",id=None args={'run_id': 'tariff_pricing.20260926T080035Z'} name='get_best_program_diff' partial_args=None will_continue=None,"id='call_104415' args={'run_id': 'tariff_pricing.20260926T080035Z'} name='get_run_summary' partial_args=None will_continue=None
+id='call_104416' args={'run_id': 'tariff_pricing.20260926T080035Z'} name='get_best_program_diff' partial_args=None will_continue=None
+id='call_104417' args={'run_id': 'tariff_pricing.20260926T080035Z'} name='get_holdout_result' partial_args=None will_continue=None
+id='call_45285' args={'run_id': 'tariff_pricing.20260926T080035Z'} name='get_invariant_catches' partial_args=None will_continue=None"
+runs_best_diff_tariff_latest,best_diff_tariff_latest,token_usage_v1,,17076.0,INFORMATIONAL,"What did the best program in run tariff_pricing.20260926T080035Z change versus the seed, and how much did it gain?",The champion p039-acb6b2de changed the price book logic; train and holdout deltas as recorded [energy_alphaevolve_lab.lab_runs].,"### Synthetic Data Notice
+All market, customer, and run data referenced in this lab is calibrated synthetic data for Kanto Balance Group (KBG).
+
+---
+
+### Key Program Changes Mechanism
+
+The seed program applied a simple fixed margin of 1.5 JPY/kWh on expected cost, linking prices to the market solely for data center customers.
+
+The champion program (`p039-acb6b2de`) introduced five primary strategy changes:
+
+1. **Dynamic Market Indexing ($\alpha$)**: It sets variable market-linked shares based on customer risk appetite (0.70 for high, 0.50 for medium, 0.18 for low), adding bonuses for load flexibility and specific segments (data centers, cold storage, logistics). Market linkage is capped at 0.30 for essential facilities and 0.80 for standard accounts.
+2. **Segment and Procurement Margin Tuning**: It lowers the baseline margin to 1.18 JPY/kWh, offering discounts for tender accounts (-0.38 JPY/kWh) and price-sensitive segments like semiconductor fabs (-0.31 JPY/kWh) and water utilities (-0.25 JPY/kWh), while adjusting dynamically against competitor quote estimates.
+3. **Demand Charge Reduction**: It lowers the fixed demand charge adder from 50.0 JPY/kW/month above basic wheeling to 20.0 JPY/kW/month.
+4. **Demand Response (DR) Monetization**: It introduces a DR discount up to 180.0 JPY/kW/month for eligible flexible customers to encourage enrollment.
+5. **Tightened Deviation Bands**: It restricts contract terms to 1 year and tightens the volume deviation band from 10.0% to 5.0%, while raising the deviation penalty from 1.0 JPY/kWh to 2.2 JPY/kWh.
+
+---
+
+### Performance and Validated Uplift
+
+* **Seed Train Score**: -8800.354 JPY M [energy_alphaevolve_lab.lab_runs]
+* **Best Candidate Train Score**: -2033.209 JPY M [energy_alphaevolve_lab.lab_runs]
+* **Train Delta vs Seed**: +6767.146 JPY M [energy_alphaevolve_lab.lab_runs]
+* **Holdout Delta (Validated Uplift)**: **None / Null** [energy_alphaevolve_lab.lab_runs]
+
+### Why There Is No Validated Uplift
+
+Train score improvements reflect search progress rather than validated uplift. Under the lab evidence rules, candidate programs must satisfy all policy invariants on the holdout set to demonstrate validated uplift.
+
+The champion candidate (`p039-acb6b2de`) failed the holdout evaluation due to a violation of the **churn** policy invariant [energy_alphaevolve_lab.lab_runs]:
+* Segment churn for `semiconductor_fab` rose from 18.9% to 25.0% [energy_alphaevolve_lab.lab_runs].
+* Segment churn for `university` rose from 17.0% to 22.8% [energy_alphaevolve_lab.lab_runs].
+
+Because pricing customers out beyond regulatory churn guard bands violates the policy invariant, the program was rejected on holdout, resulting in no validated uplift (`uplift_valid = false`) [energy_alphaevolve_lab.lab_runs].
+
+---
+
+### Run Metadata Notice
+This run used the source `local-gemini-controller` [energy_alphaevolve_lab.lab_runs], which indicates an AlphaEvolve-compatible run on a local controller. The deployment status (`evolved`) remains `false`.",id=None args={'run_id': 'tariff_pricing.20260926T080035Z'} name='get_best_program_diff' partial_args=None will_continue=None,"id='call_104415' args={'run_id': 'tariff_pricing.20260926T080035Z'} name='get_run_summary' partial_args=None will_continue=None
+id='call_104416' args={'run_id': 'tariff_pricing.20260926T080035Z'} name='get_best_program_diff' partial_args=None will_continue=None
+id='call_104417' args={'run_id': 'tariff_pricing.20260926T080035Z'} name='get_holdout_result' partial_args=None will_continue=None
+id='call_45285' args={'run_id': 'tariff_pricing.20260926T080035Z'} name='get_invariant_catches' partial_args=None will_continue=None"
+runs_best_diff_tariff_latest,best_diff_tariff_latest,invocation_duration_v1,,19.445,INFORMATIONAL,"What did the best program in run tariff_pricing.20260926T080035Z change versus the seed, and how much did it gain?",The champion p039-acb6b2de changed the price book logic; train and holdout deltas as recorded [energy_alphaevolve_lab.lab_runs].,"### Synthetic Data Notice
+All market, customer, and run data referenced in this lab is calibrated synthetic data for Kanto Balance Group (KBG).
+
+---
+
+### Key Program Changes Mechanism
+
+The seed program applied a simple fixed margin of 1.5 JPY/kWh on expected cost, linking prices to the market solely for data center customers.
+
+The champion program (`p039-acb6b2de`) introduced five primary strategy changes:
+
+1. **Dynamic Market Indexing ($\alpha$)**: It sets variable market-linked shares based on customer risk appetite (0.70 for high, 0.50 for medium, 0.18 for low), adding bonuses for load flexibility and specific segments (data centers, cold storage, logistics). Market linkage is capped at 0.30 for essential facilities and 0.80 for standard accounts.
+2. **Segment and Procurement Margin Tuning**: It lowers the baseline margin to 1.18 JPY/kWh, offering discounts for tender accounts (-0.38 JPY/kWh) and price-sensitive segments like semiconductor fabs (-0.31 JPY/kWh) and water utilities (-0.25 JPY/kWh), while adjusting dynamically against competitor quote estimates.
+3. **Demand Charge Reduction**: It lowers the fixed demand charge adder from 50.0 JPY/kW/month above basic wheeling to 20.0 JPY/kW/month.
+4. **Demand Response (DR) Monetization**: It introduces a DR discount up to 180.0 JPY/kW/month for eligible flexible customers to encourage enrollment.
+5. **Tightened Deviation Bands**: It restricts contract terms to 1 year and tightens the volume deviation band from 10.0% to 5.0%, while raising the deviation penalty from 1.0 JPY/kWh to 2.2 JPY/kWh.
+
+---
+
+### Performance and Validated Uplift
+
+* **Seed Train Score**: -8800.354 JPY M [energy_alphaevolve_lab.lab_runs]
+* **Best Candidate Train Score**: -2033.209 JPY M [energy_alphaevolve_lab.lab_runs]
+* **Train Delta vs Seed**: +6767.146 JPY M [energy_alphaevolve_lab.lab_runs]
+* **Holdout Delta (Validated Uplift)**: **None / Null** [energy_alphaevolve_lab.lab_runs]
+
+### Why There Is No Validated Uplift
+
+Train score improvements reflect search progress rather than validated uplift. Under the lab evidence rules, candidate programs must satisfy all policy invariants on the holdout set to demonstrate validated uplift.
+
+The champion candidate (`p039-acb6b2de`) failed the holdout evaluation due to a violation of the **churn** policy invariant [energy_alphaevolve_lab.lab_runs]:
+* Segment churn for `semiconductor_fab` rose from 18.9% to 25.0% [energy_alphaevolve_lab.lab_runs].
+* Segment churn for `university` rose from 17.0% to 22.8% [energy_alphaevolve_lab.lab_runs].
+
+Because pricing customers out beyond regulatory churn guard bands violates the policy invariant, the program was rejected on holdout, resulting in no validated uplift (`uplift_valid = false`) [energy_alphaevolve_lab.lab_runs].
+
+---
+
+### Run Metadata Notice
+This run used the source `local-gemini-controller` [energy_alphaevolve_lab.lab_runs], which indicates an AlphaEvolve-compatible run on a local controller. The deployment status (`evolved`) remains `false`.",id=None args={'run_id': 'tariff_pricing.20260926T080035Z'} name='get_best_program_diff' partial_args=None will_continue=None,"id='call_104415' args={'run_id': 'tariff_pricing.20260926T080035Z'} name='get_run_summary' partial_args=None will_continue=None
+id='call_104416' args={'run_id': 'tariff_pricing.20260926T080035Z'} name='get_best_program_diff' partial_args=None will_continue=None
+id='call_104417' args={'run_id': 'tariff_pricing.20260926T080035Z'} name='get_holdout_result' partial_args=None will_continue=None
+id='call_45285' args={'run_id': 'tariff_pricing.20260926T080035Z'} name='get_invariant_catches' partial_args=None will_continue=None"

@@ -1,0 +1,43 @@
+eval_set_id,eval_id,metric_name,threshold,score,eval_status,prompt,expected_response,actual_response,expected_tool_calls,actual_tool_calls
+general_market_fy2025,market_fy2025,tool_trajectory_avg_score,1.0,1.0,PASSED,"What was the average Tokyo area spot price in FY2025, and how many half-hour slots had imbalance prices at or above 45 JPY/kWh?",FY2025 Tokyo average and imbalance slot count from [energy_alphaevolve_lab.market_history].,"Please note that all market, customer, and run data in this lab is calibrated synthetic data about a fictional balance group.
+
+In FY2025, the market statistics for the Tokyo area were as follows:
+
+* The average Tokyo area spot price was 12.47 JPY/kWh [energy_alphaevolve_lab.market_history, energy_alphaevolve_lab.calibration].
+* There were 38 half-hour slots with imbalance prices at or above 45 JPY/kWh [energy_alphaevolve_lab.market_history, energy_alphaevolve_lab.calibration].",id=None args={'fiscal_year': 2025} name='get_market_stats' partial_args=None will_continue=None,"id='call_1205039' args={'fiscal_year': 2025, 'month': 0} name='get_market_stats' partial_args=None will_continue=None"
+general_market_fy2025,market_fy2025,rubric_based_final_response_quality_v1,0.8,1.0,PASSED,"What was the average Tokyo area spot price in FY2025, and how many half-hour slots had imbalance prices at or above 45 JPY/kWh?",FY2025 Tokyo average and imbalance slot count from [energy_alphaevolve_lab.market_history].,"Please note that all market, customer, and run data in this lab is calibrated synthetic data about a fictional balance group.
+
+In FY2025, the market statistics for the Tokyo area were as follows:
+
+* The average Tokyo area spot price was 12.47 JPY/kWh [energy_alphaevolve_lab.market_history, energy_alphaevolve_lab.calibration].
+* There were 38 half-hour slots with imbalance prices at or above 45 JPY/kWh [energy_alphaevolve_lab.market_history, energy_alphaevolve_lab.calibration].",id=None args={'fiscal_year': 2025} name='get_market_stats' partial_args=None will_continue=None,"id='call_1205039' args={'fiscal_year': 2025, 'month': 0} name='get_market_stats' partial_args=None will_continue=None"
+general_market_fy2025,market_fy2025,hallucinations_v1,0.8,1.0,PASSED,"What was the average Tokyo area spot price in FY2025, and how many half-hour slots had imbalance prices at or above 45 JPY/kWh?",FY2025 Tokyo average and imbalance slot count from [energy_alphaevolve_lab.market_history].,"Please note that all market, customer, and run data in this lab is calibrated synthetic data about a fictional balance group.
+
+In FY2025, the market statistics for the Tokyo area were as follows:
+
+* The average Tokyo area spot price was 12.47 JPY/kWh [energy_alphaevolve_lab.market_history, energy_alphaevolve_lab.calibration].
+* There were 38 half-hour slots with imbalance prices at or above 45 JPY/kWh [energy_alphaevolve_lab.market_history, energy_alphaevolve_lab.calibration].",id=None args={'fiscal_year': 2025} name='get_market_stats' partial_args=None will_continue=None,"id='call_1205039' args={'fiscal_year': 2025, 'month': 0} name='get_market_stats' partial_args=None will_continue=None"
+general_market_fy2025,market_fy2025,tool_call_count_v1,,1.0,INFORMATIONAL,"What was the average Tokyo area spot price in FY2025, and how many half-hour slots had imbalance prices at or above 45 JPY/kWh?",FY2025 Tokyo average and imbalance slot count from [energy_alphaevolve_lab.market_history].,"Please note that all market, customer, and run data in this lab is calibrated synthetic data about a fictional balance group.
+
+In FY2025, the market statistics for the Tokyo area were as follows:
+
+* The average Tokyo area spot price was 12.47 JPY/kWh [energy_alphaevolve_lab.market_history, energy_alphaevolve_lab.calibration].
+* There were 38 half-hour slots with imbalance prices at or above 45 JPY/kWh [energy_alphaevolve_lab.market_history, energy_alphaevolve_lab.calibration].",id=None args={'fiscal_year': 2025} name='get_market_stats' partial_args=None will_continue=None,"id='call_1205039' args={'fiscal_year': 2025, 'month': 0} name='get_market_stats' partial_args=None will_continue=None"
+general_market_fy2025,market_fy2025,inference_call_count_v1,,2.0,INFORMATIONAL,"What was the average Tokyo area spot price in FY2025, and how many half-hour slots had imbalance prices at or above 45 JPY/kWh?",FY2025 Tokyo average and imbalance slot count from [energy_alphaevolve_lab.market_history].,"Please note that all market, customer, and run data in this lab is calibrated synthetic data about a fictional balance group.
+
+In FY2025, the market statistics for the Tokyo area were as follows:
+
+* The average Tokyo area spot price was 12.47 JPY/kWh [energy_alphaevolve_lab.market_history, energy_alphaevolve_lab.calibration].
+* There were 38 half-hour slots with imbalance prices at or above 45 JPY/kWh [energy_alphaevolve_lab.market_history, energy_alphaevolve_lab.calibration].",id=None args={'fiscal_year': 2025} name='get_market_stats' partial_args=None will_continue=None,"id='call_1205039' args={'fiscal_year': 2025, 'month': 0} name='get_market_stats' partial_args=None will_continue=None"
+general_market_fy2025,market_fy2025,token_usage_v1,,5202.0,INFORMATIONAL,"What was the average Tokyo area spot price in FY2025, and how many half-hour slots had imbalance prices at or above 45 JPY/kWh?",FY2025 Tokyo average and imbalance slot count from [energy_alphaevolve_lab.market_history].,"Please note that all market, customer, and run data in this lab is calibrated synthetic data about a fictional balance group.
+
+In FY2025, the market statistics for the Tokyo area were as follows:
+
+* The average Tokyo area spot price was 12.47 JPY/kWh [energy_alphaevolve_lab.market_history, energy_alphaevolve_lab.calibration].
+* There were 38 half-hour slots with imbalance prices at or above 45 JPY/kWh [energy_alphaevolve_lab.market_history, energy_alphaevolve_lab.calibration].",id=None args={'fiscal_year': 2025} name='get_market_stats' partial_args=None will_continue=None,"id='call_1205039' args={'fiscal_year': 2025, 'month': 0} name='get_market_stats' partial_args=None will_continue=None"
+general_market_fy2025,market_fy2025,invocation_duration_v1,,6.081,INFORMATIONAL,"What was the average Tokyo area spot price in FY2025, and how many half-hour slots had imbalance prices at or above 45 JPY/kWh?",FY2025 Tokyo average and imbalance slot count from [energy_alphaevolve_lab.market_history].,"Please note that all market, customer, and run data in this lab is calibrated synthetic data about a fictional balance group.
+
+In FY2025, the market statistics for the Tokyo area were as follows:
+
+* The average Tokyo area spot price was 12.47 JPY/kWh [energy_alphaevolve_lab.market_history, energy_alphaevolve_lab.calibration].
+* There were 38 half-hour slots with imbalance prices at or above 45 JPY/kWh [energy_alphaevolve_lab.market_history, energy_alphaevolve_lab.calibration].",id=None args={'fiscal_year': 2025} name='get_market_stats' partial_args=None will_continue=None,"id='call_1205039' args={'fiscal_year': 2025, 'month': 0} name='get_market_stats' partial_args=None will_continue=None"

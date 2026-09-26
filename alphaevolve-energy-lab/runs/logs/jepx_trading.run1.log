@@ -1,0 +1,80 @@
+[jepx_trading.20260926T073907Z] baseline locked: seed=-85419.431 null_raw=-85393.60534598058 ; budget {'day': '2026-09-26', 'runs': 0, 'programs': 0, 'remaining_programs_today': 120}
+[jepx_trading.20260926T073907Z] #01 island 1 gemini-3.1-pro-preview   VALID  score=-85416.342 kind=ok best=-85416.342 plateau=0/15
+[jepx_trading.20260926T073907Z] #02 island 0 gemini-3.6-flash         VALID  score=-85666.108 kind=ok best=-85416.342 plateau=1/15
+[jepx_trading.20260926T073907Z] #03 island 0 gemini-3.6-flash         VALID  score=-85409.857 kind=ok best=-85409.857 plateau=0/15
+[jepx_trading.20260926T073907Z] #04 island 1 gemini-3.6-flash         VALID  score=-85409.436 kind=ok best=-85409.436 plateau=0/15
+[jepx_trading.20260926T073907Z] #05 island 2 gemini-3.6-flash         VALID  score=-85685.435 kind=ok best=-85409.436 plateau=1/15
+[jepx_trading.20260926T073907Z] #06 island 0 gemini-3.6-flash         VALID  score=-85409.857 kind=ok best=-85409.436 plateau=2/15
+[jepx_trading.20260926T073907Z] #07 island 2 gemini-3.6-flash         VALID  score=-85656.758 kind=ok best=-85409.436 plateau=3/15
+[jepx_trading.20260926T073907Z] #08 island 2 gemini-3.6-flash         VALID  score=-85409.857 kind=ok best=-85409.436 plateau=4/15
+[jepx_trading.20260926T073907Z] #09 island 0 gemini-3.1-pro-preview   VALID  score=-85410.448 kind=ok best=-85409.436 plateau=5/15
+[jepx_trading.20260926T073907Z] #10 island 1 gemini-3.6-flash         VALID  score=-85661.103 kind=ok best=-85409.436 plateau=6/15
+[jepx_trading.20260926T073907Z] #11 island 1 gemini-3.6-flash         VALID  score=-85419.097 kind=ok best=-85409.436 plateau=7/15
+[jepx_trading.20260926T073907Z] #12 island 2 gemini-3.1-pro-preview   VALID  score=-85412.834 kind=ok best=-85409.436 plateau=8/15
+[jepx_trading.20260926T073907Z] #13 island 0 gemini-3.6-flash         VALID  score=-85479.972 kind=ok best=-85409.436 plateau=9/15
+[jepx_trading.20260926T073907Z] #14 island 1 gemini-3.6-flash         VALID  score=-85414.205 kind=ok best=-85409.436 plateau=10/15
+[jepx_trading.20260926T073907Z] #15 island 2 gemini-3.6-flash         VALID  score=-85409.436 kind=ok best=-85409.436 plateau=11/15
+[jepx_trading.20260926T073907Z] #16 island 0 gemini-3.6-flash         VALID  score=-85418.738 kind=ok best=-85409.436 plateau=12/15
+[jepx_trading.20260926T073907Z] #17 island 1 gemini-3.6-flash         VALID  score=-85616.263 kind=ok best=-85409.436 plateau=13/15
+[jepx_trading.20260926T073907Z] #18 island 0 gemini-3.6-flash         VALID  score=-85410.207 kind=ok best=-85409.436 plateau=14/15
+[jepx_trading.20260926T073907Z] #19 island 1 gemini-3.6-flash         VALID  score=-85409.436 kind=ok best=-85409.436 plateau=15/15
+[jepx_trading.20260926T073907Z] #20 island 2 gemini-3.6-flash         VALID  score=-85404.625 kind=ok best=-85404.625 plateau=0/15
+[jepx_trading.20260926T073907Z] #21 island 0 gemini-3.6-flash         VALID  score=-85404.625 kind=ok best=-85404.625 plateau=1/15
+[jepx_trading.20260926T073907Z] #22 island 2 gemini-3.6-flash         VALID  score=-85660.144 kind=ok best=-85404.625 plateau=2/15
+[jepx_trading.20260926T073907Z] #23 island 1 gemini-3.6-flash         VALID  score=-85411.155 kind=ok best=-85404.625 plateau=3/15
+[jepx_trading.20260926T073907Z] #24 island 0 gemini-3.6-flash         VALID  score=-85404.625 kind=ok best=-85404.625 plateau=4/15
+[jepx_trading.20260926T073907Z] #25 island 2 gemini-3.6-flash         INVALID score=None kind=policy best=-85404.625 plateau=4/15 :: 3 violation(s); e.g. 2024-06-18 slot 36: planned 408.4 MWh vs forecast 440.7 MWh (short 32.3 > tol 13.2); imbalance 38.08 vs spot 25.32 JPY/
+[jepx_trading.20260926T073907Z] #26 island 2 gemini-3.6-flash         VALID  score=-85404.625 kind=ok best=-85404.625 plateau=5/15
+[jepx_trading.20260926T073907Z] #27 island 1 gemini-3.6-flash         VALID  score=-85654.646 kind=ok best=-85404.625 plateau=6/15
+[jepx_trading.20260926T073907Z] #28 island 1 gemini-3.1-pro-preview   VALID  score=-85413.946 kind=ok best=-85404.625 plateau=7/15
+[jepx_trading.20260926T073907Z] #29 island 0 gemini-3.6-flash         VALID  score=-85404.625 kind=ok best=-85404.625 plateau=8/15
+[jepx_trading.20260926T073907Z] #30 island 0 gemini-3.1-pro-preview   VALID  score=-85404.625 kind=ok best=-85404.625 plateau=9/15
+[jepx_trading.20260926T073907Z] #31 island 2 gemini-3.6-flash         VALID  score=-85669.097 kind=ok best=-85404.625 plateau=10/15
+[jepx_trading.20260926T073907Z] #32 island 1 gemini-3.6-flash         VALID  score=-85440.208 kind=ok best=-85404.625 plateau=11/15
+[jepx_trading.20260926T073907Z] #33 island 2 gemini-3.6-flash         VALID  score=-85477.219 kind=ok best=-85404.625 plateau=12/15
+[jepx_trading.20260926T073907Z] #34 island 0 gemini-3.1-pro-preview   VALID  score=-85656.512 kind=ok best=-85404.625 plateau=13/15
+[jepx_trading.20260926T073907Z] #35 island 1 gemini-3.1-pro-preview   VALID  score=-85372.979 kind=ok best=-85372.979 plateau=0/15
+[jepx_trading.20260926T073907Z] #36 island 0 gemini-3.6-flash         VALID  score=-85407.38 kind=ok best=-85372.979 plateau=1/15
+[jepx_trading.20260926T073907Z] #37 island 2 gemini-3.6-flash         VALID  score=-85470.286 kind=ok best=-85372.979 plateau=2/15
+[jepx_trading.20260926T073907Z] #38 island 1 gemini-3.6-flash         VALID  score=-85374.503 kind=ok best=-85372.979 plateau=3/15
+[jepx_trading.20260926T073907Z] #39 island 0 gemini-3.6-flash         VALID  score=-85404.625 kind=ok best=-85372.979 plateau=4/15
+[jepx_trading.20260926T073907Z] #40 island 2 gemini-3.6-flash         VALID  score=-85443.138 kind=ok best=-85372.979 plateau=5/15
+[jepx_trading.20260926T073907Z] search stopped (max_programs) after 40 programs, 928 s; holdout rescoring...
+[jepx_trading.20260926T073907Z] evidence -> <repo>/alphaevolve-energy-lab/runs/jepx_trading.20260926T073907Z.json
+{
+ "run_id": "jepx_trading.20260926T073907Z",
+ "source": "local-gemini-controller",
+ "seed_train": -85419.43074633587,
+ "best_train": -85372.97881417666,
+ "holdout_seed": -208944.60052052248,
+ "best_holdout": -208547.2925708242,
+ "holdout_delta": 397.3079496982682,
+ "uplift_valid": true,
+ "invalid_by_kind": {
+  "policy:intentional_imbalance": 1
+ },
+ "tokens": {
+  "prompt": 312805,
+  "output": 90747,
+  "thinking": 296207,
+  "calls": 40,
+  "errors": 0,
+  "cost_usd": 1.662304,
+  "by_model": {
+   "gemini-3.1-pro-preview": {
+    "calls": 7,
+    "prompt": 53380,
+    "output": 7650,
+    "thinking": 21791,
+    "cost_usd": 0.460052
+   },
+   "gemini-3.6-flash": {
+    "calls": 33,
+    "prompt": 259425,
+    "output": 83097,
+    "thinking": 274416,
+    "cost_usd": 1.202252
+   }
+  }
+ }
+}

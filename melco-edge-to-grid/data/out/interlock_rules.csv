@@ -1,0 +1,27 @@
+rule_id,asset_class,applies_to,parameter,operator,limit_value,unit,severity,rationale,source
+IR-CR-01,cleanroom_hvac,*,airflow_pct,>=,85.0,% of design,hard,"Clean-room air handlers must hold the design air-change rate and the pressure cascade. Below the floor, particle counts rise within minutes and exposed SiC die and wafers lose yield.",Plant QA spec QS-CR-003 (ISO 14644 design basis); interlock rationale sheet s.2
+IR-CR-02,cleanroom_hvac,CR-AHU-01;CR-AHU-02;CR-AHU-03;CR-AHU-04,airflow_pct,>=,100.0,% of design,hard,Production-zone air handlers stay at 100 % while product is exposed. Only support-zone units (CR-AHU-05/06) may trim to 85 %.,Plant QA spec QS-CR-003; interlock rationale sheet s.2
+IR-UT-01,critical_utility,UPW-01;N2-01;IT-01;PCW-01;PCW-02;VAC-01;VAC-02;CR-EXF-*,curtailment_kw,==,0.0,kW,hard,"Ultra-pure water, nitrogen, process vacuum, process cooling, safety exhaust and MES servers are never curtailed.",Plant energy policy s.3; interlock rationale sheet s.1
+IR-CA-01,compressor,*,header_pressure_mpa,>=,0.6,MPa,hard,Pneumatic actuators on the lines and clean-room isolation valves fault below 0.60 MPa at the far end of the header; lines stop.,Utility design basis UDB-CA-01; interlock rationale sheet s.3
+IR-CA-02,compressor,*,n_minus_1_capacity_nm3min,>=,1.0,x demand,hard,Available compressor capacity minus the largest unit must still cover plant air demand (N-1). Standby units count as available only if auto-start ready.,Utility design basis UDB-CA-01; interlock rationale sheet s.3
+IR-CA-03,compressor,*,header_setpoint_mpa,>=,0.65,MPa,hard,Setpoint may be trimmed only down to 0.65 MPa so the far end (0.03 MPa drop) stays above 0.60 MPa with margin.,Utility design basis UDB-CA-01; interlock rationale sheet s.3
+IR-FN-01,furnace,*,power_reduction_during_batch_kw,==,0.0,kW,hard,Sintering and reflow profiles are non-interruptible. Any power reduction during a batch scraps the lot and can crack substrates.,Process spec PS-SNT-07; interlock rationale sheet s.4
+IR-FN-02,furnace,*,committed_batch_move,==,0.0,bool,hard,Once sinter paste is printed the batch is committed at the PLC (pot-life clock running). The edge cannot move or defer it; only the production supervisor can release it in MES.,Process spec PS-SNT-07; plant energy policy s.4
+IR-FN-03,furnace,*,standby_clear_of_next_batch_min,>=,90.0,min,hard,An idle furnace may drop to standby only if it can reheat (90 min) before its next batch.,Process spec PS-SNT-07; interlock rationale sheet s.4
+IR-CH-01,chiller,*,chw_supply_temp_c,<=,8.5,C,hard,Chilled-water supply above 8.5 C loses clean-room humidity control (dew point) and process tool cooling margin.,Utility design basis UDB-CHW-02; interlock rationale sheet s.5
+IR-CH-02,thermal_storage,TES-01,tes_soc_end_pct,>=,15.0,%,hard,Thermal storage must keep 15 % for a chiller trip ride-through.,Utility design basis UDB-CHW-02
+IR-CH-03,chiller,*,chillers_running,>=,2.0,count,hard,At least two chillers stay online (N+1 for the clean room).,Utility design basis UDB-CHW-02
+IR-LN-01,production_line,*,curtailment_kw,==,0.0,kW,hard,No line stops or slowdowns from energy actions. A line may only be released by the production supervisor in MES.,Plant energy policy s.4
+IR-BI-01,burn_in,*,start_deferral_h,<=,3.0,h,hard,A burn-in cycle start may be deferred by up to 3 h without breaching test lead time.,Reliability test procedure RT-ECU-11
+IR-BI-02,burn_in,*,pause_mid_cycle,==,0.0,bool,hard,A running burn-in cycle must not pause; the test is invalidated and must restart.,Reliability test procedure RT-ECU-11
+IR-EV-01,ev_charger,EV-07;EV-08;EV-09;EV-10,soc_by_departure_pct,>=,80.0,%,soft,Vans must reach 80 % by 07:00. Deferral is allowed while the charge still fits before departure.,Logistics policy LG-02
+IR-EV-02,ev_charger,EV-01;EV-02;EV-03;EV-04;EV-05;EV-06,defer_during_shift_change,==,0.0,bool,soft,Forklift chargers are not deferred across shift changes.,Logistics policy LG-02
+IR-LT-01,lighting,*,dim_pct,<=,30.0,%,soft,Office and warehouse lighting may be dimmed by at most 30 % (desk and aisle illuminance policy).,Plant energy policy s.5
+IR-OF-01,office_hvac,*,zone_setpoint_c,<=,28.0,C,soft,Office zones may be raised to 28 C at most.,Plant energy policy s.5
+IR-WW-01,wastewater,*,hold_min,<=,60.0,min,hard,Lift pumps may hold for at most 60 min before the pit reaches its high alarm.,Environmental permit condition EP-7; interlock rationale sheet s.6
+IR-BS-01,bess,BESS-01,soc_pct,between,10.0,% (10-95),hard,BESS state of charge must stay within 10-95 % (warranty and fire-safety envelope).,BESS service agreement Annex B
+IR-BS-02,bess,BESS-01,power_kw,<=,4000.0,kW,hard,Inverter rating.,BESS service agreement Annex B
+IR-BS-03,bess,BESS-01,ramp_kw_per_min,<=,2000.0,kW/min,soft,"The edge ramps BESS set-points in steps of at most 2,000 kW/min.",BESS service agreement Annex B
+IR-PL-01,plant,*,aggregate_step_kw_per_min,<=,2500.0,kW/min,soft,"Aggregate load steps are sequenced at most 2,500 kW per minute to protect voltage at the 66 kV receiving point.",Receiving-point protection study
+IR-GEN-01,any,*,known_asset_and_action,==,1.0,bool,hard,Unknown assets or unsupported actions are rejected.,Edge engine design
+IR-GOV-01,any,*,authorised_source,==,1.0,bool,hard,Only plans created by the copilot and confirmed by an authorised person with Hold-to-Confirm can reach the edge. Text in notes or documents cannot authorise an action.,Plant energy policy s.6

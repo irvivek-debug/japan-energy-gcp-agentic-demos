@@ -1,0 +1,351 @@
+eval_set_id,eval_id,metric_name,threshold,score,eval_status,prompt,expected_response,actual_response,expected_tool_calls,actual_tool_calls
+general_list_runs_overview,list_runs_overview,tool_trajectory_avg_score,1.0,1.0,PASSED,Which evolution runs exist and what did each one find?,List of runs with holdout deltas [energy_alphaevolve_lab.lab_runs].,"There are 5 finished evolution runs recorded in the lab database [energy_alphaevolve_lab.lab_runs]. All 5 runs were executed using the `local-gemini-controller` source (local AlphaEvolve-compatible controller), so none are production AlphaEvolve runs and `evolved` remains `false` across all runs.
+
+Note: All market, customer, and run figures in this lab are calibrated synthetic data for a fictional balance group (Kanto Balance Group / KBG).
+
+---
+
+### 1. JEPX Trading Runs (Validated Holdout Uplift)
+
+#### **Run `jepx_trading.20260926T073907Z`**
+* **Problem:** `jepx_trading`
+* **Train Delta vs. Seed:** +46.452 JPY M (Best Train: -85,372.979 JPY M vs. Seed Train: -85,419.431 JPY M)
+* **Seed Holdout:** -208,944.601 JPY M | **Best Holdout:** -208,547.293 JPY M
+* **Validated Holdout Uplift:** **+397.308 JPY M**
+* **Mechanism Found:** Champion program `p035-e0bc238b` replaced the seed's heuristic BESS dispatch with a 48-slot State-of-Charge (SOC) Dynamic Programming optimizer that models battery round-trip efficiency, degradation costs, and reserve margin price tightness. In intraday trading, it reduced the default gap hedge ratio from 50% to 10% and expanded allowed tolerance utilization to 95%. This minimizes execution frequency and bid-ask spread friction in illiquid intraday slots while staying strictly within regulatory imbalance tolerance bounds.
+
+#### **Run `jepx_trading.20260926T075644Z`**
+* **Problem:** `jepx_trading`
+* **Train Delta vs. Seed:** +49.569 JPY M (Best Train: -85,369.862 JPY M vs. Seed Train: -85,419.431 JPY M)
+* **Seed Holdout:** -208,944.601 JPY M | **Best Holdout:** -208,621.392 JPY M
+* **Validated Holdout Uplift:** **+323.208 JPY M**
+* **Mechanism Found:** Champion program `p039-1d886ecb` introduced a multi-pass economic pairwise arbitrage optimizer with fine 0.5 MW power steps and reserve-margin tightness adjustments. For intraday execution, it avoids trading unless the forecast position gap breaches 80% of the regulatory tolerance band, preserving capital by avoiding wide intraday bid-ask spreads.
+
+---
+
+### 2. Tariff Pricing Runs (No Validated Holdout Uplift)
+
+All three tariff pricing runs achieved search progress during training, but **none provided validated holdout uplift** because their champion programs violated policy invariants during holdout evaluation.
+
+#### **Run `tariff_pricing.20260926T080035Z`**
+* **Problem:** `tariff_pricing`
+* **Train Delta vs. Seed:** +6,767.146 JPY M (Best Train: -2,033.209 JPY M vs. Seed Train: -8,800.354 JPY M)
+* **Holdout Uplift:** **No validated uplift** (`best_holdout` is null)
+* **Reason:** Champion program `p039-acb6b2de` was rejected by the `churn` policy invariant on holdout evaluation. It pushed segment churn above allowable limits (semiconductor fab churn reached 25.0% and university reached 22.8%). Pricing out customers to boost margin is a strategy change rejected by policy gates; without the invariant gate, it would have scored raw -4,647.6 JPY M.
+
+#### **Run `tariff_pricing.20260926T074912Z`**
+* **Problem:** `tariff_pricing`
+* **Train Delta vs. Seed:** +6,215.506 JPY M (Best Train: -2,584.848 JPY M vs. Seed Train: -8,800.354 JPY M)
+* **Holdout Uplift:** **No validated uplift** (`best_holdout` is null)
+* **Reason:** Champion program `p040-3a299406` was caught by the `churn` policy invariant during holdout evaluation because university segment churn reached 25.6% (exceeding the 25.0% ceiling). Ungated raw score would have been -5,274.2 JPY M.
+
+#### **Run `tariff_pricing.20260926T073839Z`**
+* **Problem:** `tariff_pricing`
+* **Train Delta vs. Seed:** +5,510.688 JPY M (Best Train: -3,289.666 JPY M vs. Seed Train: -8,800.354 JPY M)
+* **Holdout Uplift:** **No validated uplift** (`best_holdout` is null)
+* **Reason:** Champion program `p040-56530207` was rejected on holdout due to a `churn` policy violation (university segment churn reached 26.2%). Ungated raw score would have been -6,083.3 JPY M.",id=None args={} name='list_runs' partial_args=None will_continue=None,"id='call_1524293' args={} name='list_runs' partial_args=None will_continue=None
+id='call_2040481' args={'run_id': 'jepx_trading.20260926T073907Z'} name='get_best_program_diff' partial_args=None will_continue=None
+id='call_38244' args={'run_id': 'jepx_trading.20260926T075644Z'} name='get_best_program_diff' partial_args=None will_continue=None
+id='call_49814' args={'run_id': 'tariff_pricing.20260926T080035Z'} name='get_run_summary' partial_args=None will_continue=None
+id='call_38719' args={'run_id': 'tariff_pricing.20260926T074912Z'} name='get_run_summary' partial_args=None will_continue=None
+id='call_47843' args={'run_id': 'tariff_pricing.20260926T073839Z'} name='get_run_summary' partial_args=None will_continue=None"
+general_list_runs_overview,list_runs_overview,rubric_based_final_response_quality_v1,0.8,0.75,FAILED,Which evolution runs exist and what did each one find?,List of runs with holdout deltas [energy_alphaevolve_lab.lab_runs].,"There are 5 finished evolution runs recorded in the lab database [energy_alphaevolve_lab.lab_runs]. All 5 runs were executed using the `local-gemini-controller` source (local AlphaEvolve-compatible controller), so none are production AlphaEvolve runs and `evolved` remains `false` across all runs.
+
+Note: All market, customer, and run figures in this lab are calibrated synthetic data for a fictional balance group (Kanto Balance Group / KBG).
+
+---
+
+### 1. JEPX Trading Runs (Validated Holdout Uplift)
+
+#### **Run `jepx_trading.20260926T073907Z`**
+* **Problem:** `jepx_trading`
+* **Train Delta vs. Seed:** +46.452 JPY M (Best Train: -85,372.979 JPY M vs. Seed Train: -85,419.431 JPY M)
+* **Seed Holdout:** -208,944.601 JPY M | **Best Holdout:** -208,547.293 JPY M
+* **Validated Holdout Uplift:** **+397.308 JPY M**
+* **Mechanism Found:** Champion program `p035-e0bc238b` replaced the seed's heuristic BESS dispatch with a 48-slot State-of-Charge (SOC) Dynamic Programming optimizer that models battery round-trip efficiency, degradation costs, and reserve margin price tightness. In intraday trading, it reduced the default gap hedge ratio from 50% to 10% and expanded allowed tolerance utilization to 95%. This minimizes execution frequency and bid-ask spread friction in illiquid intraday slots while staying strictly within regulatory imbalance tolerance bounds.
+
+#### **Run `jepx_trading.20260926T075644Z`**
+* **Problem:** `jepx_trading`
+* **Train Delta vs. Seed:** +49.569 JPY M (Best Train: -85,369.862 JPY M vs. Seed Train: -85,419.431 JPY M)
+* **Seed Holdout:** -208,944.601 JPY M | **Best Holdout:** -208,621.392 JPY M
+* **Validated Holdout Uplift:** **+323.208 JPY M**
+* **Mechanism Found:** Champion program `p039-1d886ecb` introduced a multi-pass economic pairwise arbitrage optimizer with fine 0.5 MW power steps and reserve-margin tightness adjustments. For intraday execution, it avoids trading unless the forecast position gap breaches 80% of the regulatory tolerance band, preserving capital by avoiding wide intraday bid-ask spreads.
+
+---
+
+### 2. Tariff Pricing Runs (No Validated Holdout Uplift)
+
+All three tariff pricing runs achieved search progress during training, but **none provided validated holdout uplift** because their champion programs violated policy invariants during holdout evaluation.
+
+#### **Run `tariff_pricing.20260926T080035Z`**
+* **Problem:** `tariff_pricing`
+* **Train Delta vs. Seed:** +6,767.146 JPY M (Best Train: -2,033.209 JPY M vs. Seed Train: -8,800.354 JPY M)
+* **Holdout Uplift:** **No validated uplift** (`best_holdout` is null)
+* **Reason:** Champion program `p039-acb6b2de` was rejected by the `churn` policy invariant on holdout evaluation. It pushed segment churn above allowable limits (semiconductor fab churn reached 25.0% and university reached 22.8%). Pricing out customers to boost margin is a strategy change rejected by policy gates; without the invariant gate, it would have scored raw -4,647.6 JPY M.
+
+#### **Run `tariff_pricing.20260926T074912Z`**
+* **Problem:** `tariff_pricing`
+* **Train Delta vs. Seed:** +6,215.506 JPY M (Best Train: -2,584.848 JPY M vs. Seed Train: -8,800.354 JPY M)
+* **Holdout Uplift:** **No validated uplift** (`best_holdout` is null)
+* **Reason:** Champion program `p040-3a299406` was caught by the `churn` policy invariant during holdout evaluation because university segment churn reached 25.6% (exceeding the 25.0% ceiling). Ungated raw score would have been -5,274.2 JPY M.
+
+#### **Run `tariff_pricing.20260926T073839Z`**
+* **Problem:** `tariff_pricing`
+* **Train Delta vs. Seed:** +5,510.688 JPY M (Best Train: -3,289.666 JPY M vs. Seed Train: -8,800.354 JPY M)
+* **Holdout Uplift:** **No validated uplift** (`best_holdout` is null)
+* **Reason:** Champion program `p040-56530207` was rejected on holdout due to a `churn` policy violation (university segment churn reached 26.2%). Ungated raw score would have been -6,083.3 JPY M.",id=None args={} name='list_runs' partial_args=None will_continue=None,"id='call_1524293' args={} name='list_runs' partial_args=None will_continue=None
+id='call_2040481' args={'run_id': 'jepx_trading.20260926T073907Z'} name='get_best_program_diff' partial_args=None will_continue=None
+id='call_38244' args={'run_id': 'jepx_trading.20260926T075644Z'} name='get_best_program_diff' partial_args=None will_continue=None
+id='call_49814' args={'run_id': 'tariff_pricing.20260926T080035Z'} name='get_run_summary' partial_args=None will_continue=None
+id='call_38719' args={'run_id': 'tariff_pricing.20260926T074912Z'} name='get_run_summary' partial_args=None will_continue=None
+id='call_47843' args={'run_id': 'tariff_pricing.20260926T073839Z'} name='get_run_summary' partial_args=None will_continue=None"
+general_list_runs_overview,list_runs_overview,hallucinations_v1,0.8,1.0,PASSED,Which evolution runs exist and what did each one find?,List of runs with holdout deltas [energy_alphaevolve_lab.lab_runs].,"There are 5 finished evolution runs recorded in the lab database [energy_alphaevolve_lab.lab_runs]. All 5 runs were executed using the `local-gemini-controller` source (local AlphaEvolve-compatible controller), so none are production AlphaEvolve runs and `evolved` remains `false` across all runs.
+
+Note: All market, customer, and run figures in this lab are calibrated synthetic data for a fictional balance group (Kanto Balance Group / KBG).
+
+---
+
+### 1. JEPX Trading Runs (Validated Holdout Uplift)
+
+#### **Run `jepx_trading.20260926T073907Z`**
+* **Problem:** `jepx_trading`
+* **Train Delta vs. Seed:** +46.452 JPY M (Best Train: -85,372.979 JPY M vs. Seed Train: -85,419.431 JPY M)
+* **Seed Holdout:** -208,944.601 JPY M | **Best Holdout:** -208,547.293 JPY M
+* **Validated Holdout Uplift:** **+397.308 JPY M**
+* **Mechanism Found:** Champion program `p035-e0bc238b` replaced the seed's heuristic BESS dispatch with a 48-slot State-of-Charge (SOC) Dynamic Programming optimizer that models battery round-trip efficiency, degradation costs, and reserve margin price tightness. In intraday trading, it reduced the default gap hedge ratio from 50% to 10% and expanded allowed tolerance utilization to 95%. This minimizes execution frequency and bid-ask spread friction in illiquid intraday slots while staying strictly within regulatory imbalance tolerance bounds.
+
+#### **Run `jepx_trading.20260926T075644Z`**
+* **Problem:** `jepx_trading`
+* **Train Delta vs. Seed:** +49.569 JPY M (Best Train: -85,369.862 JPY M vs. Seed Train: -85,419.431 JPY M)
+* **Seed Holdout:** -208,944.601 JPY M | **Best Holdout:** -208,621.392 JPY M
+* **Validated Holdout Uplift:** **+323.208 JPY M**
+* **Mechanism Found:** Champion program `p039-1d886ecb` introduced a multi-pass economic pairwise arbitrage optimizer with fine 0.5 MW power steps and reserve-margin tightness adjustments. For intraday execution, it avoids trading unless the forecast position gap breaches 80% of the regulatory tolerance band, preserving capital by avoiding wide intraday bid-ask spreads.
+
+---
+
+### 2. Tariff Pricing Runs (No Validated Holdout Uplift)
+
+All three tariff pricing runs achieved search progress during training, but **none provided validated holdout uplift** because their champion programs violated policy invariants during holdout evaluation.
+
+#### **Run `tariff_pricing.20260926T080035Z`**
+* **Problem:** `tariff_pricing`
+* **Train Delta vs. Seed:** +6,767.146 JPY M (Best Train: -2,033.209 JPY M vs. Seed Train: -8,800.354 JPY M)
+* **Holdout Uplift:** **No validated uplift** (`best_holdout` is null)
+* **Reason:** Champion program `p039-acb6b2de` was rejected by the `churn` policy invariant on holdout evaluation. It pushed segment churn above allowable limits (semiconductor fab churn reached 25.0% and university reached 22.8%). Pricing out customers to boost margin is a strategy change rejected by policy gates; without the invariant gate, it would have scored raw -4,647.6 JPY M.
+
+#### **Run `tariff_pricing.20260926T074912Z`**
+* **Problem:** `tariff_pricing`
+* **Train Delta vs. Seed:** +6,215.506 JPY M (Best Train: -2,584.848 JPY M vs. Seed Train: -8,800.354 JPY M)
+* **Holdout Uplift:** **No validated uplift** (`best_holdout` is null)
+* **Reason:** Champion program `p040-3a299406` was caught by the `churn` policy invariant during holdout evaluation because university segment churn reached 25.6% (exceeding the 25.0% ceiling). Ungated raw score would have been -5,274.2 JPY M.
+
+#### **Run `tariff_pricing.20260926T073839Z`**
+* **Problem:** `tariff_pricing`
+* **Train Delta vs. Seed:** +5,510.688 JPY M (Best Train: -3,289.666 JPY M vs. Seed Train: -8,800.354 JPY M)
+* **Holdout Uplift:** **No validated uplift** (`best_holdout` is null)
+* **Reason:** Champion program `p040-56530207` was rejected on holdout due to a `churn` policy violation (university segment churn reached 26.2%). Ungated raw score would have been -6,083.3 JPY M.",id=None args={} name='list_runs' partial_args=None will_continue=None,"id='call_1524293' args={} name='list_runs' partial_args=None will_continue=None
+id='call_2040481' args={'run_id': 'jepx_trading.20260926T073907Z'} name='get_best_program_diff' partial_args=None will_continue=None
+id='call_38244' args={'run_id': 'jepx_trading.20260926T075644Z'} name='get_best_program_diff' partial_args=None will_continue=None
+id='call_49814' args={'run_id': 'tariff_pricing.20260926T080035Z'} name='get_run_summary' partial_args=None will_continue=None
+id='call_38719' args={'run_id': 'tariff_pricing.20260926T074912Z'} name='get_run_summary' partial_args=None will_continue=None
+id='call_47843' args={'run_id': 'tariff_pricing.20260926T073839Z'} name='get_run_summary' partial_args=None will_continue=None"
+general_list_runs_overview,list_runs_overview,tool_call_count_v1,,6.0,INFORMATIONAL,Which evolution runs exist and what did each one find?,List of runs with holdout deltas [energy_alphaevolve_lab.lab_runs].,"There are 5 finished evolution runs recorded in the lab database [energy_alphaevolve_lab.lab_runs]. All 5 runs were executed using the `local-gemini-controller` source (local AlphaEvolve-compatible controller), so none are production AlphaEvolve runs and `evolved` remains `false` across all runs.
+
+Note: All market, customer, and run figures in this lab are calibrated synthetic data for a fictional balance group (Kanto Balance Group / KBG).
+
+---
+
+### 1. JEPX Trading Runs (Validated Holdout Uplift)
+
+#### **Run `jepx_trading.20260926T073907Z`**
+* **Problem:** `jepx_trading`
+* **Train Delta vs. Seed:** +46.452 JPY M (Best Train: -85,372.979 JPY M vs. Seed Train: -85,419.431 JPY M)
+* **Seed Holdout:** -208,944.601 JPY M | **Best Holdout:** -208,547.293 JPY M
+* **Validated Holdout Uplift:** **+397.308 JPY M**
+* **Mechanism Found:** Champion program `p035-e0bc238b` replaced the seed's heuristic BESS dispatch with a 48-slot State-of-Charge (SOC) Dynamic Programming optimizer that models battery round-trip efficiency, degradation costs, and reserve margin price tightness. In intraday trading, it reduced the default gap hedge ratio from 50% to 10% and expanded allowed tolerance utilization to 95%. This minimizes execution frequency and bid-ask spread friction in illiquid intraday slots while staying strictly within regulatory imbalance tolerance bounds.
+
+#### **Run `jepx_trading.20260926T075644Z`**
+* **Problem:** `jepx_trading`
+* **Train Delta vs. Seed:** +49.569 JPY M (Best Train: -85,369.862 JPY M vs. Seed Train: -85,419.431 JPY M)
+* **Seed Holdout:** -208,944.601 JPY M | **Best Holdout:** -208,621.392 JPY M
+* **Validated Holdout Uplift:** **+323.208 JPY M**
+* **Mechanism Found:** Champion program `p039-1d886ecb` introduced a multi-pass economic pairwise arbitrage optimizer with fine 0.5 MW power steps and reserve-margin tightness adjustments. For intraday execution, it avoids trading unless the forecast position gap breaches 80% of the regulatory tolerance band, preserving capital by avoiding wide intraday bid-ask spreads.
+
+---
+
+### 2. Tariff Pricing Runs (No Validated Holdout Uplift)
+
+All three tariff pricing runs achieved search progress during training, but **none provided validated holdout uplift** because their champion programs violated policy invariants during holdout evaluation.
+
+#### **Run `tariff_pricing.20260926T080035Z`**
+* **Problem:** `tariff_pricing`
+* **Train Delta vs. Seed:** +6,767.146 JPY M (Best Train: -2,033.209 JPY M vs. Seed Train: -8,800.354 JPY M)
+* **Holdout Uplift:** **No validated uplift** (`best_holdout` is null)
+* **Reason:** Champion program `p039-acb6b2de` was rejected by the `churn` policy invariant on holdout evaluation. It pushed segment churn above allowable limits (semiconductor fab churn reached 25.0% and university reached 22.8%). Pricing out customers to boost margin is a strategy change rejected by policy gates; without the invariant gate, it would have scored raw -4,647.6 JPY M.
+
+#### **Run `tariff_pricing.20260926T074912Z`**
+* **Problem:** `tariff_pricing`
+* **Train Delta vs. Seed:** +6,215.506 JPY M (Best Train: -2,584.848 JPY M vs. Seed Train: -8,800.354 JPY M)
+* **Holdout Uplift:** **No validated uplift** (`best_holdout` is null)
+* **Reason:** Champion program `p040-3a299406` was caught by the `churn` policy invariant during holdout evaluation because university segment churn reached 25.6% (exceeding the 25.0% ceiling). Ungated raw score would have been -5,274.2 JPY M.
+
+#### **Run `tariff_pricing.20260926T073839Z`**
+* **Problem:** `tariff_pricing`
+* **Train Delta vs. Seed:** +5,510.688 JPY M (Best Train: -3,289.666 JPY M vs. Seed Train: -8,800.354 JPY M)
+* **Holdout Uplift:** **No validated uplift** (`best_holdout` is null)
+* **Reason:** Champion program `p040-56530207` was rejected on holdout due to a `churn` policy violation (university segment churn reached 26.2%). Ungated raw score would have been -6,083.3 JPY M.",id=None args={} name='list_runs' partial_args=None will_continue=None,"id='call_1524293' args={} name='list_runs' partial_args=None will_continue=None
+id='call_2040481' args={'run_id': 'jepx_trading.20260926T073907Z'} name='get_best_program_diff' partial_args=None will_continue=None
+id='call_38244' args={'run_id': 'jepx_trading.20260926T075644Z'} name='get_best_program_diff' partial_args=None will_continue=None
+id='call_49814' args={'run_id': 'tariff_pricing.20260926T080035Z'} name='get_run_summary' partial_args=None will_continue=None
+id='call_38719' args={'run_id': 'tariff_pricing.20260926T074912Z'} name='get_run_summary' partial_args=None will_continue=None
+id='call_47843' args={'run_id': 'tariff_pricing.20260926T073839Z'} name='get_run_summary' partial_args=None will_continue=None"
+general_list_runs_overview,list_runs_overview,inference_call_count_v1,,7.0,INFORMATIONAL,Which evolution runs exist and what did each one find?,List of runs with holdout deltas [energy_alphaevolve_lab.lab_runs].,"There are 5 finished evolution runs recorded in the lab database [energy_alphaevolve_lab.lab_runs]. All 5 runs were executed using the `local-gemini-controller` source (local AlphaEvolve-compatible controller), so none are production AlphaEvolve runs and `evolved` remains `false` across all runs.
+
+Note: All market, customer, and run figures in this lab are calibrated synthetic data for a fictional balance group (Kanto Balance Group / KBG).
+
+---
+
+### 1. JEPX Trading Runs (Validated Holdout Uplift)
+
+#### **Run `jepx_trading.20260926T073907Z`**
+* **Problem:** `jepx_trading`
+* **Train Delta vs. Seed:** +46.452 JPY M (Best Train: -85,372.979 JPY M vs. Seed Train: -85,419.431 JPY M)
+* **Seed Holdout:** -208,944.601 JPY M | **Best Holdout:** -208,547.293 JPY M
+* **Validated Holdout Uplift:** **+397.308 JPY M**
+* **Mechanism Found:** Champion program `p035-e0bc238b` replaced the seed's heuristic BESS dispatch with a 48-slot State-of-Charge (SOC) Dynamic Programming optimizer that models battery round-trip efficiency, degradation costs, and reserve margin price tightness. In intraday trading, it reduced the default gap hedge ratio from 50% to 10% and expanded allowed tolerance utilization to 95%. This minimizes execution frequency and bid-ask spread friction in illiquid intraday slots while staying strictly within regulatory imbalance tolerance bounds.
+
+#### **Run `jepx_trading.20260926T075644Z`**
+* **Problem:** `jepx_trading`
+* **Train Delta vs. Seed:** +49.569 JPY M (Best Train: -85,369.862 JPY M vs. Seed Train: -85,419.431 JPY M)
+* **Seed Holdout:** -208,944.601 JPY M | **Best Holdout:** -208,621.392 JPY M
+* **Validated Holdout Uplift:** **+323.208 JPY M**
+* **Mechanism Found:** Champion program `p039-1d886ecb` introduced a multi-pass economic pairwise arbitrage optimizer with fine 0.5 MW power steps and reserve-margin tightness adjustments. For intraday execution, it avoids trading unless the forecast position gap breaches 80% of the regulatory tolerance band, preserving capital by avoiding wide intraday bid-ask spreads.
+
+---
+
+### 2. Tariff Pricing Runs (No Validated Holdout Uplift)
+
+All three tariff pricing runs achieved search progress during training, but **none provided validated holdout uplift** because their champion programs violated policy invariants during holdout evaluation.
+
+#### **Run `tariff_pricing.20260926T080035Z`**
+* **Problem:** `tariff_pricing`
+* **Train Delta vs. Seed:** +6,767.146 JPY M (Best Train: -2,033.209 JPY M vs. Seed Train: -8,800.354 JPY M)
+* **Holdout Uplift:** **No validated uplift** (`best_holdout` is null)
+* **Reason:** Champion program `p039-acb6b2de` was rejected by the `churn` policy invariant on holdout evaluation. It pushed segment churn above allowable limits (semiconductor fab churn reached 25.0% and university reached 22.8%). Pricing out customers to boost margin is a strategy change rejected by policy gates; without the invariant gate, it would have scored raw -4,647.6 JPY M.
+
+#### **Run `tariff_pricing.20260926T074912Z`**
+* **Problem:** `tariff_pricing`
+* **Train Delta vs. Seed:** +6,215.506 JPY M (Best Train: -2,584.848 JPY M vs. Seed Train: -8,800.354 JPY M)
+* **Holdout Uplift:** **No validated uplift** (`best_holdout` is null)
+* **Reason:** Champion program `p040-3a299406` was caught by the `churn` policy invariant during holdout evaluation because university segment churn reached 25.6% (exceeding the 25.0% ceiling). Ungated raw score would have been -5,274.2 JPY M.
+
+#### **Run `tariff_pricing.20260926T073839Z`**
+* **Problem:** `tariff_pricing`
+* **Train Delta vs. Seed:** +5,510.688 JPY M (Best Train: -3,289.666 JPY M vs. Seed Train: -8,800.354 JPY M)
+* **Holdout Uplift:** **No validated uplift** (`best_holdout` is null)
+* **Reason:** Champion program `p040-56530207` was rejected on holdout due to a `churn` policy violation (university segment churn reached 26.2%). Ungated raw score would have been -6,083.3 JPY M.",id=None args={} name='list_runs' partial_args=None will_continue=None,"id='call_1524293' args={} name='list_runs' partial_args=None will_continue=None
+id='call_2040481' args={'run_id': 'jepx_trading.20260926T073907Z'} name='get_best_program_diff' partial_args=None will_continue=None
+id='call_38244' args={'run_id': 'jepx_trading.20260926T075644Z'} name='get_best_program_diff' partial_args=None will_continue=None
+id='call_49814' args={'run_id': 'tariff_pricing.20260926T080035Z'} name='get_run_summary' partial_args=None will_continue=None
+id='call_38719' args={'run_id': 'tariff_pricing.20260926T074912Z'} name='get_run_summary' partial_args=None will_continue=None
+id='call_47843' args={'run_id': 'tariff_pricing.20260926T073839Z'} name='get_run_summary' partial_args=None will_continue=None"
+general_list_runs_overview,list_runs_overview,token_usage_v1,,60395.0,INFORMATIONAL,Which evolution runs exist and what did each one find?,List of runs with holdout deltas [energy_alphaevolve_lab.lab_runs].,"There are 5 finished evolution runs recorded in the lab database [energy_alphaevolve_lab.lab_runs]. All 5 runs were executed using the `local-gemini-controller` source (local AlphaEvolve-compatible controller), so none are production AlphaEvolve runs and `evolved` remains `false` across all runs.
+
+Note: All market, customer, and run figures in this lab are calibrated synthetic data for a fictional balance group (Kanto Balance Group / KBG).
+
+---
+
+### 1. JEPX Trading Runs (Validated Holdout Uplift)
+
+#### **Run `jepx_trading.20260926T073907Z`**
+* **Problem:** `jepx_trading`
+* **Train Delta vs. Seed:** +46.452 JPY M (Best Train: -85,372.979 JPY M vs. Seed Train: -85,419.431 JPY M)
+* **Seed Holdout:** -208,944.601 JPY M | **Best Holdout:** -208,547.293 JPY M
+* **Validated Holdout Uplift:** **+397.308 JPY M**
+* **Mechanism Found:** Champion program `p035-e0bc238b` replaced the seed's heuristic BESS dispatch with a 48-slot State-of-Charge (SOC) Dynamic Programming optimizer that models battery round-trip efficiency, degradation costs, and reserve margin price tightness. In intraday trading, it reduced the default gap hedge ratio from 50% to 10% and expanded allowed tolerance utilization to 95%. This minimizes execution frequency and bid-ask spread friction in illiquid intraday slots while staying strictly within regulatory imbalance tolerance bounds.
+
+#### **Run `jepx_trading.20260926T075644Z`**
+* **Problem:** `jepx_trading`
+* **Train Delta vs. Seed:** +49.569 JPY M (Best Train: -85,369.862 JPY M vs. Seed Train: -85,419.431 JPY M)
+* **Seed Holdout:** -208,944.601 JPY M | **Best Holdout:** -208,621.392 JPY M
+* **Validated Holdout Uplift:** **+323.208 JPY M**
+* **Mechanism Found:** Champion program `p039-1d886ecb` introduced a multi-pass economic pairwise arbitrage optimizer with fine 0.5 MW power steps and reserve-margin tightness adjustments. For intraday execution, it avoids trading unless the forecast position gap breaches 80% of the regulatory tolerance band, preserving capital by avoiding wide intraday bid-ask spreads.
+
+---
+
+### 2. Tariff Pricing Runs (No Validated Holdout Uplift)
+
+All three tariff pricing runs achieved search progress during training, but **none provided validated holdout uplift** because their champion programs violated policy invariants during holdout evaluation.
+
+#### **Run `tariff_pricing.20260926T080035Z`**
+* **Problem:** `tariff_pricing`
+* **Train Delta vs. Seed:** +6,767.146 JPY M (Best Train: -2,033.209 JPY M vs. Seed Train: -8,800.354 JPY M)
+* **Holdout Uplift:** **No validated uplift** (`best_holdout` is null)
+* **Reason:** Champion program `p039-acb6b2de` was rejected by the `churn` policy invariant on holdout evaluation. It pushed segment churn above allowable limits (semiconductor fab churn reached 25.0% and university reached 22.8%). Pricing out customers to boost margin is a strategy change rejected by policy gates; without the invariant gate, it would have scored raw -4,647.6 JPY M.
+
+#### **Run `tariff_pricing.20260926T074912Z`**
+* **Problem:** `tariff_pricing`
+* **Train Delta vs. Seed:** +6,215.506 JPY M (Best Train: -2,584.848 JPY M vs. Seed Train: -8,800.354 JPY M)
+* **Holdout Uplift:** **No validated uplift** (`best_holdout` is null)
+* **Reason:** Champion program `p040-3a299406` was caught by the `churn` policy invariant during holdout evaluation because university segment churn reached 25.6% (exceeding the 25.0% ceiling). Ungated raw score would have been -5,274.2 JPY M.
+
+#### **Run `tariff_pricing.20260926T073839Z`**
+* **Problem:** `tariff_pricing`
+* **Train Delta vs. Seed:** +5,510.688 JPY M (Best Train: -3,289.666 JPY M vs. Seed Train: -8,800.354 JPY M)
+* **Holdout Uplift:** **No validated uplift** (`best_holdout` is null)
+* **Reason:** Champion program `p040-56530207` was rejected on holdout due to a `churn` policy violation (university segment churn reached 26.2%). Ungated raw score would have been -6,083.3 JPY M.",id=None args={} name='list_runs' partial_args=None will_continue=None,"id='call_1524293' args={} name='list_runs' partial_args=None will_continue=None
+id='call_2040481' args={'run_id': 'jepx_trading.20260926T073907Z'} name='get_best_program_diff' partial_args=None will_continue=None
+id='call_38244' args={'run_id': 'jepx_trading.20260926T075644Z'} name='get_best_program_diff' partial_args=None will_continue=None
+id='call_49814' args={'run_id': 'tariff_pricing.20260926T080035Z'} name='get_run_summary' partial_args=None will_continue=None
+id='call_38719' args={'run_id': 'tariff_pricing.20260926T074912Z'} name='get_run_summary' partial_args=None will_continue=None
+id='call_47843' args={'run_id': 'tariff_pricing.20260926T073839Z'} name='get_run_summary' partial_args=None will_continue=None"
+general_list_runs_overview,list_runs_overview,invocation_duration_v1,,28.169,INFORMATIONAL,Which evolution runs exist and what did each one find?,List of runs with holdout deltas [energy_alphaevolve_lab.lab_runs].,"There are 5 finished evolution runs recorded in the lab database [energy_alphaevolve_lab.lab_runs]. All 5 runs were executed using the `local-gemini-controller` source (local AlphaEvolve-compatible controller), so none are production AlphaEvolve runs and `evolved` remains `false` across all runs.
+
+Note: All market, customer, and run figures in this lab are calibrated synthetic data for a fictional balance group (Kanto Balance Group / KBG).
+
+---
+
+### 1. JEPX Trading Runs (Validated Holdout Uplift)
+
+#### **Run `jepx_trading.20260926T073907Z`**
+* **Problem:** `jepx_trading`
+* **Train Delta vs. Seed:** +46.452 JPY M (Best Train: -85,372.979 JPY M vs. Seed Train: -85,419.431 JPY M)
+* **Seed Holdout:** -208,944.601 JPY M | **Best Holdout:** -208,547.293 JPY M
+* **Validated Holdout Uplift:** **+397.308 JPY M**
+* **Mechanism Found:** Champion program `p035-e0bc238b` replaced the seed's heuristic BESS dispatch with a 48-slot State-of-Charge (SOC) Dynamic Programming optimizer that models battery round-trip efficiency, degradation costs, and reserve margin price tightness. In intraday trading, it reduced the default gap hedge ratio from 50% to 10% and expanded allowed tolerance utilization to 95%. This minimizes execution frequency and bid-ask spread friction in illiquid intraday slots while staying strictly within regulatory imbalance tolerance bounds.
+
+#### **Run `jepx_trading.20260926T075644Z`**
+* **Problem:** `jepx_trading`
+* **Train Delta vs. Seed:** +49.569 JPY M (Best Train: -85,369.862 JPY M vs. Seed Train: -85,419.431 JPY M)
+* **Seed Holdout:** -208,944.601 JPY M | **Best Holdout:** -208,621.392 JPY M
+* **Validated Holdout Uplift:** **+323.208 JPY M**
+* **Mechanism Found:** Champion program `p039-1d886ecb` introduced a multi-pass economic pairwise arbitrage optimizer with fine 0.5 MW power steps and reserve-margin tightness adjustments. For intraday execution, it avoids trading unless the forecast position gap breaches 80% of the regulatory tolerance band, preserving capital by avoiding wide intraday bid-ask spreads.
+
+---
+
+### 2. Tariff Pricing Runs (No Validated Holdout Uplift)
+
+All three tariff pricing runs achieved search progress during training, but **none provided validated holdout uplift** because their champion programs violated policy invariants during holdout evaluation.
+
+#### **Run `tariff_pricing.20260926T080035Z`**
+* **Problem:** `tariff_pricing`
+* **Train Delta vs. Seed:** +6,767.146 JPY M (Best Train: -2,033.209 JPY M vs. Seed Train: -8,800.354 JPY M)
+* **Holdout Uplift:** **No validated uplift** (`best_holdout` is null)
+* **Reason:** Champion program `p039-acb6b2de` was rejected by the `churn` policy invariant on holdout evaluation. It pushed segment churn above allowable limits (semiconductor fab churn reached 25.0% and university reached 22.8%). Pricing out customers to boost margin is a strategy change rejected by policy gates; without the invariant gate, it would have scored raw -4,647.6 JPY M.
+
+#### **Run `tariff_pricing.20260926T074912Z`**
+* **Problem:** `tariff_pricing`
+* **Train Delta vs. Seed:** +6,215.506 JPY M (Best Train: -2,584.848 JPY M vs. Seed Train: -8,800.354 JPY M)
+* **Holdout Uplift:** **No validated uplift** (`best_holdout` is null)
+* **Reason:** Champion program `p040-3a299406` was caught by the `churn` policy invariant during holdout evaluation because university segment churn reached 25.6% (exceeding the 25.0% ceiling). Ungated raw score would have been -5,274.2 JPY M.
+
+#### **Run `tariff_pricing.20260926T073839Z`**
+* **Problem:** `tariff_pricing`
+* **Train Delta vs. Seed:** +5,510.688 JPY M (Best Train: -3,289.666 JPY M vs. Seed Train: -8,800.354 JPY M)
+* **Holdout Uplift:** **No validated uplift** (`best_holdout` is null)
+* **Reason:** Champion program `p040-56530207` was rejected on holdout due to a `churn` policy violation (university segment churn reached 26.2%). Ungated raw score would have been -6,083.3 JPY M.",id=None args={} name='list_runs' partial_args=None will_continue=None,"id='call_1524293' args={} name='list_runs' partial_args=None will_continue=None
+id='call_2040481' args={'run_id': 'jepx_trading.20260926T073907Z'} name='get_best_program_diff' partial_args=None will_continue=None
+id='call_38244' args={'run_id': 'jepx_trading.20260926T075644Z'} name='get_best_program_diff' partial_args=None will_continue=None
+id='call_49814' args={'run_id': 'tariff_pricing.20260926T080035Z'} name='get_run_summary' partial_args=None will_continue=None
+id='call_38719' args={'run_id': 'tariff_pricing.20260926T074912Z'} name='get_run_summary' partial_args=None will_continue=None
+id='call_47843' args={'run_id': 'tariff_pricing.20260926T073839Z'} name='get_run_summary' partial_args=None will_continue=None"

@@ -1,0 +1,484 @@
+eval_set_id,eval_id,metric_name,threshold,score,eval_status,prompt,expected_response,actual_response,expected_tool_calls,actual_tool_calls
+specialist_contract_risk,R2_margin_at_risk,tool_trajectory_avg_score,1.0,1.0,PASSED,What is our margin at risk if the Tokyo spot price is 40% higher for the rest of August?,See rubric.,"If the Tokyo spot price is 40% higher for the rest of August (2026-08-20 to 2026-08-31), our portfolio **margin at risk is 886,322,582 JPY** [tepco_retail_desk_demo.customer_forecast_daily, tepco_retail_desk_demo.customers, tepco_retail_desk_demo.forward_curve_daily, tepco_retail_desk_demo.hedge_book].
+
+### Summary Impact
+* **Expected Margin Before Shock:** 567,017,898 JPY [tepco_retail_desk_demo.customer_forecast_daily, tepco_retail_desk_demo.customers, tepco_retail_desk_demo.forward_curve_daily, tepco_retail_desk_demo.hedge_book]
+* **Expected Margin After Shock:** -319,304,685 JPY [tepco_retail_desk_demo.customer_forecast_daily, tepco_retail_desk_demo.customers, tepco_retail_desk_demo.forward_curve_daily, tepco_retail_desk_demo.hedge_book]
+* **Hedge Cover:** 63.1% (172,608 MWh hedged against 273,648.6 MWh of price-exposed volume, leaving 101,040.6 MWh unhedged) [tepco_retail_desk_demo.customer_forecast_daily, tepco_retail_desk_demo.hedge_book]
+* **Customers turning negative margin:** 235 customers [tepco_retail_desk_demo.customers, tepco_retail_desk_demo.customer_forecast_daily]
+
+---
+
+### Loss by Tariff Structure
+Market-linked tariffs incur **0 JPY** margin loss because spot wholesale price fluctuations are passed directly through to the customer [tepco_retail_desk_demo.customers, tepco_retail_desk_demo.customer_forecast_daily].
+
+* **Fixed Tariff:** 568,451,347 JPY margin loss (175,606.3 MWh exposed) [tepco_retail_desk_demo.customers, tepco_retail_desk_demo.customer_forecast_daily]
+* **Bandwidth Tariff:** 317,871,235 JPY margin loss (98,042.3 MWh exposed) [tepco_retail_desk_demo.customers, tepco_retail_desk_demo.customer_forecast_daily]
+* **Market-Linked Tariff:** 0 JPY margin loss (94,068.3 MWh exposed) [tepco_retail_desk_demo.customers, tepco_retail_desk_demo.customer_forecast_daily]
+
+---
+
+### Customers Hit Hardest by Margin Loss
+1. **Oyama Wafer Works** (C-0013, Bandwidth): 63,088,118 JPY margin loss (margin drops to -27,746,774 JPY) [tepco_retail_desk_demo.customers, tepco_retail_desk_demo.customer_forecast_daily]
+2. **Kashiwa Cloud Hall** (C-0005, Fixed): 61,844,541 JPY margin loss (margin drops to -23,787,020 JPY) [tepco_retail_desk_demo.customers, tepco_retail_desk_demo.customer_forecast_daily]
+3. **Mito Sensor Fab** (C-0019, Bandwidth): 52,052,006 JPY margin loss (margin drops to -20,652,001 JPY) [tepco_retail_desk_demo.customers, tepco_retail_desk_demo.customer_forecast_daily]
+4. **Tsukuba Micro Devices** (C-0014, Fixed): 50,708,207 JPY margin loss (margin drops to -20,007,563 JPY) [tepco_retail_desk_demo.customers, tepco_retail_desk_demo.customer_forecast_daily]
+5. **Ome Precision Semiconductor** (C-0017, Fixed): 43,931,145 JPY margin loss (margin drops to -23,279,751 JPY) [tepco_retail_desk_demo.customers, tepco_retail_desk_demo.customer_forecast_daily]","id=None args={'from_date': '2026-08-20', 'to_date': '2026-08-31', 'price_shock_pct': 40} name='compute_margin_at_risk' partial_args=None will_continue=None","id='call_21307' args={'price_shock_pct': 40, 'to_date': '2026-08-31', 'from_date': '2026-08-20'} name='compute_margin_at_risk' partial_args=None will_continue=None"
+specialist_contract_risk,R2_margin_at_risk,rubric_based_final_response_quality_v1,0.8,1.0,PASSED,What is our margin at risk if the Tokyo spot price is 40% higher for the rest of August?,See rubric.,"If the Tokyo spot price is 40% higher for the rest of August (2026-08-20 to 2026-08-31), our portfolio **margin at risk is 886,322,582 JPY** [tepco_retail_desk_demo.customer_forecast_daily, tepco_retail_desk_demo.customers, tepco_retail_desk_demo.forward_curve_daily, tepco_retail_desk_demo.hedge_book].
+
+### Summary Impact
+* **Expected Margin Before Shock:** 567,017,898 JPY [tepco_retail_desk_demo.customer_forecast_daily, tepco_retail_desk_demo.customers, tepco_retail_desk_demo.forward_curve_daily, tepco_retail_desk_demo.hedge_book]
+* **Expected Margin After Shock:** -319,304,685 JPY [tepco_retail_desk_demo.customer_forecast_daily, tepco_retail_desk_demo.customers, tepco_retail_desk_demo.forward_curve_daily, tepco_retail_desk_demo.hedge_book]
+* **Hedge Cover:** 63.1% (172,608 MWh hedged against 273,648.6 MWh of price-exposed volume, leaving 101,040.6 MWh unhedged) [tepco_retail_desk_demo.customer_forecast_daily, tepco_retail_desk_demo.hedge_book]
+* **Customers turning negative margin:** 235 customers [tepco_retail_desk_demo.customers, tepco_retail_desk_demo.customer_forecast_daily]
+
+---
+
+### Loss by Tariff Structure
+Market-linked tariffs incur **0 JPY** margin loss because spot wholesale price fluctuations are passed directly through to the customer [tepco_retail_desk_demo.customers, tepco_retail_desk_demo.customer_forecast_daily].
+
+* **Fixed Tariff:** 568,451,347 JPY margin loss (175,606.3 MWh exposed) [tepco_retail_desk_demo.customers, tepco_retail_desk_demo.customer_forecast_daily]
+* **Bandwidth Tariff:** 317,871,235 JPY margin loss (98,042.3 MWh exposed) [tepco_retail_desk_demo.customers, tepco_retail_desk_demo.customer_forecast_daily]
+* **Market-Linked Tariff:** 0 JPY margin loss (94,068.3 MWh exposed) [tepco_retail_desk_demo.customers, tepco_retail_desk_demo.customer_forecast_daily]
+
+---
+
+### Customers Hit Hardest by Margin Loss
+1. **Oyama Wafer Works** (C-0013, Bandwidth): 63,088,118 JPY margin loss (margin drops to -27,746,774 JPY) [tepco_retail_desk_demo.customers, tepco_retail_desk_demo.customer_forecast_daily]
+2. **Kashiwa Cloud Hall** (C-0005, Fixed): 61,844,541 JPY margin loss (margin drops to -23,787,020 JPY) [tepco_retail_desk_demo.customers, tepco_retail_desk_demo.customer_forecast_daily]
+3. **Mito Sensor Fab** (C-0019, Bandwidth): 52,052,006 JPY margin loss (margin drops to -20,652,001 JPY) [tepco_retail_desk_demo.customers, tepco_retail_desk_demo.customer_forecast_daily]
+4. **Tsukuba Micro Devices** (C-0014, Fixed): 50,708,207 JPY margin loss (margin drops to -20,007,563 JPY) [tepco_retail_desk_demo.customers, tepco_retail_desk_demo.customer_forecast_daily]
+5. **Ome Precision Semiconductor** (C-0017, Fixed): 43,931,145 JPY margin loss (margin drops to -23,279,751 JPY) [tepco_retail_desk_demo.customers, tepco_retail_desk_demo.customer_forecast_daily]","id=None args={'from_date': '2026-08-20', 'to_date': '2026-08-31', 'price_shock_pct': 40} name='compute_margin_at_risk' partial_args=None will_continue=None","id='call_21307' args={'price_shock_pct': 40, 'to_date': '2026-08-31', 'from_date': '2026-08-20'} name='compute_margin_at_risk' partial_args=None will_continue=None"
+specialist_contract_risk,R2_margin_at_risk,hallucinations_v1,0.8,1.0,PASSED,What is our margin at risk if the Tokyo spot price is 40% higher for the rest of August?,See rubric.,"If the Tokyo spot price is 40% higher for the rest of August (2026-08-20 to 2026-08-31), our portfolio **margin at risk is 886,322,582 JPY** [tepco_retail_desk_demo.customer_forecast_daily, tepco_retail_desk_demo.customers, tepco_retail_desk_demo.forward_curve_daily, tepco_retail_desk_demo.hedge_book].
+
+### Summary Impact
+* **Expected Margin Before Shock:** 567,017,898 JPY [tepco_retail_desk_demo.customer_forecast_daily, tepco_retail_desk_demo.customers, tepco_retail_desk_demo.forward_curve_daily, tepco_retail_desk_demo.hedge_book]
+* **Expected Margin After Shock:** -319,304,685 JPY [tepco_retail_desk_demo.customer_forecast_daily, tepco_retail_desk_demo.customers, tepco_retail_desk_demo.forward_curve_daily, tepco_retail_desk_demo.hedge_book]
+* **Hedge Cover:** 63.1% (172,608 MWh hedged against 273,648.6 MWh of price-exposed volume, leaving 101,040.6 MWh unhedged) [tepco_retail_desk_demo.customer_forecast_daily, tepco_retail_desk_demo.hedge_book]
+* **Customers turning negative margin:** 235 customers [tepco_retail_desk_demo.customers, tepco_retail_desk_demo.customer_forecast_daily]
+
+---
+
+### Loss by Tariff Structure
+Market-linked tariffs incur **0 JPY** margin loss because spot wholesale price fluctuations are passed directly through to the customer [tepco_retail_desk_demo.customers, tepco_retail_desk_demo.customer_forecast_daily].
+
+* **Fixed Tariff:** 568,451,347 JPY margin loss (175,606.3 MWh exposed) [tepco_retail_desk_demo.customers, tepco_retail_desk_demo.customer_forecast_daily]
+* **Bandwidth Tariff:** 317,871,235 JPY margin loss (98,042.3 MWh exposed) [tepco_retail_desk_demo.customers, tepco_retail_desk_demo.customer_forecast_daily]
+* **Market-Linked Tariff:** 0 JPY margin loss (94,068.3 MWh exposed) [tepco_retail_desk_demo.customers, tepco_retail_desk_demo.customer_forecast_daily]
+
+---
+
+### Customers Hit Hardest by Margin Loss
+1. **Oyama Wafer Works** (C-0013, Bandwidth): 63,088,118 JPY margin loss (margin drops to -27,746,774 JPY) [tepco_retail_desk_demo.customers, tepco_retail_desk_demo.customer_forecast_daily]
+2. **Kashiwa Cloud Hall** (C-0005, Fixed): 61,844,541 JPY margin loss (margin drops to -23,787,020 JPY) [tepco_retail_desk_demo.customers, tepco_retail_desk_demo.customer_forecast_daily]
+3. **Mito Sensor Fab** (C-0019, Bandwidth): 52,052,006 JPY margin loss (margin drops to -20,652,001 JPY) [tepco_retail_desk_demo.customers, tepco_retail_desk_demo.customer_forecast_daily]
+4. **Tsukuba Micro Devices** (C-0014, Fixed): 50,708,207 JPY margin loss (margin drops to -20,007,563 JPY) [tepco_retail_desk_demo.customers, tepco_retail_desk_demo.customer_forecast_daily]
+5. **Ome Precision Semiconductor** (C-0017, Fixed): 43,931,145 JPY margin loss (margin drops to -23,279,751 JPY) [tepco_retail_desk_demo.customers, tepco_retail_desk_demo.customer_forecast_daily]","id=None args={'from_date': '2026-08-20', 'to_date': '2026-08-31', 'price_shock_pct': 40} name='compute_margin_at_risk' partial_args=None will_continue=None","id='call_21307' args={'price_shock_pct': 40, 'to_date': '2026-08-31', 'from_date': '2026-08-20'} name='compute_margin_at_risk' partial_args=None will_continue=None"
+specialist_contract_risk,R2_margin_at_risk,tool_call_count_v1,,1.0,INFORMATIONAL,What is our margin at risk if the Tokyo spot price is 40% higher for the rest of August?,See rubric.,"If the Tokyo spot price is 40% higher for the rest of August (2026-08-20 to 2026-08-31), our portfolio **margin at risk is 886,322,582 JPY** [tepco_retail_desk_demo.customer_forecast_daily, tepco_retail_desk_demo.customers, tepco_retail_desk_demo.forward_curve_daily, tepco_retail_desk_demo.hedge_book].
+
+### Summary Impact
+* **Expected Margin Before Shock:** 567,017,898 JPY [tepco_retail_desk_demo.customer_forecast_daily, tepco_retail_desk_demo.customers, tepco_retail_desk_demo.forward_curve_daily, tepco_retail_desk_demo.hedge_book]
+* **Expected Margin After Shock:** -319,304,685 JPY [tepco_retail_desk_demo.customer_forecast_daily, tepco_retail_desk_demo.customers, tepco_retail_desk_demo.forward_curve_daily, tepco_retail_desk_demo.hedge_book]
+* **Hedge Cover:** 63.1% (172,608 MWh hedged against 273,648.6 MWh of price-exposed volume, leaving 101,040.6 MWh unhedged) [tepco_retail_desk_demo.customer_forecast_daily, tepco_retail_desk_demo.hedge_book]
+* **Customers turning negative margin:** 235 customers [tepco_retail_desk_demo.customers, tepco_retail_desk_demo.customer_forecast_daily]
+
+---
+
+### Loss by Tariff Structure
+Market-linked tariffs incur **0 JPY** margin loss because spot wholesale price fluctuations are passed directly through to the customer [tepco_retail_desk_demo.customers, tepco_retail_desk_demo.customer_forecast_daily].
+
+* **Fixed Tariff:** 568,451,347 JPY margin loss (175,606.3 MWh exposed) [tepco_retail_desk_demo.customers, tepco_retail_desk_demo.customer_forecast_daily]
+* **Bandwidth Tariff:** 317,871,235 JPY margin loss (98,042.3 MWh exposed) [tepco_retail_desk_demo.customers, tepco_retail_desk_demo.customer_forecast_daily]
+* **Market-Linked Tariff:** 0 JPY margin loss (94,068.3 MWh exposed) [tepco_retail_desk_demo.customers, tepco_retail_desk_demo.customer_forecast_daily]
+
+---
+
+### Customers Hit Hardest by Margin Loss
+1. **Oyama Wafer Works** (C-0013, Bandwidth): 63,088,118 JPY margin loss (margin drops to -27,746,774 JPY) [tepco_retail_desk_demo.customers, tepco_retail_desk_demo.customer_forecast_daily]
+2. **Kashiwa Cloud Hall** (C-0005, Fixed): 61,844,541 JPY margin loss (margin drops to -23,787,020 JPY) [tepco_retail_desk_demo.customers, tepco_retail_desk_demo.customer_forecast_daily]
+3. **Mito Sensor Fab** (C-0019, Bandwidth): 52,052,006 JPY margin loss (margin drops to -20,652,001 JPY) [tepco_retail_desk_demo.customers, tepco_retail_desk_demo.customer_forecast_daily]
+4. **Tsukuba Micro Devices** (C-0014, Fixed): 50,708,207 JPY margin loss (margin drops to -20,007,563 JPY) [tepco_retail_desk_demo.customers, tepco_retail_desk_demo.customer_forecast_daily]
+5. **Ome Precision Semiconductor** (C-0017, Fixed): 43,931,145 JPY margin loss (margin drops to -23,279,751 JPY) [tepco_retail_desk_demo.customers, tepco_retail_desk_demo.customer_forecast_daily]","id=None args={'from_date': '2026-08-20', 'to_date': '2026-08-31', 'price_shock_pct': 40} name='compute_margin_at_risk' partial_args=None will_continue=None","id='call_21307' args={'price_shock_pct': 40, 'to_date': '2026-08-31', 'from_date': '2026-08-20'} name='compute_margin_at_risk' partial_args=None will_continue=None"
+specialist_contract_risk,R2_margin_at_risk,inference_call_count_v1,,2.0,INFORMATIONAL,What is our margin at risk if the Tokyo spot price is 40% higher for the rest of August?,See rubric.,"If the Tokyo spot price is 40% higher for the rest of August (2026-08-20 to 2026-08-31), our portfolio **margin at risk is 886,322,582 JPY** [tepco_retail_desk_demo.customer_forecast_daily, tepco_retail_desk_demo.customers, tepco_retail_desk_demo.forward_curve_daily, tepco_retail_desk_demo.hedge_book].
+
+### Summary Impact
+* **Expected Margin Before Shock:** 567,017,898 JPY [tepco_retail_desk_demo.customer_forecast_daily, tepco_retail_desk_demo.customers, tepco_retail_desk_demo.forward_curve_daily, tepco_retail_desk_demo.hedge_book]
+* **Expected Margin After Shock:** -319,304,685 JPY [tepco_retail_desk_demo.customer_forecast_daily, tepco_retail_desk_demo.customers, tepco_retail_desk_demo.forward_curve_daily, tepco_retail_desk_demo.hedge_book]
+* **Hedge Cover:** 63.1% (172,608 MWh hedged against 273,648.6 MWh of price-exposed volume, leaving 101,040.6 MWh unhedged) [tepco_retail_desk_demo.customer_forecast_daily, tepco_retail_desk_demo.hedge_book]
+* **Customers turning negative margin:** 235 customers [tepco_retail_desk_demo.customers, tepco_retail_desk_demo.customer_forecast_daily]
+
+---
+
+### Loss by Tariff Structure
+Market-linked tariffs incur **0 JPY** margin loss because spot wholesale price fluctuations are passed directly through to the customer [tepco_retail_desk_demo.customers, tepco_retail_desk_demo.customer_forecast_daily].
+
+* **Fixed Tariff:** 568,451,347 JPY margin loss (175,606.3 MWh exposed) [tepco_retail_desk_demo.customers, tepco_retail_desk_demo.customer_forecast_daily]
+* **Bandwidth Tariff:** 317,871,235 JPY margin loss (98,042.3 MWh exposed) [tepco_retail_desk_demo.customers, tepco_retail_desk_demo.customer_forecast_daily]
+* **Market-Linked Tariff:** 0 JPY margin loss (94,068.3 MWh exposed) [tepco_retail_desk_demo.customers, tepco_retail_desk_demo.customer_forecast_daily]
+
+---
+
+### Customers Hit Hardest by Margin Loss
+1. **Oyama Wafer Works** (C-0013, Bandwidth): 63,088,118 JPY margin loss (margin drops to -27,746,774 JPY) [tepco_retail_desk_demo.customers, tepco_retail_desk_demo.customer_forecast_daily]
+2. **Kashiwa Cloud Hall** (C-0005, Fixed): 61,844,541 JPY margin loss (margin drops to -23,787,020 JPY) [tepco_retail_desk_demo.customers, tepco_retail_desk_demo.customer_forecast_daily]
+3. **Mito Sensor Fab** (C-0019, Bandwidth): 52,052,006 JPY margin loss (margin drops to -20,652,001 JPY) [tepco_retail_desk_demo.customers, tepco_retail_desk_demo.customer_forecast_daily]
+4. **Tsukuba Micro Devices** (C-0014, Fixed): 50,708,207 JPY margin loss (margin drops to -20,007,563 JPY) [tepco_retail_desk_demo.customers, tepco_retail_desk_demo.customer_forecast_daily]
+5. **Ome Precision Semiconductor** (C-0017, Fixed): 43,931,145 JPY margin loss (margin drops to -23,279,751 JPY) [tepco_retail_desk_demo.customers, tepco_retail_desk_demo.customer_forecast_daily]","id=None args={'from_date': '2026-08-20', 'to_date': '2026-08-31', 'price_shock_pct': 40} name='compute_margin_at_risk' partial_args=None will_continue=None","id='call_21307' args={'price_shock_pct': 40, 'to_date': '2026-08-31', 'from_date': '2026-08-20'} name='compute_margin_at_risk' partial_args=None will_continue=None"
+specialist_contract_risk,R2_margin_at_risk,token_usage_v1,,8073.0,INFORMATIONAL,What is our margin at risk if the Tokyo spot price is 40% higher for the rest of August?,See rubric.,"If the Tokyo spot price is 40% higher for the rest of August (2026-08-20 to 2026-08-31), our portfolio **margin at risk is 886,322,582 JPY** [tepco_retail_desk_demo.customer_forecast_daily, tepco_retail_desk_demo.customers, tepco_retail_desk_demo.forward_curve_daily, tepco_retail_desk_demo.hedge_book].
+
+### Summary Impact
+* **Expected Margin Before Shock:** 567,017,898 JPY [tepco_retail_desk_demo.customer_forecast_daily, tepco_retail_desk_demo.customers, tepco_retail_desk_demo.forward_curve_daily, tepco_retail_desk_demo.hedge_book]
+* **Expected Margin After Shock:** -319,304,685 JPY [tepco_retail_desk_demo.customer_forecast_daily, tepco_retail_desk_demo.customers, tepco_retail_desk_demo.forward_curve_daily, tepco_retail_desk_demo.hedge_book]
+* **Hedge Cover:** 63.1% (172,608 MWh hedged against 273,648.6 MWh of price-exposed volume, leaving 101,040.6 MWh unhedged) [tepco_retail_desk_demo.customer_forecast_daily, tepco_retail_desk_demo.hedge_book]
+* **Customers turning negative margin:** 235 customers [tepco_retail_desk_demo.customers, tepco_retail_desk_demo.customer_forecast_daily]
+
+---
+
+### Loss by Tariff Structure
+Market-linked tariffs incur **0 JPY** margin loss because spot wholesale price fluctuations are passed directly through to the customer [tepco_retail_desk_demo.customers, tepco_retail_desk_demo.customer_forecast_daily].
+
+* **Fixed Tariff:** 568,451,347 JPY margin loss (175,606.3 MWh exposed) [tepco_retail_desk_demo.customers, tepco_retail_desk_demo.customer_forecast_daily]
+* **Bandwidth Tariff:** 317,871,235 JPY margin loss (98,042.3 MWh exposed) [tepco_retail_desk_demo.customers, tepco_retail_desk_demo.customer_forecast_daily]
+* **Market-Linked Tariff:** 0 JPY margin loss (94,068.3 MWh exposed) [tepco_retail_desk_demo.customers, tepco_retail_desk_demo.customer_forecast_daily]
+
+---
+
+### Customers Hit Hardest by Margin Loss
+1. **Oyama Wafer Works** (C-0013, Bandwidth): 63,088,118 JPY margin loss (margin drops to -27,746,774 JPY) [tepco_retail_desk_demo.customers, tepco_retail_desk_demo.customer_forecast_daily]
+2. **Kashiwa Cloud Hall** (C-0005, Fixed): 61,844,541 JPY margin loss (margin drops to -23,787,020 JPY) [tepco_retail_desk_demo.customers, tepco_retail_desk_demo.customer_forecast_daily]
+3. **Mito Sensor Fab** (C-0019, Bandwidth): 52,052,006 JPY margin loss (margin drops to -20,652,001 JPY) [tepco_retail_desk_demo.customers, tepco_retail_desk_demo.customer_forecast_daily]
+4. **Tsukuba Micro Devices** (C-0014, Fixed): 50,708,207 JPY margin loss (margin drops to -20,007,563 JPY) [tepco_retail_desk_demo.customers, tepco_retail_desk_demo.customer_forecast_daily]
+5. **Ome Precision Semiconductor** (C-0017, Fixed): 43,931,145 JPY margin loss (margin drops to -23,279,751 JPY) [tepco_retail_desk_demo.customers, tepco_retail_desk_demo.customer_forecast_daily]","id=None args={'from_date': '2026-08-20', 'to_date': '2026-08-31', 'price_shock_pct': 40} name='compute_margin_at_risk' partial_args=None will_continue=None","id='call_21307' args={'price_shock_pct': 40, 'to_date': '2026-08-31', 'from_date': '2026-08-20'} name='compute_margin_at_risk' partial_args=None will_continue=None"
+specialist_contract_risk,R2_margin_at_risk,invocation_duration_v1,,14.534,INFORMATIONAL,What is our margin at risk if the Tokyo spot price is 40% higher for the rest of August?,See rubric.,"If the Tokyo spot price is 40% higher for the rest of August (2026-08-20 to 2026-08-31), our portfolio **margin at risk is 886,322,582 JPY** [tepco_retail_desk_demo.customer_forecast_daily, tepco_retail_desk_demo.customers, tepco_retail_desk_demo.forward_curve_daily, tepco_retail_desk_demo.hedge_book].
+
+### Summary Impact
+* **Expected Margin Before Shock:** 567,017,898 JPY [tepco_retail_desk_demo.customer_forecast_daily, tepco_retail_desk_demo.customers, tepco_retail_desk_demo.forward_curve_daily, tepco_retail_desk_demo.hedge_book]
+* **Expected Margin After Shock:** -319,304,685 JPY [tepco_retail_desk_demo.customer_forecast_daily, tepco_retail_desk_demo.customers, tepco_retail_desk_demo.forward_curve_daily, tepco_retail_desk_demo.hedge_book]
+* **Hedge Cover:** 63.1% (172,608 MWh hedged against 273,648.6 MWh of price-exposed volume, leaving 101,040.6 MWh unhedged) [tepco_retail_desk_demo.customer_forecast_daily, tepco_retail_desk_demo.hedge_book]
+* **Customers turning negative margin:** 235 customers [tepco_retail_desk_demo.customers, tepco_retail_desk_demo.customer_forecast_daily]
+
+---
+
+### Loss by Tariff Structure
+Market-linked tariffs incur **0 JPY** margin loss because spot wholesale price fluctuations are passed directly through to the customer [tepco_retail_desk_demo.customers, tepco_retail_desk_demo.customer_forecast_daily].
+
+* **Fixed Tariff:** 568,451,347 JPY margin loss (175,606.3 MWh exposed) [tepco_retail_desk_demo.customers, tepco_retail_desk_demo.customer_forecast_daily]
+* **Bandwidth Tariff:** 317,871,235 JPY margin loss (98,042.3 MWh exposed) [tepco_retail_desk_demo.customers, tepco_retail_desk_demo.customer_forecast_daily]
+* **Market-Linked Tariff:** 0 JPY margin loss (94,068.3 MWh exposed) [tepco_retail_desk_demo.customers, tepco_retail_desk_demo.customer_forecast_daily]
+
+---
+
+### Customers Hit Hardest by Margin Loss
+1. **Oyama Wafer Works** (C-0013, Bandwidth): 63,088,118 JPY margin loss (margin drops to -27,746,774 JPY) [tepco_retail_desk_demo.customers, tepco_retail_desk_demo.customer_forecast_daily]
+2. **Kashiwa Cloud Hall** (C-0005, Fixed): 61,844,541 JPY margin loss (margin drops to -23,787,020 JPY) [tepco_retail_desk_demo.customers, tepco_retail_desk_demo.customer_forecast_daily]
+3. **Mito Sensor Fab** (C-0019, Bandwidth): 52,052,006 JPY margin loss (margin drops to -20,652,001 JPY) [tepco_retail_desk_demo.customers, tepco_retail_desk_demo.customer_forecast_daily]
+4. **Tsukuba Micro Devices** (C-0014, Fixed): 50,708,207 JPY margin loss (margin drops to -20,007,563 JPY) [tepco_retail_desk_demo.customers, tepco_retail_desk_demo.customer_forecast_daily]
+5. **Ome Precision Semiconductor** (C-0017, Fixed): 43,931,145 JPY margin loss (margin drops to -23,279,751 JPY) [tepco_retail_desk_demo.customers, tepco_retail_desk_demo.customer_forecast_daily]","id=None args={'from_date': '2026-08-20', 'to_date': '2026-08-31', 'price_shock_pct': 40} name='compute_margin_at_risk' partial_args=None will_continue=None","id='call_21307' args={'price_shock_pct': 40, 'to_date': '2026-08-31', 'from_date': '2026-08-20'} name='compute_margin_at_risk' partial_args=None will_continue=None"
+specialist_contract_risk,R1_breaches,tool_trajectory_avg_score,1.0,1.0,PASSED,"Which customers breached their deviation band this month, and what did it cost?",See rubric.,"Between August 1, 2026 and August 19, 2026 (metered through 15:30 today), **65 out of 94 bandwidth-tariff customers** breached their contract deviation bands [tepco_retail_desk_demo.customer_load_30min, tepco_retail_desk_demo.customers, tepco_retail_desk_demo.imbalance_30min].
+
+### Total Breach Summary
+* **Total Breach Slots:** 706 thirty-minute slots [tepco_retail_desk_demo.customer_load_30min]
+* **Total Excess Energy:** 28.36 MWh beyond contract bands [tepco_retail_desk_demo.customer_load_30min]
+* **Total Deviation Cost:** 786,366 JPY at imbalance prices [tepco_retail_desk_demo.imbalance_30min]
+
+---
+
+### Worst Performing Customer: Kanagawa Cold Chain (C-0051)
+**Kanagawa Cold Chain** accounts for the vast majority of all portfolio deviation costs [tepco_retail_desk_demo.customers]:
+
+* **Deviation Band:** +/- 5% [tepco_retail_desk_demo.customers]
+* **Breach Rate:** 35.8% (320 breach slots out of 895 evaluated) [tepco_retail_desk_demo.customer_load_30min]
+* **Excess Energy:** 21.81 MWh [tepco_retail_desk_demo.customer_load_30min]
+* **Deviation Cost:** 647,479 JPY [tepco_retail_desk_demo.imbalance_30min]
+* **Share of Total Portfolio Cost:** 82.3% [tepco_retail_desk_demo.imbalance_30min]
+* **Breach Timing Pattern:** Breaches are heavily concentrated in afternoon hours, spiking drastically during hours 13:00-18:00:
+  * Hour 10 (10:00-11:00): 23.7% breach rate
+  * Hour 11 (11:00-12:00): 28.9% breach rate
+  * Hour 12 (12:00-13:00): 42.1% breach rate
+  * Hour 13 (13:00-14:00): 76.3% breach rate
+  * Hour 14 (14:00-15:00): 94.7% breach rate (peak)
+  * Hour 15 (15:00-16:00): 94.6% breach rate
+  * Hour 16 (16:00-17:00): 88.9% breach rate
+  * Hour 17 (17:00-18:00): 86.1% breach rate
+  * Hour 18 (18:00-19:00): 80.6% breach rate
+  * Hour 19 (19:00-20:00): 58.3% breach rate
+
+---
+
+### Other Top Customers by Deviation Cost
+
+| Customer Name | Customer ID | Band % | Breach Slots | Breach Rate | Excess MWh | Cost (JPY) |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| **Mito Sensor Fab** | C-0019 | 5% | 5 | 0.6% | 1.04 MWh | 19,060 JPY |
+| **Honjo Power Chips** | C-0016 | 5% | 6 | 0.7% | 0.60 MWh | 10,414 JPY |
+| **Fuchu Cold Chain** | C-0055 | 5% | 8 | 0.9% | 0.37 MWh | 8,463 JPY |
+| **Iruma Office Park** | C-0099 | 5% | 9 | 1.0% | 0.27 MWh | 6,478 JPY |
+| **Tsuchiura General Hospital** | C-0212 | 5% | 8 | 0.9% | 0.25 MWh | 6,210 JPY |
+| **Misato Office Park** | C-0108 | 5% | 9 | 1.0% | 0.24 MWh | 5,357 JPY |
+| **Hanno College of Science** | C-0218 | 5% | 10 | 1.1% | 0.22 MWh | 4,925 JPY |
+
+[tepco_retail_desk_demo.customer_load_30min, tepco_retail_desk_demo.customers, tepco_retail_desk_demo.imbalance_30min]","id=None args={'from_date': '2026-08-01', 'to_date': '2026-08-19'} name='get_deviation_breaches' partial_args=None will_continue=None","id='call_3103283' args={'from_date': '2026-08-01', 'to_date': '2026-08-19'} name='get_deviation_breaches' partial_args=None will_continue=None"
+specialist_contract_risk,R1_breaches,rubric_based_final_response_quality_v1,0.8,1.0,PASSED,"Which customers breached their deviation band this month, and what did it cost?",See rubric.,"Between August 1, 2026 and August 19, 2026 (metered through 15:30 today), **65 out of 94 bandwidth-tariff customers** breached their contract deviation bands [tepco_retail_desk_demo.customer_load_30min, tepco_retail_desk_demo.customers, tepco_retail_desk_demo.imbalance_30min].
+
+### Total Breach Summary
+* **Total Breach Slots:** 706 thirty-minute slots [tepco_retail_desk_demo.customer_load_30min]
+* **Total Excess Energy:** 28.36 MWh beyond contract bands [tepco_retail_desk_demo.customer_load_30min]
+* **Total Deviation Cost:** 786,366 JPY at imbalance prices [tepco_retail_desk_demo.imbalance_30min]
+
+---
+
+### Worst Performing Customer: Kanagawa Cold Chain (C-0051)
+**Kanagawa Cold Chain** accounts for the vast majority of all portfolio deviation costs [tepco_retail_desk_demo.customers]:
+
+* **Deviation Band:** +/- 5% [tepco_retail_desk_demo.customers]
+* **Breach Rate:** 35.8% (320 breach slots out of 895 evaluated) [tepco_retail_desk_demo.customer_load_30min]
+* **Excess Energy:** 21.81 MWh [tepco_retail_desk_demo.customer_load_30min]
+* **Deviation Cost:** 647,479 JPY [tepco_retail_desk_demo.imbalance_30min]
+* **Share of Total Portfolio Cost:** 82.3% [tepco_retail_desk_demo.imbalance_30min]
+* **Breach Timing Pattern:** Breaches are heavily concentrated in afternoon hours, spiking drastically during hours 13:00-18:00:
+  * Hour 10 (10:00-11:00): 23.7% breach rate
+  * Hour 11 (11:00-12:00): 28.9% breach rate
+  * Hour 12 (12:00-13:00): 42.1% breach rate
+  * Hour 13 (13:00-14:00): 76.3% breach rate
+  * Hour 14 (14:00-15:00): 94.7% breach rate (peak)
+  * Hour 15 (15:00-16:00): 94.6% breach rate
+  * Hour 16 (16:00-17:00): 88.9% breach rate
+  * Hour 17 (17:00-18:00): 86.1% breach rate
+  * Hour 18 (18:00-19:00): 80.6% breach rate
+  * Hour 19 (19:00-20:00): 58.3% breach rate
+
+---
+
+### Other Top Customers by Deviation Cost
+
+| Customer Name | Customer ID | Band % | Breach Slots | Breach Rate | Excess MWh | Cost (JPY) |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| **Mito Sensor Fab** | C-0019 | 5% | 5 | 0.6% | 1.04 MWh | 19,060 JPY |
+| **Honjo Power Chips** | C-0016 | 5% | 6 | 0.7% | 0.60 MWh | 10,414 JPY |
+| **Fuchu Cold Chain** | C-0055 | 5% | 8 | 0.9% | 0.37 MWh | 8,463 JPY |
+| **Iruma Office Park** | C-0099 | 5% | 9 | 1.0% | 0.27 MWh | 6,478 JPY |
+| **Tsuchiura General Hospital** | C-0212 | 5% | 8 | 0.9% | 0.25 MWh | 6,210 JPY |
+| **Misato Office Park** | C-0108 | 5% | 9 | 1.0% | 0.24 MWh | 5,357 JPY |
+| **Hanno College of Science** | C-0218 | 5% | 10 | 1.1% | 0.22 MWh | 4,925 JPY |
+
+[tepco_retail_desk_demo.customer_load_30min, tepco_retail_desk_demo.customers, tepco_retail_desk_demo.imbalance_30min]","id=None args={'from_date': '2026-08-01', 'to_date': '2026-08-19'} name='get_deviation_breaches' partial_args=None will_continue=None","id='call_3103283' args={'from_date': '2026-08-01', 'to_date': '2026-08-19'} name='get_deviation_breaches' partial_args=None will_continue=None"
+specialist_contract_risk,R1_breaches,hallucinations_v1,0.8,1.0,PASSED,"Which customers breached their deviation band this month, and what did it cost?",See rubric.,"Between August 1, 2026 and August 19, 2026 (metered through 15:30 today), **65 out of 94 bandwidth-tariff customers** breached their contract deviation bands [tepco_retail_desk_demo.customer_load_30min, tepco_retail_desk_demo.customers, tepco_retail_desk_demo.imbalance_30min].
+
+### Total Breach Summary
+* **Total Breach Slots:** 706 thirty-minute slots [tepco_retail_desk_demo.customer_load_30min]
+* **Total Excess Energy:** 28.36 MWh beyond contract bands [tepco_retail_desk_demo.customer_load_30min]
+* **Total Deviation Cost:** 786,366 JPY at imbalance prices [tepco_retail_desk_demo.imbalance_30min]
+
+---
+
+### Worst Performing Customer: Kanagawa Cold Chain (C-0051)
+**Kanagawa Cold Chain** accounts for the vast majority of all portfolio deviation costs [tepco_retail_desk_demo.customers]:
+
+* **Deviation Band:** +/- 5% [tepco_retail_desk_demo.customers]
+* **Breach Rate:** 35.8% (320 breach slots out of 895 evaluated) [tepco_retail_desk_demo.customer_load_30min]
+* **Excess Energy:** 21.81 MWh [tepco_retail_desk_demo.customer_load_30min]
+* **Deviation Cost:** 647,479 JPY [tepco_retail_desk_demo.imbalance_30min]
+* **Share of Total Portfolio Cost:** 82.3% [tepco_retail_desk_demo.imbalance_30min]
+* **Breach Timing Pattern:** Breaches are heavily concentrated in afternoon hours, spiking drastically during hours 13:00-18:00:
+  * Hour 10 (10:00-11:00): 23.7% breach rate
+  * Hour 11 (11:00-12:00): 28.9% breach rate
+  * Hour 12 (12:00-13:00): 42.1% breach rate
+  * Hour 13 (13:00-14:00): 76.3% breach rate
+  * Hour 14 (14:00-15:00): 94.7% breach rate (peak)
+  * Hour 15 (15:00-16:00): 94.6% breach rate
+  * Hour 16 (16:00-17:00): 88.9% breach rate
+  * Hour 17 (17:00-18:00): 86.1% breach rate
+  * Hour 18 (18:00-19:00): 80.6% breach rate
+  * Hour 19 (19:00-20:00): 58.3% breach rate
+
+---
+
+### Other Top Customers by Deviation Cost
+
+| Customer Name | Customer ID | Band % | Breach Slots | Breach Rate | Excess MWh | Cost (JPY) |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| **Mito Sensor Fab** | C-0019 | 5% | 5 | 0.6% | 1.04 MWh | 19,060 JPY |
+| **Honjo Power Chips** | C-0016 | 5% | 6 | 0.7% | 0.60 MWh | 10,414 JPY |
+| **Fuchu Cold Chain** | C-0055 | 5% | 8 | 0.9% | 0.37 MWh | 8,463 JPY |
+| **Iruma Office Park** | C-0099 | 5% | 9 | 1.0% | 0.27 MWh | 6,478 JPY |
+| **Tsuchiura General Hospital** | C-0212 | 5% | 8 | 0.9% | 0.25 MWh | 6,210 JPY |
+| **Misato Office Park** | C-0108 | 5% | 9 | 1.0% | 0.24 MWh | 5,357 JPY |
+| **Hanno College of Science** | C-0218 | 5% | 10 | 1.1% | 0.22 MWh | 4,925 JPY |
+
+[tepco_retail_desk_demo.customer_load_30min, tepco_retail_desk_demo.customers, tepco_retail_desk_demo.imbalance_30min]","id=None args={'from_date': '2026-08-01', 'to_date': '2026-08-19'} name='get_deviation_breaches' partial_args=None will_continue=None","id='call_3103283' args={'from_date': '2026-08-01', 'to_date': '2026-08-19'} name='get_deviation_breaches' partial_args=None will_continue=None"
+specialist_contract_risk,R1_breaches,tool_call_count_v1,,1.0,INFORMATIONAL,"Which customers breached their deviation band this month, and what did it cost?",See rubric.,"Between August 1, 2026 and August 19, 2026 (metered through 15:30 today), **65 out of 94 bandwidth-tariff customers** breached their contract deviation bands [tepco_retail_desk_demo.customer_load_30min, tepco_retail_desk_demo.customers, tepco_retail_desk_demo.imbalance_30min].
+
+### Total Breach Summary
+* **Total Breach Slots:** 706 thirty-minute slots [tepco_retail_desk_demo.customer_load_30min]
+* **Total Excess Energy:** 28.36 MWh beyond contract bands [tepco_retail_desk_demo.customer_load_30min]
+* **Total Deviation Cost:** 786,366 JPY at imbalance prices [tepco_retail_desk_demo.imbalance_30min]
+
+---
+
+### Worst Performing Customer: Kanagawa Cold Chain (C-0051)
+**Kanagawa Cold Chain** accounts for the vast majority of all portfolio deviation costs [tepco_retail_desk_demo.customers]:
+
+* **Deviation Band:** +/- 5% [tepco_retail_desk_demo.customers]
+* **Breach Rate:** 35.8% (320 breach slots out of 895 evaluated) [tepco_retail_desk_demo.customer_load_30min]
+* **Excess Energy:** 21.81 MWh [tepco_retail_desk_demo.customer_load_30min]
+* **Deviation Cost:** 647,479 JPY [tepco_retail_desk_demo.imbalance_30min]
+* **Share of Total Portfolio Cost:** 82.3% [tepco_retail_desk_demo.imbalance_30min]
+* **Breach Timing Pattern:** Breaches are heavily concentrated in afternoon hours, spiking drastically during hours 13:00-18:00:
+  * Hour 10 (10:00-11:00): 23.7% breach rate
+  * Hour 11 (11:00-12:00): 28.9% breach rate
+  * Hour 12 (12:00-13:00): 42.1% breach rate
+  * Hour 13 (13:00-14:00): 76.3% breach rate
+  * Hour 14 (14:00-15:00): 94.7% breach rate (peak)
+  * Hour 15 (15:00-16:00): 94.6% breach rate
+  * Hour 16 (16:00-17:00): 88.9% breach rate
+  * Hour 17 (17:00-18:00): 86.1% breach rate
+  * Hour 18 (18:00-19:00): 80.6% breach rate
+  * Hour 19 (19:00-20:00): 58.3% breach rate
+
+---
+
+### Other Top Customers by Deviation Cost
+
+| Customer Name | Customer ID | Band % | Breach Slots | Breach Rate | Excess MWh | Cost (JPY) |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| **Mito Sensor Fab** | C-0019 | 5% | 5 | 0.6% | 1.04 MWh | 19,060 JPY |
+| **Honjo Power Chips** | C-0016 | 5% | 6 | 0.7% | 0.60 MWh | 10,414 JPY |
+| **Fuchu Cold Chain** | C-0055 | 5% | 8 | 0.9% | 0.37 MWh | 8,463 JPY |
+| **Iruma Office Park** | C-0099 | 5% | 9 | 1.0% | 0.27 MWh | 6,478 JPY |
+| **Tsuchiura General Hospital** | C-0212 | 5% | 8 | 0.9% | 0.25 MWh | 6,210 JPY |
+| **Misato Office Park** | C-0108 | 5% | 9 | 1.0% | 0.24 MWh | 5,357 JPY |
+| **Hanno College of Science** | C-0218 | 5% | 10 | 1.1% | 0.22 MWh | 4,925 JPY |
+
+[tepco_retail_desk_demo.customer_load_30min, tepco_retail_desk_demo.customers, tepco_retail_desk_demo.imbalance_30min]","id=None args={'from_date': '2026-08-01', 'to_date': '2026-08-19'} name='get_deviation_breaches' partial_args=None will_continue=None","id='call_3103283' args={'from_date': '2026-08-01', 'to_date': '2026-08-19'} name='get_deviation_breaches' partial_args=None will_continue=None"
+specialist_contract_risk,R1_breaches,inference_call_count_v1,,2.0,INFORMATIONAL,"Which customers breached their deviation band this month, and what did it cost?",See rubric.,"Between August 1, 2026 and August 19, 2026 (metered through 15:30 today), **65 out of 94 bandwidth-tariff customers** breached their contract deviation bands [tepco_retail_desk_demo.customer_load_30min, tepco_retail_desk_demo.customers, tepco_retail_desk_demo.imbalance_30min].
+
+### Total Breach Summary
+* **Total Breach Slots:** 706 thirty-minute slots [tepco_retail_desk_demo.customer_load_30min]
+* **Total Excess Energy:** 28.36 MWh beyond contract bands [tepco_retail_desk_demo.customer_load_30min]
+* **Total Deviation Cost:** 786,366 JPY at imbalance prices [tepco_retail_desk_demo.imbalance_30min]
+
+---
+
+### Worst Performing Customer: Kanagawa Cold Chain (C-0051)
+**Kanagawa Cold Chain** accounts for the vast majority of all portfolio deviation costs [tepco_retail_desk_demo.customers]:
+
+* **Deviation Band:** +/- 5% [tepco_retail_desk_demo.customers]
+* **Breach Rate:** 35.8% (320 breach slots out of 895 evaluated) [tepco_retail_desk_demo.customer_load_30min]
+* **Excess Energy:** 21.81 MWh [tepco_retail_desk_demo.customer_load_30min]
+* **Deviation Cost:** 647,479 JPY [tepco_retail_desk_demo.imbalance_30min]
+* **Share of Total Portfolio Cost:** 82.3% [tepco_retail_desk_demo.imbalance_30min]
+* **Breach Timing Pattern:** Breaches are heavily concentrated in afternoon hours, spiking drastically during hours 13:00-18:00:
+  * Hour 10 (10:00-11:00): 23.7% breach rate
+  * Hour 11 (11:00-12:00): 28.9% breach rate
+  * Hour 12 (12:00-13:00): 42.1% breach rate
+  * Hour 13 (13:00-14:00): 76.3% breach rate
+  * Hour 14 (14:00-15:00): 94.7% breach rate (peak)
+  * Hour 15 (15:00-16:00): 94.6% breach rate
+  * Hour 16 (16:00-17:00): 88.9% breach rate
+  * Hour 17 (17:00-18:00): 86.1% breach rate
+  * Hour 18 (18:00-19:00): 80.6% breach rate
+  * Hour 19 (19:00-20:00): 58.3% breach rate
+
+---
+
+### Other Top Customers by Deviation Cost
+
+| Customer Name | Customer ID | Band % | Breach Slots | Breach Rate | Excess MWh | Cost (JPY) |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| **Mito Sensor Fab** | C-0019 | 5% | 5 | 0.6% | 1.04 MWh | 19,060 JPY |
+| **Honjo Power Chips** | C-0016 | 5% | 6 | 0.7% | 0.60 MWh | 10,414 JPY |
+| **Fuchu Cold Chain** | C-0055 | 5% | 8 | 0.9% | 0.37 MWh | 8,463 JPY |
+| **Iruma Office Park** | C-0099 | 5% | 9 | 1.0% | 0.27 MWh | 6,478 JPY |
+| **Tsuchiura General Hospital** | C-0212 | 5% | 8 | 0.9% | 0.25 MWh | 6,210 JPY |
+| **Misato Office Park** | C-0108 | 5% | 9 | 1.0% | 0.24 MWh | 5,357 JPY |
+| **Hanno College of Science** | C-0218 | 5% | 10 | 1.1% | 0.22 MWh | 4,925 JPY |
+
+[tepco_retail_desk_demo.customer_load_30min, tepco_retail_desk_demo.customers, tepco_retail_desk_demo.imbalance_30min]","id=None args={'from_date': '2026-08-01', 'to_date': '2026-08-19'} name='get_deviation_breaches' partial_args=None will_continue=None","id='call_3103283' args={'from_date': '2026-08-01', 'to_date': '2026-08-19'} name='get_deviation_breaches' partial_args=None will_continue=None"
+specialist_contract_risk,R1_breaches,token_usage_v1,,7915.0,INFORMATIONAL,"Which customers breached their deviation band this month, and what did it cost?",See rubric.,"Between August 1, 2026 and August 19, 2026 (metered through 15:30 today), **65 out of 94 bandwidth-tariff customers** breached their contract deviation bands [tepco_retail_desk_demo.customer_load_30min, tepco_retail_desk_demo.customers, tepco_retail_desk_demo.imbalance_30min].
+
+### Total Breach Summary
+* **Total Breach Slots:** 706 thirty-minute slots [tepco_retail_desk_demo.customer_load_30min]
+* **Total Excess Energy:** 28.36 MWh beyond contract bands [tepco_retail_desk_demo.customer_load_30min]
+* **Total Deviation Cost:** 786,366 JPY at imbalance prices [tepco_retail_desk_demo.imbalance_30min]
+
+---
+
+### Worst Performing Customer: Kanagawa Cold Chain (C-0051)
+**Kanagawa Cold Chain** accounts for the vast majority of all portfolio deviation costs [tepco_retail_desk_demo.customers]:
+
+* **Deviation Band:** +/- 5% [tepco_retail_desk_demo.customers]
+* **Breach Rate:** 35.8% (320 breach slots out of 895 evaluated) [tepco_retail_desk_demo.customer_load_30min]
+* **Excess Energy:** 21.81 MWh [tepco_retail_desk_demo.customer_load_30min]
+* **Deviation Cost:** 647,479 JPY [tepco_retail_desk_demo.imbalance_30min]
+* **Share of Total Portfolio Cost:** 82.3% [tepco_retail_desk_demo.imbalance_30min]
+* **Breach Timing Pattern:** Breaches are heavily concentrated in afternoon hours, spiking drastically during hours 13:00-18:00:
+  * Hour 10 (10:00-11:00): 23.7% breach rate
+  * Hour 11 (11:00-12:00): 28.9% breach rate
+  * Hour 12 (12:00-13:00): 42.1% breach rate
+  * Hour 13 (13:00-14:00): 76.3% breach rate
+  * Hour 14 (14:00-15:00): 94.7% breach rate (peak)
+  * Hour 15 (15:00-16:00): 94.6% breach rate
+  * Hour 16 (16:00-17:00): 88.9% breach rate
+  * Hour 17 (17:00-18:00): 86.1% breach rate
+  * Hour 18 (18:00-19:00): 80.6% breach rate
+  * Hour 19 (19:00-20:00): 58.3% breach rate
+
+---
+
+### Other Top Customers by Deviation Cost
+
+| Customer Name | Customer ID | Band % | Breach Slots | Breach Rate | Excess MWh | Cost (JPY) |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| **Mito Sensor Fab** | C-0019 | 5% | 5 | 0.6% | 1.04 MWh | 19,060 JPY |
+| **Honjo Power Chips** | C-0016 | 5% | 6 | 0.7% | 0.60 MWh | 10,414 JPY |
+| **Fuchu Cold Chain** | C-0055 | 5% | 8 | 0.9% | 0.37 MWh | 8,463 JPY |
+| **Iruma Office Park** | C-0099 | 5% | 9 | 1.0% | 0.27 MWh | 6,478 JPY |
+| **Tsuchiura General Hospital** | C-0212 | 5% | 8 | 0.9% | 0.25 MWh | 6,210 JPY |
+| **Misato Office Park** | C-0108 | 5% | 9 | 1.0% | 0.24 MWh | 5,357 JPY |
+| **Hanno College of Science** | C-0218 | 5% | 10 | 1.1% | 0.22 MWh | 4,925 JPY |
+
+[tepco_retail_desk_demo.customer_load_30min, tepco_retail_desk_demo.customers, tepco_retail_desk_demo.imbalance_30min]","id=None args={'from_date': '2026-08-01', 'to_date': '2026-08-19'} name='get_deviation_breaches' partial_args=None will_continue=None","id='call_3103283' args={'from_date': '2026-08-01', 'to_date': '2026-08-19'} name='get_deviation_breaches' partial_args=None will_continue=None"
+specialist_contract_risk,R1_breaches,invocation_duration_v1,,14.255,INFORMATIONAL,"Which customers breached their deviation band this month, and what did it cost?",See rubric.,"Between August 1, 2026 and August 19, 2026 (metered through 15:30 today), **65 out of 94 bandwidth-tariff customers** breached their contract deviation bands [tepco_retail_desk_demo.customer_load_30min, tepco_retail_desk_demo.customers, tepco_retail_desk_demo.imbalance_30min].
+
+### Total Breach Summary
+* **Total Breach Slots:** 706 thirty-minute slots [tepco_retail_desk_demo.customer_load_30min]
+* **Total Excess Energy:** 28.36 MWh beyond contract bands [tepco_retail_desk_demo.customer_load_30min]
+* **Total Deviation Cost:** 786,366 JPY at imbalance prices [tepco_retail_desk_demo.imbalance_30min]
+
+---
+
+### Worst Performing Customer: Kanagawa Cold Chain (C-0051)
+**Kanagawa Cold Chain** accounts for the vast majority of all portfolio deviation costs [tepco_retail_desk_demo.customers]:
+
+* **Deviation Band:** +/- 5% [tepco_retail_desk_demo.customers]
+* **Breach Rate:** 35.8% (320 breach slots out of 895 evaluated) [tepco_retail_desk_demo.customer_load_30min]
+* **Excess Energy:** 21.81 MWh [tepco_retail_desk_demo.customer_load_30min]
+* **Deviation Cost:** 647,479 JPY [tepco_retail_desk_demo.imbalance_30min]
+* **Share of Total Portfolio Cost:** 82.3% [tepco_retail_desk_demo.imbalance_30min]
+* **Breach Timing Pattern:** Breaches are heavily concentrated in afternoon hours, spiking drastically during hours 13:00-18:00:
+  * Hour 10 (10:00-11:00): 23.7% breach rate
+  * Hour 11 (11:00-12:00): 28.9% breach rate
+  * Hour 12 (12:00-13:00): 42.1% breach rate
+  * Hour 13 (13:00-14:00): 76.3% breach rate
+  * Hour 14 (14:00-15:00): 94.7% breach rate (peak)
+  * Hour 15 (15:00-16:00): 94.6% breach rate
+  * Hour 16 (16:00-17:00): 88.9% breach rate
+  * Hour 17 (17:00-18:00): 86.1% breach rate
+  * Hour 18 (18:00-19:00): 80.6% breach rate
+  * Hour 19 (19:00-20:00): 58.3% breach rate
+
+---
+
+### Other Top Customers by Deviation Cost
+
+| Customer Name | Customer ID | Band % | Breach Slots | Breach Rate | Excess MWh | Cost (JPY) |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| **Mito Sensor Fab** | C-0019 | 5% | 5 | 0.6% | 1.04 MWh | 19,060 JPY |
+| **Honjo Power Chips** | C-0016 | 5% | 6 | 0.7% | 0.60 MWh | 10,414 JPY |
+| **Fuchu Cold Chain** | C-0055 | 5% | 8 | 0.9% | 0.37 MWh | 8,463 JPY |
+| **Iruma Office Park** | C-0099 | 5% | 9 | 1.0% | 0.27 MWh | 6,478 JPY |
+| **Tsuchiura General Hospital** | C-0212 | 5% | 8 | 0.9% | 0.25 MWh | 6,210 JPY |
+| **Misato Office Park** | C-0108 | 5% | 9 | 1.0% | 0.24 MWh | 5,357 JPY |
+| **Hanno College of Science** | C-0218 | 5% | 10 | 1.1% | 0.22 MWh | 4,925 JPY |
+
+[tepco_retail_desk_demo.customer_load_30min, tepco_retail_desk_demo.customers, tepco_retail_desk_demo.imbalance_30min]","id=None args={'from_date': '2026-08-01', 'to_date': '2026-08-19'} name='get_deviation_breaches' partial_args=None will_continue=None","id='call_3103283' args={'from_date': '2026-08-01', 'to_date': '2026-08-19'} name='get_deviation_breaches' partial_args=None will_continue=None"

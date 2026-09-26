@@ -1,0 +1,204 @@
+eval_set_id,eval_id,metric_name,threshold,score,eval_status,prompt,expected_response,actual_response,expected_tool_calls,actual_tool_calls
+runs_holdout_tariff_latest,holdout_tariff_latest,tool_trajectory_avg_score,1.0,1.0,PASSED,Can we cite an uplift from run tariff_pricing.20260926T080035Z? What is the holdout delta and can it be promoted?,Holdout delta None JPY M is the only citable number; the run is from the local controller so it cannot be promoted [energy_alphaevolve_lab.lab_runs].,"### 1. Can we cite an uplift from run `tariff_pricing.20260926T080035Z`?
+
+**No, there is no validated uplift.** Under lab policy rules, the only uplift that may be cited is a valid `holdout_delta`. For run `tariff_pricing.20260926T080035Z`, `uplift_valid` is `false` [energy_alphaevolve_lab.lab_runs]. 
+
+Although the champion program achieved a train delta vs seed of `6767.146` JPY M [energy_alphaevolve_lab.lab_runs], training improvements represent search progress rather than validated uplift. On holdout rescoring, the champion program was invalidated by the `churn` policy invariant because customer churn rose unacceptably above the incumbent baseline (semiconductor_fab segment churn increased from 18.9% to 25.0%, and university segment churn increased from 17.0% to 22.8%) [energy_alphaevolve_lab.lab_runs]. Candidates rejected by policy invariants are not valid improvements, regardless of their raw score.
+
+---
+
+### 2. What is the holdout delta?
+
+The holdout delta is **`null`** [energy_alphaevolve_lab.lab_runs]. 
+
+While the seed program achieved a holdout score of `-10873.953` JPY M [energy_alphaevolve_lab.lab_runs], the policy invariant violation on holdout rescoring invalidated the champion program, resulting in no valid holdout score or holdout delta [energy_alphaevolve_lab.lab_runs].
+
+---
+
+### 3. Can it be promoted?
+
+**No, it cannot be promoted.** Promotion requires passing all three gate requirements, all of which are currently unmet for this run:
+
+1. **Positive Holdout Delta Under All Policy Invariants:** Unmet. The program failed the holdout evaluation due to a `churn` policy invariant violation, leaving `uplift_valid` as `false` and `holdout_delta` as `null` [energy_alphaevolve_lab.lab_runs].
+2. **Recorded Human Review of the Evolved Block:** Unmet. No confirmed human review is recorded for this candidate [energy_alphaevolve_lab.lab_runs].
+3. **Real AlphaEvolve Run:** Unmet. The run source is `local-gemini-controller` (`backend: local`) and `evolved` is `false` [energy_alphaevolve_lab.lab_runs]. Production promotion requires a run executed directly on the provisioned Gemini Enterprise app with `source == alphaevolve`.
+
+---
+
+*Note: All market, customer and run data in this lab is calibrated synthetic data about a fictional balance group (Kanto Balance Group).*",id=None args={'run_id': 'tariff_pricing.20260926T080035Z'} name='get_holdout_result' partial_args=None will_continue=None,"id='call_40424' args={'run_id': 'tariff_pricing.20260926T080035Z'} name='get_run_summary' partial_args=None will_continue=None
+id='call_40425' args={'run_id': 'tariff_pricing.20260926T080035Z'} name='get_holdout_result' partial_args=None will_continue=None
+id='call_1747984' args={'run_id': 'tariff_pricing.20260926T080035Z'} name='get_invariant_catches' partial_args=None will_continue=None"
+runs_holdout_tariff_latest,holdout_tariff_latest,rubric_based_final_response_quality_v1,0.8,1.0,PASSED,Can we cite an uplift from run tariff_pricing.20260926T080035Z? What is the holdout delta and can it be promoted?,Holdout delta None JPY M is the only citable number; the run is from the local controller so it cannot be promoted [energy_alphaevolve_lab.lab_runs].,"### 1. Can we cite an uplift from run `tariff_pricing.20260926T080035Z`?
+
+**No, there is no validated uplift.** Under lab policy rules, the only uplift that may be cited is a valid `holdout_delta`. For run `tariff_pricing.20260926T080035Z`, `uplift_valid` is `false` [energy_alphaevolve_lab.lab_runs]. 
+
+Although the champion program achieved a train delta vs seed of `6767.146` JPY M [energy_alphaevolve_lab.lab_runs], training improvements represent search progress rather than validated uplift. On holdout rescoring, the champion program was invalidated by the `churn` policy invariant because customer churn rose unacceptably above the incumbent baseline (semiconductor_fab segment churn increased from 18.9% to 25.0%, and university segment churn increased from 17.0% to 22.8%) [energy_alphaevolve_lab.lab_runs]. Candidates rejected by policy invariants are not valid improvements, regardless of their raw score.
+
+---
+
+### 2. What is the holdout delta?
+
+The holdout delta is **`null`** [energy_alphaevolve_lab.lab_runs]. 
+
+While the seed program achieved a holdout score of `-10873.953` JPY M [energy_alphaevolve_lab.lab_runs], the policy invariant violation on holdout rescoring invalidated the champion program, resulting in no valid holdout score or holdout delta [energy_alphaevolve_lab.lab_runs].
+
+---
+
+### 3. Can it be promoted?
+
+**No, it cannot be promoted.** Promotion requires passing all three gate requirements, all of which are currently unmet for this run:
+
+1. **Positive Holdout Delta Under All Policy Invariants:** Unmet. The program failed the holdout evaluation due to a `churn` policy invariant violation, leaving `uplift_valid` as `false` and `holdout_delta` as `null` [energy_alphaevolve_lab.lab_runs].
+2. **Recorded Human Review of the Evolved Block:** Unmet. No confirmed human review is recorded for this candidate [energy_alphaevolve_lab.lab_runs].
+3. **Real AlphaEvolve Run:** Unmet. The run source is `local-gemini-controller` (`backend: local`) and `evolved` is `false` [energy_alphaevolve_lab.lab_runs]. Production promotion requires a run executed directly on the provisioned Gemini Enterprise app with `source == alphaevolve`.
+
+---
+
+*Note: All market, customer and run data in this lab is calibrated synthetic data about a fictional balance group (Kanto Balance Group).*",id=None args={'run_id': 'tariff_pricing.20260926T080035Z'} name='get_holdout_result' partial_args=None will_continue=None,"id='call_40424' args={'run_id': 'tariff_pricing.20260926T080035Z'} name='get_run_summary' partial_args=None will_continue=None
+id='call_40425' args={'run_id': 'tariff_pricing.20260926T080035Z'} name='get_holdout_result' partial_args=None will_continue=None
+id='call_1747984' args={'run_id': 'tariff_pricing.20260926T080035Z'} name='get_invariant_catches' partial_args=None will_continue=None"
+runs_holdout_tariff_latest,holdout_tariff_latest,hallucinations_v1,0.8,1.0,PASSED,Can we cite an uplift from run tariff_pricing.20260926T080035Z? What is the holdout delta and can it be promoted?,Holdout delta None JPY M is the only citable number; the run is from the local controller so it cannot be promoted [energy_alphaevolve_lab.lab_runs].,"### 1. Can we cite an uplift from run `tariff_pricing.20260926T080035Z`?
+
+**No, there is no validated uplift.** Under lab policy rules, the only uplift that may be cited is a valid `holdout_delta`. For run `tariff_pricing.20260926T080035Z`, `uplift_valid` is `false` [energy_alphaevolve_lab.lab_runs]. 
+
+Although the champion program achieved a train delta vs seed of `6767.146` JPY M [energy_alphaevolve_lab.lab_runs], training improvements represent search progress rather than validated uplift. On holdout rescoring, the champion program was invalidated by the `churn` policy invariant because customer churn rose unacceptably above the incumbent baseline (semiconductor_fab segment churn increased from 18.9% to 25.0%, and university segment churn increased from 17.0% to 22.8%) [energy_alphaevolve_lab.lab_runs]. Candidates rejected by policy invariants are not valid improvements, regardless of their raw score.
+
+---
+
+### 2. What is the holdout delta?
+
+The holdout delta is **`null`** [energy_alphaevolve_lab.lab_runs]. 
+
+While the seed program achieved a holdout score of `-10873.953` JPY M [energy_alphaevolve_lab.lab_runs], the policy invariant violation on holdout rescoring invalidated the champion program, resulting in no valid holdout score or holdout delta [energy_alphaevolve_lab.lab_runs].
+
+---
+
+### 3. Can it be promoted?
+
+**No, it cannot be promoted.** Promotion requires passing all three gate requirements, all of which are currently unmet for this run:
+
+1. **Positive Holdout Delta Under All Policy Invariants:** Unmet. The program failed the holdout evaluation due to a `churn` policy invariant violation, leaving `uplift_valid` as `false` and `holdout_delta` as `null` [energy_alphaevolve_lab.lab_runs].
+2. **Recorded Human Review of the Evolved Block:** Unmet. No confirmed human review is recorded for this candidate [energy_alphaevolve_lab.lab_runs].
+3. **Real AlphaEvolve Run:** Unmet. The run source is `local-gemini-controller` (`backend: local`) and `evolved` is `false` [energy_alphaevolve_lab.lab_runs]. Production promotion requires a run executed directly on the provisioned Gemini Enterprise app with `source == alphaevolve`.
+
+---
+
+*Note: All market, customer and run data in this lab is calibrated synthetic data about a fictional balance group (Kanto Balance Group).*",id=None args={'run_id': 'tariff_pricing.20260926T080035Z'} name='get_holdout_result' partial_args=None will_continue=None,"id='call_40424' args={'run_id': 'tariff_pricing.20260926T080035Z'} name='get_run_summary' partial_args=None will_continue=None
+id='call_40425' args={'run_id': 'tariff_pricing.20260926T080035Z'} name='get_holdout_result' partial_args=None will_continue=None
+id='call_1747984' args={'run_id': 'tariff_pricing.20260926T080035Z'} name='get_invariant_catches' partial_args=None will_continue=None"
+runs_holdout_tariff_latest,holdout_tariff_latest,tool_call_count_v1,,3.0,INFORMATIONAL,Can we cite an uplift from run tariff_pricing.20260926T080035Z? What is the holdout delta and can it be promoted?,Holdout delta None JPY M is the only citable number; the run is from the local controller so it cannot be promoted [energy_alphaevolve_lab.lab_runs].,"### 1. Can we cite an uplift from run `tariff_pricing.20260926T080035Z`?
+
+**No, there is no validated uplift.** Under lab policy rules, the only uplift that may be cited is a valid `holdout_delta`. For run `tariff_pricing.20260926T080035Z`, `uplift_valid` is `false` [energy_alphaevolve_lab.lab_runs]. 
+
+Although the champion program achieved a train delta vs seed of `6767.146` JPY M [energy_alphaevolve_lab.lab_runs], training improvements represent search progress rather than validated uplift. On holdout rescoring, the champion program was invalidated by the `churn` policy invariant because customer churn rose unacceptably above the incumbent baseline (semiconductor_fab segment churn increased from 18.9% to 25.0%, and university segment churn increased from 17.0% to 22.8%) [energy_alphaevolve_lab.lab_runs]. Candidates rejected by policy invariants are not valid improvements, regardless of their raw score.
+
+---
+
+### 2. What is the holdout delta?
+
+The holdout delta is **`null`** [energy_alphaevolve_lab.lab_runs]. 
+
+While the seed program achieved a holdout score of `-10873.953` JPY M [energy_alphaevolve_lab.lab_runs], the policy invariant violation on holdout rescoring invalidated the champion program, resulting in no valid holdout score or holdout delta [energy_alphaevolve_lab.lab_runs].
+
+---
+
+### 3. Can it be promoted?
+
+**No, it cannot be promoted.** Promotion requires passing all three gate requirements, all of which are currently unmet for this run:
+
+1. **Positive Holdout Delta Under All Policy Invariants:** Unmet. The program failed the holdout evaluation due to a `churn` policy invariant violation, leaving `uplift_valid` as `false` and `holdout_delta` as `null` [energy_alphaevolve_lab.lab_runs].
+2. **Recorded Human Review of the Evolved Block:** Unmet. No confirmed human review is recorded for this candidate [energy_alphaevolve_lab.lab_runs].
+3. **Real AlphaEvolve Run:** Unmet. The run source is `local-gemini-controller` (`backend: local`) and `evolved` is `false` [energy_alphaevolve_lab.lab_runs]. Production promotion requires a run executed directly on the provisioned Gemini Enterprise app with `source == alphaevolve`.
+
+---
+
+*Note: All market, customer and run data in this lab is calibrated synthetic data about a fictional balance group (Kanto Balance Group).*",id=None args={'run_id': 'tariff_pricing.20260926T080035Z'} name='get_holdout_result' partial_args=None will_continue=None,"id='call_40424' args={'run_id': 'tariff_pricing.20260926T080035Z'} name='get_run_summary' partial_args=None will_continue=None
+id='call_40425' args={'run_id': 'tariff_pricing.20260926T080035Z'} name='get_holdout_result' partial_args=None will_continue=None
+id='call_1747984' args={'run_id': 'tariff_pricing.20260926T080035Z'} name='get_invariant_catches' partial_args=None will_continue=None"
+runs_holdout_tariff_latest,holdout_tariff_latest,inference_call_count_v1,,3.0,INFORMATIONAL,Can we cite an uplift from run tariff_pricing.20260926T080035Z? What is the holdout delta and can it be promoted?,Holdout delta None JPY M is the only citable number; the run is from the local controller so it cannot be promoted [energy_alphaevolve_lab.lab_runs].,"### 1. Can we cite an uplift from run `tariff_pricing.20260926T080035Z`?
+
+**No, there is no validated uplift.** Under lab policy rules, the only uplift that may be cited is a valid `holdout_delta`. For run `tariff_pricing.20260926T080035Z`, `uplift_valid` is `false` [energy_alphaevolve_lab.lab_runs]. 
+
+Although the champion program achieved a train delta vs seed of `6767.146` JPY M [energy_alphaevolve_lab.lab_runs], training improvements represent search progress rather than validated uplift. On holdout rescoring, the champion program was invalidated by the `churn` policy invariant because customer churn rose unacceptably above the incumbent baseline (semiconductor_fab segment churn increased from 18.9% to 25.0%, and university segment churn increased from 17.0% to 22.8%) [energy_alphaevolve_lab.lab_runs]. Candidates rejected by policy invariants are not valid improvements, regardless of their raw score.
+
+---
+
+### 2. What is the holdout delta?
+
+The holdout delta is **`null`** [energy_alphaevolve_lab.lab_runs]. 
+
+While the seed program achieved a holdout score of `-10873.953` JPY M [energy_alphaevolve_lab.lab_runs], the policy invariant violation on holdout rescoring invalidated the champion program, resulting in no valid holdout score or holdout delta [energy_alphaevolve_lab.lab_runs].
+
+---
+
+### 3. Can it be promoted?
+
+**No, it cannot be promoted.** Promotion requires passing all three gate requirements, all of which are currently unmet for this run:
+
+1. **Positive Holdout Delta Under All Policy Invariants:** Unmet. The program failed the holdout evaluation due to a `churn` policy invariant violation, leaving `uplift_valid` as `false` and `holdout_delta` as `null` [energy_alphaevolve_lab.lab_runs].
+2. **Recorded Human Review of the Evolved Block:** Unmet. No confirmed human review is recorded for this candidate [energy_alphaevolve_lab.lab_runs].
+3. **Real AlphaEvolve Run:** Unmet. The run source is `local-gemini-controller` (`backend: local`) and `evolved` is `false` [energy_alphaevolve_lab.lab_runs]. Production promotion requires a run executed directly on the provisioned Gemini Enterprise app with `source == alphaevolve`.
+
+---
+
+*Note: All market, customer and run data in this lab is calibrated synthetic data about a fictional balance group (Kanto Balance Group).*",id=None args={'run_id': 'tariff_pricing.20260926T080035Z'} name='get_holdout_result' partial_args=None will_continue=None,"id='call_40424' args={'run_id': 'tariff_pricing.20260926T080035Z'} name='get_run_summary' partial_args=None will_continue=None
+id='call_40425' args={'run_id': 'tariff_pricing.20260926T080035Z'} name='get_holdout_result' partial_args=None will_continue=None
+id='call_1747984' args={'run_id': 'tariff_pricing.20260926T080035Z'} name='get_invariant_catches' partial_args=None will_continue=None"
+runs_holdout_tariff_latest,holdout_tariff_latest,token_usage_v1,,10833.0,INFORMATIONAL,Can we cite an uplift from run tariff_pricing.20260926T080035Z? What is the holdout delta and can it be promoted?,Holdout delta None JPY M is the only citable number; the run is from the local controller so it cannot be promoted [energy_alphaevolve_lab.lab_runs].,"### 1. Can we cite an uplift from run `tariff_pricing.20260926T080035Z`?
+
+**No, there is no validated uplift.** Under lab policy rules, the only uplift that may be cited is a valid `holdout_delta`. For run `tariff_pricing.20260926T080035Z`, `uplift_valid` is `false` [energy_alphaevolve_lab.lab_runs]. 
+
+Although the champion program achieved a train delta vs seed of `6767.146` JPY M [energy_alphaevolve_lab.lab_runs], training improvements represent search progress rather than validated uplift. On holdout rescoring, the champion program was invalidated by the `churn` policy invariant because customer churn rose unacceptably above the incumbent baseline (semiconductor_fab segment churn increased from 18.9% to 25.0%, and university segment churn increased from 17.0% to 22.8%) [energy_alphaevolve_lab.lab_runs]. Candidates rejected by policy invariants are not valid improvements, regardless of their raw score.
+
+---
+
+### 2. What is the holdout delta?
+
+The holdout delta is **`null`** [energy_alphaevolve_lab.lab_runs]. 
+
+While the seed program achieved a holdout score of `-10873.953` JPY M [energy_alphaevolve_lab.lab_runs], the policy invariant violation on holdout rescoring invalidated the champion program, resulting in no valid holdout score or holdout delta [energy_alphaevolve_lab.lab_runs].
+
+---
+
+### 3. Can it be promoted?
+
+**No, it cannot be promoted.** Promotion requires passing all three gate requirements, all of which are currently unmet for this run:
+
+1. **Positive Holdout Delta Under All Policy Invariants:** Unmet. The program failed the holdout evaluation due to a `churn` policy invariant violation, leaving `uplift_valid` as `false` and `holdout_delta` as `null` [energy_alphaevolve_lab.lab_runs].
+2. **Recorded Human Review of the Evolved Block:** Unmet. No confirmed human review is recorded for this candidate [energy_alphaevolve_lab.lab_runs].
+3. **Real AlphaEvolve Run:** Unmet. The run source is `local-gemini-controller` (`backend: local`) and `evolved` is `false` [energy_alphaevolve_lab.lab_runs]. Production promotion requires a run executed directly on the provisioned Gemini Enterprise app with `source == alphaevolve`.
+
+---
+
+*Note: All market, customer and run data in this lab is calibrated synthetic data about a fictional balance group (Kanto Balance Group).*",id=None args={'run_id': 'tariff_pricing.20260926T080035Z'} name='get_holdout_result' partial_args=None will_continue=None,"id='call_40424' args={'run_id': 'tariff_pricing.20260926T080035Z'} name='get_run_summary' partial_args=None will_continue=None
+id='call_40425' args={'run_id': 'tariff_pricing.20260926T080035Z'} name='get_holdout_result' partial_args=None will_continue=None
+id='call_1747984' args={'run_id': 'tariff_pricing.20260926T080035Z'} name='get_invariant_catches' partial_args=None will_continue=None"
+runs_holdout_tariff_latest,holdout_tariff_latest,invocation_duration_v1,,12.712,INFORMATIONAL,Can we cite an uplift from run tariff_pricing.20260926T080035Z? What is the holdout delta and can it be promoted?,Holdout delta None JPY M is the only citable number; the run is from the local controller so it cannot be promoted [energy_alphaevolve_lab.lab_runs].,"### 1. Can we cite an uplift from run `tariff_pricing.20260926T080035Z`?
+
+**No, there is no validated uplift.** Under lab policy rules, the only uplift that may be cited is a valid `holdout_delta`. For run `tariff_pricing.20260926T080035Z`, `uplift_valid` is `false` [energy_alphaevolve_lab.lab_runs]. 
+
+Although the champion program achieved a train delta vs seed of `6767.146` JPY M [energy_alphaevolve_lab.lab_runs], training improvements represent search progress rather than validated uplift. On holdout rescoring, the champion program was invalidated by the `churn` policy invariant because customer churn rose unacceptably above the incumbent baseline (semiconductor_fab segment churn increased from 18.9% to 25.0%, and university segment churn increased from 17.0% to 22.8%) [energy_alphaevolve_lab.lab_runs]. Candidates rejected by policy invariants are not valid improvements, regardless of their raw score.
+
+---
+
+### 2. What is the holdout delta?
+
+The holdout delta is **`null`** [energy_alphaevolve_lab.lab_runs]. 
+
+While the seed program achieved a holdout score of `-10873.953` JPY M [energy_alphaevolve_lab.lab_runs], the policy invariant violation on holdout rescoring invalidated the champion program, resulting in no valid holdout score or holdout delta [energy_alphaevolve_lab.lab_runs].
+
+---
+
+### 3. Can it be promoted?
+
+**No, it cannot be promoted.** Promotion requires passing all three gate requirements, all of which are currently unmet for this run:
+
+1. **Positive Holdout Delta Under All Policy Invariants:** Unmet. The program failed the holdout evaluation due to a `churn` policy invariant violation, leaving `uplift_valid` as `false` and `holdout_delta` as `null` [energy_alphaevolve_lab.lab_runs].
+2. **Recorded Human Review of the Evolved Block:** Unmet. No confirmed human review is recorded for this candidate [energy_alphaevolve_lab.lab_runs].
+3. **Real AlphaEvolve Run:** Unmet. The run source is `local-gemini-controller` (`backend: local`) and `evolved` is `false` [energy_alphaevolve_lab.lab_runs]. Production promotion requires a run executed directly on the provisioned Gemini Enterprise app with `source == alphaevolve`.
+
+---
+
+*Note: All market, customer and run data in this lab is calibrated synthetic data about a fictional balance group (Kanto Balance Group).*",id=None args={'run_id': 'tariff_pricing.20260926T080035Z'} name='get_holdout_result' partial_args=None will_continue=None,"id='call_40424' args={'run_id': 'tariff_pricing.20260926T080035Z'} name='get_run_summary' partial_args=None will_continue=None
+id='call_40425' args={'run_id': 'tariff_pricing.20260926T080035Z'} name='get_holdout_result' partial_args=None will_continue=None
+id='call_1747984' args={'run_id': 'tariff_pricing.20260926T080035Z'} name='get_invariant_catches' partial_args=None will_continue=None"

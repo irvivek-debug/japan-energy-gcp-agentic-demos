@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="820" height="360" viewBox="0 0 820 360" font-family="Inter, sans-serif">
+<rect width="820" height="360" fill="#131313"/>
+<text x="64" y="24" fill="#e4e2e1" font-size="15" font-weight="600">FY2025 hour-of-day mean price: synthetic (solid) vs MARKET_FACTS 1.4 (dashed)</text>
+<line x1="64" y1="40.0" x2="650" y2="40.0" stroke="#2a2f38"/>
+<text x="56" y="44.0" fill="#a0a3a8" font-size="11" text-anchor="end">20.0</text>
+<line x1="64" y1="94.4" x2="650" y2="94.4" stroke="#2a2f38"/>
+<text x="56" y="98.4" fill="#a0a3a8" font-size="11" text-anchor="end">17.2</text>
+<line x1="64" y1="148.8" x2="650" y2="148.8" stroke="#2a2f38"/>
+<text x="56" y="152.8" fill="#a0a3a8" font-size="11" text-anchor="end">14.4</text>
+<line x1="64" y1="203.2" x2="650" y2="203.2" stroke="#2a2f38"/>
+<text x="56" y="207.2" fill="#a0a3a8" font-size="11" text-anchor="end">11.6</text>
+<line x1="64" y1="257.6" x2="650" y2="257.6" stroke="#2a2f38"/>
+<text x="56" y="261.6" fill="#a0a3a8" font-size="11" text-anchor="end">8.8</text>
+<line x1="64" y1="312.0" x2="650" y2="312.0" stroke="#2a2f38"/>
+<text x="56" y="316.0" fill="#a0a3a8" font-size="11" text-anchor="end">6.0</text>
+<text x="64.0" y="330" fill="#a0a3a8" font-size="11" text-anchor="middle">0</text>
+<text x="181.2" y="330" fill="#a0a3a8" font-size="11" text-anchor="middle">5</text>
+<text x="298.4" y="330" fill="#a0a3a8" font-size="11" text-anchor="middle">9</text>
+<text x="415.6" y="330" fill="#a0a3a8" font-size="11" text-anchor="middle">14</text>
+<text x="532.8" y="330" fill="#a0a3a8" font-size="11" text-anchor="middle">18</text>
+<text x="650.0" y="330" fill="#a0a3a8" font-size="11" text-anchor="middle">23</text>
+<text x="357.0" y="352" fill="#a0a3a8" font-size="12" text-anchor="middle">hour of day (JST)</text>
+<text x="14" y="176.0" fill="#a0a3a8" font-size="12" transform="rotate(-90 14 176.0)" text-anchor="middle">JPY/kWh</text>
+<polyline points="64.0,182.6 89.5,187.7 115.0,186.2 140.4,184.7 165.9,181.6 191.4,178.3 216.9,178.9 242.3,197.1 267.8,212.1 293.3,214.7 318.8,249.7 344.3,264.5 369.7,275.9 395.2,255.7 420.7,234.9 446.2,192.7 471.7,159.7 497.1,134.2 522.6,118.2 548.1,123.7 573.6,135.7 599.0,145.5 624.5,150.8 650.0,169.9" fill="none" stroke="#7fd1c7" stroke-width="2"/>
+<line x1="662" y1="52" x2="684" y2="52" stroke="#7fd1c7" stroke-width="2"/>
+<text x="690" y="56" fill="#e4e2e1" font-size="11">spring synthetic</text>
+<polyline points="64.0,185.7 89.5,189.6 115.0,189.6 140.4,185.7 165.9,181.8 191.4,177.9 216.9,179.9 242.3,199.3 267.8,214.9 293.3,218.7 318.8,244.0 344.3,257.6 369.7,271.2 395.2,245.9 420.7,226.5 446.2,199.3 471.7,164.3 497.1,137.1 522.6,117.7 548.1,125.5 573.6,139.1 599.0,150.7 624.5,154.6 650.0,172.1" fill="none" stroke="#e0a458" stroke-width="2" stroke-dasharray="5 4"/>
+<line x1="662" y1="72" x2="684" y2="72" stroke="#e0a458" stroke-width="2" stroke-dasharray="5 4"/>
+<text x="690" y="76" fill="#e4e2e1" font-size="11">spring MARKET_FACTS</text>
+<polyline points="64.0,206.6 89.5,215.0 115.0,218.1 140.4,216.9 165.9,216.2 191.4,218.9 216.9,223.9 242.3,223.6 267.8,218.9 293.3,200.3 318.8,196.6 344.3,190.4 369.7,196.1 395.2,159.4 420.7,134.7 446.2,110.8 471.7,72.6 497.1,59.4 522.6,67.2 548.1,95.9 573.6,131.7 599.0,161.4 624.5,175.0 650.0,195.6" fill="none" stroke="#a7caed" stroke-width="2"/>
+<line x1="662" y1="92" x2="684" y2="92" stroke="#a7caed" stroke-width="2"/>
+<text x="690" y="96" fill="#e4e2e1" font-size="11">summer synthetic</text>
+<polyline points="64.0,201.3 89.5,209.0 115.0,211.0 140.4,211.0 165.9,211.0 191.4,212.9 216.9,218.7 242.3,220.7 267.8,220.7 293.3,201.3 318.8,205.1 344.3,197.4 369.7,209.0 395.2,162.4 420.7,139.1 446.2,117.7 471.7,73.0 497.1,69.1 522.6,73.0 548.1,96.3 573.6,125.5 599.0,158.5 624.5,168.2 650.0,191.5" fill="none" stroke="#c792ea" stroke-width="2" stroke-dasharray="5 4"/>
+<line x1="662" y1="112" x2="684" y2="112" stroke="#c792ea" stroke-width="2" stroke-dasharray="5 4"/>
+<text x="690" y="116" fill="#e4e2e1" font-size="11">summer MARKET_FACTS</text>
+<polyline points="64.0,207.0 89.5,212.5 115.0,213.8 140.4,210.3 165.9,205.0 191.4,196.5 216.9,186.7 242.3,198.2 267.8,209.2 293.3,211.4 318.8,220.6 344.3,223.2 369.7,229.3 395.2,213.6 420.7,192.4 446.2,157.8 471.7,116.4 497.1,115.4 522.6,121.6 548.1,131.1 573.6,145.9 599.0,172.0 624.5,186.7 650.0,198.5" fill="none" stroke="#ff8a80" stroke-width="2"/>
+<line x1="662" y1="132" x2="684" y2="132" stroke="#ff8a80" stroke-width="2"/>
+<text x="690" y="136" fill="#e4e2e1" font-size="11">autumn synthetic</text>
+<polyline points="64.0,207.1 89.5,212.9 115.0,212.9 140.4,209.0 165.9,207.1 191.4,201.3 216.9,183.8 242.3,195.4 267.8,209.0 293.3,209.0 318.8,218.7 344.3,222.6 369.7,232.3 395.2,209.0 420.7,189.6 446.2,156.6 471.7,109.9 497.1,115.8 522.6,127.4 548.1,137.1 573.6,148.8 599.0,176.0 624.5,185.7 650.0,201.3" fill="none" stroke="#7fd1c7" stroke-width="2" stroke-dasharray="5 4"/>
+<line x1="662" y1="152" x2="684" y2="152" stroke="#7fd1c7" stroke-width="2" stroke-dasharray="5 4"/>
+<text x="690" y="156" fill="#e4e2e1" font-size="11">autumn MARKET_FACTS</text>
+<polyline points="64.0,228.3 89.5,230.6 115.0,228.8 140.4,227.3 165.9,230.7 191.4,223.3 216.9,189.7 242.3,162.3 267.8,172.5 293.3,200.0 318.8,224.4 344.3,244.2 369.7,252.3 395.2,246.0 420.7,237.3 446.2,216.1 471.7,171.9 497.1,147.6 522.6,147.9 548.1,158.6 573.6,170.0 599.0,187.1 624.5,202.7 650.0,219.0" fill="none" stroke="#e0a458" stroke-width="2"/>
+<line x1="662" y1="172" x2="684" y2="172" stroke="#e0a458" stroke-width="2"/>
+<text x="690" y="176" fill="#e4e2e1" font-size="11">winter synthetic</text>
+<polyline points="64.0,224.6 89.5,226.5 115.0,226.5 140.4,228.5 165.9,226.5 191.4,220.7 216.9,187.7 242.3,158.5 267.8,177.9 293.3,205.1 318.8,230.4 344.3,247.9 369.7,257.6 395.2,247.9 420.7,238.2 446.2,214.9 471.7,170.2 497.1,152.7 522.6,156.6 548.1,166.3 573.6,170.2 599.0,183.8 624.5,197.4 650.0,214.9" fill="none" stroke="#a7caed" stroke-width="2" stroke-dasharray="5 4"/>
+<line x1="662" y1="192" x2="684" y2="192" stroke="#a7caed" stroke-width="2" stroke-dasharray="5 4"/>
+<text x="690" y="196" fill="#e4e2e1" font-size="11">winter MARKET_FACTS</text>
+</svg>

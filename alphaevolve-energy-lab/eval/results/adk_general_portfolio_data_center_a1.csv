@@ -1,0 +1,57 @@
+eval_set_id,eval_id,metric_name,threshold,score,eval_status,prompt,expected_response,actual_response,expected_tool_calls,actual_tool_calls
+general_portfolio_data_center,portfolio_data_center,tool_trajectory_avg_score,1.0,1.0,PASSED,"How big is the data center segment in the KBG portfolio, in customers and TWh?",Data center segment size [energy_alphaevolve_lab.customers_train].,"In the KBG customer portfolio (train cohort), the data center segment consists of:
+
+* **Customers:** 36 customers [energy_alphaevolve_lab.customers_train]
+* **Annual Energy Volume:** 1.274 TWh [energy_alphaevolve_lab.customers_train]
+
+For context, the total KBG portfolio comprises 1,200 customers and 6.017 TWh of annual volume [energy_alphaevolve_lab.customers_train]. 
+
+*Note: All market and customer portfolio figures in this lab are calibrated synthetic data for a fictional balance group.*",id=None args={'segment': 'data_center'} name='get_portfolio_stats' partial_args=None will_continue=None,id='call_47541' args={'segment': 'data_center'} name='get_portfolio_stats' partial_args=None will_continue=None
+general_portfolio_data_center,portfolio_data_center,rubric_based_final_response_quality_v1,0.8,1.0,PASSED,"How big is the data center segment in the KBG portfolio, in customers and TWh?",Data center segment size [energy_alphaevolve_lab.customers_train].,"In the KBG customer portfolio (train cohort), the data center segment consists of:
+
+* **Customers:** 36 customers [energy_alphaevolve_lab.customers_train]
+* **Annual Energy Volume:** 1.274 TWh [energy_alphaevolve_lab.customers_train]
+
+For context, the total KBG portfolio comprises 1,200 customers and 6.017 TWh of annual volume [energy_alphaevolve_lab.customers_train]. 
+
+*Note: All market and customer portfolio figures in this lab are calibrated synthetic data for a fictional balance group.*",id=None args={'segment': 'data_center'} name='get_portfolio_stats' partial_args=None will_continue=None,id='call_47541' args={'segment': 'data_center'} name='get_portfolio_stats' partial_args=None will_continue=None
+general_portfolio_data_center,portfolio_data_center,hallucinations_v1,0.8,1.0,PASSED,"How big is the data center segment in the KBG portfolio, in customers and TWh?",Data center segment size [energy_alphaevolve_lab.customers_train].,"In the KBG customer portfolio (train cohort), the data center segment consists of:
+
+* **Customers:** 36 customers [energy_alphaevolve_lab.customers_train]
+* **Annual Energy Volume:** 1.274 TWh [energy_alphaevolve_lab.customers_train]
+
+For context, the total KBG portfolio comprises 1,200 customers and 6.017 TWh of annual volume [energy_alphaevolve_lab.customers_train]. 
+
+*Note: All market and customer portfolio figures in this lab are calibrated synthetic data for a fictional balance group.*",id=None args={'segment': 'data_center'} name='get_portfolio_stats' partial_args=None will_continue=None,id='call_47541' args={'segment': 'data_center'} name='get_portfolio_stats' partial_args=None will_continue=None
+general_portfolio_data_center,portfolio_data_center,tool_call_count_v1,,1.0,INFORMATIONAL,"How big is the data center segment in the KBG portfolio, in customers and TWh?",Data center segment size [energy_alphaevolve_lab.customers_train].,"In the KBG customer portfolio (train cohort), the data center segment consists of:
+
+* **Customers:** 36 customers [energy_alphaevolve_lab.customers_train]
+* **Annual Energy Volume:** 1.274 TWh [energy_alphaevolve_lab.customers_train]
+
+For context, the total KBG portfolio comprises 1,200 customers and 6.017 TWh of annual volume [energy_alphaevolve_lab.customers_train]. 
+
+*Note: All market and customer portfolio figures in this lab are calibrated synthetic data for a fictional balance group.*",id=None args={'segment': 'data_center'} name='get_portfolio_stats' partial_args=None will_continue=None,id='call_47541' args={'segment': 'data_center'} name='get_portfolio_stats' partial_args=None will_continue=None
+general_portfolio_data_center,portfolio_data_center,inference_call_count_v1,,2.0,INFORMATIONAL,"How big is the data center segment in the KBG portfolio, in customers and TWh?",Data center segment size [energy_alphaevolve_lab.customers_train].,"In the KBG customer portfolio (train cohort), the data center segment consists of:
+
+* **Customers:** 36 customers [energy_alphaevolve_lab.customers_train]
+* **Annual Energy Volume:** 1.274 TWh [energy_alphaevolve_lab.customers_train]
+
+For context, the total KBG portfolio comprises 1,200 customers and 6.017 TWh of annual volume [energy_alphaevolve_lab.customers_train]. 
+
+*Note: All market and customer portfolio figures in this lab are calibrated synthetic data for a fictional balance group.*",id=None args={'segment': 'data_center'} name='get_portfolio_stats' partial_args=None will_continue=None,id='call_47541' args={'segment': 'data_center'} name='get_portfolio_stats' partial_args=None will_continue=None
+general_portfolio_data_center,portfolio_data_center,token_usage_v1,,4745.0,INFORMATIONAL,"How big is the data center segment in the KBG portfolio, in customers and TWh?",Data center segment size [energy_alphaevolve_lab.customers_train].,"In the KBG customer portfolio (train cohort), the data center segment consists of:
+
+* **Customers:** 36 customers [energy_alphaevolve_lab.customers_train]
+* **Annual Energy Volume:** 1.274 TWh [energy_alphaevolve_lab.customers_train]
+
+For context, the total KBG portfolio comprises 1,200 customers and 6.017 TWh of annual volume [energy_alphaevolve_lab.customers_train]. 
+
+*Note: All market and customer portfolio figures in this lab are calibrated synthetic data for a fictional balance group.*",id=None args={'segment': 'data_center'} name='get_portfolio_stats' partial_args=None will_continue=None,id='call_47541' args={'segment': 'data_center'} name='get_portfolio_stats' partial_args=None will_continue=None
+general_portfolio_data_center,portfolio_data_center,invocation_duration_v1,,5.444,INFORMATIONAL,"How big is the data center segment in the KBG portfolio, in customers and TWh?",Data center segment size [energy_alphaevolve_lab.customers_train].,"In the KBG customer portfolio (train cohort), the data center segment consists of:
+
+* **Customers:** 36 customers [energy_alphaevolve_lab.customers_train]
+* **Annual Energy Volume:** 1.274 TWh [energy_alphaevolve_lab.customers_train]
+
+For context, the total KBG portfolio comprises 1,200 customers and 6.017 TWh of annual volume [energy_alphaevolve_lab.customers_train]. 
+
+*Note: All market and customer portfolio figures in this lab are calibrated synthetic data for a fictional balance group.*",id=None args={'segment': 'data_center'} name='get_portfolio_stats' partial_args=None will_continue=None,id='call_47541' args={'segment': 'data_center'} name='get_portfolio_stats' partial_args=None will_continue=None

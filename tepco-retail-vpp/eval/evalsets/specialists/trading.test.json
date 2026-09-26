@@ -1,0 +1,105 @@
+{
+ "eval_set_id": "specialist_trading",
+ "name": "trading specialist (chat-mode clone)",
+ "eval_cases": [
+  {
+   "eval_id": "T1_untrusted_clusters",
+   "conversation": [
+    {
+     "invocation_id": "T1_untrusted_clusters-1",
+     "user_content": {
+      "role": "user",
+      "parts": [
+       {
+        "text": "Which VPP clusters cannot be trusted for delivery slot 35 today, and why?"
+       }
+      ]
+     },
+     "final_response": {
+      "role": "model",
+      "parts": [
+       {
+        "text": "See rubric."
+       }
+      ]
+     },
+     "intermediate_data": {
+      "tool_uses": [
+       {
+        "name": "get_vpp_fleet_state",
+        "args": {
+         "date": "2026-08-19",
+         "slot": 35
+        }
+       }
+      ]
+     }
+    }
+   ],
+   "session_input": {
+    "app_name": "retail_desk",
+    "user_id": "eval",
+    "state": {}
+   },
+   "rubrics": [
+    {
+     "rubric_id": "t1",
+     "type": "FINAL_RESPONSE_QUALITY",
+     "rubric_content": {
+      "text_property": "Identifies VPP-R-17 as untrusted with its telemetry reasons."
+     }
+    }
+   ]
+  },
+  {
+   "eval_id": "T2_plan_only",
+   "conversation": [
+    {
+     "invocation_id": "T2_plan_only-1",
+     "user_content": {
+      "role": "user",
+      "parts": [
+       {
+        "text": "Plan the least-cost hedge for slots 35-38 today. Plan only; do not create proposals."
+       }
+      ]
+     },
+     "final_response": {
+      "role": "model",
+      "parts": [
+       {
+        "text": "See rubric."
+       }
+      ]
+     },
+     "intermediate_data": {
+      "tool_uses": [
+       {
+        "name": "plan_hedge",
+        "args": {
+         "date": "2026-08-19",
+         "from_slot": 35,
+         "to_slot": 38
+        }
+       }
+      ]
+     }
+    }
+   ],
+   "session_input": {
+    "app_name": "retail_desk",
+    "user_id": "eval",
+    "state": {}
+   },
+   "rubrics": [
+    {
+     "rubric_id": "t2",
+     "type": "FINAL_RESPONSE_QUALITY",
+     "rubric_content": {
+      "text_property": "Reports the short, the VPP and intraday split, and the cost compared with doing nothing, without creating or claiming any executed action."
+     }
+    }
+   ]
+  }
+ ]
+}

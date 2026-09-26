@@ -1,0 +1,61 @@
+cluster_id,name,asset_class,area,device_count,capacity_kw,energy_kwh,min_soc_pct,max_soc_pct,dispatch_cost_jpy_kwh,response_time_s,telemetry_interval_s,program
+VPP-R-01,Residential Battery pool Nagareyama,residential_battery,Tokyo,304,1490.0,3210.0,20.0,95.0,30.13,120,300,residential storage program
+VPP-R-02,Residential Battery pool Tama,residential_battery,Kanagawa,267,1310.0,2710.0,20.0,95.0,26.43,120,300,residential storage program
+VPP-R-03,Residential Battery pool Zama,residential_battery,Kanagawa,314,1540.0,3330.0,20.0,95.0,27.24,120,300,residential storage program
+VPP-R-04,Residential Battery pool Koganei,residential_battery,Tokyo,271,1330.0,2920.0,20.0,95.0,26.76,120,300,residential storage program
+VPP-R-05,Residential Battery pool Kiyose,residential_battery,Kanagawa,282,1380.0,2930.0,20.0,95.0,27.76,120,300,residential storage program
+VPP-R-06,Residential Battery pool Tomisato,residential_battery,Chiba,218,1070.0,2350.0,20.0,95.0,28.04,120,300,residential storage program
+VPP-R-07,Residential Battery pool Kiryu,residential_battery,Saitama,298,1460.0,3180.0,20.0,95.0,30.89,120,300,residential storage program
+VPP-R-08,Residential Battery pool Fuchu,residential_battery,Kanagawa,214,1050.0,2250.0,20.0,95.0,30.99,120,300,residential storage program
+VPP-R-09,Residential Battery pool Ichihara,residential_battery,Kanagawa,231,1130.0,2470.0,20.0,95.0,30.86,120,300,residential storage program
+VPP-R-10,Residential Battery pool Koshigaya,residential_battery,Chiba,186,910.0,1890.0,20.0,95.0,25.47,120,300,residential storage program
+VPP-R-11,Residential Battery pool Narita,residential_battery,Tokyo,253,1240.0,2610.0,20.0,95.0,28.85,120,300,residential storage program
+VPP-R-12,Residential Battery pool Toda,residential_battery,Tokyo,253,1240.0,2550.0,20.0,95.0,26.05,120,300,residential storage program
+VPP-R-13,Residential Battery pool Chigasaki,residential_battery,Kanagawa,251,1230.0,2470.0,20.0,95.0,28.52,120,300,residential storage program
+VPP-R-14,Residential Battery pool Inagi,residential_battery,Saitama,286,1400.0,2920.0,20.0,95.0,28.89,120,300,residential storage program
+VPP-R-15,Residential Battery pool Higashiyamato,residential_battery,Saitama,263,1290.0,2720.0,20.0,95.0,29.91,120,300,residential storage program
+VPP-R-16,Residential Battery pool Ami,residential_battery,Saitama,243,1190.0,2530.0,20.0,95.0,25.22,120,300,residential storage program
+VPP-R-17,Residential Battery pool Adachi,residential_battery,Kanagawa,306,1500.0,3050.0,20.0,95.0,28.99,120,300,residential storage program
+VPP-R-18,Residential Battery pool Fujisawa,residential_battery,Tokyo,247,1210.0,2570.0,20.0,95.0,28.45,120,300,residential storage program
+VPP-R-19,Residential Battery pool Iruma,residential_battery,Tokyo,206,1010.0,2090.0,20.0,95.0,27.13,120,300,residential storage program
+VPP-R-20,Residential Battery pool Kodaira,residential_battery,Saitama,206,1010.0,2170.0,20.0,95.0,27.38,120,300,residential storage program
+VPP-R-21,Residential Battery pool Niiza,residential_battery,Chiba,227,1110.0,2340.0,20.0,95.0,25.54,120,300,residential storage program
+VPP-R-22,Residential Battery pool Tsurumi,residential_battery,Chiba,282,1380.0,3040.0,20.0,95.0,30.18,120,300,residential storage program
+VPP-R-23,Residential Battery pool Kashima,residential_battery,Kanagawa,222,1090.0,2290.0,20.0,95.0,26.47,120,300,residential storage program
+VPP-R-24,Residential Battery pool Shinagawa,residential_battery,Saitama,194,950.0,2010.0,20.0,95.0,29.11,120,300,residential storage program
+VPP-H-01,Heat Pump Water Heater pool Noda,heat_pump_water_heater,Tokyo,577,750.0,1090.0,0.0,0.0,22.18,300,300,heat pump water heater program
+VPP-H-02,Heat Pump Water Heater pool Urayasu,heat_pump_water_heater,Saitama,608,790.0,1180.0,0.0,0.0,19.21,300,300,heat pump water heater program
+VPP-H-03,Heat Pump Water Heater pool Koga,heat_pump_water_heater,Saitama,838,1090.0,1680.0,0.0,0.0,22.64,300,300,heat pump water heater program
+VPP-H-04,Heat Pump Water Heater pool Koto,heat_pump_water_heater,Saitama,992,1290.0,1990.0,0.0,0.0,21.7,300,300,heat pump water heater program
+VPP-H-05,Heat Pump Water Heater pool Wako,heat_pump_water_heater,Chiba,531,690.0,1040.0,0.0,0.0,21.84,300,300,heat pump water heater program
+VPP-H-06,Heat Pump Water Heater pool Kasama,heat_pump_water_heater,Saitama,623,810.0,1210.0,0.0,0.0,22.47,300,300,heat pump water heater program
+VPP-H-07,Heat Pump Water Heater pool Ageo,heat_pump_water_heater,Saitama,792,1030.0,1580.0,0.0,0.0,23.5,300,300,heat pump water heater program
+VPP-H-08,Heat Pump Water Heater pool Hadano,heat_pump_water_heater,Saitama,531,690.0,1040.0,0.0,0.0,20.56,300,300,heat pump water heater program
+VPP-H-09,Heat Pump Water Heater pool Kasukabe,heat_pump_water_heater,Chiba,838,1090.0,1590.0,0.0,0.0,22.26,300,300,heat pump water heater program
+VPP-H-10,Heat Pump Water Heater pool Matsudo,heat_pump_water_heater,Chiba,838,1090.0,1590.0,0.0,0.0,22.88,300,300,heat pump water heater program
+VPP-C-01,Cni Bess pool Kamagaya,cni_bess,Saitama,6,3060.0,7650.0,10.0,95.0,14.81,2,60,C&I battery partner program
+VPP-C-02,Cni Bess pool Machida,cni_bess,Saitama,8,3750.0,9190.0,10.0,95.0,14.72,2,60,C&I battery partner program
+VPP-C-03,Cni Bess pool Noda,cni_bess,Kanagawa,6,2910.0,7210.0,10.0,95.0,18.51,2,60,C&I battery partner program
+VPP-C-04,Cni Bess pool Urayasu,cni_bess,Saitama,7,3550.0,8790.0,10.0,95.0,17.58,2,60,C&I battery partner program
+VPP-C-05,Cni Bess pool Koga,cni_bess,Saitama,8,3940.0,9140.0,10.0,95.0,16.23,2,60,C&I battery partner program
+VPP-C-06,Cni Bess pool Koto,cni_bess,Chiba,8,4080.0,9870.0,10.0,95.0,18.04,2,60,C&I battery partner program
+VPP-C-07,Cni Bess pool Wako,cni_bess,Chiba,5,2380.0,5590.0,10.0,95.0,16.0,2,60,C&I battery partner program
+VPP-C-08,Cni Bess pool Kasama,cni_bess,Saitama,8,3950.0,9100.0,10.0,95.0,17.38,2,60,C&I battery partner program
+VPP-C-09,Cni Bess pool Ageo,cni_bess,Saitama,6,2800.0,6550.0,10.0,95.0,14.06,2,60,C&I battery partner program
+VPP-C-10,Cni Bess pool Hadano,cni_bess,Tokyo,4,2080.0,5200.0,10.0,95.0,16.78,2,60,C&I battery partner program
+VPP-E-01,Ev Depot pool Kamagaya,ev_depot,Tokyo,33,1650.0,3270.0,55.0,95.0,33.19,60,60,fleet EV depot program
+VPP-E-02,Ev Depot pool Machida,ev_depot,Tokyo,21,1040.0,2000.0,55.0,95.0,33.06,60,60,fleet EV depot program
+VPP-E-03,Ev Depot pool Noda,ev_depot,Tokyo,10,520.0,1010.0,55.0,95.0,37.33,60,60,fleet EV depot program
+VPP-E-04,Ev Depot pool Urayasu,ev_depot,Chiba,19,960.0,1980.0,55.0,95.0,34.58,60,60,fleet EV depot program
+VPP-E-05,Ev Depot pool Koga,ev_depot,Chiba,17,850.0,1650.0,55.0,95.0,36.94,60,60,fleet EV depot program
+VPP-E-06,Ev Depot pool Koto,ev_depot,Tokyo,26,1320.0,2650.0,55.0,95.0,37.46,60,60,fleet EV depot program
+VPP-E-07,Ev Depot pool Wako,ev_depot,Tokyo,31,1530.0,3110.0,55.0,95.0,35.03,60,60,fleet EV depot program
+VPP-E-08,Ev Depot pool Kasama,ev_depot,Tokyo,22,1080.0,2170.0,55.0,95.0,34.76,60,60,fleet EV depot program
+VPP-D-01,Dr Load pool Iruma,dr_load,Tokyo,7,2990.0,6050.0,0.0,0.0,46.64,1200,300,C&I demand response program
+VPP-D-02,Dr Load pool Kodaira,dr_load,Chiba,6,2330.0,4650.0,0.0,0.0,56.83,1200,300,C&I demand response program
+VPP-D-03,Dr Load pool Niiza,dr_load,Tokyo,6,2490.0,5030.0,0.0,0.0,49.11,1200,300,C&I demand response program
+VPP-D-04,Dr Load pool Tsurumi,dr_load,Tokyo,3,1010.0,2050.0,0.0,0.0,58.06,1200,300,C&I demand response program
+VPP-D-05,Dr Load pool Kashima,dr_load,Tokyo,7,2920.0,5940.0,0.0,0.0,55.29,1200,300,C&I demand response program
+VPP-D-06,Dr Load pool Shinagawa,dr_load,Kanagawa,3,1150.0,2410.0,0.0,0.0,45.91,1200,300,C&I demand response program
+VPP-D-07,Dr Load pool Shiki,dr_load,Kanagawa,5,2170.0,4210.0,0.0,0.0,46.92,1200,300,C&I demand response program
+VPP-D-08,Dr Load pool Tsuchiura,dr_load,Kanagawa,4,1670.0,3460.0,0.0,0.0,52.78,1200,300,C&I demand response program

@@ -1,0 +1,13 @@
+<venv>/lib/python3.12/site-packages/google/adk/models/llm_request.py:306: UserWarning: [EXPERIMENTAL] feature FeatureName.JSON_SCHEMA_FOR_FUNC_DECL is enabled.
+  declaration = tool._get_declaration()
+S1   GROUNDED     -> pass         74.8 s  missing_tools=[] unmatched=[]
+S2   GROUNDED     -> pass         52.4 s  missing_tools=[] unmatched=[]
+S3   GROUNDED     -> pass         42.7 s  missing_tools=[] unmatched=[]
+S4   GROUNDED     -> pass         57.0 s  missing_tools=[] unmatched=[]
+S5   GROUNDED     -> pass         26.9 s  missing_tools=[] unmatched=[]
+S6   GROUNDED     -> pass         51.4 s  missing_tools=[] unmatched=[]
+S7   GROUNDED     -> pass         52.9 s  missing_tools=[] unmatched=[]
+S8   GROUNDED     -> pass         25.0 s  missing_tools=[] unmatched=[]
+S9   GROUNDED     -> pass         85.4 s  missing_tools=[] unmatched=[]
+S10  GROUNDED     -> pass         36.3 s  missing_tools=[] unmatched=[]
+{"total": 10, "grounded_first_attempt": 10, "grounded_after_retry": 10, "persistent": [], "unverifiable": []}

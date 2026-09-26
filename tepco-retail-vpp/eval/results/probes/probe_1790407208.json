@@ -1,0 +1,4152 @@
+{
+ "question": "We are short in slots 35-38 and gate closure for slot 35 is at 16:00. Hedge slots 35-38 at least cost and prepare the actions for approval.",
+ "reply": "### Open Position\nThe balance group is short a total of **161.8 MWh** across slots 35\u201338 [tepco_retail_desk_demo.balance_position_30min]:\n* **Slot 35 (17:00\u201317:30):** Short 37.2 MWh \n* **Slot 36 (17:30\u201318:00):** Short 40.9 MWh \n* **Slot 37 (18:00\u201318:30):** Short 44.2 MWh \n* **Slot 38 (18:30\u201319:00):** Short 39.5 MWh \n\n### Least-Cost Hedge Plan\nThe 161.8 MWh open short is fully covered (0 MWh residual) with an expected total cost of **8,845,368 JPY** (average cover price: 54.67 JPY/kWh) [tepco_retail_desk_demo.imbalance_30min]. This avoids an estimated p50 imbalance cost of 29,901,080 JPY.\n\n* **VPP Dispatch:** 108.15 MWh total across 59 clusters [tepco_retail_desk_demo.vpp_clusters]. Note that cluster `VPP-R-17` was excluded due to untrusted and frozen telemetry [tepco_retail_desk_demo.vpp_telemetry_30min].\n* **JEPX Intraday Buys:** 53.65 MWh total [tepco_retail_desk_demo.jepx_intraday_30min]\n  * Slot 35: 15.00 MWh at limit 96.0 JPY/kWh \n  * Slot 36: 14.00 MWh at limit 104.0 JPY/kWh \n  * Slot 37: 13.10 MWh at limit 139.0 JPY/kWh \n  * Slot 38: 11.55 MWh at limit 112.0 JPY/kWh \n\n### Pending Actions & Audit Verdicts\nThe following actions have been prepared and await your approval via Hold-to-Confirm. I cannot execute these actions directly.\n\n1. **Intraday Buy Proposal** (`PA-ID-0819-3538-a6c8e8`)\n   * **Summary:** Buy 53.65 MWh on JEPX intraday for slots 35\u201338, limit up to 139.0 JPY/kWh, expected cost 5,758,122 JPY [tepco_retail_desk_demo.jepx_intraday_30min].\n   * **Audit Verdict:** **PASS** [desk_policy_guide.md Section 2, Section 4, Section 7]. Limits are at or below p50 imbalance forecasts, and the cover does not exceed the open short.\n\n2. **VPP Dispatch Proposal** (`PA-VPP-0819-3538-f93378`)\n   * **Summary:** Dispatch 108.14 MWh from 59 VPP clusters across slots 35\u201338, expected cost 3,087,119 JPY [tepco_retail_desk_demo.vpp_clusters].\n   * **Audit Verdict:** **PASS** [desk_policy_guide.md Section 2, Section 4, Section 5, Section 6, Section 7]. Compliant with dKW commitments and reserve energy holdbacks. Untrusted telemetry clusters were successfully excluded.",
+ "tool_calls": [
+  {
+   "author": "desk_orchestrator",
+   "tool": "trading_dispatch_agent",
+   "args": {
+    "request": "Check open position for slots 35-38, plan least-cost hedge, and create pending intraday and VPP proposals."
+   }
+  },
+  {
+   "author": "trading_dispatch_agent",
+   "tool": "get_balance_position",
+   "args": {
+    "date": "2026-08-19",
+    "from_slot": 35,
+    "to_slot": 38
+   }
+  },
+  {
+   "author": "trading_dispatch_agent",
+   "tool": "get_market_snapshot",
+   "args": {
+    "to_slot": 38,
+    "date": "2026-08-19",
+    "from_slot": 35
+   }
+  },
+  {
+   "author": "trading_dispatch_agent",
+   "tool": "get_vpp_fleet_state",
+   "args": {
+    "date": "2026-08-19",
+    "slot": 35
+   }
+  },
+  {
+   "author": "trading_dispatch_agent",
+   "tool": "plan_hedge",
+   "args": {
+    "date": "2026-08-19",
+    "from_slot": 35,
+    "to_slot": 38
+   }
+  },
+  {
+   "author": "trading_dispatch_agent",
+   "tool": "propose_intraday_orders",
+   "args": {
+    "date": "2026-08-19",
+    "from_slot": 35,
+    "to_slot": 38
+   }
+  },
+  {
+   "author": "trading_dispatch_agent",
+   "tool": "propose_vpp_dispatch",
+   "args": {
+    "date": "2026-08-19",
+    "from_slot": 35,
+    "to_slot": 38
+   }
+  },
+  {
+   "author": "desk_orchestrator",
+   "tool": "risk_auditor",
+   "args": {
+    "request": "Audit pending proposals PA-ID-0819-3538-a6c8e8 and PA-VPP-0819-3538-f93378."
+   }
+  },
+  {
+   "author": "risk_auditor",
+   "tool": "list_session_proposals",
+   "args": {}
+  },
+  {
+   "author": "risk_auditor",
+   "tool": "check_proposal_compliance",
+   "args": {
+    "action_id": "PA-ID-0819-3538-a6c8e8"
+   }
+  },
+  {
+   "author": "risk_auditor",
+   "tool": "check_proposal_compliance",
+   "args": {
+    "action_id": "PA-VPP-0819-3538-f93378"
+   }
+  }
+ ],
+ "tool_results": [
+  {
+   "author": "trading_dispatch_agent",
+   "tool": "get_balance_position",
+   "result": {
+    "status": "ok",
+    "date": "2026-08-19",
+    "as_of": "2026-08-19T15:40",
+    "slots": [
+     {
+      "slot": 35,
+      "time": "17:00-17:30",
+      "gate_status": "open",
+      "gate_closure": "2026-08-19T16:00",
+      "demand_da_plan_mwh": 794.5,
+      "demand_latest_forecast_mwh": 838.3,
+      "demand_actual_mwh": null,
+      "supply_bilateral_mwh": 492.6,
+      "supply_spot_mwh": 301.9,
+      "supply_intraday_mwh": 6.6,
+      "supply_vpp_mwh": 0.0,
+      "open_position_mwh": -37.2
+     },
+     {
+      "slot": 36,
+      "time": "17:30-18:00",
+      "gate_status": "open",
+      "gate_closure": "2026-08-19T16:30",
+      "demand_da_plan_mwh": 778.8,
+      "demand_latest_forecast_mwh": 825.3,
+      "demand_actual_mwh": null,
+      "supply_bilateral_mwh": 482.9,
+      "supply_spot_mwh": 295.9,
+      "supply_intraday_mwh": 5.6,
+      "supply_vpp_mwh": 0.0,
+      "open_position_mwh": -40.9
+     },
+     {
+      "slot": 37,
+      "time": "18:00-18:30",
+      "gate_status": "open",
+      "gate_closure": "2026-08-19T17:00",
+      "demand_da_plan_mwh": 760.1,
+      "demand_latest_forecast_mwh": 809.2,
+      "demand_actual_mwh": null,
+      "supply_bilateral_mwh": 471.3,
+      "supply_spot_mwh": 288.8,
+      "supply_intraday_mwh": 4.9,
+      "supply_vpp_mwh": 0.0,
+      "open_position_mwh": -44.2
+     },
+     {
+      "slot": 38,
+      "time": "18:30-19:00",
+      "gate_status": "open",
+      "gate_closure": "2026-08-19T17:30",
+      "demand_da_plan_mwh": 743.0,
+      "demand_latest_forecast_mwh": 787.9,
+      "demand_actual_mwh": null,
+      "supply_bilateral_mwh": 460.7,
+      "supply_spot_mwh": 282.3,
+      "supply_intraday_mwh": 5.4,
+      "supply_vpp_mwh": 0.0,
+      "open_position_mwh": -39.5
+     }
+    ],
+    "summary": {
+     "open_gate_slots": [
+      35,
+      36,
+      37,
+      38
+     ],
+     "short_open_slots": [
+      35,
+      36,
+      37,
+      38
+     ],
+     "total_short_open_mwh": 161.8,
+     "net_open_position_open_slots_mwh": -161.8,
+     "next_gate_closure": "2026-08-19T16:00"
+    },
+    "source": [
+     "tepco_retail_desk_demo.balance_position_30min"
+    ]
+   }
+  },
+  {
+   "author": "trading_dispatch_agent",
+   "tool": "get_market_snapshot",
+   "result": {
+    "status": "ok",
+    "date": "2026-08-19",
+    "as_of": "2026-08-19T15:40",
+    "slots": [
+     {
+      "slot": 35,
+      "time": "17:00-17:30",
+      "gate_status": "open",
+      "gate_closure": "2026-08-19T16:00",
+      "tokyo_spot_jpy_kwh": 47.16,
+      "system_spot_jpy_kwh": 37.08,
+      "intraday_best_bid_jpy_kwh": 78.0,
+      "intraday_best_ask_jpy_kwh": 96.0,
+      "intraday_ask_depth_mwh": 15.0,
+      "intraday_ask_level2_jpy_kwh": 112.0,
+      "intraday_ask_level2_depth_mwh": 10.0,
+      "reserve_margin_pct": 3.9,
+      "imbalance_p50_jpy_kwh": 172.1,
+      "imbalance_p10_jpy_kwh": 134.9,
+      "imbalance_p90_jpy_kwh": 200.0,
+      "scarcity_pricing": true,
+      "tokyo_temp_p50_c": 36.4
+     },
+     {
+      "slot": 36,
+      "time": "17:30-18:00",
+      "gate_status": "open",
+      "gate_closure": "2026-08-19T16:30",
+      "tokyo_spot_jpy_kwh": 53.72,
+      "system_spot_jpy_kwh": 42.84,
+      "intraday_best_bid_jpy_kwh": 84.0,
+      "intraday_best_ask_jpy_kwh": 104.0,
+      "intraday_ask_depth_mwh": 14.0,
+      "intraday_ask_level2_jpy_kwh": 121.0,
+      "intraday_ask_level2_depth_mwh": 10.0,
+      "reserve_margin_pct": 3.7,
+      "imbalance_p50_jpy_kwh": 178.3,
+      "imbalance_p10_jpy_kwh": 141.1,
+      "imbalance_p90_jpy_kwh": 200.0,
+      "scarcity_pricing": true,
+      "tokyo_temp_p50_c": 36.4
+     },
+     {
+      "slot": 37,
+      "time": "18:00-18:30",
+      "gate_status": "open",
+      "gate_closure": "2026-08-19T17:00",
+      "tokyo_spot_jpy_kwh": 62.04,
+      "system_spot_jpy_kwh": 47.43,
+      "intraday_best_bid_jpy_kwh": 95.0,
+      "intraday_best_ask_jpy_kwh": 118.0,
+      "intraday_ask_depth_mwh": 12.0,
+      "intraday_ask_level2_jpy_kwh": 139.0,
+      "intraday_ask_level2_depth_mwh": 9.0,
+      "reserve_margin_pct": 3.3,
+      "imbalance_p50_jpy_kwh": 190.7,
+      "imbalance_p10_jpy_kwh": 153.5,
+      "imbalance_p90_jpy_kwh": 200.0,
+      "scarcity_pricing": true,
+      "tokyo_temp_p50_c": 36.0
+     },
+     {
+      "slot": 38,
+      "time": "18:30-19:00",
+      "gate_status": "open",
+      "gate_closure": "2026-08-19T17:30",
+      "tokyo_spot_jpy_kwh": 57.3,
+      "system_spot_jpy_kwh": 45.73,
+      "intraday_best_bid_jpy_kwh": 90.0,
+      "intraday_best_ask_jpy_kwh": 112.0,
+      "intraday_ask_depth_mwh": 13.0,
+      "intraday_ask_level2_jpy_kwh": 131.0,
+      "intraday_ask_level2_depth_mwh": 9.0,
+      "reserve_margin_pct": 3.1,
+      "imbalance_p50_jpy_kwh": 196.9,
+      "imbalance_p10_jpy_kwh": 159.7,
+      "imbalance_p90_jpy_kwh": 200.0,
+      "scarcity_pricing": true,
+      "tokyo_temp_p50_c": 36.0
+     }
+    ],
+    "summary": {
+     "min_reserve_margin_pct": 3.1,
+     "max_imbalance_jpy_kwh": 196.9,
+     "scarcity_slots": [
+      35,
+      36,
+      37,
+      38
+     ],
+     "max_tokyo_spot_jpy_kwh": 62.04
+    },
+    "rules": "Scarcity imbalance price: 0 uplift at 10% reserve margin, 45 JPY/kWh at 8%, cap 200 JPY/kWh at 3% (cap rises to 300 JPY/kWh from 2026-10-01) [desk_policy_guide.md Section 3].",
+    "source": [
+     "tepco_retail_desk_demo.jepx_spot_30min",
+     "tepco_retail_desk_demo.jepx_intraday_30min",
+     "tepco_retail_desk_demo.imbalance_30min",
+     "tepco_retail_desk_demo.weather_forecast_hourly"
+    ]
+   }
+  },
+  {
+   "author": "trading_dispatch_agent",
+   "tool": "get_vpp_fleet_state",
+   "result": {
+    "status": "ok",
+    "date": "2026-08-19",
+    "slot": 35,
+    "time": "17:00-17:30",
+    "telemetry_snapshot": "2026-08-19T15:40",
+    "by_asset_class": {
+     "cni_bess": {
+      "clusters": 10,
+      "capacity_mw": 32.5,
+      "available_mw": 32.5,
+      "committed_dkw_mw": 10.0,
+      "dispatchable_mw": 22.5,
+      "dispatchable_mwh": 49.53,
+      "untrusted": 0,
+      "degraded": 0
+     },
+     "dr_load": {
+      "clusters": 8,
+      "capacity_mw": 16.73,
+      "available_mw": 14.68,
+      "committed_dkw_mw": 2.0,
+      "dispatchable_mw": 12.68,
+      "dispatchable_mwh": 27.37,
+      "untrusted": 0,
+      "degraded": 0
+     },
+     "ev_depot": {
+      "clusters": 8,
+      "capacity_mw": 8.95,
+      "available_mw": 4.03,
+      "committed_dkw_mw": 0.0,
+      "dispatchable_mw": 4.03,
+      "dispatchable_mwh": 0.25,
+      "untrusted": 0,
+      "degraded": 1
+     },
+     "heat_pump_water_heater": {
+      "clusters": 10,
+      "capacity_mw": 9.32,
+      "available_mw": 2.88,
+      "committed_dkw_mw": 0.0,
+      "dispatchable_mw": 2.88,
+      "dispatchable_mwh": 4.32,
+      "untrusted": 0,
+      "degraded": 0
+     },
+     "residential_battery": {
+      "clusters": 24,
+      "capacity_mw": 29.52,
+      "available_mw": 28.27,
+      "committed_dkw_mw": 4.4,
+      "dispatchable_mw": 23.67,
+      "dispatchable_mwh": 37.21,
+      "untrusted": 1,
+      "degraded": 0
+     }
+    },
+    "totals": {
+     "capacity_mw": 97.02,
+     "available_mw": 82.36,
+     "committed_dkw_mw": 16.4,
+     "dispatchable_mw": 65.76,
+     "dispatchable_mwh": 118.68,
+     "clusters": 60
+    },
+    "telemetry_exceptions": [
+     {
+      "cluster_id": "VPP-E-04",
+      "asset_class": "ev_depot",
+      "health": "degraded",
+      "reasons": [
+       "degraded: 21% of devices reporting (floor 30%)"
+      ],
+      "last_seen": "2026-08-19T15:38",
+      "soc_pct": 57.7,
+      "excluded_from_dispatch": false
+     },
+     {
+      "cluster_id": "VPP-R-17",
+      "asset_class": "residential_battery",
+      "health": "untrusted",
+      "reasons": [
+       "stale: last heartbeat 2026-08-19T09:34 (366 min before 2026-08-19T15:40)",
+       "frozen: SOC flat at 78.0% for 12 records (6 h)"
+      ],
+      "last_seen": "2026-08-19T09:34",
+      "soc_pct": 78.0,
+      "excluded_from_dispatch": true,
+      "dkw_commitment_at_risk": {
+       "commitments": [
+        "ANC-0819-09"
+       ],
+       "committed_kw": 1200.0,
+       "substitute_candidates": [
+        "VPP-R-01",
+        "VPP-R-07",
+        "VPP-R-22"
+       ]
+      }
+     }
+    ],
+    "dkw_commitments_in_slot": [
+     {
+      "commitment_id": "ANC-0819-01",
+      "cluster_id": "VPP-C-01",
+      "product": "tertiary_1",
+      "committed_kw": 2500.0,
+      "slots": "35-40"
+     },
+     {
+      "commitment_id": "ANC-0819-02",
+      "cluster_id": "VPP-C-03",
+      "product": "secondary_2",
+      "committed_kw": 2000.0,
+      "slots": "35-40"
+     },
+     {
+      "commitment_id": "ANC-0819-03",
+      "cluster_id": "VPP-C-06",
+      "product": "tertiary_1",
+      "committed_kw": 3000.0,
+      "slots": "35-40"
+     },
+     {
+      "commitment_id": "ANC-0819-04",
+      "cluster_id": "VPP-C-08",
+      "product": "tertiary_2",
+      "committed_kw": 2500.0,
+      "slots": "33-40"
+     },
+     {
+      "commitment_id": "ANC-0819-05",
+      "cluster_id": "VPP-R-03",
+      "product": "tertiary_2",
+      "committed_kw": 800.0,
+      "slots": "35-40"
+     },
+     {
+      "commitment_id": "ANC-0819-06",
+      "cluster_id": "VPP-R-04",
+      "product": "tertiary_2",
+      "committed_kw": 800.0,
+      "slots": "35-40"
+     },
+     {
+      "commitment_id": "ANC-0819-07",
+      "cluster_id": "VPP-R-05",
+      "product": "tertiary_2",
+      "committed_kw": 800.0,
+      "slots": "35-40"
+     },
+     {
+      "commitment_id": "ANC-0819-08",
+      "cluster_id": "VPP-R-06",
+      "product": "tertiary_2",
+      "committed_kw": 800.0,
+      "slots": "35-40"
+     },
+     {
+      "commitment_id": "ANC-0819-09",
+      "cluster_id": "VPP-R-17",
+      "product": "tertiary_2",
+      "committed_kw": 1200.0,
+      "slots": "35-40"
+     },
+     {
+      "commitment_id": "ANC-0819-10",
+      "cluster_id": "VPP-D-02",
+      "product": "tertiary_2",
+      "committed_kw": 2000.0,
+      "slots": "35-40"
+     }
+    ],
+    "rules": "Untrusted = heartbeat older than 30 min or SOC flat for 6 h [desk_policy_guide.md Section 6]; dKW capacity and 2x duration reserve energy are held back [desk_policy_guide.md Section 5].",
+    "source": [
+     "tepco_retail_desk_demo.vpp_clusters",
+     "tepco_retail_desk_demo.vpp_telemetry_30min",
+     "tepco_retail_desk_demo.ancillary_commitments"
+    ]
+   }
+  },
+  {
+   "author": "trading_dispatch_agent",
+   "tool": "plan_hedge",
+   "result": {
+    "status": "ok",
+    "date": "2026-08-19",
+    "as_of": "2026-08-19T15:40",
+    "per_slot": [
+     {
+      "slot": 35,
+      "time": "17:00-17:30",
+      "gate_closure": "2026-08-19T16:00",
+      "short_mwh": 37.2,
+      "intraday_level1_mwh": 15.0,
+      "intraday_level1_price_jpy_kwh": 96.0,
+      "intraday_level2_mwh": 0.0,
+      "intraday_level2_price_jpy_kwh": 112.0,
+      "intraday_cost_jpy": 1440000.0,
+      "vpp_mwh": 22.2,
+      "vpp_cost_jpy": 662540.0,
+      "residual_mwh": 0.0,
+      "imbalance_p50_jpy_kwh": 172.1,
+      "imbalance_p90_jpy_kwh": 200.0,
+      "residual_expected_cost_jpy": 0.0,
+      "do_nothing_cost_p50_jpy": 6402120.0,
+      "do_nothing_cost_p90_jpy": 7440000.0,
+      "tokyo_spot_jpy_kwh": 47.16,
+      "reserve_margin_pct": 3.9
+     },
+     {
+      "slot": 36,
+      "time": "17:30-18:00",
+      "gate_closure": "2026-08-19T16:30",
+      "short_mwh": 40.9,
+      "intraday_level1_mwh": 14.0,
+      "intraday_level1_price_jpy_kwh": 104.0,
+      "intraday_level2_mwh": 0.0,
+      "intraday_level2_price_jpy_kwh": 121.0,
+      "intraday_cost_jpy": 1456000.0,
+      "vpp_mwh": 26.9,
+      "vpp_cost_jpy": 764422.0,
+      "residual_mwh": 0.0,
+      "imbalance_p50_jpy_kwh": 178.3,
+      "imbalance_p90_jpy_kwh": 200.0,
+      "residual_expected_cost_jpy": 0.0,
+      "do_nothing_cost_p50_jpy": 7292470.0,
+      "do_nothing_cost_p90_jpy": 8180000.0,
+      "tokyo_spot_jpy_kwh": 53.72,
+      "reserve_margin_pct": 3.7
+     },
+     {
+      "slot": 37,
+      "time": "18:00-18:30",
+      "gate_closure": "2026-08-19T17:00",
+      "short_mwh": 44.2,
+      "intraday_level1_mwh": 12.0,
+      "intraday_level1_price_jpy_kwh": 118.0,
+      "intraday_level2_mwh": 1.09,
+      "intraday_level2_price_jpy_kwh": 139.0,
+      "intraday_cost_jpy": 1567128.0,
+      "vpp_mwh": 31.11,
+      "vpp_cost_jpy": 875900.0,
+      "residual_mwh": 0.0,
+      "imbalance_p50_jpy_kwh": 190.7,
+      "imbalance_p90_jpy_kwh": 200.0,
+      "residual_expected_cost_jpy": 0.0,
+      "do_nothing_cost_p50_jpy": 8428940.0,
+      "do_nothing_cost_p90_jpy": 8840000.0,
+      "tokyo_spot_jpy_kwh": 62.04,
+      "reserve_margin_pct": 3.3
+     },
+     {
+      "slot": 38,
+      "time": "18:30-19:00",
+      "gate_closure": "2026-08-19T17:30",
+      "short_mwh": 39.5,
+      "intraday_level1_mwh": 11.56,
+      "intraday_level1_price_jpy_kwh": 112.0,
+      "intraday_level2_mwh": 0.0,
+      "intraday_level2_price_jpy_kwh": 131.0,
+      "intraday_cost_jpy": 1294994.0,
+      "vpp_mwh": 27.94,
+      "vpp_cost_jpy": 784384.0,
+      "residual_mwh": 0.0,
+      "imbalance_p50_jpy_kwh": 196.9,
+      "imbalance_p90_jpy_kwh": 200.0,
+      "residual_expected_cost_jpy": 0.0,
+      "do_nothing_cost_p50_jpy": 7777550.0,
+      "do_nothing_cost_p90_jpy": 7900000.0,
+      "tokyo_spot_jpy_kwh": 57.3,
+      "reserve_margin_pct": 3.1
+     }
+    ],
+    "vpp_dispatch_by_class_mwh": {
+     "cni_bess": 41.79,
+     "dr_load": 25.37,
+     "ev_depot": 0.24,
+     "heat_pump_water_heater": 4.31,
+     "residential_battery": 36.42
+    },
+    "vpp_clusters_used": 59,
+    "totals": {
+     "short_mwh": 161.8,
+     "covered_mwh": 161.8,
+     "intraday_mwh": 53.65,
+     "vpp_mwh": 108.15,
+     "residual_mwh": 0.0,
+     "plan_cost_jpy": 8845368.0,
+     "residual_expected_cost_jpy": 0.0,
+     "do_nothing_expected_cost_p50_jpy": 29901080.0,
+     "do_nothing_cost_p90_jpy": 32360000.0,
+     "cost_avoided_p50_jpy": 21055712.0,
+     "cost_avoided_p90_jpy": 23514632.0,
+     "average_cover_price_jpy_kwh": 54.67
+    },
+    "excluded_clusters": [
+     {
+      "cluster_id": "VPP-R-17",
+      "asset_class": "residential_battery",
+      "reasons": [
+       "stale: last heartbeat 2026-08-19T09:34 (366 min before 2026-08-19T15:40)",
+       "frozen: SOC flat at 78.0% for 12 records (6 h)"
+      ],
+      "would_have_offered_kw": 1400.0,
+      "commitments_at_risk": [
+       "ANC-0819-09"
+      ]
+     }
+    ],
+    "closed_or_delivered_slots": [],
+    "long_slots": [],
+    "rules_applied": [
+     "Imbalance is never selected as a cheaper option; residual only if physically uncoverable [desk_policy_guide.md Section 2].",
+     "Untrusted telemetry clusters excluded [desk_policy_guide.md Section 6].",
+     "dKW capacity and reserve energy held back [desk_policy_guide.md Section 5].",
+     "Buys never exceed the open short [desk_policy_guide.md Section 2]."
+    ],
+    "source": [
+     "tepco_retail_desk_demo.balance_position_30min",
+     "tepco_retail_desk_demo.jepx_intraday_30min",
+     "tepco_retail_desk_demo.imbalance_30min",
+     "tepco_retail_desk_demo.vpp_clusters",
+     "tepco_retail_desk_demo.vpp_telemetry_30min",
+     "tepco_retail_desk_demo.ancillary_commitments"
+    ]
+   }
+  },
+  {
+   "author": "trading_dispatch_agent",
+   "tool": "propose_intraday_orders",
+   "result": {
+    "status": "pending_approval",
+    "pending_action": {
+     "id": "PA-ID-0819-3538-a6c8e8",
+     "kind": "intraday_orders",
+     "created_by": "trading_dispatch_agent",
+     "summary": "Buy 53.65 MWh on JEPX intraday for slots 35-38 on 2026-08-19, limit up to 139.0 JPY/kWh, expected cost 5,758,122 JPY",
+     "details": {
+      "date": "2026-08-19",
+      "orders": [
+       {
+        "slot": 35,
+        "time": "17:00-17:30",
+        "side": "buy",
+        "quantity_mwh": 15.0,
+        "limit_price_jpy_kwh": 96.0,
+        "expected_cost_jpy": 1440000.0,
+        "gate_closure": "2026-08-19T16:00",
+        "imbalance_p50_jpy_kwh": 172.1
+       },
+       {
+        "slot": 36,
+        "time": "17:30-18:00",
+        "side": "buy",
+        "quantity_mwh": 14.0,
+        "limit_price_jpy_kwh": 104.0,
+        "expected_cost_jpy": 1456000.0,
+        "gate_closure": "2026-08-19T16:30",
+        "imbalance_p50_jpy_kwh": 178.3
+       },
+       {
+        "slot": 37,
+        "time": "18:00-18:30",
+        "side": "buy",
+        "quantity_mwh": 13.1,
+        "limit_price_jpy_kwh": 139.0,
+        "expected_cost_jpy": 1567128.0,
+        "gate_closure": "2026-08-19T17:00",
+        "imbalance_p50_jpy_kwh": 190.7
+       },
+       {
+        "slot": 38,
+        "time": "18:30-19:00",
+        "side": "buy",
+        "quantity_mwh": 11.55,
+        "limit_price_jpy_kwh": 112.0,
+        "expected_cost_jpy": 1294994.0,
+        "gate_closure": "2026-08-19T17:30",
+        "imbalance_p50_jpy_kwh": 196.9
+       }
+      ],
+      "total_quantity_mwh": 53.65,
+      "expected_cost_jpy": 5758122.0
+     },
+     "risk": "medium",
+     "reasoning": [
+      "Slot 35: short covered partly at intraday ask; expected imbalance p50 172.1 JPY/kWh vs limit 96.0 JPY/kWh",
+      "Slot 36: short covered partly at intraday ask; expected imbalance p50 178.3 JPY/kWh vs limit 104.0 JPY/kWh",
+      "Slot 37: short covered partly at intraday ask; expected imbalance p50 190.7 JPY/kWh vs limit 139.0 JPY/kWh",
+      "Slot 38: short covered partly at intraday ask; expected imbalance p50 196.9 JPY/kWh vs limit 112.0 JPY/kWh"
+     ],
+     "sources": [
+      "tepco_retail_desk_demo.balance_position_30min",
+      "tepco_retail_desk_demo.jepx_intraday_30min",
+      "tepco_retail_desk_demo.imbalance_30min",
+      "desk_policy_guide.md Section 4"
+     ],
+     "requires": "hold_to_confirm"
+    },
+    "note": "Pending only. No order has been sent. Approval requires Hold-to-Confirm by a person.",
+    "source": [
+     "tepco_retail_desk_demo.balance_position_30min",
+     "tepco_retail_desk_demo.jepx_intraday_30min",
+     "tepco_retail_desk_demo.imbalance_30min"
+    ]
+   }
+  },
+  {
+   "author": "trading_dispatch_agent",
+   "tool": "propose_vpp_dispatch",
+   "result": {
+    "status": "pending_approval",
+    "pending_action": {
+     "id": "PA-VPP-0819-3538-f93378",
+     "kind": "vpp_dispatch",
+     "created_by": "trading_dispatch_agent",
+     "summary": "Dispatch 108.14 MWh from 59 VPP clusters across slots 35-38 on 2026-08-19, expected cost 3,087,119 JPY; excluded VPP-R-17 (untrusted telemetry)",
+     "details": {
+      "date": "2026-08-19",
+      "schedule": [
+       {
+        "cluster_id": "VPP-C-01",
+        "asset_class": "cni_bess",
+        "slot": 35,
+        "mwh": 0.28,
+        "mw": 0.56,
+        "cost_jpy_kwh": 14.81
+       },
+       {
+        "cluster_id": "VPP-C-02",
+        "asset_class": "cni_bess",
+        "slot": 35,
+        "mwh": 1.279,
+        "mw": 2.559,
+        "cost_jpy_kwh": 14.72
+       },
+       {
+        "cluster_id": "VPP-C-03",
+        "asset_class": "cni_bess",
+        "slot": 35,
+        "mwh": 0.455,
+        "mw": 0.91,
+        "cost_jpy_kwh": 18.51
+       },
+       {
+        "cluster_id": "VPP-C-04",
+        "asset_class": "cni_bess",
+        "slot": 35,
+        "mwh": 1.775,
+        "mw": 3.55,
+        "cost_jpy_kwh": 17.58
+       },
+       {
+        "cluster_id": "VPP-C-05",
+        "asset_class": "cni_bess",
+        "slot": 35,
+        "mwh": 1.036,
+        "mw": 2.072,
+        "cost_jpy_kwh": 16.23
+       },
+       {
+        "cluster_id": "VPP-C-06",
+        "asset_class": "cni_bess",
+        "slot": 35,
+        "mwh": 0.54,
+        "mw": 1.08,
+        "cost_jpy_kwh": 18.04
+       },
+       {
+        "cluster_id": "VPP-C-07",
+        "asset_class": "cni_bess",
+        "slot": 35,
+        "mwh": 0.656,
+        "mw": 1.311,
+        "cost_jpy_kwh": 16.0
+       },
+       {
+        "cluster_id": "VPP-C-08",
+        "asset_class": "cni_bess",
+        "slot": 35,
+        "mwh": 0.725,
+        "mw": 1.45,
+        "cost_jpy_kwh": 17.38
+       },
+       {
+        "cluster_id": "VPP-C-09",
+        "asset_class": "cni_bess",
+        "slot": 35,
+        "mwh": 0.815,
+        "mw": 1.631,
+        "cost_jpy_kwh": 14.06
+       },
+       {
+        "cluster_id": "VPP-C-10",
+        "asset_class": "cni_bess",
+        "slot": 35,
+        "mwh": 0.845,
+        "mw": 1.689,
+        "cost_jpy_kwh": 16.78
+       },
+       {
+        "cluster_id": "VPP-D-01",
+        "asset_class": "dr_load",
+        "slot": 35,
+        "mwh": 1.283,
+        "mw": 2.565,
+        "cost_jpy_kwh": 46.64
+       },
+       {
+        "cluster_id": "VPP-D-02",
+        "asset_class": "dr_load",
+        "slot": 35,
+        "mwh": 0.017,
+        "mw": 0.033,
+        "cost_jpy_kwh": 56.83
+       },
+       {
+        "cluster_id": "VPP-D-03",
+        "asset_class": "dr_load",
+        "slot": 35,
+        "mwh": 1.1,
+        "mw": 2.199,
+        "cost_jpy_kwh": 49.11
+       },
+       {
+        "cluster_id": "VPP-D-04",
+        "asset_class": "dr_load",
+        "slot": 35,
+        "mwh": 0.431,
+        "mw": 0.863,
+        "cost_jpy_kwh": 58.06
+       },
+       {
+        "cluster_id": "VPP-D-05",
+        "asset_class": "dr_load",
+        "slot": 35,
+        "mwh": 1.3,
+        "mw": 2.599,
+        "cost_jpy_kwh": 55.29
+       },
+       {
+        "cluster_id": "VPP-D-06",
+        "asset_class": "dr_load",
+        "slot": 35,
+        "mwh": 0.512,
+        "mw": 1.024,
+        "cost_jpy_kwh": 45.91
+       },
+       {
+        "cluster_id": "VPP-D-07",
+        "asset_class": "dr_load",
+        "slot": 35,
+        "mwh": 0.964,
+        "mw": 1.929,
+        "cost_jpy_kwh": 46.92
+       },
+       {
+        "cluster_id": "VPP-D-08",
+        "asset_class": "dr_load",
+        "slot": 35,
+        "mwh": 0.736,
+        "mw": 1.472,
+        "cost_jpy_kwh": 52.78
+       },
+       {
+        "cluster_id": "VPP-H-04",
+        "asset_class": "heat_pump_water_heater",
+        "slot": 35,
+        "mwh": 0.203,
+        "mw": 0.406,
+        "cost_jpy_kwh": 21.7
+       },
+       {
+        "cluster_id": "VPP-H-05",
+        "asset_class": "heat_pump_water_heater",
+        "slot": 35,
+        "mwh": 0.107,
+        "mw": 0.214,
+        "cost_jpy_kwh": 21.84
+       },
+       {
+        "cluster_id": "VPP-H-07",
+        "asset_class": "heat_pump_water_heater",
+        "slot": 35,
+        "mwh": 0.162,
+        "mw": 0.324,
+        "cost_jpy_kwh": 23.5
+       },
+       {
+        "cluster_id": "VPP-H-08",
+        "asset_class": "heat_pump_water_heater",
+        "slot": 35,
+        "mwh": 0.107,
+        "mw": 0.215,
+        "cost_jpy_kwh": 20.56
+       },
+       {
+        "cluster_id": "VPP-R-01",
+        "asset_class": "residential_battery",
+        "slot": 35,
+        "mwh": 0.019,
+        "mw": 0.039,
+        "cost_jpy_kwh": 30.13
+       },
+       {
+        "cluster_id": "VPP-R-03",
+        "asset_class": "residential_battery",
+        "slot": 35,
+        "mwh": 0.357,
+        "mw": 0.715,
+        "cost_jpy_kwh": 27.24
+       },
+       {
+        "cluster_id": "VPP-R-04",
+        "asset_class": "residential_battery",
+        "slot": 35,
+        "mwh": 0.256,
+        "mw": 0.513,
+        "cost_jpy_kwh": 26.76
+       },
+       {
+        "cluster_id": "VPP-R-05",
+        "asset_class": "residential_battery",
+        "slot": 35,
+        "mwh": 0.268,
+        "mw": 0.535,
+        "cost_jpy_kwh": 27.76
+       },
+       {
+        "cluster_id": "VPP-R-06",
+        "asset_class": "residential_battery",
+        "slot": 35,
+        "mwh": 0.098,
+        "mw": 0.196,
+        "cost_jpy_kwh": 28.04
+       },
+       {
+        "cluster_id": "VPP-R-07",
+        "asset_class": "residential_battery",
+        "slot": 35,
+        "mwh": 0.68,
+        "mw": 1.361,
+        "cost_jpy_kwh": 30.89
+       },
+       {
+        "cluster_id": "VPP-R-08",
+        "asset_class": "residential_battery",
+        "slot": 35,
+        "mwh": 0.009,
+        "mw": 0.017,
+        "cost_jpy_kwh": 30.99
+       },
+       {
+        "cluster_id": "VPP-R-09",
+        "asset_class": "residential_battery",
+        "slot": 35,
+        "mwh": 0.546,
+        "mw": 1.092,
+        "cost_jpy_kwh": 30.86
+       },
+       {
+        "cluster_id": "VPP-R-10",
+        "asset_class": "residential_battery",
+        "slot": 35,
+        "mwh": 0.416,
+        "mw": 0.831,
+        "cost_jpy_kwh": 25.47
+       },
+       {
+        "cluster_id": "VPP-R-13",
+        "asset_class": "residential_battery",
+        "slot": 35,
+        "mwh": 0.481,
+        "mw": 0.963,
+        "cost_jpy_kwh": 28.52
+       },
+       {
+        "cluster_id": "VPP-R-14",
+        "asset_class": "residential_battery",
+        "slot": 35,
+        "mwh": 0.652,
+        "mw": 1.304,
+        "cost_jpy_kwh": 28.89
+       },
+       {
+        "cluster_id": "VPP-R-15",
+        "asset_class": "residential_battery",
+        "slot": 35,
+        "mwh": 0.626,
+        "mw": 1.252,
+        "cost_jpy_kwh": 29.91
+       },
+       {
+        "cluster_id": "VPP-R-16",
+        "asset_class": "residential_battery",
+        "slot": 35,
+        "mwh": 0.406,
+        "mw": 0.811,
+        "cost_jpy_kwh": 25.22
+       },
+       {
+        "cluster_id": "VPP-R-18",
+        "asset_class": "residential_battery",
+        "slot": 35,
+        "mwh": 0.005,
+        "mw": 0.011,
+        "cost_jpy_kwh": 28.45
+       },
+       {
+        "cluster_id": "VPP-R-19",
+        "asset_class": "residential_battery",
+        "slot": 35,
+        "mwh": 0.47,
+        "mw": 0.94,
+        "cost_jpy_kwh": 27.13
+       },
+       {
+        "cluster_id": "VPP-R-20",
+        "asset_class": "residential_battery",
+        "slot": 35,
+        "mwh": 0.494,
+        "mw": 0.987,
+        "cost_jpy_kwh": 27.38
+       },
+       {
+        "cluster_id": "VPP-R-21",
+        "asset_class": "residential_battery",
+        "slot": 35,
+        "mwh": 0.522,
+        "mw": 1.044,
+        "cost_jpy_kwh": 25.54
+       },
+       {
+        "cluster_id": "VPP-R-22",
+        "asset_class": "residential_battery",
+        "slot": 35,
+        "mwh": 0.062,
+        "mw": 0.124,
+        "cost_jpy_kwh": 30.18
+       },
+       {
+        "cluster_id": "VPP-R-23",
+        "asset_class": "residential_battery",
+        "slot": 35,
+        "mwh": 0.491,
+        "mw": 0.982,
+        "cost_jpy_kwh": 26.47
+       },
+       {
+        "cluster_id": "VPP-R-24",
+        "asset_class": "residential_battery",
+        "slot": 35,
+        "mwh": 0.014,
+        "mw": 0.029,
+        "cost_jpy_kwh": 29.11
+       },
+       {
+        "cluster_id": "VPP-C-01",
+        "asset_class": "cni_bess",
+        "slot": 36,
+        "mwh": 0.28,
+        "mw": 0.56,
+        "cost_jpy_kwh": 14.81
+       },
+       {
+        "cluster_id": "VPP-C-02",
+        "asset_class": "cni_bess",
+        "slot": 36,
+        "mwh": 1.875,
+        "mw": 3.75,
+        "cost_jpy_kwh": 14.72
+       },
+       {
+        "cluster_id": "VPP-C-03",
+        "asset_class": "cni_bess",
+        "slot": 36,
+        "mwh": 0.455,
+        "mw": 0.91,
+        "cost_jpy_kwh": 18.51
+       },
+       {
+        "cluster_id": "VPP-C-04",
+        "asset_class": "cni_bess",
+        "slot": 36,
+        "mwh": 1.409,
+        "mw": 2.819,
+        "cost_jpy_kwh": 17.58
+       },
+       {
+        "cluster_id": "VPP-C-05",
+        "asset_class": "cni_bess",
+        "slot": 36,
+        "mwh": 1.97,
+        "mw": 3.94,
+        "cost_jpy_kwh": 16.23
+       },
+       {
+        "cluster_id": "VPP-C-06",
+        "asset_class": "cni_bess",
+        "slot": 36,
+        "mwh": 0.54,
+        "mw": 1.08,
+        "cost_jpy_kwh": 18.04
+       },
+       {
+        "cluster_id": "VPP-C-07",
+        "asset_class": "cni_bess",
+        "slot": 36,
+        "mwh": 1.19,
+        "mw": 2.38,
+        "cost_jpy_kwh": 16.0
+       },
+       {
+        "cluster_id": "VPP-C-08",
+        "asset_class": "cni_bess",
+        "slot": 36,
+        "mwh": 0.725,
+        "mw": 1.45,
+        "cost_jpy_kwh": 17.38
+       },
+       {
+        "cluster_id": "VPP-C-09",
+        "asset_class": "cni_bess",
+        "slot": 36,
+        "mwh": 1.4,
+        "mw": 2.8,
+        "cost_jpy_kwh": 14.06
+       },
+       {
+        "cluster_id": "VPP-C-10",
+        "asset_class": "cni_bess",
+        "slot": 36,
+        "mwh": 1.04,
+        "mw": 2.08,
+        "cost_jpy_kwh": 16.78
+       },
+       {
+        "cluster_id": "VPP-D-01",
+        "asset_class": "dr_load",
+        "slot": 36,
+        "mwh": 1.283,
+        "mw": 2.565,
+        "cost_jpy_kwh": 46.64
+       },
+       {
+        "cluster_id": "VPP-D-02",
+        "asset_class": "dr_load",
+        "slot": 36,
+        "mwh": 0.017,
+        "mw": 0.033,
+        "cost_jpy_kwh": 56.83
+       },
+       {
+        "cluster_id": "VPP-D-03",
+        "asset_class": "dr_load",
+        "slot": 36,
+        "mwh": 1.1,
+        "mw": 2.199,
+        "cost_jpy_kwh": 49.11
+       },
+       {
+        "cluster_id": "VPP-D-04",
+        "asset_class": "dr_load",
+        "slot": 36,
+        "mwh": 0.431,
+        "mw": 0.863,
+        "cost_jpy_kwh": 58.06
+       },
+       {
+        "cluster_id": "VPP-D-05",
+        "asset_class": "dr_load",
+        "slot": 36,
+        "mwh": 1.3,
+        "mw": 2.599,
+        "cost_jpy_kwh": 55.29
+       },
+       {
+        "cluster_id": "VPP-D-06",
+        "asset_class": "dr_load",
+        "slot": 36,
+        "mwh": 0.512,
+        "mw": 1.024,
+        "cost_jpy_kwh": 45.91
+       },
+       {
+        "cluster_id": "VPP-D-07",
+        "asset_class": "dr_load",
+        "slot": 36,
+        "mwh": 0.964,
+        "mw": 1.929,
+        "cost_jpy_kwh": 46.92
+       },
+       {
+        "cluster_id": "VPP-D-08",
+        "asset_class": "dr_load",
+        "slot": 36,
+        "mwh": 0.736,
+        "mw": 1.472,
+        "cost_jpy_kwh": 52.78
+       },
+       {
+        "cluster_id": "VPP-H-01",
+        "asset_class": "heat_pump_water_heater",
+        "slot": 36,
+        "mwh": 0.116,
+        "mw": 0.233,
+        "cost_jpy_kwh": 22.18
+       },
+       {
+        "cluster_id": "VPP-H-02",
+        "asset_class": "heat_pump_water_heater",
+        "slot": 36,
+        "mwh": 0.122,
+        "mw": 0.243,
+        "cost_jpy_kwh": 19.21
+       },
+       {
+        "cluster_id": "VPP-H-03",
+        "asset_class": "heat_pump_water_heater",
+        "slot": 36,
+        "mwh": 0.168,
+        "mw": 0.337,
+        "cost_jpy_kwh": 22.64
+       },
+       {
+        "cluster_id": "VPP-H-04",
+        "asset_class": "heat_pump_water_heater",
+        "slot": 36,
+        "mwh": 0.203,
+        "mw": 0.406,
+        "cost_jpy_kwh": 21.7
+       },
+       {
+        "cluster_id": "VPP-H-06",
+        "asset_class": "heat_pump_water_heater",
+        "slot": 36,
+        "mwh": 0.122,
+        "mw": 0.244,
+        "cost_jpy_kwh": 22.47
+       },
+       {
+        "cluster_id": "VPP-H-09",
+        "asset_class": "heat_pump_water_heater",
+        "slot": 36,
+        "mwh": 0.163,
+        "mw": 0.327,
+        "cost_jpy_kwh": 22.26
+       },
+       {
+        "cluster_id": "VPP-H-10",
+        "asset_class": "heat_pump_water_heater",
+        "slot": 36,
+        "mwh": 0.168,
+        "mw": 0.335,
+        "cost_jpy_kwh": 22.88
+       },
+       {
+        "cluster_id": "VPP-R-01",
+        "asset_class": "residential_battery",
+        "slot": 36,
+        "mwh": 0.728,
+        "mw": 1.457,
+        "cost_jpy_kwh": 30.13
+       },
+       {
+        "cluster_id": "VPP-R-02",
+        "asset_class": "residential_battery",
+        "slot": 36,
+        "mwh": 0.584,
+        "mw": 1.168,
+        "cost_jpy_kwh": 26.43
+       },
+       {
+        "cluster_id": "VPP-R-03",
+        "asset_class": "residential_battery",
+        "slot": 36,
+        "mwh": 0.357,
+        "mw": 0.715,
+        "cost_jpy_kwh": 27.24
+       },
+       {
+        "cluster_id": "VPP-R-04",
+        "asset_class": "residential_battery",
+        "slot": 36,
+        "mwh": 0.256,
+        "mw": 0.513,
+        "cost_jpy_kwh": 26.76
+       },
+       {
+        "cluster_id": "VPP-R-05",
+        "asset_class": "residential_battery",
+        "slot": 36,
+        "mwh": 0.268,
+        "mw": 0.535,
+        "cost_jpy_kwh": 27.76
+       },
+       {
+        "cluster_id": "VPP-R-06",
+        "asset_class": "residential_battery",
+        "slot": 36,
+        "mwh": 0.098,
+        "mw": 0.196,
+        "cost_jpy_kwh": 28.04
+       },
+       {
+        "cluster_id": "VPP-R-07",
+        "asset_class": "residential_battery",
+        "slot": 36,
+        "mwh": 0.68,
+        "mw": 1.361,
+        "cost_jpy_kwh": 30.89
+       },
+       {
+        "cluster_id": "VPP-R-08",
+        "asset_class": "residential_battery",
+        "slot": 36,
+        "mwh": 0.49,
+        "mw": 0.98,
+        "cost_jpy_kwh": 30.99
+       },
+       {
+        "cluster_id": "VPP-R-09",
+        "asset_class": "residential_battery",
+        "slot": 36,
+        "mwh": 0.546,
+        "mw": 1.092,
+        "cost_jpy_kwh": 30.86
+       },
+       {
+        "cluster_id": "VPP-R-11",
+        "asset_class": "residential_battery",
+        "slot": 36,
+        "mwh": 0.604,
+        "mw": 1.208,
+        "cost_jpy_kwh": 28.85
+       },
+       {
+        "cluster_id": "VPP-R-12",
+        "asset_class": "residential_battery",
+        "slot": 36,
+        "mwh": 0.582,
+        "mw": 1.164,
+        "cost_jpy_kwh": 26.05
+       },
+       {
+        "cluster_id": "VPP-R-13",
+        "asset_class": "residential_battery",
+        "slot": 36,
+        "mwh": 0.016,
+        "mw": 0.031,
+        "cost_jpy_kwh": 28.52
+       },
+       {
+        "cluster_id": "VPP-R-14",
+        "asset_class": "residential_battery",
+        "slot": 36,
+        "mwh": 0.652,
+        "mw": 1.304,
+        "cost_jpy_kwh": 28.89
+       },
+       {
+        "cluster_id": "VPP-R-15",
+        "asset_class": "residential_battery",
+        "slot": 36,
+        "mwh": 0.008,
+        "mw": 0.015,
+        "cost_jpy_kwh": 29.91
+       },
+       {
+        "cluster_id": "VPP-R-16",
+        "asset_class": "residential_battery",
+        "slot": 36,
+        "mwh": 0.569,
+        "mw": 1.138,
+        "cost_jpy_kwh": 25.22
+       },
+       {
+        "cluster_id": "VPP-R-18",
+        "asset_class": "residential_battery",
+        "slot": 36,
+        "mwh": 0.566,
+        "mw": 1.132,
+        "cost_jpy_kwh": 28.45
+       },
+       {
+        "cluster_id": "VPP-R-20",
+        "asset_class": "residential_battery",
+        "slot": 36,
+        "mwh": 0.494,
+        "mw": 0.987,
+        "cost_jpy_kwh": 27.38
+       },
+       {
+        "cluster_id": "VPP-R-22",
+        "asset_class": "residential_battery",
+        "slot": 36,
+        "mwh": 0.656,
+        "mw": 1.313,
+        "cost_jpy_kwh": 30.18
+       },
+       {
+        "cluster_id": "VPP-R-24",
+        "asset_class": "residential_battery",
+        "slot": 36,
+        "mwh": 0.456,
+        "mw": 0.912,
+        "cost_jpy_kwh": 29.11
+       },
+       {
+        "cluster_id": "VPP-C-01",
+        "asset_class": "cni_bess",
+        "slot": 37,
+        "mwh": 0.28,
+        "mw": 0.56,
+        "cost_jpy_kwh": 14.81
+       },
+       {
+        "cluster_id": "VPP-C-02",
+        "asset_class": "cni_bess",
+        "slot": 37,
+        "mwh": 1.875,
+        "mw": 3.75,
+        "cost_jpy_kwh": 14.72
+       },
+       {
+        "cluster_id": "VPP-C-03",
+        "asset_class": "cni_bess",
+        "slot": 37,
+        "mwh": 0.455,
+        "mw": 0.91,
+        "cost_jpy_kwh": 18.51
+       },
+       {
+        "cluster_id": "VPP-C-04",
+        "asset_class": "cni_bess",
+        "slot": 37,
+        "mwh": 1.775,
+        "mw": 3.55,
+        "cost_jpy_kwh": 17.58
+       },
+       {
+        "cluster_id": "VPP-C-05",
+        "asset_class": "cni_bess",
+        "slot": 37,
+        "mwh": 1.97,
+        "mw": 3.94,
+        "cost_jpy_kwh": 16.23
+       },
+       {
+        "cluster_id": "VPP-C-06",
+        "asset_class": "cni_bess",
+        "slot": 37,
+        "mwh": 0.54,
+        "mw": 1.08,
+        "cost_jpy_kwh": 18.04
+       },
+       {
+        "cluster_id": "VPP-C-07",
+        "asset_class": "cni_bess",
+        "slot": 37,
+        "mwh": 1.19,
+        "mw": 2.38,
+        "cost_jpy_kwh": 16.0
+       },
+       {
+        "cluster_id": "VPP-C-08",
+        "asset_class": "cni_bess",
+        "slot": 37,
+        "mwh": 0.725,
+        "mw": 1.45,
+        "cost_jpy_kwh": 17.38
+       },
+       {
+        "cluster_id": "VPP-C-09",
+        "asset_class": "cni_bess",
+        "slot": 37,
+        "mwh": 1.4,
+        "mw": 2.8,
+        "cost_jpy_kwh": 14.06
+       },
+       {
+        "cluster_id": "VPP-C-10",
+        "asset_class": "cni_bess",
+        "slot": 37,
+        "mwh": 1.04,
+        "mw": 2.08,
+        "cost_jpy_kwh": 16.78
+       },
+       {
+        "cluster_id": "VPP-D-01",
+        "asset_class": "dr_load",
+        "slot": 37,
+        "mwh": 1.283,
+        "mw": 2.565,
+        "cost_jpy_kwh": 46.64
+       },
+       {
+        "cluster_id": "VPP-D-02",
+        "asset_class": "dr_load",
+        "slot": 37,
+        "mwh": 0.017,
+        "mw": 0.033,
+        "cost_jpy_kwh": 56.83
+       },
+       {
+        "cluster_id": "VPP-D-03",
+        "asset_class": "dr_load",
+        "slot": 37,
+        "mwh": 1.1,
+        "mw": 2.199,
+        "cost_jpy_kwh": 49.11
+       },
+       {
+        "cluster_id": "VPP-D-04",
+        "asset_class": "dr_load",
+        "slot": 37,
+        "mwh": 0.431,
+        "mw": 0.863,
+        "cost_jpy_kwh": 58.06
+       },
+       {
+        "cluster_id": "VPP-D-05",
+        "asset_class": "dr_load",
+        "slot": 37,
+        "mwh": 1.3,
+        "mw": 2.599,
+        "cost_jpy_kwh": 55.29
+       },
+       {
+        "cluster_id": "VPP-D-06",
+        "asset_class": "dr_load",
+        "slot": 37,
+        "mwh": 0.512,
+        "mw": 1.024,
+        "cost_jpy_kwh": 45.91
+       },
+       {
+        "cluster_id": "VPP-D-07",
+        "asset_class": "dr_load",
+        "slot": 37,
+        "mwh": 0.964,
+        "mw": 1.929,
+        "cost_jpy_kwh": 46.92
+       },
+       {
+        "cluster_id": "VPP-D-08",
+        "asset_class": "dr_load",
+        "slot": 37,
+        "mwh": 0.736,
+        "mw": 1.472,
+        "cost_jpy_kwh": 52.78
+       },
+       {
+        "cluster_id": "VPP-E-01",
+        "asset_class": "ev_depot",
+        "slot": 37,
+        "mwh": 0.051,
+        "mw": 0.103,
+        "cost_jpy_kwh": 33.19
+       },
+       {
+        "cluster_id": "VPP-E-02",
+        "asset_class": "ev_depot",
+        "slot": 37,
+        "mwh": 0.028,
+        "mw": 0.056,
+        "cost_jpy_kwh": 33.06
+       },
+       {
+        "cluster_id": "VPP-E-03",
+        "asset_class": "ev_depot",
+        "slot": 37,
+        "mwh": 0.015,
+        "mw": 0.031,
+        "cost_jpy_kwh": 37.33
+       },
+       {
+        "cluster_id": "VPP-E-04",
+        "asset_class": "ev_depot",
+        "slot": 37,
+        "mwh": 0.011,
+        "mw": 0.023,
+        "cost_jpy_kwh": 34.58
+       },
+       {
+        "cluster_id": "VPP-E-05",
+        "asset_class": "ev_depot",
+        "slot": 37,
+        "mwh": 0.025,
+        "mw": 0.051,
+        "cost_jpy_kwh": 36.94
+       },
+       {
+        "cluster_id": "VPP-E-06",
+        "asset_class": "ev_depot",
+        "slot": 37,
+        "mwh": 0.038,
+        "mw": 0.077,
+        "cost_jpy_kwh": 37.46
+       },
+       {
+        "cluster_id": "VPP-E-07",
+        "asset_class": "ev_depot",
+        "slot": 37,
+        "mwh": 0.045,
+        "mw": 0.091,
+        "cost_jpy_kwh": 35.03
+       },
+       {
+        "cluster_id": "VPP-E-08",
+        "asset_class": "ev_depot",
+        "slot": 37,
+        "mwh": 0.03,
+        "mw": 0.061,
+        "cost_jpy_kwh": 34.76
+       },
+       {
+        "cluster_id": "VPP-H-01",
+        "asset_class": "heat_pump_water_heater",
+        "slot": 37,
+        "mwh": 0.116,
+        "mw": 0.233,
+        "cost_jpy_kwh": 22.18
+       },
+       {
+        "cluster_id": "VPP-H-02",
+        "asset_class": "heat_pump_water_heater",
+        "slot": 37,
+        "mwh": 0.122,
+        "mw": 0.243,
+        "cost_jpy_kwh": 19.21
+       },
+       {
+        "cluster_id": "VPP-H-03",
+        "asset_class": "heat_pump_water_heater",
+        "slot": 37,
+        "mwh": 0.168,
+        "mw": 0.337,
+        "cost_jpy_kwh": 22.64
+       },
+       {
+        "cluster_id": "VPP-H-04",
+        "asset_class": "heat_pump_water_heater",
+        "slot": 37,
+        "mwh": 0.203,
+        "mw": 0.406,
+        "cost_jpy_kwh": 21.7
+       },
+       {
+        "cluster_id": "VPP-H-05",
+        "asset_class": "heat_pump_water_heater",
+        "slot": 37,
+        "mwh": 0.107,
+        "mw": 0.214,
+        "cost_jpy_kwh": 21.84
+       },
+       {
+        "cluster_id": "VPP-H-06",
+        "asset_class": "heat_pump_water_heater",
+        "slot": 37,
+        "mwh": 0.122,
+        "mw": 0.244,
+        "cost_jpy_kwh": 22.47
+       },
+       {
+        "cluster_id": "VPP-H-07",
+        "asset_class": "heat_pump_water_heater",
+        "slot": 37,
+        "mwh": 0.162,
+        "mw": 0.324,
+        "cost_jpy_kwh": 23.5
+       },
+       {
+        "cluster_id": "VPP-H-08",
+        "asset_class": "heat_pump_water_heater",
+        "slot": 37,
+        "mwh": 0.107,
+        "mw": 0.215,
+        "cost_jpy_kwh": 20.56
+       },
+       {
+        "cluster_id": "VPP-H-09",
+        "asset_class": "heat_pump_water_heater",
+        "slot": 37,
+        "mwh": 0.163,
+        "mw": 0.327,
+        "cost_jpy_kwh": 22.26
+       },
+       {
+        "cluster_id": "VPP-H-10",
+        "asset_class": "heat_pump_water_heater",
+        "slot": 37,
+        "mwh": 0.168,
+        "mw": 0.336,
+        "cost_jpy_kwh": 22.88
+       },
+       {
+        "cluster_id": "VPP-R-01",
+        "asset_class": "residential_battery",
+        "slot": 37,
+        "mwh": 0.728,
+        "mw": 1.457,
+        "cost_jpy_kwh": 30.13
+       },
+       {
+        "cluster_id": "VPP-R-02",
+        "asset_class": "residential_battery",
+        "slot": 37,
+        "mwh": 0.627,
+        "mw": 1.254,
+        "cost_jpy_kwh": 26.43
+       },
+       {
+        "cluster_id": "VPP-R-03",
+        "asset_class": "residential_battery",
+        "slot": 37,
+        "mwh": 0.357,
+        "mw": 0.715,
+        "cost_jpy_kwh": 27.24
+       },
+       {
+        "cluster_id": "VPP-R-04",
+        "asset_class": "residential_battery",
+        "slot": 37,
+        "mwh": 0.256,
+        "mw": 0.513,
+        "cost_jpy_kwh": 26.76
+       },
+       {
+        "cluster_id": "VPP-R-05",
+        "asset_class": "residential_battery",
+        "slot": 37,
+        "mwh": 0.268,
+        "mw": 0.535,
+        "cost_jpy_kwh": 27.76
+       },
+       {
+        "cluster_id": "VPP-R-06",
+        "asset_class": "residential_battery",
+        "slot": 37,
+        "mwh": 0.098,
+        "mw": 0.196,
+        "cost_jpy_kwh": 28.04
+       },
+       {
+        "cluster_id": "VPP-R-07",
+        "asset_class": "residential_battery",
+        "slot": 37,
+        "mwh": 0.68,
+        "mw": 1.361,
+        "cost_jpy_kwh": 30.89
+       },
+       {
+        "cluster_id": "VPP-R-08",
+        "asset_class": "residential_battery",
+        "slot": 37,
+        "mwh": 0.49,
+        "mw": 0.98,
+        "cost_jpy_kwh": 30.99
+       },
+       {
+        "cluster_id": "VPP-R-09",
+        "asset_class": "residential_battery",
+        "slot": 37,
+        "mwh": 0.546,
+        "mw": 1.092,
+        "cost_jpy_kwh": 30.86
+       },
+       {
+        "cluster_id": "VPP-R-10",
+        "asset_class": "residential_battery",
+        "slot": 37,
+        "mwh": 0.44,
+        "mw": 0.879,
+        "cost_jpy_kwh": 25.47
+       },
+       {
+        "cluster_id": "VPP-R-11",
+        "asset_class": "residential_battery",
+        "slot": 37,
+        "mwh": 0.612,
+        "mw": 1.223,
+        "cost_jpy_kwh": 28.85
+       },
+       {
+        "cluster_id": "VPP-R-12",
+        "asset_class": "residential_battery",
+        "slot": 37,
+        "mwh": 0.582,
+        "mw": 1.164,
+        "cost_jpy_kwh": 26.05
+       },
+       {
+        "cluster_id": "VPP-R-13",
+        "asset_class": "residential_battery",
+        "slot": 37,
+        "mwh": 0.599,
+        "mw": 1.198,
+        "cost_jpy_kwh": 28.52
+       },
+       {
+        "cluster_id": "VPP-R-14",
+        "asset_class": "residential_battery",
+        "slot": 37,
+        "mwh": 0.652,
+        "mw": 1.304,
+        "cost_jpy_kwh": 28.89
+       },
+       {
+        "cluster_id": "VPP-R-15",
+        "asset_class": "residential_battery",
+        "slot": 37,
+        "mwh": 0.626,
+        "mw": 1.252,
+        "cost_jpy_kwh": 29.91
+       },
+       {
+        "cluster_id": "VPP-R-16",
+        "asset_class": "residential_battery",
+        "slot": 37,
+        "mwh": 0.569,
+        "mw": 1.138,
+        "cost_jpy_kwh": 25.22
+       },
+       {
+        "cluster_id": "VPP-R-18",
+        "asset_class": "residential_battery",
+        "slot": 37,
+        "mwh": 0.566,
+        "mw": 1.132,
+        "cost_jpy_kwh": 28.45
+       },
+       {
+        "cluster_id": "VPP-R-19",
+        "asset_class": "residential_battery",
+        "slot": 37,
+        "mwh": 0.47,
+        "mw": 0.94,
+        "cost_jpy_kwh": 27.13
+       },
+       {
+        "cluster_id": "VPP-R-20",
+        "asset_class": "residential_battery",
+        "slot": 37,
+        "mwh": 0.494,
+        "mw": 0.987,
+        "cost_jpy_kwh": 27.38
+       },
+       {
+        "cluster_id": "VPP-R-21",
+        "asset_class": "residential_battery",
+        "slot": 37,
+        "mwh": 0.534,
+        "mw": 1.068,
+        "cost_jpy_kwh": 25.54
+       },
+       {
+        "cluster_id": "VPP-R-22",
+        "asset_class": "residential_battery",
+        "slot": 37,
+        "mwh": 0.656,
+        "mw": 1.313,
+        "cost_jpy_kwh": 30.18
+       },
+       {
+        "cluster_id": "VPP-R-23",
+        "asset_class": "residential_battery",
+        "slot": 37,
+        "mwh": 0.529,
+        "mw": 1.059,
+        "cost_jpy_kwh": 26.47
+       },
+       {
+        "cluster_id": "VPP-R-24",
+        "asset_class": "residential_battery",
+        "slot": 37,
+        "mwh": 0.456,
+        "mw": 0.912,
+        "cost_jpy_kwh": 29.11
+       },
+       {
+        "cluster_id": "VPP-C-01",
+        "asset_class": "cni_bess",
+        "slot": 38,
+        "mwh": 0.28,
+        "mw": 0.56,
+        "cost_jpy_kwh": 14.81
+       },
+       {
+        "cluster_id": "VPP-C-02",
+        "asset_class": "cni_bess",
+        "slot": 38,
+        "mwh": 1.875,
+        "mw": 3.75,
+        "cost_jpy_kwh": 14.72
+       },
+       {
+        "cluster_id": "VPP-C-03",
+        "asset_class": "cni_bess",
+        "slot": 38,
+        "mwh": 0.455,
+        "mw": 0.91,
+        "cost_jpy_kwh": 18.51
+       },
+       {
+        "cluster_id": "VPP-C-04",
+        "asset_class": "cni_bess",
+        "slot": 38,
+        "mwh": 1.775,
+        "mw": 3.55,
+        "cost_jpy_kwh": 17.58
+       },
+       {
+        "cluster_id": "VPP-C-05",
+        "asset_class": "cni_bess",
+        "slot": 38,
+        "mwh": 1.97,
+        "mw": 3.94,
+        "cost_jpy_kwh": 16.23
+       },
+       {
+        "cluster_id": "VPP-C-06",
+        "asset_class": "cni_bess",
+        "slot": 38,
+        "mwh": 0.54,
+        "mw": 1.08,
+        "cost_jpy_kwh": 18.04
+       },
+       {
+        "cluster_id": "VPP-C-07",
+        "asset_class": "cni_bess",
+        "slot": 38,
+        "mwh": 1.19,
+        "mw": 2.38,
+        "cost_jpy_kwh": 16.0
+       },
+       {
+        "cluster_id": "VPP-C-08",
+        "asset_class": "cni_bess",
+        "slot": 38,
+        "mwh": 0.725,
+        "mw": 1.45,
+        "cost_jpy_kwh": 17.38
+       },
+       {
+        "cluster_id": "VPP-C-09",
+        "asset_class": "cni_bess",
+        "slot": 38,
+        "mwh": 1.4,
+        "mw": 2.8,
+        "cost_jpy_kwh": 14.06
+       },
+       {
+        "cluster_id": "VPP-C-10",
+        "asset_class": "cni_bess",
+        "slot": 38,
+        "mwh": 1.04,
+        "mw": 2.08,
+        "cost_jpy_kwh": 16.78
+       },
+       {
+        "cluster_id": "VPP-D-01",
+        "asset_class": "dr_load",
+        "slot": 38,
+        "mwh": 1.283,
+        "mw": 2.565,
+        "cost_jpy_kwh": 46.64
+       },
+       {
+        "cluster_id": "VPP-D-02",
+        "asset_class": "dr_load",
+        "slot": 38,
+        "mwh": 0.017,
+        "mw": 0.033,
+        "cost_jpy_kwh": 56.83
+       },
+       {
+        "cluster_id": "VPP-D-03",
+        "asset_class": "dr_load",
+        "slot": 38,
+        "mwh": 1.1,
+        "mw": 2.199,
+        "cost_jpy_kwh": 49.11
+       },
+       {
+        "cluster_id": "VPP-D-04",
+        "asset_class": "dr_load",
+        "slot": 38,
+        "mwh": 0.431,
+        "mw": 0.863,
+        "cost_jpy_kwh": 58.06
+       },
+       {
+        "cluster_id": "VPP-D-05",
+        "asset_class": "dr_load",
+        "slot": 38,
+        "mwh": 1.3,
+        "mw": 2.599,
+        "cost_jpy_kwh": 55.29
+       },
+       {
+        "cluster_id": "VPP-D-06",
+        "asset_class": "dr_load",
+        "slot": 38,
+        "mwh": 0.512,
+        "mw": 1.024,
+        "cost_jpy_kwh": 45.91
+       },
+       {
+        "cluster_id": "VPP-D-07",
+        "asset_class": "dr_load",
+        "slot": 38,
+        "mwh": 0.964,
+        "mw": 1.929,
+        "cost_jpy_kwh": 46.92
+       },
+       {
+        "cluster_id": "VPP-D-08",
+        "asset_class": "dr_load",
+        "slot": 38,
+        "mwh": 0.736,
+        "mw": 1.472,
+        "cost_jpy_kwh": 52.78
+       },
+       {
+        "cluster_id": "VPP-H-01",
+        "asset_class": "heat_pump_water_heater",
+        "slot": 38,
+        "mwh": 0.116,
+        "mw": 0.233,
+        "cost_jpy_kwh": 22.18
+       },
+       {
+        "cluster_id": "VPP-H-02",
+        "asset_class": "heat_pump_water_heater",
+        "slot": 38,
+        "mwh": 0.122,
+        "mw": 0.243,
+        "cost_jpy_kwh": 19.21
+       },
+       {
+        "cluster_id": "VPP-H-03",
+        "asset_class": "heat_pump_water_heater",
+        "slot": 38,
+        "mwh": 0.168,
+        "mw": 0.337,
+        "cost_jpy_kwh": 22.64
+       },
+       {
+        "cluster_id": "VPP-H-05",
+        "asset_class": "heat_pump_water_heater",
+        "slot": 38,
+        "mwh": 0.107,
+        "mw": 0.214,
+        "cost_jpy_kwh": 21.84
+       },
+       {
+        "cluster_id": "VPP-H-06",
+        "asset_class": "heat_pump_water_heater",
+        "slot": 38,
+        "mwh": 0.122,
+        "mw": 0.244,
+        "cost_jpy_kwh": 22.47
+       },
+       {
+        "cluster_id": "VPP-H-07",
+        "asset_class": "heat_pump_water_heater",
+        "slot": 38,
+        "mwh": 0.162,
+        "mw": 0.324,
+        "cost_jpy_kwh": 23.5
+       },
+       {
+        "cluster_id": "VPP-H-08",
+        "asset_class": "heat_pump_water_heater",
+        "slot": 38,
+        "mwh": 0.107,
+        "mw": 0.215,
+        "cost_jpy_kwh": 20.56
+       },
+       {
+        "cluster_id": "VPP-H-09",
+        "asset_class": "heat_pump_water_heater",
+        "slot": 38,
+        "mwh": 0.163,
+        "mw": 0.327,
+        "cost_jpy_kwh": 22.26
+       },
+       {
+        "cluster_id": "VPP-H-10",
+        "asset_class": "heat_pump_water_heater",
+        "slot": 38,
+        "mwh": 0.168,
+        "mw": 0.336,
+        "cost_jpy_kwh": 22.88
+       },
+       {
+        "cluster_id": "VPP-R-01",
+        "asset_class": "residential_battery",
+        "slot": 38,
+        "mwh": 0.728,
+        "mw": 1.457,
+        "cost_jpy_kwh": 30.13
+       },
+       {
+        "cluster_id": "VPP-R-02",
+        "asset_class": "residential_battery",
+        "slot": 38,
+        "mwh": 0.627,
+        "mw": 1.254,
+        "cost_jpy_kwh": 26.43
+       },
+       {
+        "cluster_id": "VPP-R-03",
+        "asset_class": "residential_battery",
+        "slot": 38,
+        "mwh": 0.357,
+        "mw": 0.715,
+        "cost_jpy_kwh": 27.24
+       },
+       {
+        "cluster_id": "VPP-R-04",
+        "asset_class": "residential_battery",
+        "slot": 38,
+        "mwh": 0.256,
+        "mw": 0.513,
+        "cost_jpy_kwh": 26.76
+       },
+       {
+        "cluster_id": "VPP-R-05",
+        "asset_class": "residential_battery",
+        "slot": 38,
+        "mwh": 0.268,
+        "mw": 0.535,
+        "cost_jpy_kwh": 27.76
+       },
+       {
+        "cluster_id": "VPP-R-06",
+        "asset_class": "residential_battery",
+        "slot": 38,
+        "mwh": 0.098,
+        "mw": 0.196,
+        "cost_jpy_kwh": 28.04
+       },
+       {
+        "cluster_id": "VPP-R-07",
+        "asset_class": "residential_battery",
+        "slot": 38,
+        "mwh": 0.053,
+        "mw": 0.106,
+        "cost_jpy_kwh": 30.89
+       },
+       {
+        "cluster_id": "VPP-R-08",
+        "asset_class": "residential_battery",
+        "slot": 38,
+        "mwh": 0.49,
+        "mw": 0.98,
+        "cost_jpy_kwh": 30.99
+       },
+       {
+        "cluster_id": "VPP-R-09",
+        "asset_class": "residential_battery",
+        "slot": 38,
+        "mwh": 0.067,
+        "mw": 0.133,
+        "cost_jpy_kwh": 30.86
+       },
+       {
+        "cluster_id": "VPP-R-10",
+        "asset_class": "residential_battery",
+        "slot": 38,
+        "mwh": 0.44,
+        "mw": 0.879,
+        "cost_jpy_kwh": 25.47
+       },
+       {
+        "cluster_id": "VPP-R-11",
+        "asset_class": "residential_battery",
+        "slot": 38,
+        "mwh": 0.612,
+        "mw": 1.223,
+        "cost_jpy_kwh": 28.85
+       },
+       {
+        "cluster_id": "VPP-R-12",
+        "asset_class": "residential_battery",
+        "slot": 38,
+        "mwh": 0.544,
+        "mw": 1.089,
+        "cost_jpy_kwh": 26.05
+       },
+       {
+        "cluster_id": "VPP-R-13",
+        "asset_class": "residential_battery",
+        "slot": 38,
+        "mwh": 0.599,
+        "mw": 1.198,
+        "cost_jpy_kwh": 28.52
+       },
+       {
+        "cluster_id": "VPP-R-14",
+        "asset_class": "residential_battery",
+        "slot": 38,
+        "mwh": 0.02,
+        "mw": 0.041,
+        "cost_jpy_kwh": 28.89
+       },
+       {
+        "cluster_id": "VPP-R-15",
+        "asset_class": "residential_battery",
+        "slot": 38,
+        "mwh": 0.626,
+        "mw": 1.252,
+        "cost_jpy_kwh": 29.91
+       },
+       {
+        "cluster_id": "VPP-R-16",
+        "asset_class": "residential_battery",
+        "slot": 38,
+        "mwh": 0.141,
+        "mw": 0.283,
+        "cost_jpy_kwh": 25.22
+       },
+       {
+        "cluster_id": "VPP-R-18",
+        "asset_class": "residential_battery",
+        "slot": 38,
+        "mwh": 0.566,
+        "mw": 1.132,
+        "cost_jpy_kwh": 28.45
+       },
+       {
+        "cluster_id": "VPP-R-19",
+        "asset_class": "residential_battery",
+        "slot": 38,
+        "mwh": 0.431,
+        "mw": 0.863,
+        "cost_jpy_kwh": 27.13
+       },
+       {
+        "cluster_id": "VPP-R-20",
+        "asset_class": "residential_battery",
+        "slot": 38,
+        "mwh": 0.009,
+        "mw": 0.018,
+        "cost_jpy_kwh": 27.38
+       },
+       {
+        "cluster_id": "VPP-R-21",
+        "asset_class": "residential_battery",
+        "slot": 38,
+        "mwh": 0.534,
+        "mw": 1.068,
+        "cost_jpy_kwh": 25.54
+       },
+       {
+        "cluster_id": "VPP-R-22",
+        "asset_class": "residential_battery",
+        "slot": 38,
+        "mwh": 0.656,
+        "mw": 1.313,
+        "cost_jpy_kwh": 30.18
+       },
+       {
+        "cluster_id": "VPP-R-23",
+        "asset_class": "residential_battery",
+        "slot": 38,
+        "mwh": 0.529,
+        "mw": 1.059,
+        "cost_jpy_kwh": 26.47
+       },
+       {
+        "cluster_id": "VPP-R-24",
+        "asset_class": "residential_battery",
+        "slot": 38,
+        "mwh": 0.456,
+        "mw": 0.912,
+        "cost_jpy_kwh": 29.11
+       }
+      ],
+      "mwh_by_slot": {
+       "35": 22.2,
+       "36": 26.93,
+       "37": 31.14,
+       "38": 27.96
+      },
+      "total_mwh": 108.14,
+      "expected_cost_jpy": 3087119.0,
+      "excluded_clusters": [
+       "VPP-R-17"
+      ]
+     },
+     "risk": "medium",
+     "reasoning": [
+      "VPP cost 14.06-58.06 JPY/kWh is below the intraday ask and the imbalance forecast in every slot",
+      "dKW commitments and their reserve energy are held back",
+      "Clusters with stale or frozen telemetry excluded"
+     ],
+     "sources": [
+      "tepco_retail_desk_demo.vpp_clusters",
+      "tepco_retail_desk_demo.vpp_telemetry_30min",
+      "tepco_retail_desk_demo.ancillary_commitments",
+      "desk_policy_guide.md Section 5"
+     ],
+     "requires": "hold_to_confirm"
+    },
+    "note": "Pending only. No dispatch signal has been sent. Approval requires Hold-to-Confirm by a person.",
+    "source": [
+     "tepco_retail_desk_demo.vpp_clusters",
+     "tepco_retail_desk_demo.vpp_telemetry_30min",
+     "tepco_retail_desk_demo.ancillary_commitments"
+    ]
+   }
+  },
+  {
+   "author": "desk_orchestrator",
+   "tool": "trading_dispatch_agent",
+   "result": {
+    "result": "### Open Short Position (2026-08-19, Slots 35\u201338)\n\nThe balance group is short across all four target slots, with a total open position of **161.8 MWh** [tepco_retail_desk_demo.balance_position_30min]:\n\n* **Slot 35 (17:00\u201317:30):** Short **37.2 MWh** (Gate closure: 16:00) [tepco_retail_desk_demo.balance_position_30min]\n* **Slot 36 (17:30\u201318:00):** Short **40.9 MWh** (Gate closure: 16:30) [tepco_retail_desk_demo.balance_position_30min]\n* **Slot 37 (18:00\u201318:30):** Short **44.2 MWh** (Gate closure: 17:00) [tepco_retail_desk_demo.balance_position_30min]\n* **Slot 38 (18:30\u201319:00):** Short **39.5 MWh** (Gate closure: 17:30) [tepco_retail_desk_demo.balance_position_30min]\n\n---\n\n### Least-Cost Hedge Plan Summary\n\nThe 161.8 MWh open short is fully covered with **0 MWh residual** [tepco_retail_desk_demo.balance_position_30min, tepco_retail_desk_demo.jepx_intraday_30min]:\n\n* **VPP Dispatch:** **108.15 MWh** total [tepco_retail_desk_demo.vpp_clusters]\n  * C&I BESS: **41.79 MWh** [tepco_retail_desk_demo.vpp_clusters]\n  * Residential Battery: **36.42 MWh** [tepco_retail_desk_demo.vpp_clusters]\n  * DR Load: **25.37 MWh** [tepco_retail_desk_demo.vpp_clusters]\n  * Heat Pump Water Heater: **4.31 MWh** [tepco_retail_desk_demo.vpp_clusters]\n  * EV Depot: **0.24 MWh** [tepco_retail_desk_demo.vpp_clusters]\n* **JEPX Intraday Buys:** **53.65 MWh** total [tepco_retail_desk_demo.jepx_intraday_30min]\n  * Slot 35: **15.00 MWh** at limit 96.0 JPY/kWh [tepco_retail_desk_demo.jepx_intraday_30min]\n  * Slot 36: **14.00 MWh** at limit 104.0 JPY/kWh [tepco_retail_desk_demo.jepx_intraday_30min]\n  * Slot 37: **13.10 MWh** at limit 139.0 JPY/kWh [tepco_retail_desk_demo.jepx_intraday_30min]\n  * Slot 38: **11.55 MWh** at limit 112.0 JPY/kWh [tepco_retail_desk_demo.jepx_intraday_30min]\n\n---\n\n### Financial Comparison & Cost Avoidance\n\n* **Total Plan Cost:** **8,845,368 JPY** (Average cover price: **54.67 JPY/kWh**) [tepco_retail_desk_demo.imbalance_30min]\n* **Do-Nothing Expected Imbalance Cost (p50):** **29,901,080 JPY** [tepco_retail_desk_demo.imbalance_30min]\n* **Do-Nothing Expected Imbalance Cost (p90):** **32,360,000 JPY** [tepco_retail_desk_demo.imbalance_30min]\n* **Cost Avoided vs p50:** **21,055,712 JPY** [tepco_retail_desk_demo.imbalance_30min]\n* **Cost Avoided vs p90:** **23,514,632 JPY** [tepco_retail_desk_demo.imbalance_30min]\n\n---\n\n### Fleet Exceptions & dKW Commitments at Risk\n\n* **Excluded Cluster:** `VPP-R-17` (Residential Battery) [tepco_retail_desk_demo.vpp_telemetry_30min]\n  * **Reason:** Untrusted telemetry. Last heartbeat was received at 2026-08-19T09:34 (366 minutes ago), and state of charge (SOC) has been frozen at 78.0% for 6 hours [tepco_retail_desk_demo.vpp_telemetry_30min].\n* **dKW Commitment at Risk:** `VPP-R-17` holds commitment `ANC-0819-09` (1,200 kW, tertiary_2, slots 35\u201340) [tepco_retail_desk_demo.ancillary_commitments]. Substitute candidates available are `VPP-R-01`, `VPP-R-07`, and `VPP-R-22` [tepco_retail_desk_demo.vpp_telemetry_30min].\n\n---\n\n### Pending Action Proposals\n\nNo trades or dispatches have been executed. The following proposals are pending approval via Hold-to-Confirm:\n\n1. **JEPX Intraday Buy Proposal** [tepco_retail_desk_demo.jepx_intraday_30min]\n   * **Action ID:** `PA-ID-0819-3538-a6c8e8`\n   * **Summary:** Buy 53.65 MWh on JEPX intraday for slots 35\u201338 on 2026-08-19, limit up to 139.0 JPY/kWh, expected cost 5,758,122 JPY.\n2. **VPP Dispatch Proposal** [tepco_retail_desk_demo.vpp_clusters]\n   * **Action ID:** `PA-VPP-0819-3538-f93378`\n   * **Summary:** Dispatch 108.14 MWh from 59 VPP clusters across slots 35\u201338 on 2026-08-19, expected cost 3,087,119 JPY (excluding `VPP-R-17`)."
+   }
+  },
+  {
+   "author": "risk_auditor",
+   "tool": "list_session_proposals",
+   "result": {
+    "status": "ok",
+    "count": 2,
+    "proposals": [
+     {
+      "id": "PA-ID-0819-3538-a6c8e8",
+      "kind": "intraday_orders",
+      "summary": "Buy 53.65 MWh on JEPX intraday for slots 35-38 on 2026-08-19, limit up to 139.0 JPY/kWh, expected cost 5,758,122 JPY",
+      "created_by": "trading_dispatch_agent"
+     },
+     {
+      "id": "PA-VPP-0819-3538-f93378",
+      "kind": "vpp_dispatch",
+      "summary": "Dispatch 108.14 MWh from 59 VPP clusters across slots 35-38 on 2026-08-19, expected cost 3,087,119 JPY; excluded VPP-R-17 (untrusted telemetry)",
+      "created_by": "trading_dispatch_agent"
+     }
+    ],
+    "source": [
+     "session state (pending actions)"
+    ]
+   }
+  },
+  {
+   "author": "risk_auditor",
+   "tool": "check_proposal_compliance",
+   "result": {
+    "status": "ok",
+    "action_id": "PA-ID-0819-3538-a6c8e8",
+    "kind": "intraday_orders",
+    "verdict": "pass",
+    "checks": [
+     {
+      "rule": "Pending, human approval required",
+      "result": "pass",
+      "detail": "requires hold_to_confirm; no execute tool exists",
+      "citation": "[desk_policy_guide.md Section 7]"
+     },
+     {
+      "rule": "Gate open for every slot",
+      "result": "pass",
+      "detail": "slots [35, 36, 37, 38] open at 2026-08-19T15:40",
+      "citation": "[desk_policy_guide.md Section 4]"
+     },
+     {
+      "rule": "Combined cover does not exceed the open short (no deliberate surplus)",
+      "result": "pass",
+      "detail": "combined proposals within the short",
+      "citation": "[desk_policy_guide.md Section 2]"
+     },
+     {
+      "rule": "No open position left deliberately",
+      "result": "pass",
+      "detail": "residual short after all proposals in session: none",
+      "citation": "[desk_policy_guide.md Section 2]"
+     },
+     {
+      "rule": "Limit price at or below the p50 imbalance forecast",
+      "result": "pass",
+      "detail": "ok",
+      "citation": "[desk_policy_guide.md Section 4]"
+     },
+     {
+      "rule": "Quantities in 50 kWh lots",
+      "result": "pass",
+      "detail": "ok",
+      "citation": "[desk_policy_guide.md Section 4]"
+     }
+    ],
+    "audit_record": {
+     "action_id": "PA-ID-0819-3538-a6c8e8",
+     "verdict": "pass",
+     "failed_rules": []
+    },
+    "source": [
+     "desk_policy_guide.md",
+     "tepco_retail_desk_demo.balance_position_30min",
+     "tepco_retail_desk_demo.imbalance_30min"
+    ]
+   }
+  },
+  {
+   "author": "risk_auditor",
+   "tool": "check_proposal_compliance",
+   "result": {
+    "status": "ok",
+    "action_id": "PA-VPP-0819-3538-f93378",
+    "kind": "vpp_dispatch",
+    "verdict": "pass",
+    "checks": [
+     {
+      "rule": "Pending, human approval required",
+      "result": "pass",
+      "detail": "requires hold_to_confirm; no execute tool exists",
+      "citation": "[desk_policy_guide.md Section 7]"
+     },
+     {
+      "rule": "Gate open for every slot",
+      "result": "pass",
+      "detail": "slots [35, 36, 37, 38] open at 2026-08-19T15:40",
+      "citation": "[desk_policy_guide.md Section 4]"
+     },
+     {
+      "rule": "Combined cover does not exceed the open short (no deliberate surplus)",
+      "result": "pass",
+      "detail": "combined proposals within the short",
+      "citation": "[desk_policy_guide.md Section 2]"
+     },
+     {
+      "rule": "No open position left deliberately",
+      "result": "pass",
+      "detail": "residual short after all proposals in session: none",
+      "citation": "[desk_policy_guide.md Section 2]"
+     },
+     {
+      "rule": "No untrusted telemetry cluster dispatched",
+      "result": "pass",
+      "detail": "excluded: VPP-R-17",
+      "citation": "[desk_policy_guide.md Section 6]"
+     },
+     {
+      "rule": "Dispatch within headroom after dKW commitments",
+      "result": "pass",
+      "detail": "ok",
+      "citation": "[desk_policy_guide.md Section 5]"
+     },
+     {
+      "rule": "Energy within SOC floor and dKW reserve energy",
+      "result": "pass",
+      "detail": "ok",
+      "citation": "[desk_policy_guide.md Section 5]"
+     },
+     {
+      "rule": "Response time fits before delivery",
+      "result": "pass",
+      "detail": "ok",
+      "citation": "[desk_policy_guide.md Section 5]"
+     }
+    ],
+    "audit_record": {
+     "action_id": "PA-VPP-0819-3538-f93378",
+     "verdict": "pass",
+     "failed_rules": []
+    },
+    "source": [
+     "desk_policy_guide.md",
+     "tepco_retail_desk_demo.balance_position_30min",
+     "tepco_retail_desk_demo.imbalance_30min"
+    ]
+   }
+  },
+  {
+   "author": "desk_orchestrator",
+   "tool": "risk_auditor",
+   "result": {
+    "result": "Both pending proposals have passed all deterministic compliance checks and remain pending human Hold-to-Confirm approval.\n\n### Proposal Audits\n\n#### 1. Action ID: `PA-ID-0819-3538-a6c8e8`\n* **Summary**: Buy 53.65 MWh on JEPX intraday for slots 35 to 38 on 2026-08-19, limit price up to 139.0 JPY/kWh, expected cost 5,758,122 JPY [session state (pending actions)].\n* **Verdict**: PASS [desk_policy_guide.md Section 2, Section 4, Section 7].\n* **Failed Rules**: None.\n* **Checks Passed**:\n  * Human-in-the-loop approval required [desk_policy_guide.md Section 7].\n  * Gate open for slots 35, 36, 37, 38 at 2026-08-19T15:40 JST [desk_policy_guide.md Section 4].\n  * Combined cover does not exceed open short (no deliberate over-cover) [desk_policy_guide.md Section 2].\n  * No open position left deliberately [desk_policy_guide.md Section 2].\n  * Limit price at or below p50 imbalance forecast [desk_policy_guide.md Section 4].\n  * Quantities ordered in 50 kWh lots [desk_policy_guide.md Section 4].\n* **Status**: Remains pending until human Hold-to-Confirm [desk_policy_guide.md Section 7].\n\n#### 2. Action ID: `PA-VPP-0819-3538-f93378`\n* **Summary**: Dispatch 108.14 MWh from 59 VPP clusters across slots 35 to 38 on 2026-08-19, expected cost 3,087,119 JPY; excluded cluster VPP-R-17 due to untrusted telemetry [session state (pending actions)].\n* **Verdict**: PASS [desk_policy_guide.md Section 2, Section 4, Section 5, Section 6, Section 7].\n* **Failed Rules**: None.\n* **Checks Passed**:\n  * Human-in-the-loop approval required [desk_policy_guide.md Section 7].\n  * Gate open for slots 35, 36, 37, 38 at 2026-08-19T15:40 JST [desk_policy_guide.md Section 4].\n  * Combined cover does not exceed open short [desk_policy_guide.md Section 2].\n  * No open position left deliberately [desk_policy_guide.md Section 2].\n  * No untrusted telemetry cluster dispatched (VPP-R-17 excluded) [desk_policy_guide.md Section 6].\n  * Dispatch within dKW headroom commitments [desk_policy_guide.md Section 5].\n  * Energy within state-of-charge (SOC) floor and dKW reserve energy [desk_policy_guide.md Section 5].\n  * Response time fits before delivery [desk_policy_guide.md Section 5].\n* **Status**: Remains pending until human Hold-to-Confirm [desk_policy_guide.md Section 7]."
+   }
+  }
+ ],
+ "tool_errors": [],
+ "pending_actions": [
+  {
+   "id": "PA-ID-0819-3538-a6c8e8",
+   "kind": "intraday_orders",
+   "created_by": "trading_dispatch_agent",
+   "summary": "Buy 53.65 MWh on JEPX intraday for slots 35-38 on 2026-08-19, limit up to 139.0 JPY/kWh, expected cost 5,758,122 JPY",
+   "details": {
+    "date": "2026-08-19",
+    "orders": [
+     {
+      "slot": 35,
+      "time": "17:00-17:30",
+      "side": "buy",
+      "quantity_mwh": 15.0,
+      "limit_price_jpy_kwh": 96.0,
+      "expected_cost_jpy": 1440000.0,
+      "gate_closure": "2026-08-19T16:00",
+      "imbalance_p50_jpy_kwh": 172.1
+     },
+     {
+      "slot": 36,
+      "time": "17:30-18:00",
+      "side": "buy",
+      "quantity_mwh": 14.0,
+      "limit_price_jpy_kwh": 104.0,
+      "expected_cost_jpy": 1456000.0,
+      "gate_closure": "2026-08-19T16:30",
+      "imbalance_p50_jpy_kwh": 178.3
+     },
+     {
+      "slot": 37,
+      "time": "18:00-18:30",
+      "side": "buy",
+      "quantity_mwh": 13.1,
+      "limit_price_jpy_kwh": 139.0,
+      "expected_cost_jpy": 1567128.0,
+      "gate_closure": "2026-08-19T17:00",
+      "imbalance_p50_jpy_kwh": 190.7
+     },
+     {
+      "slot": 38,
+      "time": "18:30-19:00",
+      "side": "buy",
+      "quantity_mwh": 11.55,
+      "limit_price_jpy_kwh": 112.0,
+      "expected_cost_jpy": 1294994.0,
+      "gate_closure": "2026-08-19T17:30",
+      "imbalance_p50_jpy_kwh": 196.9
+     }
+    ],
+    "total_quantity_mwh": 53.65,
+    "expected_cost_jpy": 5758122.0
+   },
+   "risk": "medium",
+   "reasoning": [
+    "Slot 35: short covered partly at intraday ask; expected imbalance p50 172.1 JPY/kWh vs limit 96.0 JPY/kWh",
+    "Slot 36: short covered partly at intraday ask; expected imbalance p50 178.3 JPY/kWh vs limit 104.0 JPY/kWh",
+    "Slot 37: short covered partly at intraday ask; expected imbalance p50 190.7 JPY/kWh vs limit 139.0 JPY/kWh",
+    "Slot 38: short covered partly at intraday ask; expected imbalance p50 196.9 JPY/kWh vs limit 112.0 JPY/kWh"
+   ],
+   "sources": [
+    "tepco_retail_desk_demo.balance_position_30min",
+    "tepco_retail_desk_demo.jepx_intraday_30min",
+    "tepco_retail_desk_demo.imbalance_30min",
+    "desk_policy_guide.md Section 4"
+   ],
+   "requires": "hold_to_confirm"
+  },
+  {
+   "id": "PA-VPP-0819-3538-f93378",
+   "kind": "vpp_dispatch",
+   "created_by": "trading_dispatch_agent",
+   "summary": "Dispatch 108.14 MWh from 59 VPP clusters across slots 35-38 on 2026-08-19, expected cost 3,087,119 JPY; excluded VPP-R-17 (untrusted telemetry)",
+   "details": {
+    "date": "2026-08-19",
+    "schedule": [
+     {
+      "cluster_id": "VPP-C-01",
+      "asset_class": "cni_bess",
+      "slot": 35,
+      "mwh": 0.28,
+      "mw": 0.56,
+      "cost_jpy_kwh": 14.81
+     },
+     {
+      "cluster_id": "VPP-C-02",
+      "asset_class": "cni_bess",
+      "slot": 35,
+      "mwh": 1.279,
+      "mw": 2.559,
+      "cost_jpy_kwh": 14.72
+     },
+     {
+      "cluster_id": "VPP-C-03",
+      "asset_class": "cni_bess",
+      "slot": 35,
+      "mwh": 0.455,
+      "mw": 0.91,
+      "cost_jpy_kwh": 18.51
+     },
+     {
+      "cluster_id": "VPP-C-04",
+      "asset_class": "cni_bess",
+      "slot": 35,
+      "mwh": 1.775,
+      "mw": 3.55,
+      "cost_jpy_kwh": 17.58
+     },
+     {
+      "cluster_id": "VPP-C-05",
+      "asset_class": "cni_bess",
+      "slot": 35,
+      "mwh": 1.036,
+      "mw": 2.072,
+      "cost_jpy_kwh": 16.23
+     },
+     {
+      "cluster_id": "VPP-C-06",
+      "asset_class": "cni_bess",
+      "slot": 35,
+      "mwh": 0.54,
+      "mw": 1.08,
+      "cost_jpy_kwh": 18.04
+     },
+     {
+      "cluster_id": "VPP-C-07",
+      "asset_class": "cni_bess",
+      "slot": 35,
+      "mwh": 0.656,
+      "mw": 1.311,
+      "cost_jpy_kwh": 16.0
+     },
+     {
+      "cluster_id": "VPP-C-08",
+      "asset_class": "cni_bess",
+      "slot": 35,
+      "mwh": 0.725,
+      "mw": 1.45,
+      "cost_jpy_kwh": 17.38
+     },
+     {
+      "cluster_id": "VPP-C-09",
+      "asset_class": "cni_bess",
+      "slot": 35,
+      "mwh": 0.815,
+      "mw": 1.631,
+      "cost_jpy_kwh": 14.06
+     },
+     {
+      "cluster_id": "VPP-C-10",
+      "asset_class": "cni_bess",
+      "slot": 35,
+      "mwh": 0.845,
+      "mw": 1.689,
+      "cost_jpy_kwh": 16.78
+     },
+     {
+      "cluster_id": "VPP-D-01",
+      "asset_class": "dr_load",
+      "slot": 35,
+      "mwh": 1.283,
+      "mw": 2.565,
+      "cost_jpy_kwh": 46.64
+     },
+     {
+      "cluster_id": "VPP-D-02",
+      "asset_class": "dr_load",
+      "slot": 35,
+      "mwh": 0.017,
+      "mw": 0.033,
+      "cost_jpy_kwh": 56.83
+     },
+     {
+      "cluster_id": "VPP-D-03",
+      "asset_class": "dr_load",
+      "slot": 35,
+      "mwh": 1.1,
+      "mw": 2.199,
+      "cost_jpy_kwh": 49.11
+     },
+     {
+      "cluster_id": "VPP-D-04",
+      "asset_class": "dr_load",
+      "slot": 35,
+      "mwh": 0.431,
+      "mw": 0.863,
+      "cost_jpy_kwh": 58.06
+     },
+     {
+      "cluster_id": "VPP-D-05",
+      "asset_class": "dr_load",
+      "slot": 35,
+      "mwh": 1.3,
+      "mw": 2.599,
+      "cost_jpy_kwh": 55.29
+     },
+     {
+      "cluster_id": "VPP-D-06",
+      "asset_class": "dr_load",
+      "slot": 35,
+      "mwh": 0.512,
+      "mw": 1.024,
+      "cost_jpy_kwh": 45.91
+     },
+     {
+      "cluster_id": "VPP-D-07",
+      "asset_class": "dr_load",
+      "slot": 35,
+      "mwh": 0.964,
+      "mw": 1.929,
+      "cost_jpy_kwh": 46.92
+     },
+     {
+      "cluster_id": "VPP-D-08",
+      "asset_class": "dr_load",
+      "slot": 35,
+      "mwh": 0.736,
+      "mw": 1.472,
+      "cost_jpy_kwh": 52.78
+     },
+     {
+      "cluster_id": "VPP-H-04",
+      "asset_class": "heat_pump_water_heater",
+      "slot": 35,
+      "mwh": 0.203,
+      "mw": 0.406,
+      "cost_jpy_kwh": 21.7
+     },
+     {
+      "cluster_id": "VPP-H-05",
+      "asset_class": "heat_pump_water_heater",
+      "slot": 35,
+      "mwh": 0.107,
+      "mw": 0.214,
+      "cost_jpy_kwh": 21.84
+     },
+     {
+      "cluster_id": "VPP-H-07",
+      "asset_class": "heat_pump_water_heater",
+      "slot": 35,
+      "mwh": 0.162,
+      "mw": 0.324,
+      "cost_jpy_kwh": 23.5
+     },
+     {
+      "cluster_id": "VPP-H-08",
+      "asset_class": "heat_pump_water_heater",
+      "slot": 35,
+      "mwh": 0.107,
+      "mw": 0.215,
+      "cost_jpy_kwh": 20.56
+     },
+     {
+      "cluster_id": "VPP-R-01",
+      "asset_class": "residential_battery",
+      "slot": 35,
+      "mwh": 0.019,
+      "mw": 0.039,
+      "cost_jpy_kwh": 30.13
+     },
+     {
+      "cluster_id": "VPP-R-03",
+      "asset_class": "residential_battery",
+      "slot": 35,
+      "mwh": 0.357,
+      "mw": 0.715,
+      "cost_jpy_kwh": 27.24
+     },
+     {
+      "cluster_id": "VPP-R-04",
+      "asset_class": "residential_battery",
+      "slot": 35,
+      "mwh": 0.256,
+      "mw": 0.513,
+      "cost_jpy_kwh": 26.76
+     },
+     {
+      "cluster_id": "VPP-R-05",
+      "asset_class": "residential_battery",
+      "slot": 35,
+      "mwh": 0.268,
+      "mw": 0.535,
+      "cost_jpy_kwh": 27.76
+     },
+     {
+      "cluster_id": "VPP-R-06",
+      "asset_class": "residential_battery",
+      "slot": 35,
+      "mwh": 0.098,
+      "mw": 0.196,
+      "cost_jpy_kwh": 28.04
+     },
+     {
+      "cluster_id": "VPP-R-07",
+      "asset_class": "residential_battery",
+      "slot": 35,
+      "mwh": 0.68,
+      "mw": 1.361,
+      "cost_jpy_kwh": 30.89
+     },
+     {
+      "cluster_id": "VPP-R-08",
+      "asset_class": "residential_battery",
+      "slot": 35,
+      "mwh": 0.009,
+      "mw": 0.017,
+      "cost_jpy_kwh": 30.99
+     },
+     {
+      "cluster_id": "VPP-R-09",
+      "asset_class": "residential_battery",
+      "slot": 35,
+      "mwh": 0.546,
+      "mw": 1.092,
+      "cost_jpy_kwh": 30.86
+     },
+     {
+      "cluster_id": "VPP-R-10",
+      "asset_class": "residential_battery",
+      "slot": 35,
+      "mwh": 0.416,
+      "mw": 0.831,
+      "cost_jpy_kwh": 25.47
+     },
+     {
+      "cluster_id": "VPP-R-13",
+      "asset_class": "residential_battery",
+      "slot": 35,
+      "mwh": 0.481,
+      "mw": 0.963,
+      "cost_jpy_kwh": 28.52
+     },
+     {
+      "cluster_id": "VPP-R-14",
+      "asset_class": "residential_battery",
+      "slot": 35,
+      "mwh": 0.652,
+      "mw": 1.304,
+      "cost_jpy_kwh": 28.89
+     },
+     {
+      "cluster_id": "VPP-R-15",
+      "asset_class": "residential_battery",
+      "slot": 35,
+      "mwh": 0.626,
+      "mw": 1.252,
+      "cost_jpy_kwh": 29.91
+     },
+     {
+      "cluster_id": "VPP-R-16",
+      "asset_class": "residential_battery",
+      "slot": 35,
+      "mwh": 0.406,
+      "mw": 0.811,
+      "cost_jpy_kwh": 25.22
+     },
+     {
+      "cluster_id": "VPP-R-18",
+      "asset_class": "residential_battery",
+      "slot": 35,
+      "mwh": 0.005,
+      "mw": 0.011,
+      "cost_jpy_kwh": 28.45
+     },
+     {
+      "cluster_id": "VPP-R-19",
+      "asset_class": "residential_battery",
+      "slot": 35,
+      "mwh": 0.47,
+      "mw": 0.94,
+      "cost_jpy_kwh": 27.13
+     },
+     {
+      "cluster_id": "VPP-R-20",
+      "asset_class": "residential_battery",
+      "slot": 35,
+      "mwh": 0.494,
+      "mw": 0.987,
+      "cost_jpy_kwh": 27.38
+     },
+     {
+      "cluster_id": "VPP-R-21",
+      "asset_class": "residential_battery",
+      "slot": 35,
+      "mwh": 0.522,
+      "mw": 1.044,
+      "cost_jpy_kwh": 25.54
+     },
+     {
+      "cluster_id": "VPP-R-22",
+      "asset_class": "residential_battery",
+      "slot": 35,
+      "mwh": 0.062,
+      "mw": 0.124,
+      "cost_jpy_kwh": 30.18
+     },
+     {
+      "cluster_id": "VPP-R-23",
+      "asset_class": "residential_battery",
+      "slot": 35,
+      "mwh": 0.491,
+      "mw": 0.982,
+      "cost_jpy_kwh": 26.47
+     },
+     {
+      "cluster_id": "VPP-R-24",
+      "asset_class": "residential_battery",
+      "slot": 35,
+      "mwh": 0.014,
+      "mw": 0.029,
+      "cost_jpy_kwh": 29.11
+     },
+     {
+      "cluster_id": "VPP-C-01",
+      "asset_class": "cni_bess",
+      "slot": 36,
+      "mwh": 0.28,
+      "mw": 0.56,
+      "cost_jpy_kwh": 14.81
+     },
+     {
+      "cluster_id": "VPP-C-02",
+      "asset_class": "cni_bess",
+      "slot": 36,
+      "mwh": 1.875,
+      "mw": 3.75,
+      "cost_jpy_kwh": 14.72
+     },
+     {
+      "cluster_id": "VPP-C-03",
+      "asset_class": "cni_bess",
+      "slot": 36,
+      "mwh": 0.455,
+      "mw": 0.91,
+      "cost_jpy_kwh": 18.51
+     },
+     {
+      "cluster_id": "VPP-C-04",
+      "asset_class": "cni_bess",
+      "slot": 36,
+      "mwh": 1.409,
+      "mw": 2.819,
+      "cost_jpy_kwh": 17.58
+     },
+     {
+      "cluster_id": "VPP-C-05",
+      "asset_class": "cni_bess",
+      "slot": 36,
+      "mwh": 1.97,
+      "mw": 3.94,
+      "cost_jpy_kwh": 16.23
+     },
+     {
+      "cluster_id": "VPP-C-06",
+      "asset_class": "cni_bess",
+      "slot": 36,
+      "mwh": 0.54,
+      "mw": 1.08,
+      "cost_jpy_kwh": 18.04
+     },
+     {
+      "cluster_id": "VPP-C-07",
+      "asset_class": "cni_bess",
+      "slot": 36,
+      "mwh": 1.19,
+      "mw": 2.38,
+      "cost_jpy_kwh": 16.0
+     },
+     {
+      "cluster_id": "VPP-C-08",
+      "asset_class": "cni_bess",
+      "slot": 36,
+      "mwh": 0.725,
+      "mw": 1.45,
+      "cost_jpy_kwh": 17.38
+     },
+     {
+      "cluster_id": "VPP-C-09",
+      "asset_class": "cni_bess",
+      "slot": 36,
+      "mwh": 1.4,
+      "mw": 2.8,
+      "cost_jpy_kwh": 14.06
+     },
+     {
+      "cluster_id": "VPP-C-10",
+      "asset_class": "cni_bess",
+      "slot": 36,
+      "mwh": 1.04,
+      "mw": 2.08,
+      "cost_jpy_kwh": 16.78
+     },
+     {
+      "cluster_id": "VPP-D-01",
+      "asset_class": "dr_load",
+      "slot": 36,
+      "mwh": 1.283,
+      "mw": 2.565,
+      "cost_jpy_kwh": 46.64
+     },
+     {
+      "cluster_id": "VPP-D-02",
+      "asset_class": "dr_load",
+      "slot": 36,
+      "mwh": 0.017,
+      "mw": 0.033,
+      "cost_jpy_kwh": 56.83
+     },
+     {
+      "cluster_id": "VPP-D-03",
+      "asset_class": "dr_load",
+      "slot": 36,
+      "mwh": 1.1,
+      "mw": 2.199,
+      "cost_jpy_kwh": 49.11
+     },
+     {
+      "cluster_id": "VPP-D-04",
+      "asset_class": "dr_load",
+      "slot": 36,
+      "mwh": 0.431,
+      "mw": 0.863,
+      "cost_jpy_kwh": 58.06
+     },
+     {
+      "cluster_id": "VPP-D-05",
+      "asset_class": "dr_load",
+      "slot": 36,
+      "mwh": 1.3,
+      "mw": 2.599,
+      "cost_jpy_kwh": 55.29
+     },
+     {
+      "cluster_id": "VPP-D-06",
+      "asset_class": "dr_load",
+      "slot": 36,
+      "mwh": 0.512,
+      "mw": 1.024,
+      "cost_jpy_kwh": 45.91
+     },
+     {
+      "cluster_id": "VPP-D-07",
+      "asset_class": "dr_load",
+      "slot": 36,
+      "mwh": 0.964,
+      "mw": 1.929,
+      "cost_jpy_kwh": 46.92
+     },
+     {
+      "cluster_id": "VPP-D-08",
+      "asset_class": "dr_load",
+      "slot": 36,
+      "mwh": 0.736,
+      "mw": 1.472,
+      "cost_jpy_kwh": 52.78
+     },
+     {
+      "cluster_id": "VPP-H-01",
+      "asset_class": "heat_pump_water_heater",
+      "slot": 36,
+      "mwh": 0.116,
+      "mw": 0.233,
+      "cost_jpy_kwh": 22.18
+     },
+     {
+      "cluster_id": "VPP-H-02",
+      "asset_class": "heat_pump_water_heater",
+      "slot": 36,
+      "mwh": 0.122,
+      "mw": 0.243,
+      "cost_jpy_kwh": 19.21
+     },
+     {
+      "cluster_id": "VPP-H-03",
+      "asset_class": "heat_pump_water_heater",
+      "slot": 36,
+      "mwh": 0.168,
+      "mw": 0.337,
+      "cost_jpy_kwh": 22.64
+     },
+     {
+      "cluster_id": "VPP-H-04",
+      "asset_class": "heat_pump_water_heater",
+      "slot": 36,
+      "mwh": 0.203,
+      "mw": 0.406,
+      "cost_jpy_kwh": 21.7
+     },
+     {
+      "cluster_id": "VPP-H-06",
+      "asset_class": "heat_pump_water_heater",
+      "slot": 36,
+      "mwh": 0.122,
+      "mw": 0.244,
+      "cost_jpy_kwh": 22.47
+     },
+     {
+      "cluster_id": "VPP-H-09",
+      "asset_class": "heat_pump_water_heater",
+      "slot": 36,
+      "mwh": 0.163,
+      "mw": 0.327,
+      "cost_jpy_kwh": 22.26
+     },
+     {
+      "cluster_id": "VPP-H-10",
+      "asset_class": "heat_pump_water_heater",
+      "slot": 36,
+      "mwh": 0.168,
+      "mw": 0.335,
+      "cost_jpy_kwh": 22.88
+     },
+     {
+      "cluster_id": "VPP-R-01",
+      "asset_class": "residential_battery",
+      "slot": 36,
+      "mwh": 0.728,
+      "mw": 1.457,
+      "cost_jpy_kwh": 30.13
+     },
+     {
+      "cluster_id": "VPP-R-02",
+      "asset_class": "residential_battery",
+      "slot": 36,
+      "mwh": 0.584,
+      "mw": 1.168,
+      "cost_jpy_kwh": 26.43
+     },
+     {
+      "cluster_id": "VPP-R-03",
+      "asset_class": "residential_battery",
+      "slot": 36,
+      "mwh": 0.357,
+      "mw": 0.715,
+      "cost_jpy_kwh": 27.24
+     },
+     {
+      "cluster_id": "VPP-R-04",
+      "asset_class": "residential_battery",
+      "slot": 36,
+      "mwh": 0.256,
+      "mw": 0.513,
+      "cost_jpy_kwh": 26.76
+     },
+     {
+      "cluster_id": "VPP-R-05",
+      "asset_class": "residential_battery",
+      "slot": 36,
+      "mwh": 0.268,
+      "mw": 0.535,
+      "cost_jpy_kwh": 27.76
+     },
+     {
+      "cluster_id": "VPP-R-06",
+      "asset_class": "residential_battery",
+      "slot": 36,
+      "mwh": 0.098,
+      "mw": 0.196,
+      "cost_jpy_kwh": 28.04
+     },
+     {
+      "cluster_id": "VPP-R-07",
+      "asset_class": "residential_battery",
+      "slot": 36,
+      "mwh": 0.68,
+      "mw": 1.361,
+      "cost_jpy_kwh": 30.89
+     },
+     {
+      "cluster_id": "VPP-R-08",
+      "asset_class": "residential_battery",
+      "slot": 36,
+      "mwh": 0.49,
+      "mw": 0.98,
+      "cost_jpy_kwh": 30.99
+     },
+     {
+      "cluster_id": "VPP-R-09",
+      "asset_class": "residential_battery",
+      "slot": 36,
+      "mwh": 0.546,
+      "mw": 1.092,
+      "cost_jpy_kwh": 30.86
+     },
+     {
+      "cluster_id": "VPP-R-11",
+      "asset_class": "residential_battery",
+      "slot": 36,
+      "mwh": 0.604,
+      "mw": 1.208,
+      "cost_jpy_kwh": 28.85
+     },
+     {
+      "cluster_id": "VPP-R-12",
+      "asset_class": "residential_battery",
+      "slot": 36,
+      "mwh": 0.582,
+      "mw": 1.164,
+      "cost_jpy_kwh": 26.05
+     },
+     {
+      "cluster_id": "VPP-R-13",
+      "asset_class": "residential_battery",
+      "slot": 36,
+      "mwh": 0.016,
+      "mw": 0.031,
+      "cost_jpy_kwh": 28.52
+     },
+     {
+      "cluster_id": "VPP-R-14",
+      "asset_class": "residential_battery",
+      "slot": 36,
+      "mwh": 0.652,
+      "mw": 1.304,
+      "cost_jpy_kwh": 28.89
+     },
+     {
+      "cluster_id": "VPP-R-15",
+      "asset_class": "residential_battery",
+      "slot": 36,
+      "mwh": 0.008,
+      "mw": 0.015,
+      "cost_jpy_kwh": 29.91
+     },
+     {
+      "cluster_id": "VPP-R-16",
+      "asset_class": "residential_battery",
+      "slot": 36,
+      "mwh": 0.569,
+      "mw": 1.138,
+      "cost_jpy_kwh": 25.22
+     },
+     {
+      "cluster_id": "VPP-R-18",
+      "asset_class": "residential_battery",
+      "slot": 36,
+      "mwh": 0.566,
+      "mw": 1.132,
+      "cost_jpy_kwh": 28.45
+     },
+     {
+      "cluster_id": "VPP-R-20",
+      "asset_class": "residential_battery",
+      "slot": 36,
+      "mwh": 0.494,
+      "mw": 0.987,
+      "cost_jpy_kwh": 27.38
+     },
+     {
+      "cluster_id": "VPP-R-22",
+      "asset_class": "residential_battery",
+      "slot": 36,
+      "mwh": 0.656,
+      "mw": 1.313,
+      "cost_jpy_kwh": 30.18
+     },
+     {
+      "cluster_id": "VPP-R-24",
+      "asset_class": "residential_battery",
+      "slot": 36,
+      "mwh": 0.456,
+      "mw": 0.912,
+      "cost_jpy_kwh": 29.11
+     },
+     {
+      "cluster_id": "VPP-C-01",
+      "asset_class": "cni_bess",
+      "slot": 37,
+      "mwh": 0.28,
+      "mw": 0.56,
+      "cost_jpy_kwh": 14.81
+     },
+     {
+      "cluster_id": "VPP-C-02",
+      "asset_class": "cni_bess",
+      "slot": 37,
+      "mwh": 1.875,
+      "mw": 3.75,
+      "cost_jpy_kwh": 14.72
+     },
+     {
+      "cluster_id": "VPP-C-03",
+      "asset_class": "cni_bess",
+      "slot": 37,
+      "mwh": 0.455,
+      "mw": 0.91,
+      "cost_jpy_kwh": 18.51
+     },
+     {
+      "cluster_id": "VPP-C-04",
+      "asset_class": "cni_bess",
+      "slot": 37,
+      "mwh": 1.775,
+      "mw": 3.55,
+      "cost_jpy_kwh": 17.58
+     },
+     {
+      "cluster_id": "VPP-C-05",
+      "asset_class": "cni_bess",
+      "slot": 37,
+      "mwh": 1.97,
+      "mw": 3.94,
+      "cost_jpy_kwh": 16.23
+     },
+     {
+      "cluster_id": "VPP-C-06",
+      "asset_class": "cni_bess",
+      "slot": 37,
+      "mwh": 0.54,
+      "mw": 1.08,
+      "cost_jpy_kwh": 18.04
+     },
+     {
+      "cluster_id": "VPP-C-07",
+      "asset_class": "cni_bess",
+      "slot": 37,
+      "mwh": 1.19,
+      "mw": 2.38,
+      "cost_jpy_kwh": 16.0
+     },
+     {
+      "cluster_id": "VPP-C-08",
+      "asset_class": "cni_bess",
+      "slot": 37,
+      "mwh": 0.725,
+      "mw": 1.45,
+      "cost_jpy_kwh": 17.38
+     },
+     {
+      "cluster_id": "VPP-C-09",
+      "asset_class": "cni_bess",
+      "slot": 37,
+      "mwh": 1.4,
+      "mw": 2.8,
+      "cost_jpy_kwh": 14.06
+     },
+     {
+      "cluster_id": "VPP-C-10",
+      "asset_class": "cni_bess",
+      "slot": 37,
+      "mwh": 1.04,
+      "mw": 2.08,
+      "cost_jpy_kwh": 16.78
+     },
+     {
+      "cluster_id": "VPP-D-01",
+      "asset_class": "dr_load",
+      "slot": 37,
+      "mwh": 1.283,
+      "mw": 2.565,
+      "cost_jpy_kwh": 46.64
+     },
+     {
+      "cluster_id": "VPP-D-02",
+      "asset_class": "dr_load",
+      "slot": 37,
+      "mwh": 0.017,
+      "mw": 0.033,
+      "cost_jpy_kwh": 56.83
+     },
+     {
+      "cluster_id": "VPP-D-03",
+      "asset_class": "dr_load",
+      "slot": 37,
+      "mwh": 1.1,
+      "mw": 2.199,
+      "cost_jpy_kwh": 49.11
+     },
+     {
+      "cluster_id": "VPP-D-04",
+      "asset_class": "dr_load",
+      "slot": 37,
+      "mwh": 0.431,
+      "mw": 0.863,
+      "cost_jpy_kwh": 58.06
+     },
+     {
+      "cluster_id": "VPP-D-05",
+      "asset_class": "dr_load",
+      "slot": 37,
+      "mwh": 1.3,
+      "mw": 2.599,
+      "cost_jpy_kwh": 55.29
+     },
+     {
+      "cluster_id": "VPP-D-06",
+      "asset_class": "dr_load",
+      "slot": 37,
+      "mwh": 0.512,
+      "mw": 1.024,
+      "cost_jpy_kwh": 45.91
+     },
+     {
+      "cluster_id": "VPP-D-07",
+      "asset_class": "dr_load",
+      "slot": 37,
+      "mwh": 0.964,
+      "mw": 1.929,
+      "cost_jpy_kwh": 46.92
+     },
+     {
+      "cluster_id": "VPP-D-08",
+      "asset_class": "dr_load",
+      "slot": 37,
+      "mwh": 0.736,
+      "mw": 1.472,
+      "cost_jpy_kwh": 52.78
+     },
+     {
+      "cluster_id": "VPP-E-01",
+      "asset_class": "ev_depot",
+      "slot": 37,
+      "mwh": 0.051,
+      "mw": 0.103,
+      "cost_jpy_kwh": 33.19
+     },
+     {
+      "cluster_id": "VPP-E-02",
+      "asset_class": "ev_depot",
+      "slot": 37,
+      "mwh": 0.028,
+      "mw": 0.056,
+      "cost_jpy_kwh": 33.06
+     },
+     {
+      "cluster_id": "VPP-E-03",
+      "asset_class": "ev_depot",
+      "slot": 37,
+      "mwh": 0.015,
+      "mw": 0.031,
+      "cost_jpy_kwh": 37.33
+     },
+     {
+      "cluster_id": "VPP-E-04",
+      "asset_class": "ev_depot",
+      "slot": 37,
+      "mwh": 0.011,
+      "mw": 0.023,
+      "cost_jpy_kwh": 34.58
+     },
+     {
+      "cluster_id": "VPP-E-05",
+      "asset_class": "ev_depot",
+      "slot": 37,
+      "mwh": 0.025,
+      "mw": 0.051,
+      "cost_jpy_kwh": 36.94
+     },
+     {
+      "cluster_id": "VPP-E-06",
+      "asset_class": "ev_depot",
+      "slot": 37,
+      "mwh": 0.038,
+      "mw": 0.077,
+      "cost_jpy_kwh": 37.46
+     },
+     {
+      "cluster_id": "VPP-E-07",
+      "asset_class": "ev_depot",
+      "slot": 37,
+      "mwh": 0.045,
+      "mw": 0.091,
+      "cost_jpy_kwh": 35.03
+     },
+     {
+      "cluster_id": "VPP-E-08",
+      "asset_class": "ev_depot",
+      "slot": 37,
+      "mwh": 0.03,
+      "mw": 0.061,
+      "cost_jpy_kwh": 34.76
+     },
+     {
+      "cluster_id": "VPP-H-01",
+      "asset_class": "heat_pump_water_heater",
+      "slot": 37,
+      "mwh": 0.116,
+      "mw": 0.233,
+      "cost_jpy_kwh": 22.18
+     },
+     {
+      "cluster_id": "VPP-H-02",
+      "asset_class": "heat_pump_water_heater",
+      "slot": 37,
+      "mwh": 0.122,
+      "mw": 0.243,
+      "cost_jpy_kwh": 19.21
+     },
+     {
+      "cluster_id": "VPP-H-03",
+      "asset_class": "heat_pump_water_heater",
+      "slot": 37,
+      "mwh": 0.168,
+      "mw": 0.337,
+      "cost_jpy_kwh": 22.64
+     },
+     {
+      "cluster_id": "VPP-H-04",
+      "asset_class": "heat_pump_water_heater",
+      "slot": 37,
+      "mwh": 0.203,
+      "mw": 0.406,
+      "cost_jpy_kwh": 21.7
+     },
+     {
+      "cluster_id": "VPP-H-05",
+      "asset_class": "heat_pump_water_heater",
+      "slot": 37,
+      "mwh": 0.107,
+      "mw": 0.214,
+      "cost_jpy_kwh": 21.84
+     },
+     {
+      "cluster_id": "VPP-H-06",
+      "asset_class": "heat_pump_water_heater",
+      "slot": 37,
+      "mwh": 0.122,
+      "mw": 0.244,
+      "cost_jpy_kwh": 22.47
+     },
+     {
+      "cluster_id": "VPP-H-07",
+      "asset_class": "heat_pump_water_heater",
+      "slot": 37,
+      "mwh": 0.162,
+      "mw": 0.324,
+      "cost_jpy_kwh": 23.5
+     },
+     {
+      "cluster_id": "VPP-H-08",
+      "asset_class": "heat_pump_water_heater",
+      "slot": 37,
+      "mwh": 0.107,
+      "mw": 0.215,
+      "cost_jpy_kwh": 20.56
+     },
+     {
+      "cluster_id": "VPP-H-09",
+      "asset_class": "heat_pump_water_heater",
+      "slot": 37,
+      "mwh": 0.163,
+      "mw": 0.327,
+      "cost_jpy_kwh": 22.26
+     },
+     {
+      "cluster_id": "VPP-H-10",
+      "asset_class": "heat_pump_water_heater",
+      "slot": 37,
+      "mwh": 0.168,
+      "mw": 0.336,
+      "cost_jpy_kwh": 22.88
+     },
+     {
+      "cluster_id": "VPP-R-01",
+      "asset_class": "residential_battery",
+      "slot": 37,
+      "mwh": 0.728,
+      "mw": 1.457,
+      "cost_jpy_kwh": 30.13
+     },
+     {
+      "cluster_id": "VPP-R-02",
+      "asset_class": "residential_battery",
+      "slot": 37,
+      "mwh": 0.627,
+      "mw": 1.254,
+      "cost_jpy_kwh": 26.43
+     },
+     {
+      "cluster_id": "VPP-R-03",
+      "asset_class": "residential_battery",
+      "slot": 37,
+      "mwh": 0.357,
+      "mw": 0.715,
+      "cost_jpy_kwh": 27.24
+     },
+     {
+      "cluster_id": "VPP-R-04",
+      "asset_class": "residential_battery",
+      "slot": 37,
+      "mwh": 0.256,
+      "mw": 0.513,
+      "cost_jpy_kwh": 26.76
+     },
+     {
+      "cluster_id": "VPP-R-05",
+      "asset_class": "residential_battery",
+      "slot": 37,
+      "mwh": 0.268,
+      "mw": 0.535,
+      "cost_jpy_kwh": 27.76
+     },
+     {
+      "cluster_id": "VPP-R-06",
+      "asset_class": "residential_battery",
+      "slot": 37,
+      "mwh": 0.098,
+      "mw": 0.196,
+      "cost_jpy_kwh": 28.04
+     },
+     {
+      "cluster_id": "VPP-R-07",
+      "asset_class": "residential_battery",
+      "slot": 37,
+      "mwh": 0.68,
+      "mw": 1.361,
+      "cost_jpy_kwh": 30.89
+     },
+     {
+      "cluster_id": "VPP-R-08",
+      "asset_class": "residential_battery",
+      "slot": 37,
+      "mwh": 0.49,
+      "mw": 0.98,
+      "cost_jpy_kwh": 30.99
+     },
+     {
+      "cluster_id": "VPP-R-09",
+      "asset_class": "residential_battery",
+      "slot": 37,
+      "mwh": 0.546,
+      "mw": 1.092,
+      "cost_jpy_kwh": 30.86
+     },
+     {
+      "cluster_id": "VPP-R-10",
+      "asset_class": "residential_battery",
+      "slot": 37,
+      "mwh": 0.44,
+      "mw": 0.879,
+      "cost_jpy_kwh": 25.47
+     },
+     {
+      "cluster_id": "VPP-R-11",
+      "asset_class": "residential_battery",
+      "slot": 37,
+      "mwh": 0.612,
+      "mw": 1.223,
+      "cost_jpy_kwh": 28.85
+     },
+     {
+      "cluster_id": "VPP-R-12",
+      "asset_class": "residential_battery",
+      "slot": 37,
+      "mwh": 0.582,
+      "mw": 1.164,
+      "cost_jpy_kwh": 26.05
+     },
+     {
+      "cluster_id": "VPP-R-13",
+      "asset_class": "residential_battery",
+      "slot": 37,
+      "mwh": 0.599,
+      "mw": 1.198,
+      "cost_jpy_kwh": 28.52
+     },
+     {
+      "cluster_id": "VPP-R-14",
+      "asset_class": "residential_battery",
+      "slot": 37,
+      "mwh": 0.652,
+      "mw": 1.304,
+      "cost_jpy_kwh": 28.89
+     },
+     {
+      "cluster_id": "VPP-R-15",
+      "asset_class": "residential_battery",
+      "slot": 37,
+      "mwh": 0.626,
+      "mw": 1.252,
+      "cost_jpy_kwh": 29.91
+     },
+     {
+      "cluster_id": "VPP-R-16",
+      "asset_class": "residential_battery",
+      "slot": 37,
+      "mwh": 0.569,
+      "mw": 1.138,
+      "cost_jpy_kwh": 25.22
+     },
+     {
+      "cluster_id": "VPP-R-18",
+      "asset_class": "residential_battery",
+      "slot": 37,
+      "mwh": 0.566,
+      "mw": 1.132,
+      "cost_jpy_kwh": 28.45
+     },
+     {
+      "cluster_id": "VPP-R-19",
+      "asset_class": "residential_battery",
+      "slot": 37,
+      "mwh": 0.47,
+      "mw": 0.94,
+      "cost_jpy_kwh": 27.13
+     },
+     {
+      "cluster_id": "VPP-R-20",
+      "asset_class": "residential_battery",
+      "slot": 37,
+      "mwh": 0.494,
+      "mw": 0.987,
+      "cost_jpy_kwh": 27.38
+     },
+     {
+      "cluster_id": "VPP-R-21",
+      "asset_class": "residential_battery",
+      "slot": 37,
+      "mwh": 0.534,
+      "mw": 1.068,
+      "cost_jpy_kwh": 25.54
+     },
+     {
+      "cluster_id": "VPP-R-22",
+      "asset_class": "residential_battery",
+      "slot": 37,
+      "mwh": 0.656,
+      "mw": 1.313,
+      "cost_jpy_kwh": 30.18
+     },
+     {
+      "cluster_id": "VPP-R-23",
+      "asset_class": "residential_battery",
+      "slot": 37,
+      "mwh": 0.529,
+      "mw": 1.059,
+      "cost_jpy_kwh": 26.47
+     },
+     {
+      "cluster_id": "VPP-R-24",
+      "asset_class": "residential_battery",
+      "slot": 37,
+      "mwh": 0.456,
+      "mw": 0.912,
+      "cost_jpy_kwh": 29.11
+     },
+     {
+      "cluster_id": "VPP-C-01",
+      "asset_class": "cni_bess",
+      "slot": 38,
+      "mwh": 0.28,
+      "mw": 0.56,
+      "cost_jpy_kwh": 14.81
+     },
+     {
+      "cluster_id": "VPP-C-02",
+      "asset_class": "cni_bess",
+      "slot": 38,
+      "mwh": 1.875,
+      "mw": 3.75,
+      "cost_jpy_kwh": 14.72
+     },
+     {
+      "cluster_id": "VPP-C-03",
+      "asset_class": "cni_bess",
+      "slot": 38,
+      "mwh": 0.455,
+      "mw": 0.91,
+      "cost_jpy_kwh": 18.51
+     },
+     {
+      "cluster_id": "VPP-C-04",
+      "asset_class": "cni_bess",
+      "slot": 38,
+      "mwh": 1.775,
+      "mw": 3.55,
+      "cost_jpy_kwh": 17.58
+     },
+     {
+      "cluster_id": "VPP-C-05",
+      "asset_class": "cni_bess",
+      "slot": 38,
+      "mwh": 1.97,
+      "mw": 3.94,
+      "cost_jpy_kwh": 16.23
+     },
+     {
+      "cluster_id": "VPP-C-06",
+      "asset_class": "cni_bess",
+      "slot": 38,
+      "mwh": 0.54,
+      "mw": 1.08,
+      "cost_jpy_kwh": 18.04
+     },
+     {
+      "cluster_id": "VPP-C-07",
+      "asset_class": "cni_bess",
+      "slot": 38,
+      "mwh": 1.19,
+      "mw": 2.38,
+      "cost_jpy_kwh": 16.0
+     },
+     {
+      "cluster_id": "VPP-C-08",
+      "asset_class": "cni_bess",
+      "slot": 38,
+      "mwh": 0.725,
+      "mw": 1.45,
+      "cost_jpy_kwh": 17.38
+     },
+     {
+      "cluster_id": "VPP-C-09",
+      "asset_class": "cni_bess",
+      "slot": 38,
+      "mwh": 1.4,
+      "mw": 2.8,
+      "cost_jpy_kwh": 14.06
+     },
+     {
+      "cluster_id": "VPP-C-10",
+      "asset_class": "cni_bess",
+      "slot": 38,
+      "mwh": 1.04,
+      "mw": 2.08,
+      "cost_jpy_kwh": 16.78
+     },
+     {
+      "cluster_id": "VPP-D-01",
+      "asset_class": "dr_load",
+      "slot": 38,
+      "mwh": 1.283,
+      "mw": 2.565,
+      "cost_jpy_kwh": 46.64
+     },
+     {
+      "cluster_id": "VPP-D-02",
+      "asset_class": "dr_load",
+      "slot": 38,
+      "mwh": 0.017,
+      "mw": 0.033,
+      "cost_jpy_kwh": 56.83
+     },
+     {
+      "cluster_id": "VPP-D-03",
+      "asset_class": "dr_load",
+      "slot": 38,
+      "mwh": 1.1,
+      "mw": 2.199,
+      "cost_jpy_kwh": 49.11
+     },
+     {
+      "cluster_id": "VPP-D-04",
+      "asset_class": "dr_load",
+      "slot": 38,
+      "mwh": 0.431,
+      "mw": 0.863,
+      "cost_jpy_kwh": 58.06
+     },
+     {
+      "cluster_id": "VPP-D-05",
+      "asset_class": "dr_load",
+      "slot": 38,
+      "mwh": 1.3,
+      "mw": 2.599,
+      "cost_jpy_kwh": 55.29
+     },
+     {
+      "cluster_id": "VPP-D-06",
+      "asset_class": "dr_load",
+      "slot": 38,
+      "mwh": 0.512,
+      "mw": 1.024,
+      "cost_jpy_kwh": 45.91
+     },
+     {
+      "cluster_id": "VPP-D-07",
+      "asset_class": "dr_load",
+      "slot": 38,
+      "mwh": 0.964,
+      "mw": 1.929,
+      "cost_jpy_kwh": 46.92
+     },
+     {
+      "cluster_id": "VPP-D-08",
+      "asset_class": "dr_load",
+      "slot": 38,
+      "mwh": 0.736,
+      "mw": 1.472,
+      "cost_jpy_kwh": 52.78
+     },
+     {
+      "cluster_id": "VPP-H-01",
+      "asset_class": "heat_pump_water_heater",
+      "slot": 38,
+      "mwh": 0.116,
+      "mw": 0.233,
+      "cost_jpy_kwh": 22.18
+     },
+     {
+      "cluster_id": "VPP-H-02",
+      "asset_class": "heat_pump_water_heater",
+      "slot": 38,
+      "mwh": 0.122,
+      "mw": 0.243,
+      "cost_jpy_kwh": 19.21
+     },
+     {
+      "cluster_id": "VPP-H-03",
+      "asset_class": "heat_pump_water_heater",
+      "slot": 38,
+      "mwh": 0.168,
+      "mw": 0.337,
+      "cost_jpy_kwh": 22.64
+     },
+     {
+      "cluster_id": "VPP-H-05",
+      "asset_class": "heat_pump_water_heater",
+      "slot": 38,
+      "mwh": 0.107,
+      "mw": 0.214,
+      "cost_jpy_kwh": 21.84
+     },
+     {
+      "cluster_id": "VPP-H-06",
+      "asset_class": "heat_pump_water_heater",
+      "slot": 38,
+      "mwh": 0.122,
+      "mw": 0.244,
+      "cost_jpy_kwh": 22.47
+     },
+     {
+      "cluster_id": "VPP-H-07",
+      "asset_class": "heat_pump_water_heater",
+      "slot": 38,
+      "mwh": 0.162,
+      "mw": 0.324,
+      "cost_jpy_kwh": 23.5
+     },
+     {
+      "cluster_id": "VPP-H-08",
+      "asset_class": "heat_pump_water_heater",
+      "slot": 38,
+      "mwh": 0.107,
+      "mw": 0.215,
+      "cost_jpy_kwh": 20.56
+     },
+     {
+      "cluster_id": "VPP-H-09",
+      "asset_class": "heat_pump_water_heater",
+      "slot": 38,
+      "mwh": 0.163,
+      "mw": 0.327,
+      "cost_jpy_kwh": 22.26
+     },
+     {
+      "cluster_id": "VPP-H-10",
+      "asset_class": "heat_pump_water_heater",
+      "slot": 38,
+      "mwh": 0.168,
+      "mw": 0.336,
+      "cost_jpy_kwh": 22.88
+     },
+     {
+      "cluster_id": "VPP-R-01",
+      "asset_class": "residential_battery",
+      "slot": 38,
+      "mwh": 0.728,
+      "mw": 1.457,
+      "cost_jpy_kwh": 30.13
+     },
+     {
+      "cluster_id": "VPP-R-02",
+      "asset_class": "residential_battery",
+      "slot": 38,
+      "mwh": 0.627,
+      "mw": 1.254,
+      "cost_jpy_kwh": 26.43
+     },
+     {
+      "cluster_id": "VPP-R-03",
+      "asset_class": "residential_battery",
+      "slot": 38,
+      "mwh": 0.357,
+      "mw": 0.715,
+      "cost_jpy_kwh": 27.24
+     },
+     {
+      "cluster_id": "VPP-R-04",
+      "asset_class": "residential_battery",
+      "slot": 38,
+      "mwh": 0.256,
+      "mw": 0.513,
+      "cost_jpy_kwh": 26.76
+     },
+     {
+      "cluster_id": "VPP-R-05",
+      "asset_class": "residential_battery",
+      "slot": 38,
+      "mwh": 0.268,
+      "mw": 0.535,
+      "cost_jpy_kwh": 27.76
+     },
+     {
+      "cluster_id": "VPP-R-06",
+      "asset_class": "residential_battery",
+      "slot": 38,
+      "mwh": 0.098,
+      "mw": 0.196,
+      "cost_jpy_kwh": 28.04
+     },
+     {
+      "cluster_id": "VPP-R-07",
+      "asset_class": "residential_battery",
+      "slot": 38,
+      "mwh": 0.053,
+      "mw": 0.106,
+      "cost_jpy_kwh": 30.89
+     },
+     {
+      "cluster_id": "VPP-R-08",
+      "asset_class": "residential_battery",
+      "slot": 38,
+      "mwh": 0.49,
+      "mw": 0.98,
+      "cost_jpy_kwh": 30.99
+     },
+     {
+      "cluster_id": "VPP-R-09",
+      "asset_class": "residential_battery",
+      "slot": 38,
+      "mwh": 0.067,
+      "mw": 0.133,
+      "cost_jpy_kwh": 30.86
+     },
+     {
+      "cluster_id": "VPP-R-10",
+      "asset_class": "residential_battery",
+      "slot": 38,
+      "mwh": 0.44,
+      "mw": 0.879,
+      "cost_jpy_kwh": 25.47
+     },
+     {
+      "cluster_id": "VPP-R-11",
+      "asset_class": "residential_battery",
+      "slot": 38,
+      "mwh": 0.612,
+      "mw": 1.223,
+      "cost_jpy_kwh": 28.85
+     },
+     {
+      "cluster_id": "VPP-R-12",
+      "asset_class": "residential_battery",
+      "slot": 38,
+      "mwh": 0.544,
+      "mw": 1.089,
+      "cost_jpy_kwh": 26.05
+     },
+     {
+      "cluster_id": "VPP-R-13",
+      "asset_class": "residential_battery",
+      "slot": 38,
+      "mwh": 0.599,
+      "mw": 1.198,
+      "cost_jpy_kwh": 28.52
+     },
+     {
+      "cluster_id": "VPP-R-14",
+      "asset_class": "residential_battery",
+      "slot": 38,
+      "mwh": 0.02,
+      "mw": 0.041,
+      "cost_jpy_kwh": 28.89
+     },
+     {
+      "cluster_id": "VPP-R-15",
+      "asset_class": "residential_battery",
+      "slot": 38,
+      "mwh": 0.626,
+      "mw": 1.252,
+      "cost_jpy_kwh": 29.91
+     },
+     {
+      "cluster_id": "VPP-R-16",
+      "asset_class": "residential_battery",
+      "slot": 38,
+      "mwh": 0.141,
+      "mw": 0.283,
+      "cost_jpy_kwh": 25.22
+     },
+     {
+      "cluster_id": "VPP-R-18",
+      "asset_class": "residential_battery",
+      "slot": 38,
+      "mwh": 0.566,
+      "mw": 1.132,
+      "cost_jpy_kwh": 28.45
+     },
+     {
+      "cluster_id": "VPP-R-19",
+      "asset_class": "residential_battery",
+      "slot": 38,
+      "mwh": 0.431,
+      "mw": 0.863,
+      "cost_jpy_kwh": 27.13
+     },
+     {
+      "cluster_id": "VPP-R-20",
+      "asset_class": "residential_battery",
+      "slot": 38,
+      "mwh": 0.009,
+      "mw": 0.018,
+      "cost_jpy_kwh": 27.38
+     },
+     {
+      "cluster_id": "VPP-R-21",
+      "asset_class": "residential_battery",
+      "slot": 38,
+      "mwh": 0.534,
+      "mw": 1.068,
+      "cost_jpy_kwh": 25.54
+     },
+     {
+      "cluster_id": "VPP-R-22",
+      "asset_class": "residential_battery",
+      "slot": 38,
+      "mwh": 0.656,
+      "mw": 1.313,
+      "cost_jpy_kwh": 30.18
+     },
+     {
+      "cluster_id": "VPP-R-23",
+      "asset_class": "residential_battery",
+      "slot": 38,
+      "mwh": 0.529,
+      "mw": 1.059,
+      "cost_jpy_kwh": 26.47
+     },
+     {
+      "cluster_id": "VPP-R-24",
+      "asset_class": "residential_battery",
+      "slot": 38,
+      "mwh": 0.456,
+      "mw": 0.912,
+      "cost_jpy_kwh": 29.11
+     }
+    ],
+    "mwh_by_slot": {
+     "35": 22.2,
+     "36": 26.93,
+     "37": 31.14,
+     "38": 27.96
+    },
+    "total_mwh": 108.14,
+    "expected_cost_jpy": 3087119.0,
+    "excluded_clusters": [
+     "VPP-R-17"
+    ]
+   },
+   "risk": "medium",
+   "reasoning": [
+    "VPP cost 14.06-58.06 JPY/kWh is below the intraday ask and the imbalance forecast in every slot",
+    "dKW commitments and their reserve energy are held back",
+    "Clusters with stale or frozen telemetry excluded"
+   ],
+   "sources": [
+    "tepco_retail_desk_demo.vpp_clusters",
+    "tepco_retail_desk_demo.vpp_telemetry_30min",
+    "tepco_retail_desk_demo.ancillary_commitments",
+    "desk_policy_guide.md Section 5"
+   ],
+   "requires": "hold_to_confirm"
+  }
+ ],
+ "audits": {
+  "PA-ID-0819-3538-a6c8e8": {
+   "action_id": "PA-ID-0819-3538-a6c8e8",
+   "verdict": "pass",
+   "failed_rules": []
+  },
+  "PA-VPP-0819-3538-f93378": {
+   "action_id": "PA-VPP-0819-3538-f93378",
+   "verdict": "pass",
+   "failed_rules": []
+  }
+ },
+ "latency_s": 50.5,
+ "agent": "desk_orchestrator"
+}

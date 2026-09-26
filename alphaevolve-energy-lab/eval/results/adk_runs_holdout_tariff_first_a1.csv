@@ -1,0 +1,106 @@
+eval_set_id,eval_id,metric_name,threshold,score,eval_status,prompt,expected_response,actual_response,expected_tool_calls,actual_tool_calls
+runs_holdout_tariff_first,holdout_tariff_first,tool_trajectory_avg_score,1.0,1.0,PASSED,Did run tariff_pricing.20260926T073839Z produce a validated uplift on the holdout? Explain.,"Holdout result for tariff_pricing.20260926T073839Z: holdout delta None, uplift_valid false [energy_alphaevolve_lab.lab_holdout].","No, run **tariff_pricing.20260926T073839Z** did not produce a validated uplift on the holdout. 
+
+### Holdout Evaluation and Policy Invariant Violation
+* **Holdout Delta:** `null` [energy_alphaevolve_lab.lab_runs]
+* **Best Holdout Score:** `null` [energy_alphaevolve_lab.lab_runs]
+* **Uplift Valid Flag:** `false` [energy_alphaevolve_lab.lab_runs]
+
+Although the search demonstrated training progress with a seed train score of -8800.354 JPY M and a best train score of -3289.666 JPY M (a training delta vs seed of 5510.688 JPY M) [energy_alphaevolve_lab.lab_runs], training progress does not constitute validated uplift. 
+
+On the holdout set, the champion program violated the policy invariant regarding customer churn. Specifically, it caused a university segment churn of 26.2%, exceeding the policy threshold where segment churn must not exceed 25% [energy_alphaevolve_lab.lab_runs]. While the program would have attained a raw score of -6083.3 JPY M without the policy gate [energy_alphaevolve_lab.lab_runs], pricing out customer segments is treated as an unapproved strategy change rather than a true efficiency gain. Candidates rejected by a policy invariant are invalid and cannot be recognized as validated uplift.
+
+### Run Context
+This run was executed on a local controller with source ""local-gemini-controller"" [energy_alphaevolve_lab.lab_runs]. Please note that all market, customer, and run figures in this lab are calibrated synthetic data for a fictional balance group.",id=None args={'run_id': 'tariff_pricing.20260926T073839Z'} name='get_holdout_result' partial_args=None will_continue=None,"id='call_374631' args={'run_id': 'tariff_pricing.20260926T073839Z'} name='get_holdout_result' partial_args=None will_continue=None
+id='call_93715' args={'run_id': 'tariff_pricing.20260926T073839Z'} name='get_run_summary' partial_args=None will_continue=None
+id='call_50084' args={'run_id': 'tariff_pricing.20260926T073839Z'} name='get_invariant_catches' partial_args=None will_continue=None"
+runs_holdout_tariff_first,holdout_tariff_first,rubric_based_final_response_quality_v1,0.8,1.0,PASSED,Did run tariff_pricing.20260926T073839Z produce a validated uplift on the holdout? Explain.,"Holdout result for tariff_pricing.20260926T073839Z: holdout delta None, uplift_valid false [energy_alphaevolve_lab.lab_holdout].","No, run **tariff_pricing.20260926T073839Z** did not produce a validated uplift on the holdout. 
+
+### Holdout Evaluation and Policy Invariant Violation
+* **Holdout Delta:** `null` [energy_alphaevolve_lab.lab_runs]
+* **Best Holdout Score:** `null` [energy_alphaevolve_lab.lab_runs]
+* **Uplift Valid Flag:** `false` [energy_alphaevolve_lab.lab_runs]
+
+Although the search demonstrated training progress with a seed train score of -8800.354 JPY M and a best train score of -3289.666 JPY M (a training delta vs seed of 5510.688 JPY M) [energy_alphaevolve_lab.lab_runs], training progress does not constitute validated uplift. 
+
+On the holdout set, the champion program violated the policy invariant regarding customer churn. Specifically, it caused a university segment churn of 26.2%, exceeding the policy threshold where segment churn must not exceed 25% [energy_alphaevolve_lab.lab_runs]. While the program would have attained a raw score of -6083.3 JPY M without the policy gate [energy_alphaevolve_lab.lab_runs], pricing out customer segments is treated as an unapproved strategy change rather than a true efficiency gain. Candidates rejected by a policy invariant are invalid and cannot be recognized as validated uplift.
+
+### Run Context
+This run was executed on a local controller with source ""local-gemini-controller"" [energy_alphaevolve_lab.lab_runs]. Please note that all market, customer, and run figures in this lab are calibrated synthetic data for a fictional balance group.",id=None args={'run_id': 'tariff_pricing.20260926T073839Z'} name='get_holdout_result' partial_args=None will_continue=None,"id='call_374631' args={'run_id': 'tariff_pricing.20260926T073839Z'} name='get_holdout_result' partial_args=None will_continue=None
+id='call_93715' args={'run_id': 'tariff_pricing.20260926T073839Z'} name='get_run_summary' partial_args=None will_continue=None
+id='call_50084' args={'run_id': 'tariff_pricing.20260926T073839Z'} name='get_invariant_catches' partial_args=None will_continue=None"
+runs_holdout_tariff_first,holdout_tariff_first,hallucinations_v1,0.8,1.0,PASSED,Did run tariff_pricing.20260926T073839Z produce a validated uplift on the holdout? Explain.,"Holdout result for tariff_pricing.20260926T073839Z: holdout delta None, uplift_valid false [energy_alphaevolve_lab.lab_holdout].","No, run **tariff_pricing.20260926T073839Z** did not produce a validated uplift on the holdout. 
+
+### Holdout Evaluation and Policy Invariant Violation
+* **Holdout Delta:** `null` [energy_alphaevolve_lab.lab_runs]
+* **Best Holdout Score:** `null` [energy_alphaevolve_lab.lab_runs]
+* **Uplift Valid Flag:** `false` [energy_alphaevolve_lab.lab_runs]
+
+Although the search demonstrated training progress with a seed train score of -8800.354 JPY M and a best train score of -3289.666 JPY M (a training delta vs seed of 5510.688 JPY M) [energy_alphaevolve_lab.lab_runs], training progress does not constitute validated uplift. 
+
+On the holdout set, the champion program violated the policy invariant regarding customer churn. Specifically, it caused a university segment churn of 26.2%, exceeding the policy threshold where segment churn must not exceed 25% [energy_alphaevolve_lab.lab_runs]. While the program would have attained a raw score of -6083.3 JPY M without the policy gate [energy_alphaevolve_lab.lab_runs], pricing out customer segments is treated as an unapproved strategy change rather than a true efficiency gain. Candidates rejected by a policy invariant are invalid and cannot be recognized as validated uplift.
+
+### Run Context
+This run was executed on a local controller with source ""local-gemini-controller"" [energy_alphaevolve_lab.lab_runs]. Please note that all market, customer, and run figures in this lab are calibrated synthetic data for a fictional balance group.",id=None args={'run_id': 'tariff_pricing.20260926T073839Z'} name='get_holdout_result' partial_args=None will_continue=None,"id='call_374631' args={'run_id': 'tariff_pricing.20260926T073839Z'} name='get_holdout_result' partial_args=None will_continue=None
+id='call_93715' args={'run_id': 'tariff_pricing.20260926T073839Z'} name='get_run_summary' partial_args=None will_continue=None
+id='call_50084' args={'run_id': 'tariff_pricing.20260926T073839Z'} name='get_invariant_catches' partial_args=None will_continue=None"
+runs_holdout_tariff_first,holdout_tariff_first,tool_call_count_v1,,3.0,INFORMATIONAL,Did run tariff_pricing.20260926T073839Z produce a validated uplift on the holdout? Explain.,"Holdout result for tariff_pricing.20260926T073839Z: holdout delta None, uplift_valid false [energy_alphaevolve_lab.lab_holdout].","No, run **tariff_pricing.20260926T073839Z** did not produce a validated uplift on the holdout. 
+
+### Holdout Evaluation and Policy Invariant Violation
+* **Holdout Delta:** `null` [energy_alphaevolve_lab.lab_runs]
+* **Best Holdout Score:** `null` [energy_alphaevolve_lab.lab_runs]
+* **Uplift Valid Flag:** `false` [energy_alphaevolve_lab.lab_runs]
+
+Although the search demonstrated training progress with a seed train score of -8800.354 JPY M and a best train score of -3289.666 JPY M (a training delta vs seed of 5510.688 JPY M) [energy_alphaevolve_lab.lab_runs], training progress does not constitute validated uplift. 
+
+On the holdout set, the champion program violated the policy invariant regarding customer churn. Specifically, it caused a university segment churn of 26.2%, exceeding the policy threshold where segment churn must not exceed 25% [energy_alphaevolve_lab.lab_runs]. While the program would have attained a raw score of -6083.3 JPY M without the policy gate [energy_alphaevolve_lab.lab_runs], pricing out customer segments is treated as an unapproved strategy change rather than a true efficiency gain. Candidates rejected by a policy invariant are invalid and cannot be recognized as validated uplift.
+
+### Run Context
+This run was executed on a local controller with source ""local-gemini-controller"" [energy_alphaevolve_lab.lab_runs]. Please note that all market, customer, and run figures in this lab are calibrated synthetic data for a fictional balance group.",id=None args={'run_id': 'tariff_pricing.20260926T073839Z'} name='get_holdout_result' partial_args=None will_continue=None,"id='call_374631' args={'run_id': 'tariff_pricing.20260926T073839Z'} name='get_holdout_result' partial_args=None will_continue=None
+id='call_93715' args={'run_id': 'tariff_pricing.20260926T073839Z'} name='get_run_summary' partial_args=None will_continue=None
+id='call_50084' args={'run_id': 'tariff_pricing.20260926T073839Z'} name='get_invariant_catches' partial_args=None will_continue=None"
+runs_holdout_tariff_first,holdout_tariff_first,inference_call_count_v1,,4.0,INFORMATIONAL,Did run tariff_pricing.20260926T073839Z produce a validated uplift on the holdout? Explain.,"Holdout result for tariff_pricing.20260926T073839Z: holdout delta None, uplift_valid false [energy_alphaevolve_lab.lab_holdout].","No, run **tariff_pricing.20260926T073839Z** did not produce a validated uplift on the holdout. 
+
+### Holdout Evaluation and Policy Invariant Violation
+* **Holdout Delta:** `null` [energy_alphaevolve_lab.lab_runs]
+* **Best Holdout Score:** `null` [energy_alphaevolve_lab.lab_runs]
+* **Uplift Valid Flag:** `false` [energy_alphaevolve_lab.lab_runs]
+
+Although the search demonstrated training progress with a seed train score of -8800.354 JPY M and a best train score of -3289.666 JPY M (a training delta vs seed of 5510.688 JPY M) [energy_alphaevolve_lab.lab_runs], training progress does not constitute validated uplift. 
+
+On the holdout set, the champion program violated the policy invariant regarding customer churn. Specifically, it caused a university segment churn of 26.2%, exceeding the policy threshold where segment churn must not exceed 25% [energy_alphaevolve_lab.lab_runs]. While the program would have attained a raw score of -6083.3 JPY M without the policy gate [energy_alphaevolve_lab.lab_runs], pricing out customer segments is treated as an unapproved strategy change rather than a true efficiency gain. Candidates rejected by a policy invariant are invalid and cannot be recognized as validated uplift.
+
+### Run Context
+This run was executed on a local controller with source ""local-gemini-controller"" [energy_alphaevolve_lab.lab_runs]. Please note that all market, customer, and run figures in this lab are calibrated synthetic data for a fictional balance group.",id=None args={'run_id': 'tariff_pricing.20260926T073839Z'} name='get_holdout_result' partial_args=None will_continue=None,"id='call_374631' args={'run_id': 'tariff_pricing.20260926T073839Z'} name='get_holdout_result' partial_args=None will_continue=None
+id='call_93715' args={'run_id': 'tariff_pricing.20260926T073839Z'} name='get_run_summary' partial_args=None will_continue=None
+id='call_50084' args={'run_id': 'tariff_pricing.20260926T073839Z'} name='get_invariant_catches' partial_args=None will_continue=None"
+runs_holdout_tariff_first,holdout_tariff_first,token_usage_v1,,12575.0,INFORMATIONAL,Did run tariff_pricing.20260926T073839Z produce a validated uplift on the holdout? Explain.,"Holdout result for tariff_pricing.20260926T073839Z: holdout delta None, uplift_valid false [energy_alphaevolve_lab.lab_holdout].","No, run **tariff_pricing.20260926T073839Z** did not produce a validated uplift on the holdout. 
+
+### Holdout Evaluation and Policy Invariant Violation
+* **Holdout Delta:** `null` [energy_alphaevolve_lab.lab_runs]
+* **Best Holdout Score:** `null` [energy_alphaevolve_lab.lab_runs]
+* **Uplift Valid Flag:** `false` [energy_alphaevolve_lab.lab_runs]
+
+Although the search demonstrated training progress with a seed train score of -8800.354 JPY M and a best train score of -3289.666 JPY M (a training delta vs seed of 5510.688 JPY M) [energy_alphaevolve_lab.lab_runs], training progress does not constitute validated uplift. 
+
+On the holdout set, the champion program violated the policy invariant regarding customer churn. Specifically, it caused a university segment churn of 26.2%, exceeding the policy threshold where segment churn must not exceed 25% [energy_alphaevolve_lab.lab_runs]. While the program would have attained a raw score of -6083.3 JPY M without the policy gate [energy_alphaevolve_lab.lab_runs], pricing out customer segments is treated as an unapproved strategy change rather than a true efficiency gain. Candidates rejected by a policy invariant are invalid and cannot be recognized as validated uplift.
+
+### Run Context
+This run was executed on a local controller with source ""local-gemini-controller"" [energy_alphaevolve_lab.lab_runs]. Please note that all market, customer, and run figures in this lab are calibrated synthetic data for a fictional balance group.",id=None args={'run_id': 'tariff_pricing.20260926T073839Z'} name='get_holdout_result' partial_args=None will_continue=None,"id='call_374631' args={'run_id': 'tariff_pricing.20260926T073839Z'} name='get_holdout_result' partial_args=None will_continue=None
+id='call_93715' args={'run_id': 'tariff_pricing.20260926T073839Z'} name='get_run_summary' partial_args=None will_continue=None
+id='call_50084' args={'run_id': 'tariff_pricing.20260926T073839Z'} name='get_invariant_catches' partial_args=None will_continue=None"
+runs_holdout_tariff_first,holdout_tariff_first,invocation_duration_v1,,13.275,INFORMATIONAL,Did run tariff_pricing.20260926T073839Z produce a validated uplift on the holdout? Explain.,"Holdout result for tariff_pricing.20260926T073839Z: holdout delta None, uplift_valid false [energy_alphaevolve_lab.lab_holdout].","No, run **tariff_pricing.20260926T073839Z** did not produce a validated uplift on the holdout. 
+
+### Holdout Evaluation and Policy Invariant Violation
+* **Holdout Delta:** `null` [energy_alphaevolve_lab.lab_runs]
+* **Best Holdout Score:** `null` [energy_alphaevolve_lab.lab_runs]
+* **Uplift Valid Flag:** `false` [energy_alphaevolve_lab.lab_runs]
+
+Although the search demonstrated training progress with a seed train score of -8800.354 JPY M and a best train score of -3289.666 JPY M (a training delta vs seed of 5510.688 JPY M) [energy_alphaevolve_lab.lab_runs], training progress does not constitute validated uplift. 
+
+On the holdout set, the champion program violated the policy invariant regarding customer churn. Specifically, it caused a university segment churn of 26.2%, exceeding the policy threshold where segment churn must not exceed 25% [energy_alphaevolve_lab.lab_runs]. While the program would have attained a raw score of -6083.3 JPY M without the policy gate [energy_alphaevolve_lab.lab_runs], pricing out customer segments is treated as an unapproved strategy change rather than a true efficiency gain. Candidates rejected by a policy invariant are invalid and cannot be recognized as validated uplift.
+
+### Run Context
+This run was executed on a local controller with source ""local-gemini-controller"" [energy_alphaevolve_lab.lab_runs]. Please note that all market, customer, and run figures in this lab are calibrated synthetic data for a fictional balance group.",id=None args={'run_id': 'tariff_pricing.20260926T073839Z'} name='get_holdout_result' partial_args=None will_continue=None,"id='call_374631' args={'run_id': 'tariff_pricing.20260926T073839Z'} name='get_holdout_result' partial_args=None will_continue=None
+id='call_93715' args={'run_id': 'tariff_pricing.20260926T073839Z'} name='get_run_summary' partial_args=None will_continue=None
+id='call_50084' args={'run_id': 'tariff_pricing.20260926T073839Z'} name='get_invariant_catches' partial_args=None will_continue=None"

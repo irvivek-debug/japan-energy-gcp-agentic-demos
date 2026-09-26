@@ -1,0 +1,134 @@
+eval_set_id,eval_id,metric_name,threshold,score,eval_status,prompt,expected_response,actual_response,expected_tool_calls,actual_tool_calls
+general_market_fy2026_january,market_fy2026_january,tool_trajectory_avg_score,1.0,1.0,PASSED,What does the FY2026 scenario bank assume for January prices? Compare train and holdout banks.,January FY2026 scenario-bank means by bank and regime [energy_alphaevolve_lab.scenario_monthly].,"The January FY2026 Monte Carlo scenario bank assumptions comparing the **train bank** (the pricing desk's forward view) and the **holdout bank** (unseen, harsher fuel shock and stress scenarios) are detailed below [energy_alphaevolve_lab.scenario_monthly]. 
+
+*Note: All market and scenario data in this lab is calibrated synthetic data for a fictional balance group.*
+
+### Train Scenario Bank (January FY2026)
+* **Baseline** (27 scenarios): Mean price of 17.659 JPY/kWh, max price of 260 JPY/kWh, min reserve margin of 0.16%, max imbalance price of 300 JPY/kWh [energy_alphaevolve_lab.scenario_monthly].
+* **Moderate Shock** (23 scenarios): Mean price of 25.319 JPY/kWh, max price of 260 JPY/kWh, min reserve margin of -1.54%, max imbalance price of 300 JPY/kWh [energy_alphaevolve_lab.scenario_monthly].
+* **Severe Shock** (14 scenarios): Mean price of 20.537 JPY/kWh, max price of 146.65 JPY/kWh, min reserve margin of 1.94%, max imbalance price of 300 JPY/kWh [energy_alphaevolve_lab.scenario_monthly].
+
+### Holdout Scenario Bank (January FY2026)
+* **Baseline** (15 scenarios): Mean price of 43.421 JPY/kWh, max price of 260 JPY/kWh, min reserve margin of -1.56%, max imbalance price of 300 JPY/kWh [energy_alphaevolve_lab.scenario_monthly].
+* **Moderate Shock** (7 scenarios): Mean price of 26.595 JPY/kWh, max price of 260 JPY/kWh, min reserve margin of 0.78%, max imbalance price of 300 JPY/kWh [energy_alphaevolve_lab.scenario_monthly].
+* **Realised-like** (27 scenarios): Mean price of 51.63 JPY/kWh, max price of 260 JPY/kWh, min reserve margin of -1.56%, max imbalance price of 300 JPY/kWh [energy_alphaevolve_lab.scenario_monthly].
+* **Severe Shock** (15 scenarios): Mean price of 31.141 JPY/kWh, max price of 260 JPY/kWh, min reserve margin of -0.28%, max imbalance price of 300 JPY/kWh [energy_alphaevolve_lab.scenario_monthly].
+
+### Key Observations
+* **Higher Price Expectations:** Mean prices across all comparable regimes are higher in the holdout bank than in the train bank (for instance, baseline mean price is 17.659 JPY/kWh in train versus 43.421 JPY/kWh in holdout) [energy_alphaevolve_lab.scenario_monthly].
+* **Regime Structure:** The holdout bank includes an additional `realised_like` fuel shock regime (27 scenarios with a mean price of 51.63 JPY/kWh) that does not exist in the train bank [energy_alphaevolve_lab.scenario_monthly].
+* **Reserve Margins:** Min reserve margins dip further into negative territory in the holdout bank, reaching -1.56% in both baseline and realised-like regimes [energy_alphaevolve_lab.scenario_monthly].","id=None args={'fiscal_year': 2026, 'month': 1} name='get_market_stats' partial_args=None will_continue=None","id='call_53009' args={'month': 1, 'fiscal_year': 2026} name='get_market_stats' partial_args=None will_continue=None"
+general_market_fy2026_january,market_fy2026_january,rubric_based_final_response_quality_v1,0.8,1.0,PASSED,What does the FY2026 scenario bank assume for January prices? Compare train and holdout banks.,January FY2026 scenario-bank means by bank and regime [energy_alphaevolve_lab.scenario_monthly].,"The January FY2026 Monte Carlo scenario bank assumptions comparing the **train bank** (the pricing desk's forward view) and the **holdout bank** (unseen, harsher fuel shock and stress scenarios) are detailed below [energy_alphaevolve_lab.scenario_monthly]. 
+
+*Note: All market and scenario data in this lab is calibrated synthetic data for a fictional balance group.*
+
+### Train Scenario Bank (January FY2026)
+* **Baseline** (27 scenarios): Mean price of 17.659 JPY/kWh, max price of 260 JPY/kWh, min reserve margin of 0.16%, max imbalance price of 300 JPY/kWh [energy_alphaevolve_lab.scenario_monthly].
+* **Moderate Shock** (23 scenarios): Mean price of 25.319 JPY/kWh, max price of 260 JPY/kWh, min reserve margin of -1.54%, max imbalance price of 300 JPY/kWh [energy_alphaevolve_lab.scenario_monthly].
+* **Severe Shock** (14 scenarios): Mean price of 20.537 JPY/kWh, max price of 146.65 JPY/kWh, min reserve margin of 1.94%, max imbalance price of 300 JPY/kWh [energy_alphaevolve_lab.scenario_monthly].
+
+### Holdout Scenario Bank (January FY2026)
+* **Baseline** (15 scenarios): Mean price of 43.421 JPY/kWh, max price of 260 JPY/kWh, min reserve margin of -1.56%, max imbalance price of 300 JPY/kWh [energy_alphaevolve_lab.scenario_monthly].
+* **Moderate Shock** (7 scenarios): Mean price of 26.595 JPY/kWh, max price of 260 JPY/kWh, min reserve margin of 0.78%, max imbalance price of 300 JPY/kWh [energy_alphaevolve_lab.scenario_monthly].
+* **Realised-like** (27 scenarios): Mean price of 51.63 JPY/kWh, max price of 260 JPY/kWh, min reserve margin of -1.56%, max imbalance price of 300 JPY/kWh [energy_alphaevolve_lab.scenario_monthly].
+* **Severe Shock** (15 scenarios): Mean price of 31.141 JPY/kWh, max price of 260 JPY/kWh, min reserve margin of -0.28%, max imbalance price of 300 JPY/kWh [energy_alphaevolve_lab.scenario_monthly].
+
+### Key Observations
+* **Higher Price Expectations:** Mean prices across all comparable regimes are higher in the holdout bank than in the train bank (for instance, baseline mean price is 17.659 JPY/kWh in train versus 43.421 JPY/kWh in holdout) [energy_alphaevolve_lab.scenario_monthly].
+* **Regime Structure:** The holdout bank includes an additional `realised_like` fuel shock regime (27 scenarios with a mean price of 51.63 JPY/kWh) that does not exist in the train bank [energy_alphaevolve_lab.scenario_monthly].
+* **Reserve Margins:** Min reserve margins dip further into negative territory in the holdout bank, reaching -1.56% in both baseline and realised-like regimes [energy_alphaevolve_lab.scenario_monthly].","id=None args={'fiscal_year': 2026, 'month': 1} name='get_market_stats' partial_args=None will_continue=None","id='call_53009' args={'month': 1, 'fiscal_year': 2026} name='get_market_stats' partial_args=None will_continue=None"
+general_market_fy2026_january,market_fy2026_january,hallucinations_v1,0.8,1.0,PASSED,What does the FY2026 scenario bank assume for January prices? Compare train and holdout banks.,January FY2026 scenario-bank means by bank and regime [energy_alphaevolve_lab.scenario_monthly].,"The January FY2026 Monte Carlo scenario bank assumptions comparing the **train bank** (the pricing desk's forward view) and the **holdout bank** (unseen, harsher fuel shock and stress scenarios) are detailed below [energy_alphaevolve_lab.scenario_monthly]. 
+
+*Note: All market and scenario data in this lab is calibrated synthetic data for a fictional balance group.*
+
+### Train Scenario Bank (January FY2026)
+* **Baseline** (27 scenarios): Mean price of 17.659 JPY/kWh, max price of 260 JPY/kWh, min reserve margin of 0.16%, max imbalance price of 300 JPY/kWh [energy_alphaevolve_lab.scenario_monthly].
+* **Moderate Shock** (23 scenarios): Mean price of 25.319 JPY/kWh, max price of 260 JPY/kWh, min reserve margin of -1.54%, max imbalance price of 300 JPY/kWh [energy_alphaevolve_lab.scenario_monthly].
+* **Severe Shock** (14 scenarios): Mean price of 20.537 JPY/kWh, max price of 146.65 JPY/kWh, min reserve margin of 1.94%, max imbalance price of 300 JPY/kWh [energy_alphaevolve_lab.scenario_monthly].
+
+### Holdout Scenario Bank (January FY2026)
+* **Baseline** (15 scenarios): Mean price of 43.421 JPY/kWh, max price of 260 JPY/kWh, min reserve margin of -1.56%, max imbalance price of 300 JPY/kWh [energy_alphaevolve_lab.scenario_monthly].
+* **Moderate Shock** (7 scenarios): Mean price of 26.595 JPY/kWh, max price of 260 JPY/kWh, min reserve margin of 0.78%, max imbalance price of 300 JPY/kWh [energy_alphaevolve_lab.scenario_monthly].
+* **Realised-like** (27 scenarios): Mean price of 51.63 JPY/kWh, max price of 260 JPY/kWh, min reserve margin of -1.56%, max imbalance price of 300 JPY/kWh [energy_alphaevolve_lab.scenario_monthly].
+* **Severe Shock** (15 scenarios): Mean price of 31.141 JPY/kWh, max price of 260 JPY/kWh, min reserve margin of -0.28%, max imbalance price of 300 JPY/kWh [energy_alphaevolve_lab.scenario_monthly].
+
+### Key Observations
+* **Higher Price Expectations:** Mean prices across all comparable regimes are higher in the holdout bank than in the train bank (for instance, baseline mean price is 17.659 JPY/kWh in train versus 43.421 JPY/kWh in holdout) [energy_alphaevolve_lab.scenario_monthly].
+* **Regime Structure:** The holdout bank includes an additional `realised_like` fuel shock regime (27 scenarios with a mean price of 51.63 JPY/kWh) that does not exist in the train bank [energy_alphaevolve_lab.scenario_monthly].
+* **Reserve Margins:** Min reserve margins dip further into negative territory in the holdout bank, reaching -1.56% in both baseline and realised-like regimes [energy_alphaevolve_lab.scenario_monthly].","id=None args={'fiscal_year': 2026, 'month': 1} name='get_market_stats' partial_args=None will_continue=None","id='call_53009' args={'month': 1, 'fiscal_year': 2026} name='get_market_stats' partial_args=None will_continue=None"
+general_market_fy2026_january,market_fy2026_january,tool_call_count_v1,,1.0,INFORMATIONAL,What does the FY2026 scenario bank assume for January prices? Compare train and holdout banks.,January FY2026 scenario-bank means by bank and regime [energy_alphaevolve_lab.scenario_monthly].,"The January FY2026 Monte Carlo scenario bank assumptions comparing the **train bank** (the pricing desk's forward view) and the **holdout bank** (unseen, harsher fuel shock and stress scenarios) are detailed below [energy_alphaevolve_lab.scenario_monthly]. 
+
+*Note: All market and scenario data in this lab is calibrated synthetic data for a fictional balance group.*
+
+### Train Scenario Bank (January FY2026)
+* **Baseline** (27 scenarios): Mean price of 17.659 JPY/kWh, max price of 260 JPY/kWh, min reserve margin of 0.16%, max imbalance price of 300 JPY/kWh [energy_alphaevolve_lab.scenario_monthly].
+* **Moderate Shock** (23 scenarios): Mean price of 25.319 JPY/kWh, max price of 260 JPY/kWh, min reserve margin of -1.54%, max imbalance price of 300 JPY/kWh [energy_alphaevolve_lab.scenario_monthly].
+* **Severe Shock** (14 scenarios): Mean price of 20.537 JPY/kWh, max price of 146.65 JPY/kWh, min reserve margin of 1.94%, max imbalance price of 300 JPY/kWh [energy_alphaevolve_lab.scenario_monthly].
+
+### Holdout Scenario Bank (January FY2026)
+* **Baseline** (15 scenarios): Mean price of 43.421 JPY/kWh, max price of 260 JPY/kWh, min reserve margin of -1.56%, max imbalance price of 300 JPY/kWh [energy_alphaevolve_lab.scenario_monthly].
+* **Moderate Shock** (7 scenarios): Mean price of 26.595 JPY/kWh, max price of 260 JPY/kWh, min reserve margin of 0.78%, max imbalance price of 300 JPY/kWh [energy_alphaevolve_lab.scenario_monthly].
+* **Realised-like** (27 scenarios): Mean price of 51.63 JPY/kWh, max price of 260 JPY/kWh, min reserve margin of -1.56%, max imbalance price of 300 JPY/kWh [energy_alphaevolve_lab.scenario_monthly].
+* **Severe Shock** (15 scenarios): Mean price of 31.141 JPY/kWh, max price of 260 JPY/kWh, min reserve margin of -0.28%, max imbalance price of 300 JPY/kWh [energy_alphaevolve_lab.scenario_monthly].
+
+### Key Observations
+* **Higher Price Expectations:** Mean prices across all comparable regimes are higher in the holdout bank than in the train bank (for instance, baseline mean price is 17.659 JPY/kWh in train versus 43.421 JPY/kWh in holdout) [energy_alphaevolve_lab.scenario_monthly].
+* **Regime Structure:** The holdout bank includes an additional `realised_like` fuel shock regime (27 scenarios with a mean price of 51.63 JPY/kWh) that does not exist in the train bank [energy_alphaevolve_lab.scenario_monthly].
+* **Reserve Margins:** Min reserve margins dip further into negative territory in the holdout bank, reaching -1.56% in both baseline and realised-like regimes [energy_alphaevolve_lab.scenario_monthly].","id=None args={'fiscal_year': 2026, 'month': 1} name='get_market_stats' partial_args=None will_continue=None","id='call_53009' args={'month': 1, 'fiscal_year': 2026} name='get_market_stats' partial_args=None will_continue=None"
+general_market_fy2026_january,market_fy2026_january,inference_call_count_v1,,2.0,INFORMATIONAL,What does the FY2026 scenario bank assume for January prices? Compare train and holdout banks.,January FY2026 scenario-bank means by bank and regime [energy_alphaevolve_lab.scenario_monthly].,"The January FY2026 Monte Carlo scenario bank assumptions comparing the **train bank** (the pricing desk's forward view) and the **holdout bank** (unseen, harsher fuel shock and stress scenarios) are detailed below [energy_alphaevolve_lab.scenario_monthly]. 
+
+*Note: All market and scenario data in this lab is calibrated synthetic data for a fictional balance group.*
+
+### Train Scenario Bank (January FY2026)
+* **Baseline** (27 scenarios): Mean price of 17.659 JPY/kWh, max price of 260 JPY/kWh, min reserve margin of 0.16%, max imbalance price of 300 JPY/kWh [energy_alphaevolve_lab.scenario_monthly].
+* **Moderate Shock** (23 scenarios): Mean price of 25.319 JPY/kWh, max price of 260 JPY/kWh, min reserve margin of -1.54%, max imbalance price of 300 JPY/kWh [energy_alphaevolve_lab.scenario_monthly].
+* **Severe Shock** (14 scenarios): Mean price of 20.537 JPY/kWh, max price of 146.65 JPY/kWh, min reserve margin of 1.94%, max imbalance price of 300 JPY/kWh [energy_alphaevolve_lab.scenario_monthly].
+
+### Holdout Scenario Bank (January FY2026)
+* **Baseline** (15 scenarios): Mean price of 43.421 JPY/kWh, max price of 260 JPY/kWh, min reserve margin of -1.56%, max imbalance price of 300 JPY/kWh [energy_alphaevolve_lab.scenario_monthly].
+* **Moderate Shock** (7 scenarios): Mean price of 26.595 JPY/kWh, max price of 260 JPY/kWh, min reserve margin of 0.78%, max imbalance price of 300 JPY/kWh [energy_alphaevolve_lab.scenario_monthly].
+* **Realised-like** (27 scenarios): Mean price of 51.63 JPY/kWh, max price of 260 JPY/kWh, min reserve margin of -1.56%, max imbalance price of 300 JPY/kWh [energy_alphaevolve_lab.scenario_monthly].
+* **Severe Shock** (15 scenarios): Mean price of 31.141 JPY/kWh, max price of 260 JPY/kWh, min reserve margin of -0.28%, max imbalance price of 300 JPY/kWh [energy_alphaevolve_lab.scenario_monthly].
+
+### Key Observations
+* **Higher Price Expectations:** Mean prices across all comparable regimes are higher in the holdout bank than in the train bank (for instance, baseline mean price is 17.659 JPY/kWh in train versus 43.421 JPY/kWh in holdout) [energy_alphaevolve_lab.scenario_monthly].
+* **Regime Structure:** The holdout bank includes an additional `realised_like` fuel shock regime (27 scenarios with a mean price of 51.63 JPY/kWh) that does not exist in the train bank [energy_alphaevolve_lab.scenario_monthly].
+* **Reserve Margins:** Min reserve margins dip further into negative territory in the holdout bank, reaching -1.56% in both baseline and realised-like regimes [energy_alphaevolve_lab.scenario_monthly].","id=None args={'fiscal_year': 2026, 'month': 1} name='get_market_stats' partial_args=None will_continue=None","id='call_53009' args={'month': 1, 'fiscal_year': 2026} name='get_market_stats' partial_args=None will_continue=None"
+general_market_fy2026_january,market_fy2026_january,token_usage_v1,,6894.0,INFORMATIONAL,What does the FY2026 scenario bank assume for January prices? Compare train and holdout banks.,January FY2026 scenario-bank means by bank and regime [energy_alphaevolve_lab.scenario_monthly].,"The January FY2026 Monte Carlo scenario bank assumptions comparing the **train bank** (the pricing desk's forward view) and the **holdout bank** (unseen, harsher fuel shock and stress scenarios) are detailed below [energy_alphaevolve_lab.scenario_monthly]. 
+
+*Note: All market and scenario data in this lab is calibrated synthetic data for a fictional balance group.*
+
+### Train Scenario Bank (January FY2026)
+* **Baseline** (27 scenarios): Mean price of 17.659 JPY/kWh, max price of 260 JPY/kWh, min reserve margin of 0.16%, max imbalance price of 300 JPY/kWh [energy_alphaevolve_lab.scenario_monthly].
+* **Moderate Shock** (23 scenarios): Mean price of 25.319 JPY/kWh, max price of 260 JPY/kWh, min reserve margin of -1.54%, max imbalance price of 300 JPY/kWh [energy_alphaevolve_lab.scenario_monthly].
+* **Severe Shock** (14 scenarios): Mean price of 20.537 JPY/kWh, max price of 146.65 JPY/kWh, min reserve margin of 1.94%, max imbalance price of 300 JPY/kWh [energy_alphaevolve_lab.scenario_monthly].
+
+### Holdout Scenario Bank (January FY2026)
+* **Baseline** (15 scenarios): Mean price of 43.421 JPY/kWh, max price of 260 JPY/kWh, min reserve margin of -1.56%, max imbalance price of 300 JPY/kWh [energy_alphaevolve_lab.scenario_monthly].
+* **Moderate Shock** (7 scenarios): Mean price of 26.595 JPY/kWh, max price of 260 JPY/kWh, min reserve margin of 0.78%, max imbalance price of 300 JPY/kWh [energy_alphaevolve_lab.scenario_monthly].
+* **Realised-like** (27 scenarios): Mean price of 51.63 JPY/kWh, max price of 260 JPY/kWh, min reserve margin of -1.56%, max imbalance price of 300 JPY/kWh [energy_alphaevolve_lab.scenario_monthly].
+* **Severe Shock** (15 scenarios): Mean price of 31.141 JPY/kWh, max price of 260 JPY/kWh, min reserve margin of -0.28%, max imbalance price of 300 JPY/kWh [energy_alphaevolve_lab.scenario_monthly].
+
+### Key Observations
+* **Higher Price Expectations:** Mean prices across all comparable regimes are higher in the holdout bank than in the train bank (for instance, baseline mean price is 17.659 JPY/kWh in train versus 43.421 JPY/kWh in holdout) [energy_alphaevolve_lab.scenario_monthly].
+* **Regime Structure:** The holdout bank includes an additional `realised_like` fuel shock regime (27 scenarios with a mean price of 51.63 JPY/kWh) that does not exist in the train bank [energy_alphaevolve_lab.scenario_monthly].
+* **Reserve Margins:** Min reserve margins dip further into negative territory in the holdout bank, reaching -1.56% in both baseline and realised-like regimes [energy_alphaevolve_lab.scenario_monthly].","id=None args={'fiscal_year': 2026, 'month': 1} name='get_market_stats' partial_args=None will_continue=None","id='call_53009' args={'month': 1, 'fiscal_year': 2026} name='get_market_stats' partial_args=None will_continue=None"
+general_market_fy2026_january,market_fy2026_january,invocation_duration_v1,,12.077,INFORMATIONAL,What does the FY2026 scenario bank assume for January prices? Compare train and holdout banks.,January FY2026 scenario-bank means by bank and regime [energy_alphaevolve_lab.scenario_monthly].,"The January FY2026 Monte Carlo scenario bank assumptions comparing the **train bank** (the pricing desk's forward view) and the **holdout bank** (unseen, harsher fuel shock and stress scenarios) are detailed below [energy_alphaevolve_lab.scenario_monthly]. 
+
+*Note: All market and scenario data in this lab is calibrated synthetic data for a fictional balance group.*
+
+### Train Scenario Bank (January FY2026)
+* **Baseline** (27 scenarios): Mean price of 17.659 JPY/kWh, max price of 260 JPY/kWh, min reserve margin of 0.16%, max imbalance price of 300 JPY/kWh [energy_alphaevolve_lab.scenario_monthly].
+* **Moderate Shock** (23 scenarios): Mean price of 25.319 JPY/kWh, max price of 260 JPY/kWh, min reserve margin of -1.54%, max imbalance price of 300 JPY/kWh [energy_alphaevolve_lab.scenario_monthly].
+* **Severe Shock** (14 scenarios): Mean price of 20.537 JPY/kWh, max price of 146.65 JPY/kWh, min reserve margin of 1.94%, max imbalance price of 300 JPY/kWh [energy_alphaevolve_lab.scenario_monthly].
+
+### Holdout Scenario Bank (January FY2026)
+* **Baseline** (15 scenarios): Mean price of 43.421 JPY/kWh, max price of 260 JPY/kWh, min reserve margin of -1.56%, max imbalance price of 300 JPY/kWh [energy_alphaevolve_lab.scenario_monthly].
+* **Moderate Shock** (7 scenarios): Mean price of 26.595 JPY/kWh, max price of 260 JPY/kWh, min reserve margin of 0.78%, max imbalance price of 300 JPY/kWh [energy_alphaevolve_lab.scenario_monthly].
+* **Realised-like** (27 scenarios): Mean price of 51.63 JPY/kWh, max price of 260 JPY/kWh, min reserve margin of -1.56%, max imbalance price of 300 JPY/kWh [energy_alphaevolve_lab.scenario_monthly].
+* **Severe Shock** (15 scenarios): Mean price of 31.141 JPY/kWh, max price of 260 JPY/kWh, min reserve margin of -0.28%, max imbalance price of 300 JPY/kWh [energy_alphaevolve_lab.scenario_monthly].
+
+### Key Observations
+* **Higher Price Expectations:** Mean prices across all comparable regimes are higher in the holdout bank than in the train bank (for instance, baseline mean price is 17.659 JPY/kWh in train versus 43.421 JPY/kWh in holdout) [energy_alphaevolve_lab.scenario_monthly].
+* **Regime Structure:** The holdout bank includes an additional `realised_like` fuel shock regime (27 scenarios with a mean price of 51.63 JPY/kWh) that does not exist in the train bank [energy_alphaevolve_lab.scenario_monthly].
+* **Reserve Margins:** Min reserve margins dip further into negative territory in the holdout bank, reaching -1.56% in both baseline and realised-like regimes [energy_alphaevolve_lab.scenario_monthly].","id=None args={'fiscal_year': 2026, 'month': 1} name='get_market_stats' partial_args=None will_continue=None","id='call_53009' args={'month': 1, 'fiscal_year': 2026} name='get_market_stats' partial_args=None will_continue=None"

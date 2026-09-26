@@ -1,0 +1,10 @@
+{"criteria": {
+  "tool_trajectory_avg_score": {"threshold": 1.0, "match_type": "ANY_ORDER"},
+  "rubric_based_final_response_quality_v1": {"threshold": 0.8,
+     "judge_model_options": {"judge_model": "gemini-3.6-flash", "num_samples": 1},
+     "rubrics": [
+       {"rubric_id": "cites", "rubric_content": {"text_property": "The response cites the source table in square brackets."}},
+       {"rubric_id": "units", "rubric_content": {"text_property": "Prices are given in JPY/kWh."}}
+     ]},
+  "hallucinations_v1": {"threshold": 0.8, "judge_model_options": {"judge_model": "gemini-3.6-flash", "num_samples": 1}}
+}}

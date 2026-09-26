@@ -1,0 +1,65 @@
+{
+ "problem": "jepx_trading",
+ "fold": "train",
+ "instance_sha256": "e742fc255460e97b08147b57655b4e39cf31af0eb1a1b3ff7d686b18026dd7fe",
+ "seed_score": -85421.92963031532,
+ "seed_raw": -85421.92963031532,
+ "null_score": null,
+ "null_raw": -85393.60534598058,
+ "null_valid": false,
+ "null_insights": [
+  {
+   "label": "policy: intentional_imbalance",
+   "text": "1097 violation(s); e.g. 2024-04-08 slot 36: planned 400.2 MWh vs forecast 413.3 MWh (short 13.1 > tol 12.4); imbalance 28.23 vs spot 18.99 JPY/kWh | 2024-04-08 slot 37: planned 393.8 MWh vs forecast 407.3 MWh (short 13.5 > tol 12.2); imbalance 40.95 vs spot 24.33 JPY/kWh | 2024-04-08 slot 38: planned 387.9 MWh vs forecast 399.9 MWh (short 12.1 > tol 12.0); imbalance 102.56 vs spot 27.03 JPY/kWh; slots: 2024-04-08 s36, 2024-04-08 s37, 2024-04-08 s38, 2024-04-09 s44, 2024-04-09 s45, 2024-04-09 s47, 2024-04-10 s44, 2024-04-10 s45, 2024-04-10 s47, 2024-04-12 s4, 2024-04-12 s5, 2024-04-12 s6 ...; total deliberate shortfall 2016 MWh, surplus 3200 MWh"
+  },
+  {
+   "label": "raw_objective",
+   "text": "would have scored -85393.6 JPY M without the policy gate"
+  },
+  {
+   "label": "score_components",
+   "text": "annual cost 85341.0 + risk penalty 52.6 => score -85393.6 JPY M; vs buy-actual-at-DA benchmark -0.001 JPY/kWh"
+  },
+  {
+   "label": "cost_breakdown",
+   "text": "DA 85555.5, intraday 0.0, imbalance -214.5, degradation 0.0, terminal SOC 0.0 JPY M/yr"
+  },
+  {
+   "label": "operations",
+   "text": "|imbalance| 2.05% of load; intraday volume 0.00%; BESS 0.00 cycles/day; worst day 2024-07-26 excess 4.5 JPY M"
+  }
+ ],
+ "seed_metrics": {
+  "annual_cost_jpy_m": 85390.9898417967,
+  "risk_penalty_jpy_m": 30.93978851860813,
+  "da_cost_jpy_m": 85428.16079742188,
+  "id_cost_jpy_m": -92.37289427010596,
+  "imbalance_cost_jpy_m": -46.523385122223374,
+  "degradation_jpy_m": 72.28876010206453,
+  "terminal_soc_jpy_m": 29.436563665094017,
+  "benchmark_jpy_m": 85344.6751505439,
+  "cost_vs_benchmark_jpy_kwh": 0.007682969732909085,
+  "unit_cost_jpy_kwh": 14.1651897631481,
+  "imbalance_abs_share": 0.010367266454399985,
+  "id_volume_share": 0.010623135434019038,
+  "bess_cycles_per_day": 0.1375356927360436,
+  "worst_day_excess_jpy_m": 2.692147111952901
+ },
+ "null_metrics": {
+  "annual_cost_jpy_m": 85340.99681794034,
+  "risk_penalty_jpy_m": 52.6085280402468,
+  "da_cost_jpy_m": 85555.5381609375,
+  "id_cost_jpy_m": 0.0,
+  "imbalance_cost_jpy_m": -214.54134299717265,
+  "degradation_jpy_m": 0.0,
+  "terminal_soc_jpy_m": 0.0,
+  "benchmark_jpy_m": 85344.6751505439,
+  "cost_vs_benchmark_jpy_kwh": -0.0006101847447596998,
+  "unit_cost_jpy_kwh": 14.156896608670431,
+  "imbalance_abs_share": 0.020495953596580588,
+  "id_volume_share": 0.0,
+  "bess_cycles_per_day": 0.0,
+  "worst_day_excess_jpy_m": 4.495749215285361
+ },
+ "recorded_at": "2026-09-26T08:16:48.198206+00:00"
+}

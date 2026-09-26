@@ -1,0 +1,15 @@
+decision_id,ts,event_id,plan_id,asset_id,action,requested_kw,granted_kw,verdict,rule_id,reason,latency_ms,edge_node
+EDG-00001,2026-07-08T12:42,DR-20260708,PLAN-20260708-H,BESS-01,discharge,1500.0,1500.0,ACCEPT,IR-BS-01,SOC path 88 % -> 49 % within 10-95 %,4.78,gdc-edge-atsugi-01
+EDG-00002,2026-07-08T12:42,DR-20260708,PLAN-20260708-H,TES-01,tes_discharge,600.0,600.0,ACCEPT,IR-CH-02,TES end SOC 41 % >= 15 %,8.62,gdc-edge-atsugi-01
+EDG-00003,2026-07-08T12:42,DR-20260708,PLAN-20260708-H,BI-03,defer_start,110.0,110.0,ACCEPT,IR-BI-01,Start deferred 2 h (limit 3 h),4.68,gdc-edge-atsugi-01
+EDG-00004,2026-07-08T12:42,DR-20260708,PLAN-20260708-H,EV-07,defer_charge,50.0,50.0,ACCEPT,IR-EV-01,Charge fits before 07:00,2.2,gdc-edge-atsugi-01
+EDG-00005,2026-07-08T12:42,DR-20260708,PLAN-20260708-H,LN-03,curtail,300.0,0.0,REJECT,IR-LN-01,No line stops without MES release,7.47,gdc-edge-atsugi-01
+EDG-00006,2026-07-22T12:12,DR-20260722,PLAN-20260722-H,BESS-01,discharge,1400.0,980.0,LIMIT,IR-BS-01,SOC 29 % at start; energy runs out after about 60 min,7.48,gdc-edge-atsugi-01
+EDG-00007,2026-07-22T12:12,DR-20260722,PLAN-20260722-H,TES-01,tes_discharge,450.0,450.0,ACCEPT,IR-CH-02,TES end SOC 52 %,4.28,gdc-edge-atsugi-01
+EDG-00008,2026-07-22T12:12,DR-20260722,PLAN-20260722-H,FN-01,curtail,850.0,0.0,REJECT,IR-FN-01,Batch overran into the window; non-interruptible profile,7.51,gdc-edge-atsugi-01
+EDG-00009,2026-07-22T12:12,DR-20260722,PLAN-20260722-H,BI-02,pause,110.0,0.0,REJECT,IR-BI-02,Mid-cycle pause invalidates the test,3.28,gdc-edge-atsugi-01
+EDG-00010,2026-08-06T12:12,DR-20260806,PLAN-20260806-H,BESS-01,discharge,1800.0,1800.0,ACCEPT,IR-BS-01,SOC path 92 % -> 45 %,8.97,gdc-edge-atsugi-01
+EDG-00011,2026-08-06T12:12,DR-20260806,PLAN-20260806-H,TES-01,tes_discharge,650.0,650.0,ACCEPT,IR-CH-02,TES end SOC 38 %,5.05,gdc-edge-atsugi-01
+EDG-00012,2026-08-06T12:12,DR-20260806,PLAN-20260806-H,AC-04,standby,45.0,45.0,ACCEPT,IR-CA-02,N-1 capacity 210 Nm3/min >= demand 176,4.0,gdc-edge-atsugi-01
+EDG-00013,2026-08-06T12:12,DR-20260806,PLAN-20260806-H,CR-AHU-02,trim,60.0,0.0,REJECT,IR-CR-02,Production-zone airflow held at 100 %,5.68,gdc-edge-atsugi-01
+EDG-00014,2026-08-06T12:12,DR-20260806,PLAN-20260806-H,OF-AHU-01,setpoint_shift,45.0,45.0,ACCEPT,IR-OF-01,26 C -> 28 C,3.84,gdc-edge-atsugi-01

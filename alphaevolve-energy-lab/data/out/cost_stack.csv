@@ -1,0 +1,31 @@
+component,voltage,period,value,unit,status,source,treatment
+wheeling_basic,HV,2024-04..2026-10,653.87,JPY/kW-month,VERIFIED,MARKET_FACTS 5.1 (TEPCO PG 託送供給等約款),cost; recovered via demand charge
+wheeling_basic,HV,2026-11..,762.44,JPY/kW-month,VERIFIED,MARKET_FACTS 5.1,cost
+wheeling_energy,HV,2024-04..,1.84,JPY/kWh,VERIFIED,MARKET_FACTS 5.1,cost
+wheeling_energy,HV,..2024-03,2.37,JPY/kWh,VERIFIED,MARKET_FACTS 5.1,history only
+loss_factor,HV,FY2026,1.04,ratio,ESTIMATE,MARKET_FACTS 5.4 (1.03-1.05),procurement = consumption x loss factor
+wheeling_basic,EHV,2024-04..2026-10,423.39,JPY/kW-month,VERIFIED,MARKET_FACTS 5.1 (TEPCO PG 託送供給等約款),cost; recovered via demand charge
+wheeling_basic,EHV,2026-11..,446.25,JPY/kW-month,VERIFIED,MARKET_FACTS 5.1,cost
+wheeling_energy,EHV,2024-04..,0.91,JPY/kWh,VERIFIED,MARKET_FACTS 5.1,cost
+wheeling_energy,EHV,..2024-03,1.33,JPY/kWh,VERIFIED,MARKET_FACTS 5.1,history only
+loss_factor,EHV,FY2026,1.03,ratio,ESTIMATE,MARKET_FACTS 5.4 (1.03-1.05),procurement = consumption x loss factor
+capacity_auction_price,all,FY2024,14137,JPY/kW-year,VERIFIED,MARKET_FACTS 5.2 (OCCTO),reference
+capacity_auction_price,all,FY2025,3495,JPY/kW-year,VERIFIED,MARKET_FACTS 5.2 (OCCTO),reference
+capacity_auction_price,all,FY2026,5834,JPY/kW-year,VERIFIED,MARKET_FACTS 5.2 (OCCTO),reference
+capacity_auction_price,all,FY2027,9555,JPY/kW-year,VERIFIED,MARKET_FACTS 5.2 (OCCTO),reference
+capacity_contribution_per_kwh,all,FY2024,1.84,JPY/kWh,ESTIMATE,MARKET_FACTS 5.2,reference
+capacity_contribution_per_kwh,all,FY2025,0.5,JPY/kWh,ESTIMATE,MARKET_FACTS 5.2,reference
+capacity_contribution_per_kwh,all,FY2026,0.94,JPY/kWh,ESTIMATE,MARKET_FACTS 5.2,reference
+capacity_contribution,all,FY2026,4596.9,JPY/kW-year of coincident peak,DERIVED,252.83 bn JPY Tokyo burden (MARKET_FACTS 5.2) / 55.0 GW Tokyo H3 peak (MARKET_FACTS 7),cost allocated by coincident peak kW
+renewable_surcharge,all,FY2023,1.4,JPY/kWh,VERIFIED,MARKET_FACTS 5.3,pass-through; excluded from margin
+renewable_surcharge,all,FY2024,3.49,JPY/kWh,VERIFIED,MARKET_FACTS 5.3,pass-through; excluded from margin
+renewable_surcharge,all,FY2025,3.98,JPY/kWh,VERIFIED,MARKET_FACTS 5.3,pass-through; excluded from margin
+renewable_surcharge,all,FY2026,4.18,JPY/kWh,VERIFIED,MARKET_FACTS 5.3,pass-through; excluded from margin
+nfc_nonfit_renewable,all,FY2026 R1,1.21,JPY/kWh,VERIFIED,MARKET_FACTS 6.2,cost for green products
+nfc_fit,all,FY2026 R1,0.4,JPY/kWh,VERIFIED,MARKET_FACTS 6.2,reference
+balancing_overhead,all,FY2026,0.25,JPY/kWh,LAB-ASSUMPTION,this lab,cost
+imbalance_scarcity_C,all,..2026-09-30,200,JPY/kWh,VERIFIED,MARKET_FACTS 3,imbalance cap
+imbalance_scarcity_C,all,2026-10-01..,300,JPY/kWh,VERIFIED,MARKET_FACTS 3,imbalance cap
+imbalance_scarcity_D,all,..2026-09-30,45,JPY/kWh,VERIFIED,MARKET_FACTS 3,price at 8% reserve margin
+imbalance_scarcity_D,all,2026-10-01..,50,JPY/kWh,VERIFIED,MARKET_FACTS 3,price at 8% reserve margin
+bess_degradation,all,FY2026,8,JPY/kWh discharged,ESTIMATE,MARKET_FACTS 12,trading cost

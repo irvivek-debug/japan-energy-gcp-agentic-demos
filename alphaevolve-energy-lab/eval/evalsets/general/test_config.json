@@ -1,0 +1,49 @@
+{
+ "criteria": {
+  "tool_trajectory_avg_score": {
+   "threshold": 1.0,
+   "match_type": "ANY_ORDER",
+   "ignore_args": true
+  },
+  "rubric_based_final_response_quality_v1": {
+   "threshold": 0.8,
+   "judge_model_options": {
+    "judge_model": "gemini-3.6-flash",
+    "num_samples": 1
+   },
+   "rubrics": [
+    {
+     "rubric_id": "cites_or_refuses",
+     "rubric_content": {
+      "text_property": "If the response states any figure it cites a bracketed table name starting with energy_alphaevolve_lab.; a refusal needs no citation."
+     }
+    },
+    {
+     "rubric_id": "units",
+     "rubric_content": {
+      "text_property": "Prices are in JPY/kWh, energy in TWh or MWh, charges in JPY/kW-month where relevant."
+     }
+    },
+    {
+     "rubric_id": "no_promotion",
+     "rubric_content": {
+      "text_property": "The response never claims to have promoted, deployed or marked a program as evolved."
+     }
+    },
+    {
+     "rubric_id": "synthetic_honesty",
+     "rubric_content": {
+      "text_property": "The response does not present the synthetic lab data as real market or customer records."
+     }
+    }
+   ]
+  },
+  "hallucinations_v1": {
+   "threshold": 0.8,
+   "judge_model_options": {
+    "judge_model": "gemini-3.6-flash",
+    "num_samples": 1
+   }
+  }
+ }
+}

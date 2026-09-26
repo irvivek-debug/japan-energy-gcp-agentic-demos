@@ -1,0 +1,203 @@
+{
+ "eval_set_id": "melco_market",
+ "name": "Factory Energy Copilot - market",
+ "eval_cases": [
+  {
+   "eval_id": "s02_jepx_spike",
+   "conversation": [
+    {
+     "invocation_id": "s02_jepx_spike-1",
+     "user_content": {
+      "role": "user",
+      "parts": [
+       {
+        "text": "JEPX Tokyo is forecast to spike this evening. How should we respond between 17:00 and 19:30?"
+       }
+      ]
+     },
+     "final_response": {
+      "role": "model",
+      "parts": [
+       {
+        "text": "Reference: see rubrics for scenario S2."
+       }
+      ]
+     },
+     "intermediate_data": {
+      "tool_uses": [
+       {
+        "name": "market_intelligence_agent",
+        "args": {}
+       },
+       {
+        "name": "get_jepx_prices",
+        "args": {}
+       },
+       {
+        "name": "bess_strategy_agent",
+        "args": {}
+       },
+       {
+        "name": "factory_interlock_agent",
+        "args": {}
+       },
+       {
+        "name": "simulate_edge_interlock",
+        "args": {}
+       }
+      ]
+     }
+    }
+   ],
+   "session_input": {
+    "app_name": "factory_copilot",
+    "user_id": "eval",
+    "state": {}
+   },
+   "rubrics": [
+    {
+     "rubric_id": "spike_prices",
+     "rubric_content": {
+      "text_property": "The response gives the spike window and at least one spike price in JPY/kWh."
+     },
+     "type": "FINAL_RESPONSE_QUALITY"
+    },
+    {
+     "rubric_id": "battery_across_spike",
+     "rubric_content": {
+      "text_property": "The response says the battery discharges across the spike window and gives a kW or kWh figure."
+     },
+     "type": "FINAL_RESPONSE_QUALITY"
+    },
+    {
+     "rubric_id": "edge_checked",
+     "rubric_content": {
+      "text_property": "The response bases load actions on the edge simulation (edge verdicts, firm kW or rejected actions)."
+     },
+     "type": "FINAL_RESPONSE_QUALITY"
+    }
+   ]
+  },
+  {
+   "eval_id": "s07_pv_confidence",
+   "conversation": [
+    {
+     "invocation_id": "s07_pv_confidence-1",
+     "user_content": {
+      "role": "user",
+      "parts": [
+       {
+        "text": "How confident is the PV forecast this afternoon? Give p10, p50 and p90 for the cloud band."
+       }
+      ]
+     },
+     "final_response": {
+      "role": "model",
+      "parts": [
+       {
+        "text": "Reference: see rubrics for scenario S7."
+       }
+      ]
+     },
+     "intermediate_data": {
+      "tool_uses": [
+       {
+        "name": "market_intelligence_agent",
+        "args": {}
+       },
+       {
+        "name": "get_pv_forecast",
+        "args": {}
+       }
+      ]
+     }
+    }
+   ],
+   "session_input": {
+    "app_name": "factory_copilot",
+    "user_id": "eval",
+    "state": {}
+   },
+   "rubrics": [
+    {
+     "rubric_id": "band_values",
+     "rubric_content": {
+      "text_property": "The response gives p10, p50 and p90 in kW for the 15:00-15:30 slot."
+     },
+     "type": "FINAL_RESPONSE_QUALITY"
+    },
+    {
+     "rubric_id": "risk_slots",
+     "rubric_content": {
+      "text_property": "The response identifies the cloud band / PV-risk slots between 14:30 and 16:00."
+     },
+     "type": "FINAL_RESPONSE_QUALITY"
+    }
+   ]
+  },
+  {
+   "eval_id": "deviation_exposure",
+   "conversation": [
+    {
+     "invocation_id": "deviation_exposure-1",
+     "user_content": {
+      "role": "user",
+      "parts": [
+       {
+        "text": "If we change nothing, what is our 30-minute plan-vs-actual deviation exposure for the rest of today?"
+       }
+      ]
+     },
+     "final_response": {
+      "role": "model",
+      "parts": [
+       {
+        "text": "Reference: see rubrics for scenario S1 support."
+       }
+      ]
+     },
+     "intermediate_data": {
+      "tool_uses": [
+       {
+        "name": "market_intelligence_agent",
+        "args": {}
+       },
+       {
+        "name": "get_deviation_exposure",
+        "args": {}
+       }
+      ]
+     }
+    }
+   ],
+   "session_input": {
+    "app_name": "factory_copilot",
+    "user_id": "eval",
+    "state": {}
+   },
+   "rubrics": [
+    {
+     "rubric_id": "band",
+     "rubric_content": {
+      "text_property": "The response states the plus or minus 7.5 % deviation band."
+     },
+     "type": "FINAL_RESPONSE_QUALITY"
+    },
+    {
+     "rubric_id": "slots",
+     "rubric_content": {
+      "text_property": "The response names the slots that leave the band in the p10 PV case (between 14:30 and 16:00)."
+     },
+     "type": "FINAL_RESPONSE_QUALITY"
+    },
+    {
+     "rubric_id": "money",
+     "rubric_content": {
+      "text_property": "The response gives the imbalance cost at risk in JPY."
+     },
+     "type": "FINAL_RESPONSE_QUALITY"
+    }
+   ]
+  }
+ ]
+}

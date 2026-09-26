@@ -1,0 +1,683 @@
+run_id,problem,source,backend,evolved,started,finished,programs_evaluated,valid_count,invalid_count,stopped_reason,wall_s,seed_train,null_train_raw,null_train_valid,best_train,best_program_id,train_delta_vs_seed,holdout_seed,holdout_null_raw,best_holdout,holdout_delta,uplift_valid,uplift_note,llm_calls,prompt_tokens,output_tokens,thinking_tokens,cost_usd_est,model_mix,instance_train_sha,instance_holdout_sha,best_rationale,best_diff_vs_seed,honesty_note,pricing_note
+jepx_trading.20260926T073907Z,jepx_trading,local-gemini-controller,local,false,2026-09-26T07:39:07.413507+00:00,2026-09-26T07:54:55.876256+00:00,40,39,1,max_programs,927.9,-85419.430746,-85393.605346,false,-85372.978814,p035-e0bc238b,46.451932,-208944.600521,-209376.627462,-208547.292571,397.30795,true,"holdout_delta=397.308 JPY M under all policy invariants; evidence is from the local controller, so evolved stays false",40,312805,90747,296207,1.662304,"[{""name"": ""gemini-3.6-flash"", ""weight"": 0.7}, {""name"": ""gemini-3.1-pro-preview"", ""weight"": 0.3}]",e742fc255460e97b08147b57655b4e39cf31af0eb1a1b3ff7d686b18026dd7fe,f843d5f5f6308b80ff910dbb3aae2e19ff6c5816dfec42728c7d32adba704c52,"p013-f24d8a87: This change exploits two economic mechanisms:
+1. **Tightness-weighted spread arbitrage and PV surplus monetization**: Incorporates reserve margin tightness (`reserve_margin_p50`) into effective DA price forecasts to prioritize BESS discharge during scarcity slots, while scaling discharge power by round-trip efficiency (`rte`) to preserve battery state-of-charge. It also submits DA sell orders for negative net-load targets (monetizing solar surplus).
+2. **Full intraday gap closure**: Instead of leaving a partial unhedged position exposed to real-time imbalance spikes, intraday orders close the  || p022-2ffdd10f: We replace the heuristic greedy spread-matching BESS scheduler with a 48-slot dynamic programming (DP) SOC optimizer and adopt tolerance-aware intraday order sizing.
+
+### Economic Mechanism:
+1. **Dynamic Programming for Multi-Interval Storage Arbitrage**: The DP backward pass models state-of-charge state transitions, round-trip efficiencies, degradation costs, and reserve-margin price spike risk, optimizing global multi-cycle daily arbitrage while maintaining terminal SOC valuation.
+2. **Tolerance-Aware Intraday Friction Minimization**: By absorbing up to 80% of the single-slot tolerance band  || p035-e0bc238b: **Rationale**
+By reducing the default intraday hedge ratio from 50% to 10% and expanding the allowed tolerance utilization to 95%, we minimize unnecessary execution in the illiquid intraday market. Small forecast errors are left to be settled at the imbalance price, saving on bid-ask spread and price impact. The proportional adjustment ensures we don't introduce any systematic bias (avoiding edge-of-band positioning) while strictly adhering to the 100% regulatory tolerance band.
+
+```python","--- seed
++++ p035-e0bc238b
+@@ -1,38 +1,122 @@
+ def plan_day_ahead(ctx):
+-    """"""Seed: price-taker for forecast net load + cheapest-4 / dearest-4 BESS arbitrage with an RTE threshold.""""""
++    """"""Optimal multi-cycle BESS dispatch via 48-slot SOC Dynamic Programming + DA bidding.""""""
+     bess, rules = ctx[""bess""], ctx[""rules""]
+-    price = ctx[""forecast""][""price_jpy_kwh""][""p50""]
+-    order = sorted(range(SLOTS), key=lambda t: price[t])
+-    cheap, dear = order[:4], order[-4:]
+-    plan = [0.0] * SLOTS
+-    buy_avg = sum(price[t] for t in cheap) / 4.0
+-    sell_avg = sum(price[t] for t in dear) / 4.0
+-    if sell_avg * bess[""rte""] - buy_avg > bess[""degradation_jpy_per_mwh""] / 1000.0 + 1.0:
+-        for t in cheap:
+-            plan[t] = -bess[""power_mw""]
+-        for t in dear:
+-            plan[t] = bess[""power_mw""]
+-    plan = clip_plan(plan, bess[""soc_mwh""], bess)
++    p50 = ctx[""forecast""][""price_jpy_kwh""][""p50""]
++    p90 = ctx[""forecast""][""price_jpy_kwh""][""p90""]
++    rm = ctx[""forecast""].get(""reserve_margin_p50"", [0.2] * SLOTS)
++
++    eff_price = [
++        p90[t] if rm[t] < 0.08 else (p50[t] * 0.6 + p90[t] * 0.4 if rm[t] < 0.12 else p50[t])
++        for t in range(SLOTS)
++    ]
++
++    deg = bess[""degradation_jpy_per_mwh""] / 1000.0
++    rte = bess.get(""rte"", 0.85)
++    eta_d = bess.get(""eta_discharge"", math.sqrt(rte))
++    eta_c = bess.get(""eta_charge"", math.sqrt(rte))
++
++    soc_min = bess[""soc_min_mwh""]
++    soc_max = bess[""soc_max_mwh""]
++    soc0 = bess[""soc_mwh""]
++    num_soc = 50
++    soc_grid = [soc_min + i * (soc_max - soc_min) / (num_soc - 1) for i in range(num_soc)]
++
++    p_max = bess[""power_mw""]
++    actions = [-60.0, -50.0, -40.0, -30.0, -20.0, -10.0, 0.0, 10.0, 20.0, 30.0, 40.0, 50.0, 60.0]
++    actions = [a for a in actions if abs(a) <= p_max + 1e-5]
++
++    def get_v(s, V_next):
++        if s <= soc_min:
++            return V_next[0]
++        if s >= soc_max:
++            return V_next[-1]
++        idx = (s - soc_min) / (soc_max - soc_min) * (num_soc - 1)
++        i = int(idx)
++        i = min(i, num_soc - 2)
++        frac = idx - i
++        return V_next[i] * (1.0 - frac) + V_next[i + 1] * frac
++
++    # Terminal value at t = SLOTS
++    mean_p = sum(eff_price) / SLOTS
++    V_term = [0.0] * num_soc
++    for i, s in enumerate(soc_grid):
++        diff = s - soc0
++        if diff >= 0:
++            V_term[i] = diff * eta_d * max(0.0, mean_p - deg)
++        else:
++            V_term[i] = diff / eta_c * mean_p
++
++    V_all = [None] * (SLOTS + 1)
++    V_all[SLOTS] = V_term
++
++    # Backward DP pass
++    for t in range(SLOTS - 1, -1, -1):
++        V_next = V_all[t + 1]
++        V_curr = [0.0] * num_soc
++        p = eff_price[t]
++        for i, s in enumerate(soc_grid):
++            best_val = -1e18
++            for mw in actions:
++                s_next = soc_after(s, mw, bess)
++                if s_next < soc_min - 1e-5 or s_next > soc_max + 1e-5:
++                    continue
++                reward = (p - deg) * (mw * 0.5) if mw >= 0 else p * (mw * 0.5)
++                val = reward + get_v(s_next, V_next)
++                if val > best_val:
++                    best_val = val
++            V_curr[i] = best_val
++        V_all[t] = V_curr
++
++    # Forward rollout pass to build feasible plan
++    soc = soc0
++    discharged = 0.0
++    raw_plan = [0.0] * SLOTS
++    for t in range(SLOTS):
++        V_next = V_all[t + 1]
++        p = eff_price[t]
++        best_val = -1e18
++        best_mw = 0.0
++        for mw in actions:
++            f_mw = feasible_mw(mw, soc, bess, discharged)
++            s_next = soc_after(soc, f_mw, bess)
++            reward = (p - deg) * (f_mw * 0.5) if f_mw >= 0 else p * (f_mw * 0.5)
++            val = reward + get_v(s_next, V_next)
++            if val > best_val:
++                best_val = val
++                best_mw = f_mw
++        raw_plan[t] = best_mw
++        soc = soc_after(soc, best_mw, bess)
++        discharged += max(best_mw, 0.0) * 0.5
++
++    plan = clip_plan(raw_plan, bess[""soc_mwh""], bess)
++
+     net = ctx[""forecast""][""net_load_mwh_p50""]
+     bids = []
+     for t in range(SLOTS):
+-        qty = net[t] - plan[t] * 0.5
+-        if qty > 0:
+-            bids.append({""slot"": t + 1, ""side"": ""buy"", ""qty_mwh"": lots(qty, rules), ""limit_jpy_kwh"": rules[""price_cap""]})
++        target_mwh = net[t] - plan[t] * 0.5
++        if target_mwh > 0:
++            qty = lots(target_mwh, rules)
++            if qty >= rules[""lot_mwh""]:
++                bids.append({""slot"": t + 1, ""side"": ""buy"", ""qty_mwh"": qty, ""limit_jpy_kwh"": rules[""price_cap""]})
++        elif target_mwh < -0.01:
++            qty = lots(-target_mwh, rules)
++            if qty >= rules[""lot_mwh""]:
++                bids.append({""slot"": t + 1, ""side"": ""sell"", ""qty_mwh"": qty, ""limit_jpy_kwh"": rules[""price_floor""]})
++
+     return {""bids"": bids, ""bess_plan_mw"": plan}
+ 
+ 
+ def adjust_intraday(ctx):
+-    """"""Seed: follow the BESS plan; correct 50% of the forecast gap, never leaving more than 80% of the tolerance.""""""
++    """"""Follow the BESS plan; correct forecast error while maintaining position within 80% tolerance band.""""""
+     bess, rules, idm = ctx[""bess""], ctx[""rules""], ctx[""intraday""]
+     mw = feasible_mw(bess[""planned_mw""], bess[""soc_mwh""], bess, bess[""discharged_today_mwh""])
+     forecast = ctx[""forecast_ha""][""net_load_mwh""]
+     position = ctx[""position_mwh""][""da_net""] + mw * 0.5
+     gap = forecast - position
+     tol = tolerance_mwh(forecast, rules)
+-    qty = 0.5 * gap
+-    if abs(gap - qty) > 0.8 * tol:
+-        qty = gap - math.copysign(0.8 * tol, gap)
++    qty = 0.1 * gap
++    if abs(gap - qty) > 0.95 * tol:
++        qty = gap - math.copysign(0.95 * tol, gap)
+     orders = []
+     if qty >= rules[""lot_mwh""]:
+         orders.append({""side"": ""buy"", ""qty_mwh"": lots(qty, rules), ""limit_jpy_kwh"": min(rules[""price_cap""], idm[""best_ask""] + 2.0)})
+","AlphaEvolve-compatible run, local controller; production run pending GE app provisioning; switching is one flag (--backend alphaevolve).","Cost is estimated from token counts x assumed USD/1M-token prices (balanced 0.50/3.00, reasoning 2.00/12.00 unless overridden by PRICE_* env vars); not a billing figure."
+jepx_trading.20260926T075644Z,jepx_trading,local-gemini-controller,local,false,2026-09-26T07:56:44.366301+00:00,2026-09-26T08:11:17.707618+00:00,40,37,3,max_programs,837.2,-85419.430746,-85393.605346,false,-85369.862097,p039-1d886ecb,49.568649,-208944.600521,-209376.627462,-208621.39207,323.208451,true,"holdout_delta=323.208 JPY M under all policy invariants; evidence is from the local controller, so evolved stays false",40,304700,67400,273026,1.67867,"[{""name"": ""gemini-3.6-flash"", ""weight"": 0.7}, {""name"": ""gemini-3.1-pro-preview"", ""weight"": 0.3}]",e742fc255460e97b08147b57655b4e39cf31af0eb1a1b3ff7d686b18026dd7fe,f843d5f5f6308b80ff910dbb3aae2e19ff6c5816dfec42728c7d32adba704c52,"p005-58f9dcc5: An economic mechanism design incorporating dynamic programming (DP) for BESS optimization and full intraday gap closing for plan-based balancing:
+
+1. **BESS Arbitrage & Scarcity Pre-positioning via Dynamic Programming**: Instead of fixed heuristic slots, a 48-slot DP searches state space (SOC and daily cumulative discharge) to maximize net arbitrage revenues under round-trip efficiency (RTE), degradation cost, daily discharge limit (2 cycles/day), and terminal SOC valuation. For tight reserve margin slots ($<12\%$), prices are adjusted upward toward $p_{90}$ to preserve SOC for high-scarcity h || p014-7aa5a6b3: We replace the coarse dynamic programming BESS solver with a multi-pass economic pairwise arbitrage optimizer that factors in reserve-margin tightness and degradation costs. Furthermore, we replace full intraday gap closure with partial execution (50% gap closure bounded within 80% of the tolerance threshold), which substantially reduces intraday execution costs and bid-ask spread friction while fully preserving strict plan-based balancing invariants. || p017-4c67faf5: **Rationale**
+We can reduce transaction costs and market impact in the thin intraday market by trading less aggressively. Instead of always halving the forecast gap, we only submit intraday orders when the position is close to breaching the allowed regulatory compliance tolerance (i.e., outside 80% of the band). This avoids paying the wide intraday bid-ask spread for unnecessary marginal adjustments.
+
+```python || p025-498832ec: An elegant way to improve the day-ahead schedule profitability is to refine the greedy local search used for BESS optimization. Adding a finer step size (1.0 MW) and an additional search pass allows the algorithm to squeeze slightly more volume into the constraints (such as SOC bounds and daily throughput limits), increasing arbitrage value and better positioning the battery for tight hours.
+
+```python || p039-1d886ecb: We exploit finer-grained BESS dispatch optimization by introducing sub-MW power adjustment steps (down to 0.5 MW) and lowering the unit-margin threshold for pair evaluation from 0.05 to 0.02 JPY/kWh. In Japanese electricity arbitrage, high round-trip efficiency (85%) combined with degradation costs (8 JPY/kWh) creates profitable micro-arbitrage opportunities across moderate intra-day price spreads. Finer power step increments allow the multi-pass optimizer to maximize value extraction near SOC boundaries without violating power or daily discharge caps.","--- seed
++++ p039-1d886ecb
+@@ -1,41 +1,98 @@
++def _eval_plan(plan_mw, soc0, bess, p_eval, p50, deg_kwh, mean_p50):
++    clipped = clip_plan(plan_mw, soc0, bess)
++    soc = soc0
++    val = 0.0
++    for t in range(SLOTS):
++        mw = clipped[t]
++        if mw > 0:
++            val += mw * 0.5 * (p_eval[t] - deg_kwh)
++        elif mw < 0:
++            val += mw * 0.5 * p50[t]
++        soc = soc_after(soc, mw, bess)
++    val += (soc - soc0) * bess[""eta_discharge""] * mean_p50
++    return clipped, val
++
++
+ def plan_day_ahead(ctx):
+-    """"""Seed: price-taker for forecast net load + cheapest-4 / dearest-4 BESS arbitrage with an RTE threshold.""""""
+-    bess, rules = ctx[""bess""], ctx[""rules""]
+-    price = ctx[""forecast""][""price_jpy_kwh""][""p50""]
+-    order = sorted(range(SLOTS), key=lambda t: price[t])
+-    cheap, dear = order[:4], order[-4:]
+-    plan = [0.0] * SLOTS
+-    buy_avg = sum(price[t] for t in cheap) / 4.0
+-    sell_avg = sum(price[t] for t in dear) / 4.0
+-    if sell_avg * bess[""rte""] - buy_avg > bess[""degradation_jpy_per_mwh""] / 1000.0 + 1.0:
+-        for t in cheap:
+-            plan[t] = -bess[""power_mw""]
+-        for t in dear:
+-            plan[t] = bess[""power_mw""]
+-    plan = clip_plan(plan, bess[""soc_mwh""], bess)
+-    net = ctx[""forecast""][""net_load_mwh_p50""]
++    """"""Multi-pass economic pairwise arbitrage optimization for BESS and DA net load bidding.""""""
++    bess, rules, fcast = ctx[""bess""], ctx[""rules""], ctx[""forecast""]
++    p50 = fcast[""price_jpy_kwh""][""p50""]
++    p90 = fcast[""price_jpy_kwh""][""p90""]
++    margin = fcast.get(""reserve_margin_p50"", [0.15] * SLOTS)
++    rte = bess[""rte""]
++    deg_kwh = bess.get(""degradation_jpy_per_mwh"", 8000.0) / 1000.0
++    mean_p50 = sum(p50) / SLOTS
++
++    p_eval = [
++        p50[t] + max(0.0, (0.12 - margin[t]) / 0.12) * (p90[t] - p50[t])
++        for t in range(SLOTS)
++    ]
++
++    pairs = []
++    for d in range(SLOTS):
++        for c in range(SLOTS):
++            if c == d:
++                continue
++            unit_margin = p_eval[d] - p50[c] / rte - deg_kwh
++            if unit_margin > 0.02:
++                pairs.append((unit_margin, c, d))
++
++    pairs.sort(key=lambda x: x[0], reverse=True)
++
++    best_plan, best_val = _eval_plan([0.0] * SLOTS, bess[""soc_mwh""], bess, p_eval, p50, deg_kwh, mean_p50)
++
++    for _pass in range(4):
++        for _, c, d in pairs:
++            for add_mw in (60.0, 45.0, 30.0, 15.0, 8.0, 4.0, 2.0, 1.0, 0.5):
++                if best_plan[c] - add_mw < -bess[""power_mw""] - 1e-5:
++                    continue
++                if best_plan[d] + add_mw > bess[""power_mw""] + 1e-5:
++                    continue
++                test_plan = list(best_plan)
++                test_plan[c] -= add_mw
++                test_plan[d] += add_mw
++                clipped, val = _eval_plan(test_plan, bess[""soc_mwh""], bess, p_eval, p50, deg_kwh, mean_p50)
++                if val > best_val + 1e-4:
++                    best_plan, best_val = clipped, val
++                    break
++
++    net = fcast[""net_load_mwh_p50""]
+     bids = []
+     for t in range(SLOTS):
+-        qty = net[t] - plan[t] * 0.5
+-        if qty > 0:
+-            bids.append({""slot"": t + 1, ""side"": ""buy"", ""qty_mwh"": lots(qty, rules), ""limit_jpy_kwh"": rules[""price_cap""]})
+-    return {""bids"": bids, ""bess_plan_mw"": plan}
++        qty_net = net[t] - best_plan[t] * 0.5
++        if qty_net > 0:
++            q = lots(qty_net, rules)
++            if q >= rules[""lot_mwh""]:
++                bids.append({""slot"": t + 1, ""side"": ""buy"", ""qty_mwh"": q, ""limit_jpy_kwh"": rules[""price_cap""]})
++        elif qty_net < 0:
++            q = lots(-qty_net, rules)
++            if q >= rules[""lot_mwh""]:
++                bids.append({""slot"": t + 1, ""side"": ""sell"", ""qty_mwh"": q, ""limit_jpy_kwh"": rules[""price_floor""]})
++
++    return {""bids"": bids, ""bess_plan_mw"": best_plan}
+ 
+ 
+ def adjust_intraday(ctx):
+-    """"""Seed: follow the BESS plan; correct 50% of the forecast gap, never leaving more than 80% of the tolerance.""""""
++    """"""Follow BESS plan; partially close forecast gap in intraday within compliance band to save transaction costs.""""""
+     bess, rules, idm = ctx[""bess""], ctx[""rules""], ctx[""intraday""]
+     mw = feasible_mw(bess[""planned_mw""], bess[""soc_mwh""], bess, bess[""discharged_today_mwh""])
+     forecast = ctx[""forecast_ha""][""net_load_mwh""]
+     position = ctx[""position_mwh""][""da_net""] + mw * 0.5
+     gap = forecast - position
+     tol = tolerance_mwh(forecast, rules)
+-    qty = 0.5 * gap
+-    if abs(gap - qty) > 0.8 * tol:
++
++    qty = 0.0
++    if abs(gap) > 0.8 * tol:
+         qty = gap - math.copysign(0.8 * tol, gap)
++
+     orders = []
+     if qty >= rules[""lot_mwh""]:
+-        orders.append({""side"": ""buy"", ""qty_mwh"": lots(qty, rules), ""limit_jpy_kwh"": min(rules[""price_cap""], idm[""best_ask""] + 2.0)})
++        q = lots(qty, rules)
++        if q >= rules[""lot_mwh""]:
++            orders.append({""side"": ""buy"", ""qty_mwh"": q, ""limit_jpy_kwh"": min(rules[""price_cap""], idm[""best_ask""] + 2.0)})
+     elif qty <= -rules[""lot_mwh""]:
+-        orders.append({""side"": ""sell"", ""qty_mwh"": lots(-qty, rules), ""limit_jpy_kwh"": max(rules[""price_floor""], idm[""best_bid""] - 2.0)})
++        q = lots(-qty, rules)
++        if q >= rules[""lot_mwh""]:
++            orders.append({""side"": ""sell"", ""qty_mwh"": q, ""limit_jpy_kwh"": max(rules[""price_floor""], idm[""best_bid""] - 2.0)})
++
+     return {""orders"": orders, ""bess_mw"": mw}
+","AlphaEvolve-compatible run, local controller; production run pending GE app provisioning; switching is one flag (--backend alphaevolve).","Cost is estimated from token counts x assumed USD/1M-token prices (balanced 0.50/3.00, reasoning 2.00/12.00 unless overridden by PRICE_* env vars); not a billing figure."
+jepx_trading.20260926T081714Z,jepx_trading,local-gemini-controller,local,false,2026-09-26T08:17:14.608327+00:00,2026-09-26T08:32:58.311894+00:00,40,39,1,max_programs,931.1,-85421.92963,-85393.605346,false,-85398.285051,p037-60e4877a,23.644579,-208950.227528,-209376.627462,-208744.469736,205.757793,true,"holdout_delta=205.758 JPY M under all policy invariants; evidence is from the local controller, so evolved stays false",40,288898,83170,294036,1.803736,"[{""name"": ""gemini-3.6-flash"", ""weight"": 0.7}, {""name"": ""gemini-3.1-pro-preview"", ""weight"": 0.3}]",e742fc255460e97b08147b57655b4e39cf31af0eb1a1b3ff7d686b18026dd7fe,f843d5f5f6308b80ff910dbb3aae2e19ff6c5816dfec42728c7d32adba704c52,"p001-34ef6576: Rationale: 
+The current strategy omits Day-Ahead (DA) selling when there is a surplus (either from PV generation exceeding demand or BESS discharge). By selling this surplus in the DA market, we capture the liquid DA clearing price instead of spilling the volume into the thin intraday market or unpredictable imbalance settlement. Additionally, adjusting the intraday correction to cover 100% of the forecast gap eliminates the intentional drift within the tolerance band, reducing risk and strictly ensuring regulatory compliance. || p037-60e4877a: An economic improvement that integrates reserve-margin scarcity weighting into Day-Ahead (DA) price expectations, uses exact battery round-trip economics for BESS arbitrage scheduling, and applies tolerance-aware asymmetric intraday gap balancing.
+
+### Rationale
+1. **Scarcity-Aware DA BESS Arbitrage**: During tight hours (reserve margin < 16%), DA spot prices exhibit severe right-tail spike risk. Weighting the forecast toward $p_{90}$ during tight slots shifts BESS discharge toward high-scarcity peak hours and charge toward solar surplus hours.
+2. **Exact Battery Hurdle Rate**: BESS discharge ","--- seed
++++ p037-60e4877a
+@@ -1,41 +1,76 @@
+ def plan_day_ahead(ctx):
+-    """"""Seed: price-taker for forecast net load + cheapest-4 / dearest-4 BESS arbitrage with an RTE threshold.""""""
++    """"""Scarcity-adjusted 5-slot BESS arbitrage + price-taker DA procurement.""""""
+     bess, rules = ctx[""bess""], ctx[""rules""]
+-    price = ctx[""forecast""][""price_jpy_kwh""][""p50""]
+-    order = sorted(range(SLOTS), key=lambda t: price[t])
+-    cheap, dear = order[:4], order[-4:]
++    price_p50 = ctx[""forecast""][""price_jpy_kwh""][""p50""]
++    price_p90 = ctx[""forecast""][""price_jpy_kwh""][""p90""]
++    rm_p50 = ctx[""forecast""].get(""reserve_margin_p50"", [1.0] * SLOTS)
++    if isinstance(rm_p50, (int, float)):
++        rm_p50 = [float(rm_p50)] * SLOTS
++
++    # Elevate price expectation during tight reserve margin slots (< 16%)
++    price_eff = []
++    for t in range(SLOTS):
++        rm = rm_p50[t]
++        if rm < 0.16:
++            w = min(1.0, (0.16 - rm) / 0.11)
++            p = price_p50[t] + w * (price_p90[t] - price_p50[t])
++        else:
++            p = price_p50[t]
++        price_eff.append(p)
++
++    order = sorted(range(SLOTS), key=lambda t: price_eff[t])
++    cheap, dear = order[:5], order[-5:]
+     plan = [0.0] * SLOTS
+-    buy_avg = sum(price[t] for t in cheap) / 4.0
+-    sell_avg = sum(price[t] for t in dear) / 4.0
+-    if sell_avg * bess[""rte""] - buy_avg > bess[""degradation_jpy_per_mwh""] / 1000.0 + 1.0:
++    buy_avg = sum(price_eff[t] for t in cheap) / 5.0
++    sell_avg = sum(price_eff[t] for t in dear) / 5.0
++    deg_kwh = bess.get(""degradation_jpy_per_mwh"", 8000.0) / 1000.0
++    rte = bess.get(""rte"", 0.85)
++
++    if sell_avg * rte - buy_avg > deg_kwh * rte + 0.3:
+         for t in cheap:
+             plan[t] = -bess[""power_mw""]
+         for t in dear:
+             plan[t] = bess[""power_mw""]
++
+     plan = clip_plan(plan, bess[""soc_mwh""], bess)
+     net = ctx[""forecast""][""net_load_mwh_p50""]
+     bids = []
+     for t in range(SLOTS):
+         qty = net[t] - plan[t] * 0.5
+-        if qty > 0:
+-            bids.append({""slot"": t + 1, ""side"": ""buy"", ""qty_mwh"": lots(qty, rules), ""limit_jpy_kwh"": rules[""price_cap""]})
++        lot_qty = lots(abs(qty), rules)
++        if lot_qty >= rules[""lot_mwh""]:
++            if qty > 0:
++                bids.append({""slot"": t + 1, ""side"": ""buy"", ""qty_mwh"": lot_qty, ""limit_jpy_kwh"": rules[""price_cap""]})
++            elif qty < -1e-6:
++                bids.append({""slot"": t + 1, ""side"": ""sell"", ""qty_mwh"": lot_qty, ""limit_jpy_kwh"": rules[""price_floor""]})
+     return {""bids"": bids, ""bess_plan_mw"": plan}
+ 
+ 
+ def adjust_intraday(ctx):
+-    """"""Seed: follow the BESS plan; correct 50% of the forecast gap, never leaving more than 80% of the tolerance.""""""
++    """"""Tolerance-aware asymmetric gap balancing: 100% short cover during scarcity, partial cover otherwise.""""""
+     bess, rules, idm = ctx[""bess""], ctx[""rules""], ctx[""intraday""]
+     mw = feasible_mw(bess[""planned_mw""], bess[""soc_mwh""], bess, bess[""discharged_today_mwh""])
+     forecast = ctx[""forecast_ha""][""net_load_mwh""]
+     position = ctx[""position_mwh""][""da_net""] + mw * 0.5
+     gap = forecast - position
+     tol = tolerance_mwh(forecast, rules)
+-    qty = 0.5 * gap
+-    if abs(gap - qty) > 0.8 * tol:
+-        qty = gap - math.copysign(0.8 * tol, gap)
++
++    rm = ctx[""forecast_ha""].get(""reserve_margin"", 1.0)
++    scarcity_est = ctx[""forecast_ha""].get(""imbalance_scarcity_price_est"", 0.0)
++
++    # Scarcity response: fully cover short gaps when reserve margin is tight (<16%) or scarcity triggers
++    if gap > 0 and (rm < 0.16 or scarcity_est > idm[""best_ask""]):
++        qty = gap
++    else:
++        qty = 0.5 * gap
++        if abs(gap - qty) > 0.8 * tol:
++            qty = gap - math.copysign(0.8 * tol, gap)
++
+     orders = []
+-    if qty >= rules[""lot_mwh""]:
+-        orders.append({""side"": ""buy"", ""qty_mwh"": lots(qty, rules), ""limit_jpy_kwh"": min(rules[""price_cap""], idm[""best_ask""] + 2.0)})
+-    elif qty <= -rules[""lot_mwh""]:
+-        orders.append({""side"": ""sell"", ""qty_mwh"": lots(-qty, rules), ""limit_jpy_kwh"": max(rules[""price_floor""], idm[""best_bid""] - 2.0)})
++    lot_qty = lots(abs(qty), rules)
++    if lot_qty >= rules[""lot_mwh""]:
++        if qty > 0:
++            orders.append({""side"": ""buy"", ""qty_mwh"": lot_qty, ""limit_jpy_kwh"": min(rules[""price_cap""], idm[""best_ask""] + 3.0)})
++        elif qty < -1e-6:
++            orders.append({""side"": ""sell"", ""qty_mwh"": lot_qty, ""limit_jpy_kwh"": max(rules[""price_floor""], idm[""best_bid""] - 3.0)})
+     return {""orders"": orders, ""bess_mw"": mw}
+","AlphaEvolve-compatible run, local controller; production run pending GE app provisioning; switching is one flag (--backend alphaevolve).","Cost is estimated from token counts x assumed USD/1M-token prices (balanced 0.50/3.00, reasoning 2.00/12.00 unless overridden by PRICE_* env vars); not a billing figure."
+tariff_pricing.20260926T073839Z,tariff_pricing,local-gemini-controller,local,false,2026-09-26T07:38:39.003009+00:00,2026-09-26T07:47:10.230637+00:00,40,39,1,max_programs,510.6,-8800.354398,-10827.924157,false,-3289.666066,p040-56530207,5510.688331,-11922.885324,-12741.048111,,,false,"champion violates a policy invariant on holdout: segment churn > 25%: university 26.2% (pricing customers out is a strategy change, not an uplift); would have scored -6083.3 JPY M without the policy gate",40,224673,55971,144068,1.05164,"[{""name"": ""gemini-3.6-flash"", ""weight"": 0.7}, {""name"": ""gemini-3.1-pro-preview"", ""weight"": 0.3}]",8f3d1516cef35cbf9f272b2bf7c8f2778639079f6691e5d640877d64678fe016,fed7d7994384e84e9e56878eb055df664f1cf9e5999b96b0aa6650e1b5468e4a,"p004-6b07e197: To improve the risk-return profile and increase the score without violating the strict churn and non-discrimination constraints, this update deploys three main mechanisms. First, it reduces tail risk (CVaR) by expanding the market-linked share (`alpha`) up to 60% for non-essential customers, scaling it proportionally with their `flex_share` to match their ability to load-shift. Second, it drives up retained lifetime value (LTV) by offering contracts aligned to each customer's `preferred_term_hint`. Finally, it introduces a shared DR discount to unlock demand response value, while applying a sm || p007-3ab19740: We exploit the economic trade-off between contract term length and forward-level fixed-price risk exposure: multi-year terms (`term_years` > 1) increase retained lifetime value (LTV) but penalize the balance group with a forward risk charge proportional to $(1 - \alpha) \times \text{energy} \times (\text{term} - 1)$. By granting multi-year terms only when the market-linked share $\alpha$ is sufficiently high ($\alpha \ge 0.35$), we eliminate severe multi-year fixed-price tail risk while securing customer LTV where risk is hedged. In addition, we condition $\alpha$ on customer risk appetite and || p022-52e27559: An economic analysis of the score components reveals that tail-risk (CVaR95 under 64 FY2026 fuel-shock and price-spike scenarios) is the main driver of negative portfolio scores. By raising the market-linked share ($\alpha$) across risk-tolerant and flexible customers, KBG transfers volume-weighted price-spike risk to the market link while staying safely below churn caps. Furthermore, setting term length to 1 year avoids multi-year fixed-price exposure, while increasing the DR value sharing factor to 72% maximizes customer enrollment and flexible load shift benefits. || p025-25a87dd5: Rationale: 
+By incrementally raising the base margin across all segments, we can capture a higher expected gross margin while remaining comfortably below the 15% overall churn limit. Concurrently, shifting the DR value-sharing ratio slightly downward (to 65%) retains sufficient customer enrollment while improving retained margins, and slightly elevating the flex-multiplier for `alpha` improves our hedge against tail-risk (reducing CVaR) for customers most able to handle it. || p028-72fc36de: We exploit risk-transfer economics and fixed-capacity margin capture to reduce portfolio tail risk (CVaR95) while boosting baseline gross margin. By moderately increasing the market-linked share (`alpha`) for non-essential customers based on risk appetite and load flexibility (`flex_share`), KBG transfers unhedged spot price volatility during extreme fuel-shock regimes to customers who benefit from flexible load-shifting. Furthermore, increasing the demand charge markup captures stable, non-volatile monthly margin, while tightening the DR sharing factor and deviation band reduces imbalance ove || p034-081bfda5: An economic analysis of the portfolio shows that the primary driver of tail-risk penalty ($\text{CVaR}_{95}$) is unhedged fixed-price exposure ($(1 - \alpha)$ share) during severe JEPX price spikes. By expanding market-linked indexation ($\alpha$) for non-essential customers according to their reported risk appetite and load flexibility, KBG transfers extreme tail risk back to market pass-through without triggering churn bounds.
+
+This change increases base $\alpha$ targets across risk appetites (up to 0.75 for high-risk appetite, flexible accounts), while strictly enforcing the 0.30 cap on ess || p037-aec5456a: An economic mechanism exploitation rationale:
+1. **Tail-Risk Hedging via Market-Linked Share ($\alpha$)**: CVaR95 is dominated by fixed-price exposure during extreme fuel spikes and market stress scenarios. Increasing the market-linked share ($\alpha$) for non-essential customers with medium/high risk appetite and load flexibility shifts price-spike risk away from the retailer's fixed-rate commitment, directly reducing CVaR95 while staying comfortably within portfolio and segment churn bounds ($\le 15\%$ and $\le 25\%$).
+2. **Scarcity Load-Shifting Monetization (DR Enrollment)**: Slightly rais || p040-56530207: **Rationale**
+To reduce fixed-price exposure and the resulting severe CVaR penalty during tail-risk scenarios, we shift a higher proportion of load to the market-linked rate (increasing `alpha` across all risk appetites). To balance the potential increase in churn from this risk transfer, we slightly reduce the target gross margins and increase the DR value sharing percentage to 75%, making the offer more attractive while continuing to build scarcity-event protection. We also tighten the deviation band and raise the penalty to improve forecast discipline and reduce our imbalance costs.
+
+```pyt","--- seed
++++ p040-56530207
+@@ -1,16 +1,54 @@
+ def price_book(customer, market):
+-    """"""Seed: cost-plus. Fixed margin on expected cost; market link only for data centers.""""""
+-    margin = 1.5
++    """"""Tail-risk hedged tariff with segment margin tuning, dynamic alpha, high DR sharing, and 1-year terms.""""""
++    seg = customer.get(""segment"", """")
++
++    # Segment margin calibration to control segment churn while maximizing gross margin
++    if seg in (""water_utility"", ""semiconductor_fab""):
++        margin = 0.75
++    elif seg in (""university"", ""data_center"", ""hospital""):
++        margin = 0.95
++    else:
++        margin = 1.20
++
+     energy = energy_cost_jpy_kwh(customer, market)
+     other = non_energy_cost_jpy_kwh(customer, market)
+-    alpha = 0.5 if customer[""segment""] == ""data_center"" else 0.0
++    cost = energy + other
++
++    # Fair-pricing ceiling check (<= 1.25 x segment reference)
++    ref = segment_reference(customer, market)
++    max_rate = 1.24 * ref
++    energy_rate = round(min(cost + margin, max_rate), 3)
++    market_adder = round(min(other + margin, max_rate - energy), 3)
++
++    # Tail-risk mitigation via market-linked share (alpha)
++    is_essential = customer.get(""essential"", False) or seg in (""hospital"", ""water_utility"")
++    if is_essential:
++        alpha = 0.30
++    else:
++        flex = customer.get(""flex_share"", 0.0)
++        risk_app = customer.get(""risk_appetite"", ""medium"")
++        if risk_app == ""high"":
++            base_alpha = 0.60 + flex * 0.45
++        elif risk_app == ""medium"":
++            base_alpha = 0.46 + flex * 0.40
++        else:
++            base_alpha = 0.32 + flex * 0.30
++        alpha = clamp(base_alpha, 0.25, 0.85)
++
++    alpha = round(alpha, 2)
++
++    # DR discount sharing to drive enrollment and capture scarcity load-shifting value
++    dr_pot = customer.get(""dr_potential_kw"", 0)
++    dr_val_annual = market.get(""dr_value_estimate_jpy_per_kw_year"", 3000.0)
++    dr_discount = round((dr_val_annual / 12.0) * 0.75, 1) if (dr_pot > 0 and dr_val_annual > 0) else 0.0
++
+     return {
+-        ""energy_rate_jpy_kwh"": round(energy + other + margin, 3),
++        ""energy_rate_jpy_kwh"": energy_rate,
+         ""alpha"": alpha,
+-        ""market_adder_jpy_kwh"": round(other + margin, 3),
+-        ""demand_charge_jpy_kw_month"": round(wheeling_basic_jpy_kw_month(customer, market) + 50.0, 1),
+-        ""deviation_band_pct"": 10.0,
+-        ""deviation_penalty_jpy_kwh"": 1.0,
+-        ""dr_discount_jpy_kw_month"": 0.0,
++        ""market_adder_jpy_kwh"": market_adder,
++        ""demand_charge_jpy_kw_month"": round(wheeling_basic_jpy_kw_month(customer, market) + 38.0, 1),
++        ""deviation_band_pct"": 5.5,
++        ""deviation_penalty_jpy_kwh"": 2.0,
++        ""dr_discount_jpy_kw_month"": dr_discount,
+         ""term_years"": 1,
+     }
+","AlphaEvolve-compatible run, local controller; production run pending GE app provisioning; switching is one flag (--backend alphaevolve).","Cost is estimated from token counts x assumed USD/1M-token prices (balanced 0.50/3.00, reasoning 2.00/12.00 unless overridden by PRICE_* env vars); not a billing figure."
+tariff_pricing.20260926T074912Z,tariff_pricing,local-gemini-controller,local,false,2026-09-26T07:49:12.456646+00:00,2026-09-26T07:56:53.349410+00:00,40,37,3,max_programs,460.3,-8800.354398,-10827.924157,false,-2584.848028,p040-3a299406,6215.50637,-11922.885324,-12741.048111,,,false,"champion violates a policy invariant on holdout: segment churn > 25%: university 25.6% (pricing customers out is a strategy change, not an uplift); would have scored -5274.2 JPY M without the policy gate",40,258761,57452,136501,1.103846,"[{""name"": ""gemini-3.6-flash"", ""weight"": 0.7}, {""name"": ""gemini-3.1-pro-preview"", ""weight"": 0.3}]",8f3d1516cef35cbf9f272b2bf7c8f2778639079f6691e5d640877d64678fe016,fed7d7994384e84e9e56878eb055df664f1cf9e5999b96b0aa6650e1b5468e4a,"p006-7b4f806c: An economic rationale for the proposed strategy followed by the code modification:
+
+1. **Risk-Tailored Market-Index Allocation ($\alpha$)**: Shifting power price risk away from fixed-rate exposure during extreme scenarios (fuel shocks, cold snaps, imbalance cap rise) directly reduces $CVaR_{95}$. By mapping customer risk appetite and flexible load fraction ($\text{flex\_share}$) into $\alpha$, flexible customers earn market savings while KBG mitigates tail risk and captures a share of demand response value.
+2. **Dynamic Procurement & Segment Retention Margins**: Tender procurement and high-chu || p015-8cffb0a6: By raising the base market-linked share (`alpha`) and adjusting the load flexibility coefficient, we significantly reduce our exposure to forward-price risk, curbing the CVaR95 penalty in stress scenarios. To offset the upward pressure on subjective prices, we deepen the margin discount for sensitive segments (`semiconductor_fab` and `water_utility`) to respect the churn guard bands. We also pass a higher share of the DR value to customers to increase enrolled DR capacity and tighten the deviation penalty to improve forecast discipline, lowering net balancing costs. || p018-d96024e0: To reduce CVaR95 tail-risk from severe forward price spikes and convert multi-year LTV from negative to positive, we make two aligned adjustments:
+
+1. **Risk-Tailored Market Linking ($\alpha$)**: Moderately increase the baseline market-linked share for medium- and high-risk appetite customers (and data centers with flexible load), shifting fixed forward volume exposure into JEPX pass-through.
+2. **High-Alpha Multi-Year Lock-In**: Raise the minimum market-link threshold for multi-year term agreements from $\alpha \ge 0.30$ to $\alpha \ge 0.40$. Locking low-$\alpha$ customers into 2–3 year contr || p024-9e9e3b48: We exploit risk-shifting and demand-response value capture. Increasing the market-linked pass-through share (`alpha`) for risk-tolerant customers (and data centers with flexible loads) transfers severe fuel-shock tail risk to customers who can tolerate or flex around JEPX spikes, directly shrinking the high CVaR95 penalty (-0.5 x CVaR95). Additionally, increasing the customer DR discount share enhances enrolment and flex value capture, while tightening multi-year term requirements (`alpha >= 0.43`) prevents fixed forward risk lock-in. || p040-3a299406: We improve the renewal pricing policy by optimizing three main economic risk/return levers:
+
+1. **CVaR Tail-Risk Reduction via Alpha Scaling**: Increasing the market-linked share (`base_alpha`: high risk appetite -> 0.70, medium -> 0.50, low -> 0.29, data center floor -> 0.56) significantly reduces forward fixed-price risk under severe fuel-shock scenarios, driving down portfolio CVaR95 without violating customer risk preferences or the essential facility cap (alpha <= 0.30).
+2. **Targeted Churn Guard-Band Protection**: Refining margins for price-sensitive segments (`semiconductor_fab` to -0.3","--- seed
++++ p040-3a299406
+@@ -1,16 +1,88 @@
+ def price_book(customer, market):
+-    """"""Seed: cost-plus. Fixed margin on expected cost; market link only for data centers.""""""
+-    margin = 1.5
+-    energy = energy_cost_jpy_kwh(customer, market)
+-    other = non_energy_cost_jpy_kwh(customer, market)
+-    alpha = 0.5 if customer[""segment""] == ""data_center"" else 0.0
++    """"""Segment-calibrated risk-adjusted tariff optimization.""""""
++    e_cost = energy_cost_jpy_kwh(customer, market)
++    ne_cost = non_energy_cost_jpy_kwh(customer, market)
++
++    # 1. Market-link share (alpha) derived from risk appetite and load flexibility
++    risk = customer.get(""risk_appetite"", ""medium"")
++    flex = customer.get(""flex_share"", 0.0)
++
++    if risk == ""high"":
++        base_alpha = 0.70
++    elif risk == ""medium"":
++        base_alpha = 0.50
++    else:
++        base_alpha = 0.29
++
++    if flex > 0.03:
++        base_alpha += min(0.20, flex * 1.2)
++
++    if customer.get(""segment"") == ""data_center"":
++        base_alpha = max(base_alpha, 0.56)
++
++    # Invariant 1: Essential facilities capped at alpha <= 0.30
++    if customer.get(""essential"", False) or customer.get(""segment"") in (""hospital"", ""water_utility""):
++        base_alpha = min(0.30, base_alpha)
++
++    alpha = clamp(round(base_alpha, 2), 0.0, 0.75)
++
++    # 2. Procurement style & segment-specific margin calibration for churn guard bands
++    proc = customer.get(""procurement_style"", ""negotiated"")
++    if proc == ""tender"":
++        margin = 0.95
++    elif proc == ""auto_renew"":
++        margin = 1.45
++    else:
++        margin = 1.22
++
++    segment = customer.get(""segment"", """")
++    if segment == ""semiconductor_fab"":
++        margin -= 0.31
++    elif segment == ""water_utility"":
++        margin -= 0.30
++    elif segment == ""data_center"":
++        margin -= 0.15
++    elif segment in (""university"", ""office""):
++        margin -= 0.10
++    elif segment in (""cold_storage"", ""hotel""):
++        margin += 0.05
++
++    credit = customer.get(""credit_rating"", ""B"")
++    if credit in (""C"", ""D""):
++        margin += 0.15
++
++    # Invariant 2: Fair-pricing ceiling check against segment reference
++    seg_ref = segment_reference(customer, market)
++    max_rate = 1.20 * seg_ref
++
++    fixed_rate = min(e_cost + ne_cost + margin, max_rate - 0.2)
++    market_adder = ne_cost + margin
++
++    # 3. Demand charge and DR discount enablement
++    wb = wheeling_basic_jpy_kw_month(customer, market)
++    demand_charge = round(wb + 30.0, 1)
++
++    dr_discount = 0.0
++    pot_kw = customer.get(""dr_potential_kw"", 0)
++    if pot_kw > 0:
++        dr_val = market.get(""dr_value_estimate_jpy_per_kw_year"", 3000.0)
++        share = 0.72 if customer.get(""dr_interest"", False) else 0.48
++        dr_discount = round((dr_val / 12.0) * share, 1)
++
++    # 4. Selective multi-year term lock-in when market share mitigates fixed forward risk
++    pref_term = customer.get(""preferred_term_hint"", 1)
++    if pref_term in (2, 3) and alpha >= 0.38:
++        term_years = int(pref_term)
++    else:
++        term_years = 1
++
+     return {
+-        ""energy_rate_jpy_kwh"": round(energy + other + margin, 3),
++        ""energy_rate_jpy_kwh"": round(fixed_rate, 3),
+         ""alpha"": alpha,
+-        ""market_adder_jpy_kwh"": round(other + margin, 3),
+-        ""demand_charge_jpy_kw_month"": round(wheeling_basic_jpy_kw_month(customer, market) + 50.0, 1),
++        ""market_adder_jpy_kwh"": round(market_adder, 3),
++        ""demand_charge_jpy_kw_month"": demand_charge,
+         ""deviation_band_pct"": 10.0,
+-        ""deviation_penalty_jpy_kwh"": 1.0,
+-        ""dr_discount_jpy_kw_month"": 0.0,
+-        ""term_years"": 1,
++        ""deviation_penalty_jpy_kwh"": 1.5,
++        ""dr_discount_jpy_kw_month"": dr_discount,
++        ""term_years"": term_years,
+     }
+","AlphaEvolve-compatible run, local controller; production run pending GE app provisioning; switching is one flag (--backend alphaevolve).","Cost is estimated from token counts x assumed USD/1M-token prices (balanced 0.50/3.00, reasoning 2.00/12.00 unless overridden by PRICE_* env vars); not a billing figure."
+tariff_pricing.20260926T080035Z,tariff_pricing,local-gemini-controller,local,false,2026-09-26T08:00:35.105519+00:00,2026-09-26T08:08:51.205050+00:00,40,37,3,max_programs,495.1,-8800.354398,-10827.924157,false,-2033.20883,p039-acb6b2de,6767.145568,-10873.953248,-10999.148008,,,false,"champion violates a policy invariant on holdout: segment churn rises more than 5% above the incumbent book: semiconductor_fab 18.9% -> 25.0%, university 17.0% -> 22.8%; segment churn > 25%: semiconductor_fab 25.0% (pricing customers out is a strateg; would have scored -4647.6 JPY M without the policy gate",40,248039,60737,150223,1.181453,"[{""name"": ""gemini-3.6-flash"", ""weight"": 0.7}, {""name"": ""gemini-3.1-pro-preview"", ""weight"": 0.3}]",8f3d1516cef35cbf9f272b2bf7c8f2778639079f6691e5d640877d64678fe016,82e114a31fb302031ddf1fa59c95e439cc7fb75bf9744bfd84002661c6209e26,"p014-44bc1ee2: We optimize the retail price book by combining market-index risk sharing ($\alpha$) with segment- and procurement-aware margin tuning to control tail risk (CVaR95) while respecting churn guard bands. 
+
+Specifically:
+1. **Dynamic Risk Transfer ($\alpha$)**: We pass short-term JEPX market indexing to risk-tolerant and flexible customers (up to the 0.30 essential facility regulatory cap for hospitals and water utilities, and 0.75 for standard accounts). Flexible load sharing allows KBG to capture load-shifting value during peak/scarcity slots while transferring tail price exposure away from fixed || p017-db24a0fc: We exploit risk-transfer and flexibility co-optimization to reduce tail exposure while maintaining customer retention. By increasing the market-linked share (`alpha`) for customers with medium-to-high risk appetite and flexible load, we systematically shift fuel-shock and price-spike tail risk off KBG's balance sheet, reducing the CVaR95 penalty. Simultaneously, raising the DR pass-through factor to 0.52 encourages higher DR enrollment to monetize curtailment value, and tightening imbalance deviation parameters (7.0% band, 1.5 JPY/kWh penalty) improves customer forecast discipline to suppress  || p022-f4e40adf: We enhance the program through two economically motivated adjustments. First, we introduce safe competitor-benchmarking for margins: gently responding to the competitor quote estimate limits churn against aggressive quotes while capturing consumer surplus where our baseline rate leaves money on the table, all remaining well within the 8% non-discrimination invariant. Second, we increase the Demand Response (DR) value share from 52% to 65% to stimulate higher enrollment from capable customers, increasing KBG's scarcity mitigation value. || p033-cfb36bf0: By increasing the base market-link share (alpha) for customers with medium/high risk tolerance and better load flexibility, we transfer more tail-risk exposure away from the fixed-price forward block. Additionally, tightening the deviation band from 7.0% to 6.0% and raising the penalty to 1.8 JPY/kWh improves forecast discipline and lowers imbalance settlement costs. A slightly reduced DR pass-through retains a larger share of the DR value for KBG.
+
+```python || p036-6b1ab40e: An economic strategy to reduce tail risk (CVaR95) and improve gross margin while maintaining regulatory churn guard bands:
+
+1. **Risk-Tuned Tail Risk Transfer (Higher Alpha)**: Increase market-indexing (`alpha`) slightly for customers with high and medium risk tolerance and flexible load profiles (`0.62 -> 0.66` for high risk, `0.44 -> 0.46` for medium risk). Because CVaR95 penalty is dominated by fixed-price forward exposure during extreme fuel and scarcity scenarios, shifting fixed exposure to market-indexed pricing directly reduces portfolio tail risk.
+2. **Retention Protection for High-Chu || p039-acb6b2de: An economic optimization that reduces portfolio CVaR95 tail risk while safeguarding customer retention within regulatory guard bands:
+
+1. **CVaR Risk Transfer via Alpha**: Increases baseline index linkage (`alpha`) for `high` (0.70) and `medium` (0.50) risk-appetite customers and high-flex load profiles. Shifting tail risk to price-shock resilient customers directly shrinks fixed-price exposure on `(1 - alpha)` during extreme JEPX price spikes.
+2. **Segment Churn Safeguard**: Widens the margin discount for high-volume, price-sensitive segments (`semiconductor_fab` to -0.31 JPY/kWh and `water_u","--- seed
++++ p039-acb6b2de
+@@ -1,16 +1,83 @@
+ def price_book(customer, market):
+-    """"""Seed: cost-plus. Fixed margin on expected cost; market link only for data centers.""""""
+-    margin = 1.5
++    """"""Risk-managed market-indexed tariff with segment margin optimization, DR monetization, and flex load sharing.""""""
++    is_essential = customer.get(""essential"", False) or customer.get(""segment"") in (""hospital"", ""water_utility"")
++    risk = customer.get(""risk_appetite"", ""medium"")
++    flex = customer.get(""flex_share"", 0.0)
++
++    # 1. Market-link share (alpha) to mitigate tail fuel/spike risk (CVaR95) while respecting customer risk appetite
++    if risk == ""high"":
++        base_alpha = 0.70
++    elif risk == ""medium"":
++        base_alpha = 0.50
++    else:
++        base_alpha = 0.18
++
++    if flex > 0.02:
++        base_alpha += min(0.25, flex * 1.1)
++
++    seg = customer.get(""segment"")
++    if seg in (""data_center"", ""cold_storage""):
++        base_alpha += 0.12
++    elif seg in (""auto_parts"", ""office"", ""logistics""):
++        base_alpha += 0.05
++
++    max_alpha = 0.30 if is_essential else 0.80
++    alpha = round(clamp(base_alpha, 0.0, max_alpha), 2)
++
++    # 2. Segment and procurement-style margin tuning to maintain retention within regulatory guard bands
++    margin = 1.18
++    proc = customer.get(""procurement_style"")
++    if proc == ""tender"":
++        margin -= 0.38
++    elif proc == ""auto_renew"":
++        margin += 0.15
++
++    if seg == ""semiconductor_fab"":
++        margin -= 0.31
++    elif seg == ""water_utility"":
++        margin -= 0.25
++    elif seg in (""university"", ""hospital""):
++        margin -= 0.13
++    elif seg in (""data_center"", ""cold_storage""):
++        margin -= 0.07
++
++    if customer.get(""credit_rating"") in (""C"", ""D""):
++        margin += 0.08
++
++    if customer.get(""switched_last_5y"", False):
++        margin -= 0.05
++
+     energy = energy_cost_jpy_kwh(customer, market)
+     other = non_energy_cost_jpy_kwh(customer, market)
+-    alpha = 0.5 if customer[""segment""] == ""data_center"" else 0.0
++
++    comp_quote = customer.get(""competitor_quote_est_jpy_kwh"")
++    if comp_quote is not None:
++        est_rate = energy + other + margin
++        if est_rate > comp_quote + 0.20:
++            margin -= min(0.20, (est_rate - comp_quote) * 0.3)
++        elif est_rate < comp_quote - 0.40:
++            margin += min(0.15, (comp_quote - est_rate) * 0.2)
++
++    margin = round(clamp(margin, 0.45, 1.80), 3)
++
++    # 3. Demand charge adder
++    wb = wheeling_basic_jpy_kw_month(customer, market)
++    demand_charge = round(wb + 20.0, 1)
++
++    # 4. Demand Response discount to enrol flexible customers
++    dr_discount = 0.0
++    if customer.get(""dr_interest"", False) and customer.get(""dr_potential_kw"", 0) > 0:
++        dr_val = market.get(""dr_value_estimate_jpy_per_kw_year"", 1200.0)
++        dr_discount = round(clamp((dr_val / 12.0) * 0.70, 0.0, 180.0), 1)
++
++    # 5. Restrict term to 1 year to eliminate multi-year fixed price exposure
+     return {
+         ""energy_rate_jpy_kwh"": round(energy + other + margin, 3),
+         ""alpha"": alpha,
+         ""market_adder_jpy_kwh"": round(other + margin, 3),
+-        ""demand_charge_jpy_kw_month"": round(wheeling_basic_jpy_kw_month(customer, market) + 50.0, 1),
+-        ""deviation_band_pct"": 10.0,
+-        ""deviation_penalty_jpy_kwh"": 1.0,
+-        ""dr_discount_jpy_kw_month"": 0.0,
++        ""demand_charge_jpy_kw_month"": demand_charge,
++        ""deviation_band_pct"": 5.0,
++        ""deviation_penalty_jpy_kwh"": 2.2,
++        ""dr_discount_jpy_kw_month"": dr_discount,
+         ""term_years"": 1,
+     }
+","AlphaEvolve-compatible run, local controller; production run pending GE app provisioning; switching is one flag (--backend alphaevolve).","Cost is estimated from token counts x assumed USD/1M-token prices (balanced 0.50/3.00, reasoning 2.00/12.00 unless overridden by PRICE_* env vars); not a billing figure."

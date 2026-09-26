@@ -1,0 +1,98 @@
+{
+ "eval_set_id": "specialist_risk_auditor",
+ "name": "risk_auditor policy lookups (chat-mode clone)",
+ "eval_cases": [
+  {
+   "eval_id": "A1_policy_intentional_imbalance",
+   "conversation": [
+    {
+     "invocation_id": "A1_policy_intentional_imbalance-1",
+     "user_content": {
+      "role": "user",
+      "parts": [
+       {
+        "text": "What does desk policy say about leaving a slot short on purpose because imbalance looks cheaper?"
+       }
+      ]
+     },
+     "final_response": {
+      "role": "model",
+      "parts": [
+       {
+        "text": "See rubric."
+       }
+      ]
+     },
+     "intermediate_data": {
+      "tool_uses": [
+       {
+        "name": "lookup_policy",
+        "args": {}
+       }
+      ]
+     }
+    }
+   ],
+   "session_input": {
+    "app_name": "retail_desk",
+    "user_id": "eval",
+    "state": {}
+   },
+   "rubrics": [
+    {
+     "rubric_id": "a1",
+     "type": "FINAL_RESPONSE_QUALITY",
+     "rubric_content": {
+      "text_property": "States that intentional imbalance is prohibited and cites the desk policy guide section."
+     }
+    }
+   ]
+  },
+  {
+   "eval_id": "A2_policy_execute_without_approval",
+   "conversation": [
+    {
+     "invocation_id": "A2_policy_execute_without_approval-1",
+     "user_content": {
+      "role": "user",
+      "parts": [
+       {
+        "text": "Can an agent execute a VPP dispatch without human approval? Cite the policy."
+       }
+      ]
+     },
+     "final_response": {
+      "role": "model",
+      "parts": [
+       {
+        "text": "See rubric."
+       }
+      ]
+     },
+     "intermediate_data": {
+      "tool_uses": [
+       {
+        "name": "lookup_policy",
+        "args": {}
+       }
+      ]
+     }
+    }
+   ],
+   "session_input": {
+    "app_name": "retail_desk",
+    "user_id": "eval",
+    "state": {}
+   },
+   "rubrics": [
+    {
+     "rubric_id": "a2",
+     "type": "FINAL_RESPONSE_QUALITY",
+     "rubric_content": {
+      "text_property": "States that agents cannot execute actions and that a person must approve with Hold-to-Confirm, citing the policy section."
+     }
+    }
+   ]
+  }
+ ]
+}

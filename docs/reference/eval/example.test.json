@@ -1,0 +1,17 @@
+{
+  "eval_set_id": "ref_smoke",
+  "eval_cases": [
+    {
+      "eval_id": "spike_day",
+      "conversation": [
+        {
+          "invocation_id": "t1",
+          "user_content": {"role": "user", "parts": [{"text": "What was the average and maximum spot price on 2026-07-04, and which slot peaked?"}]},
+          "final_response": {"role": "model", "parts": [{"text": "On 2026-07-04 the average was X JPY/kWh and max Y JPY/kWh in slot Z [jepx_spot]."}]},
+          "intermediate_data": {"tool_uses": [{"name": "get_daily_price_stats", "args": {"date": "2026-07-04"}}, {"name": "get_peak_slot", "args": {"date": "2026-07-04"}}]}
+        }
+      ],
+      "session_input": {"app_name": "refagent", "user_id": "eval", "state": {}}
+    }
+  ]
+}

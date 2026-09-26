@@ -1,0 +1,225 @@
+eval_set_id,eval_id,metric_name,threshold,score,eval_status,prompt,expected_response,actual_response,expected_tool_calls,actual_tool_calls
+runs_run_summary_tariff_first,run_summary_tariff_first,tool_trajectory_avg_score,1.0,1.0,PASSED,"Summarise run tariff_pricing.20260926T073839Z: how many programs were evaluated, how many were invalid, and what happened on holdout?",Run tariff_pricing.20260926T073839Z evaluated 40 programs with 1 invalid; holdout delta None (uplift_valid false) [energy_alphaevolve_lab.lab_runs].,"Here is the summary of run `tariff_pricing.20260926T073839Z`.
+
+All market, customer, and run data in this lab is calibrated synthetic data for Kanto Balance Group (KBG), a fictional balance group. This run was performed on a local controller (`source`: `local-gemini-controller`), so `evolved` remains `false` [energy_alphaevolve_lab.lab_runs].
+
+---
+
+### Evaluation Summary
+
+* **Programs Evaluated:** 40 programs [energy_alphaevolve_lab.lab_runs].
+* **Valid Programs:** 39 programs [energy_alphaevolve_lab.lab_runs].
+* **Invalid Programs:** 1 program [energy_alphaevolve_lab.lab_runs].
+
+#### Model Breakdown
+* `gemini-3.6-flash`: 31 programs evaluated, 31 valid [energy_alphaevolve_lab.lab_programs].
+* `gemini-3.1-pro-preview`: 9 programs evaluated, 8 valid, 1 invalid [energy_alphaevolve_lab.lab_programs].
+
+The single invalid candidate during training was caught by the `churn` policy invariant [energy_alphaevolve_lab.lab_invariant_catches].
+
+---
+
+### Holdout Performance
+
+* **Holdout Seed Score:** -11922.885 JPY M [energy_alphaevolve_lab.lab_runs].
+* **Best Holdout Score:** null [energy_alphaevolve_lab.lab_runs].
+* **Holdout Delta:** null [energy_alphaevolve_lab.lab_runs].
+* **Validated Uplift:** None (`uplift_valid`: false) [energy_alphaevolve_lab.lab_runs].
+
+#### What Happened on Holdout
+During search, the top candidate (`p040-56530207`) achieved a training score of -3289.666 JPY M (a training delta of 5510.688 JPY M vs the seed score of -8800.354 JPY M) [energy_alphaevolve_lab.lab_runs]. 
+
+However, when tested on holdout scenarios, the champion violated the `churn` policy invariant by causing a 26.2% customer churn in the university segment, exceeding the 25% segment churn limit [energy_alphaevolve_lab.lab_runs]. Without the policy gate, the raw score would have been -6083.3 JPY M, but pricing customers out is considered a strategy violation rather than a valid gain [energy_alphaevolve_lab.lab_runs]. Because the candidate failed holdout policy invariants, there is no validated holdout uplift.",id=None args={'run_id': 'tariff_pricing.20260926T073839Z'} name='get_run_summary' partial_args=None will_continue=None,"id='call_1525448' args={'run_id': 'tariff_pricing.20260926T073839Z'} name='get_run_summary' partial_args=None will_continue=None
+id='call_1525449' args={'run_id': 'tariff_pricing.20260926T073839Z'} name='get_holdout_result' partial_args=None will_continue=None"
+runs_run_summary_tariff_first,run_summary_tariff_first,rubric_based_final_response_quality_v1,0.8,1.0,PASSED,"Summarise run tariff_pricing.20260926T073839Z: how many programs were evaluated, how many were invalid, and what happened on holdout?",Run tariff_pricing.20260926T073839Z evaluated 40 programs with 1 invalid; holdout delta None (uplift_valid false) [energy_alphaevolve_lab.lab_runs].,"Here is the summary of run `tariff_pricing.20260926T073839Z`.
+
+All market, customer, and run data in this lab is calibrated synthetic data for Kanto Balance Group (KBG), a fictional balance group. This run was performed on a local controller (`source`: `local-gemini-controller`), so `evolved` remains `false` [energy_alphaevolve_lab.lab_runs].
+
+---
+
+### Evaluation Summary
+
+* **Programs Evaluated:** 40 programs [energy_alphaevolve_lab.lab_runs].
+* **Valid Programs:** 39 programs [energy_alphaevolve_lab.lab_runs].
+* **Invalid Programs:** 1 program [energy_alphaevolve_lab.lab_runs].
+
+#### Model Breakdown
+* `gemini-3.6-flash`: 31 programs evaluated, 31 valid [energy_alphaevolve_lab.lab_programs].
+* `gemini-3.1-pro-preview`: 9 programs evaluated, 8 valid, 1 invalid [energy_alphaevolve_lab.lab_programs].
+
+The single invalid candidate during training was caught by the `churn` policy invariant [energy_alphaevolve_lab.lab_invariant_catches].
+
+---
+
+### Holdout Performance
+
+* **Holdout Seed Score:** -11922.885 JPY M [energy_alphaevolve_lab.lab_runs].
+* **Best Holdout Score:** null [energy_alphaevolve_lab.lab_runs].
+* **Holdout Delta:** null [energy_alphaevolve_lab.lab_runs].
+* **Validated Uplift:** None (`uplift_valid`: false) [energy_alphaevolve_lab.lab_runs].
+
+#### What Happened on Holdout
+During search, the top candidate (`p040-56530207`) achieved a training score of -3289.666 JPY M (a training delta of 5510.688 JPY M vs the seed score of -8800.354 JPY M) [energy_alphaevolve_lab.lab_runs]. 
+
+However, when tested on holdout scenarios, the champion violated the `churn` policy invariant by causing a 26.2% customer churn in the university segment, exceeding the 25% segment churn limit [energy_alphaevolve_lab.lab_runs]. Without the policy gate, the raw score would have been -6083.3 JPY M, but pricing customers out is considered a strategy violation rather than a valid gain [energy_alphaevolve_lab.lab_runs]. Because the candidate failed holdout policy invariants, there is no validated holdout uplift.",id=None args={'run_id': 'tariff_pricing.20260926T073839Z'} name='get_run_summary' partial_args=None will_continue=None,"id='call_1525448' args={'run_id': 'tariff_pricing.20260926T073839Z'} name='get_run_summary' partial_args=None will_continue=None
+id='call_1525449' args={'run_id': 'tariff_pricing.20260926T073839Z'} name='get_holdout_result' partial_args=None will_continue=None"
+runs_run_summary_tariff_first,run_summary_tariff_first,hallucinations_v1,0.8,1.0,PASSED,"Summarise run tariff_pricing.20260926T073839Z: how many programs were evaluated, how many were invalid, and what happened on holdout?",Run tariff_pricing.20260926T073839Z evaluated 40 programs with 1 invalid; holdout delta None (uplift_valid false) [energy_alphaevolve_lab.lab_runs].,"Here is the summary of run `tariff_pricing.20260926T073839Z`.
+
+All market, customer, and run data in this lab is calibrated synthetic data for Kanto Balance Group (KBG), a fictional balance group. This run was performed on a local controller (`source`: `local-gemini-controller`), so `evolved` remains `false` [energy_alphaevolve_lab.lab_runs].
+
+---
+
+### Evaluation Summary
+
+* **Programs Evaluated:** 40 programs [energy_alphaevolve_lab.lab_runs].
+* **Valid Programs:** 39 programs [energy_alphaevolve_lab.lab_runs].
+* **Invalid Programs:** 1 program [energy_alphaevolve_lab.lab_runs].
+
+#### Model Breakdown
+* `gemini-3.6-flash`: 31 programs evaluated, 31 valid [energy_alphaevolve_lab.lab_programs].
+* `gemini-3.1-pro-preview`: 9 programs evaluated, 8 valid, 1 invalid [energy_alphaevolve_lab.lab_programs].
+
+The single invalid candidate during training was caught by the `churn` policy invariant [energy_alphaevolve_lab.lab_invariant_catches].
+
+---
+
+### Holdout Performance
+
+* **Holdout Seed Score:** -11922.885 JPY M [energy_alphaevolve_lab.lab_runs].
+* **Best Holdout Score:** null [energy_alphaevolve_lab.lab_runs].
+* **Holdout Delta:** null [energy_alphaevolve_lab.lab_runs].
+* **Validated Uplift:** None (`uplift_valid`: false) [energy_alphaevolve_lab.lab_runs].
+
+#### What Happened on Holdout
+During search, the top candidate (`p040-56530207`) achieved a training score of -3289.666 JPY M (a training delta of 5510.688 JPY M vs the seed score of -8800.354 JPY M) [energy_alphaevolve_lab.lab_runs]. 
+
+However, when tested on holdout scenarios, the champion violated the `churn` policy invariant by causing a 26.2% customer churn in the university segment, exceeding the 25% segment churn limit [energy_alphaevolve_lab.lab_runs]. Without the policy gate, the raw score would have been -6083.3 JPY M, but pricing customers out is considered a strategy violation rather than a valid gain [energy_alphaevolve_lab.lab_runs]. Because the candidate failed holdout policy invariants, there is no validated holdout uplift.",id=None args={'run_id': 'tariff_pricing.20260926T073839Z'} name='get_run_summary' partial_args=None will_continue=None,"id='call_1525448' args={'run_id': 'tariff_pricing.20260926T073839Z'} name='get_run_summary' partial_args=None will_continue=None
+id='call_1525449' args={'run_id': 'tariff_pricing.20260926T073839Z'} name='get_holdout_result' partial_args=None will_continue=None"
+runs_run_summary_tariff_first,run_summary_tariff_first,tool_call_count_v1,,2.0,INFORMATIONAL,"Summarise run tariff_pricing.20260926T073839Z: how many programs were evaluated, how many were invalid, and what happened on holdout?",Run tariff_pricing.20260926T073839Z evaluated 40 programs with 1 invalid; holdout delta None (uplift_valid false) [energy_alphaevolve_lab.lab_runs].,"Here is the summary of run `tariff_pricing.20260926T073839Z`.
+
+All market, customer, and run data in this lab is calibrated synthetic data for Kanto Balance Group (KBG), a fictional balance group. This run was performed on a local controller (`source`: `local-gemini-controller`), so `evolved` remains `false` [energy_alphaevolve_lab.lab_runs].
+
+---
+
+### Evaluation Summary
+
+* **Programs Evaluated:** 40 programs [energy_alphaevolve_lab.lab_runs].
+* **Valid Programs:** 39 programs [energy_alphaevolve_lab.lab_runs].
+* **Invalid Programs:** 1 program [energy_alphaevolve_lab.lab_runs].
+
+#### Model Breakdown
+* `gemini-3.6-flash`: 31 programs evaluated, 31 valid [energy_alphaevolve_lab.lab_programs].
+* `gemini-3.1-pro-preview`: 9 programs evaluated, 8 valid, 1 invalid [energy_alphaevolve_lab.lab_programs].
+
+The single invalid candidate during training was caught by the `churn` policy invariant [energy_alphaevolve_lab.lab_invariant_catches].
+
+---
+
+### Holdout Performance
+
+* **Holdout Seed Score:** -11922.885 JPY M [energy_alphaevolve_lab.lab_runs].
+* **Best Holdout Score:** null [energy_alphaevolve_lab.lab_runs].
+* **Holdout Delta:** null [energy_alphaevolve_lab.lab_runs].
+* **Validated Uplift:** None (`uplift_valid`: false) [energy_alphaevolve_lab.lab_runs].
+
+#### What Happened on Holdout
+During search, the top candidate (`p040-56530207`) achieved a training score of -3289.666 JPY M (a training delta of 5510.688 JPY M vs the seed score of -8800.354 JPY M) [energy_alphaevolve_lab.lab_runs]. 
+
+However, when tested on holdout scenarios, the champion violated the `churn` policy invariant by causing a 26.2% customer churn in the university segment, exceeding the 25% segment churn limit [energy_alphaevolve_lab.lab_runs]. Without the policy gate, the raw score would have been -6083.3 JPY M, but pricing customers out is considered a strategy violation rather than a valid gain [energy_alphaevolve_lab.lab_runs]. Because the candidate failed holdout policy invariants, there is no validated holdout uplift.",id=None args={'run_id': 'tariff_pricing.20260926T073839Z'} name='get_run_summary' partial_args=None will_continue=None,"id='call_1525448' args={'run_id': 'tariff_pricing.20260926T073839Z'} name='get_run_summary' partial_args=None will_continue=None
+id='call_1525449' args={'run_id': 'tariff_pricing.20260926T073839Z'} name='get_holdout_result' partial_args=None will_continue=None"
+runs_run_summary_tariff_first,run_summary_tariff_first,inference_call_count_v1,,2.0,INFORMATIONAL,"Summarise run tariff_pricing.20260926T073839Z: how many programs were evaluated, how many were invalid, and what happened on holdout?",Run tariff_pricing.20260926T073839Z evaluated 40 programs with 1 invalid; holdout delta None (uplift_valid false) [energy_alphaevolve_lab.lab_runs].,"Here is the summary of run `tariff_pricing.20260926T073839Z`.
+
+All market, customer, and run data in this lab is calibrated synthetic data for Kanto Balance Group (KBG), a fictional balance group. This run was performed on a local controller (`source`: `local-gemini-controller`), so `evolved` remains `false` [energy_alphaevolve_lab.lab_runs].
+
+---
+
+### Evaluation Summary
+
+* **Programs Evaluated:** 40 programs [energy_alphaevolve_lab.lab_runs].
+* **Valid Programs:** 39 programs [energy_alphaevolve_lab.lab_runs].
+* **Invalid Programs:** 1 program [energy_alphaevolve_lab.lab_runs].
+
+#### Model Breakdown
+* `gemini-3.6-flash`: 31 programs evaluated, 31 valid [energy_alphaevolve_lab.lab_programs].
+* `gemini-3.1-pro-preview`: 9 programs evaluated, 8 valid, 1 invalid [energy_alphaevolve_lab.lab_programs].
+
+The single invalid candidate during training was caught by the `churn` policy invariant [energy_alphaevolve_lab.lab_invariant_catches].
+
+---
+
+### Holdout Performance
+
+* **Holdout Seed Score:** -11922.885 JPY M [energy_alphaevolve_lab.lab_runs].
+* **Best Holdout Score:** null [energy_alphaevolve_lab.lab_runs].
+* **Holdout Delta:** null [energy_alphaevolve_lab.lab_runs].
+* **Validated Uplift:** None (`uplift_valid`: false) [energy_alphaevolve_lab.lab_runs].
+
+#### What Happened on Holdout
+During search, the top candidate (`p040-56530207`) achieved a training score of -3289.666 JPY M (a training delta of 5510.688 JPY M vs the seed score of -8800.354 JPY M) [energy_alphaevolve_lab.lab_runs]. 
+
+However, when tested on holdout scenarios, the champion violated the `churn` policy invariant by causing a 26.2% customer churn in the university segment, exceeding the 25% segment churn limit [energy_alphaevolve_lab.lab_runs]. Without the policy gate, the raw score would have been -6083.3 JPY M, but pricing customers out is considered a strategy violation rather than a valid gain [energy_alphaevolve_lab.lab_runs]. Because the candidate failed holdout policy invariants, there is no validated holdout uplift.",id=None args={'run_id': 'tariff_pricing.20260926T073839Z'} name='get_run_summary' partial_args=None will_continue=None,"id='call_1525448' args={'run_id': 'tariff_pricing.20260926T073839Z'} name='get_run_summary' partial_args=None will_continue=None
+id='call_1525449' args={'run_id': 'tariff_pricing.20260926T073839Z'} name='get_holdout_result' partial_args=None will_continue=None"
+runs_run_summary_tariff_first,run_summary_tariff_first,token_usage_v1,,7367.0,INFORMATIONAL,"Summarise run tariff_pricing.20260926T073839Z: how many programs were evaluated, how many were invalid, and what happened on holdout?",Run tariff_pricing.20260926T073839Z evaluated 40 programs with 1 invalid; holdout delta None (uplift_valid false) [energy_alphaevolve_lab.lab_runs].,"Here is the summary of run `tariff_pricing.20260926T073839Z`.
+
+All market, customer, and run data in this lab is calibrated synthetic data for Kanto Balance Group (KBG), a fictional balance group. This run was performed on a local controller (`source`: `local-gemini-controller`), so `evolved` remains `false` [energy_alphaevolve_lab.lab_runs].
+
+---
+
+### Evaluation Summary
+
+* **Programs Evaluated:** 40 programs [energy_alphaevolve_lab.lab_runs].
+* **Valid Programs:** 39 programs [energy_alphaevolve_lab.lab_runs].
+* **Invalid Programs:** 1 program [energy_alphaevolve_lab.lab_runs].
+
+#### Model Breakdown
+* `gemini-3.6-flash`: 31 programs evaluated, 31 valid [energy_alphaevolve_lab.lab_programs].
+* `gemini-3.1-pro-preview`: 9 programs evaluated, 8 valid, 1 invalid [energy_alphaevolve_lab.lab_programs].
+
+The single invalid candidate during training was caught by the `churn` policy invariant [energy_alphaevolve_lab.lab_invariant_catches].
+
+---
+
+### Holdout Performance
+
+* **Holdout Seed Score:** -11922.885 JPY M [energy_alphaevolve_lab.lab_runs].
+* **Best Holdout Score:** null [energy_alphaevolve_lab.lab_runs].
+* **Holdout Delta:** null [energy_alphaevolve_lab.lab_runs].
+* **Validated Uplift:** None (`uplift_valid`: false) [energy_alphaevolve_lab.lab_runs].
+
+#### What Happened on Holdout
+During search, the top candidate (`p040-56530207`) achieved a training score of -3289.666 JPY M (a training delta of 5510.688 JPY M vs the seed score of -8800.354 JPY M) [energy_alphaevolve_lab.lab_runs]. 
+
+However, when tested on holdout scenarios, the champion violated the `churn` policy invariant by causing a 26.2% customer churn in the university segment, exceeding the 25% segment churn limit [energy_alphaevolve_lab.lab_runs]. Without the policy gate, the raw score would have been -6083.3 JPY M, but pricing customers out is considered a strategy violation rather than a valid gain [energy_alphaevolve_lab.lab_runs]. Because the candidate failed holdout policy invariants, there is no validated holdout uplift.",id=None args={'run_id': 'tariff_pricing.20260926T073839Z'} name='get_run_summary' partial_args=None will_continue=None,"id='call_1525448' args={'run_id': 'tariff_pricing.20260926T073839Z'} name='get_run_summary' partial_args=None will_continue=None
+id='call_1525449' args={'run_id': 'tariff_pricing.20260926T073839Z'} name='get_holdout_result' partial_args=None will_continue=None"
+runs_run_summary_tariff_first,run_summary_tariff_first,invocation_duration_v1,,13.468,INFORMATIONAL,"Summarise run tariff_pricing.20260926T073839Z: how many programs were evaluated, how many were invalid, and what happened on holdout?",Run tariff_pricing.20260926T073839Z evaluated 40 programs with 1 invalid; holdout delta None (uplift_valid false) [energy_alphaevolve_lab.lab_runs].,"Here is the summary of run `tariff_pricing.20260926T073839Z`.
+
+All market, customer, and run data in this lab is calibrated synthetic data for Kanto Balance Group (KBG), a fictional balance group. This run was performed on a local controller (`source`: `local-gemini-controller`), so `evolved` remains `false` [energy_alphaevolve_lab.lab_runs].
+
+---
+
+### Evaluation Summary
+
+* **Programs Evaluated:** 40 programs [energy_alphaevolve_lab.lab_runs].
+* **Valid Programs:** 39 programs [energy_alphaevolve_lab.lab_runs].
+* **Invalid Programs:** 1 program [energy_alphaevolve_lab.lab_runs].
+
+#### Model Breakdown
+* `gemini-3.6-flash`: 31 programs evaluated, 31 valid [energy_alphaevolve_lab.lab_programs].
+* `gemini-3.1-pro-preview`: 9 programs evaluated, 8 valid, 1 invalid [energy_alphaevolve_lab.lab_programs].
+
+The single invalid candidate during training was caught by the `churn` policy invariant [energy_alphaevolve_lab.lab_invariant_catches].
+
+---
+
+### Holdout Performance
+
+* **Holdout Seed Score:** -11922.885 JPY M [energy_alphaevolve_lab.lab_runs].
+* **Best Holdout Score:** null [energy_alphaevolve_lab.lab_runs].
+* **Holdout Delta:** null [energy_alphaevolve_lab.lab_runs].
+* **Validated Uplift:** None (`uplift_valid`: false) [energy_alphaevolve_lab.lab_runs].
+
+#### What Happened on Holdout
+During search, the top candidate (`p040-56530207`) achieved a training score of -3289.666 JPY M (a training delta of 5510.688 JPY M vs the seed score of -8800.354 JPY M) [energy_alphaevolve_lab.lab_runs]. 
+
+However, when tested on holdout scenarios, the champion violated the `churn` policy invariant by causing a 26.2% customer churn in the university segment, exceeding the 25% segment churn limit [energy_alphaevolve_lab.lab_runs]. Without the policy gate, the raw score would have been -6083.3 JPY M, but pricing customers out is considered a strategy violation rather than a valid gain [energy_alphaevolve_lab.lab_runs]. Because the candidate failed holdout policy invariants, there is no validated holdout uplift.",id=None args={'run_id': 'tariff_pricing.20260926T073839Z'} name='get_run_summary' partial_args=None will_continue=None,"id='call_1525448' args={'run_id': 'tariff_pricing.20260926T073839Z'} name='get_run_summary' partial_args=None will_continue=None
+id='call_1525449' args={'run_id': 'tariff_pricing.20260926T073839Z'} name='get_holdout_result' partial_args=None will_continue=None"

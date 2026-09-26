@@ -1,0 +1,82 @@
+{
+ "all_gates_protected": true,
+ "results": [
+  {
+   "mutation": "datastore: one DuckDB connection shared across threads",
+   "file": "energy_lab/datastore.py",
+   "test": "tests/test_datastore_concurrency.py::test_concurrent_queries_do_not_interleave",
+   "suite_went_red": true,
+   "tail": "1 failed in 10.48s"
+  },
+  {
+   "mutation": "sandbox: socket patch removed",
+   "file": "energy_lab/harness/sandbox_child.py",
+   "test": "tests/test_sandbox.py::test_socket_denied_even_if_import_guard_is_bypassed",
+   "suite_went_red": true,
+   "tail": "1 failed in 0.09s"
+  },
+  {
+   "mutation": "sandbox: out-of-installation reads allowed (look-ahead)",
+   "file": "energy_lab/harness/sandbox_child.py",
+   "test": "tests/test_sandbox.py::test_no_look_ahead_read_of_frozen_instance",
+   "suite_went_red": true,
+   "tail": "1 failed in 0.09s"
+  },
+  {
+   "mutation": "trading: per-slot compliance tolerance x100",
+   "file": "energy_lab/problems/jepx_trading/sim.py",
+   "test": "tests/test_invariants_trading.py::test_intentional_imbalance_is_caught_with_slot_list",
+   "suite_went_red": true,
+   "tail": "1 failed in 2.43s"
+  },
+  {
+   "mutation": "trading: naked-selling check disabled",
+   "file": "energy_lab/problems/jepx_trading/sim.py",
+   "test": "tests/test_invariants_trading.py::test_other_invariants",
+   "suite_went_red": true,
+   "tail": "1 failed in 2.26s"
+  },
+  {
+   "mutation": "tariff: essential alpha limit 0.30 -> 0.95",
+   "file": "energy_lab/problems/tariff_pricing/model.py",
+   "test": "tests/test_invariants_tariff.py::test_violator_is_caught",
+   "suite_went_red": true,
+   "tail": "1 failed in 0.89s"
+  },
+  {
+   "mutation": "tariff: v3 rise rule disabled",
+   "file": "energy_lab/problems/tariff_pricing/model.py",
+   "test": "tests/test_invariants_tariff.py::test_v3_segment_churn_rise_vs_incumbent_is_caught",
+   "suite_went_red": true,
+   "tail": "1 failed in 0.86s"
+  },
+  {
+   "mutation": "baseline: seed == null check removed",
+   "file": "energy_lab/harness/baseline.py",
+   "test": "tests/test_baseline_budget_evidence.py::test_baseline_refuses_evaluator_that_cannot_separate_seed_from_null",
+   "suite_went_red": true,
+   "tail": "1 failed in 0.67s"
+  },
+  {
+   "mutation": "evidence: exclusive create -> overwrite",
+   "file": "energy_lab/harness/evidence.py",
+   "test": "tests/test_baseline_budget_evidence.py::test_evidence_is_never_overwritten",
+   "suite_went_red": true,
+   "tail": "1 failed in 0.78s"
+  },
+  {
+   "mutation": "budget: invalid candidates reset the plateau",
+   "file": "energy_lab/harness/budget.py",
+   "test": "tests/test_baseline_budget_evidence.py::test_plateau_counts_feasible_only",
+   "suite_went_red": true,
+   "tail": "1 failed in 0.69s"
+  },
+  {
+   "mutation": "promotion: source check removed",
+   "file": "energy_lab/harness/evidence.py",
+   "test": "tests/test_baseline_budget_evidence.py::test_promotion_gate_requires_all_four",
+   "suite_went_red": true,
+   "tail": "1 failed in 0.64s"
+  }
+ ]
+}

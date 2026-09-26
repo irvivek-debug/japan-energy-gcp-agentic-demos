@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Factory Energy Command</title>
+  <meta name="description" content="Edge-to-Grid Factory Energy Copilot concept demo: DR response, BESS strategy and edge interlocks for a fictional plant.">
+  <link rel="stylesheet" href="tokens.css">
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+</head>
+<body>
+  <a class="skip" href="#chat-input">Skip to the copilot chat</a>
+  <header class="topbar">
+    <div class="brand">
+      <span class="caps">Factory Energy Command</span>
+      <h1 id="plant-name">Sagami Precision Components, Atsugi Plant</h1>
+    </div>
+    <div class="clock" aria-live="polite">
+      <span class="caps">Demo clock</span>
+      <span class="mono" id="demo-clock">Wed 2026-08-19 13:30 JST</span>
+    </div>
+    <div class="event-banner" id="event-banner" role="status">Loading event…</div>
+    <div class="backend caps" id="backend">…</div>
+  </header>
+
+  <div class="layout">
+    <main class="bento dash" aria-label="Plant energy dashboard">
+      <section class="card span-12 kpis" aria-label="Key figures">
+        <div class="kpi" id="kpi-load"><span class="caps">Plant load now</span><div class="kpi-value">…</div><div class="kpi-sub"></div></div>
+        <div class="kpi" id="kpi-dr"><span class="caps">DR target vs edge-verified</span><div class="kpi-value">…</div><div class="kpi-sub"></div></div>
+        <div class="kpi" id="kpi-bess"><span class="caps">BESS state of charge</span><div class="kpi-value">…</div><div class="kpi-sub"></div></div>
+        <div class="kpi" id="kpi-pv"><span class="caps">PV now vs p50</span><div class="kpi-value">…</div><div class="kpi-sub"></div></div>
+        <div class="kpi" id="kpi-jepx"><span class="caps">JEPX Tokyo now</span><div class="kpi-value">…</div><div class="kpi-sub"></div></div>
+      </section>
+
+      <section class="card span-8" aria-labelledby="h-stack">
+        <div class="card-head"><h2 id="h-stack">Plant load by asset group</h2><span class="caps">History to 13:30, forecast after, kW</span></div>
+        <div class="chart tall" id="chart-stack" role="img" aria-label="Stacked plant load by asset group with receiving-point import, forecast, plan and nomination"></div>
+        <p class="note" id="stack-note"></p>
+      </section>
+
+      <section class="card span-4" aria-labelledby="h-timeline">
+        <div class="card-head"><h2 id="h-timeline">DR event timeline</h2><span class="caps" id="dr-id"></span></div>
+        <ol class="timeline" id="timeline"></ol>
+        <h3 class="caps sub-h">Settled events</h3>
+        <table class="data" id="dr-history" aria-label="Settled DR events"></table>
+      </section>
+
+      <section class="card span-7" aria-labelledby="h-flex">
+        <div class="card-head"><h2 id="h-flex">Flexible loads and edge verdicts</h2><span class="caps" id="flex-plan"></span></div>
+        <p class="note" id="flex-summary"></p>
+        <div class="table-wrap"><table class="data" id="flex-table" aria-label="Flexible loads with edge verdicts"></table></div>
+      </section>
+
+      <section class="card span-5" aria-labelledby="h-bess">
+        <div class="card-head"><h2 id="h-bess">BESS state-of-charge plan</h2><span class="caps">rule_based_v1 vs forecast_aware_v2</span></div>
+        <div class="chart" id="chart-bess" role="img" aria-label="Battery state of charge for both policies"></div>
+        <table class="data compact" id="bess-kpis" aria-label="Battery policy comparison"></table>
+      </section>
+
+      <section class="card span-4" aria-labelledby="h-pv">
+        <div class="card-head"><h2 id="h-pv">PV ensemble p10 / p50 / p90</h2><span class="caps" id="pv-issued"></span></div>
+        <div class="chart" id="chart-pv" role="img" aria-label="PV forecast band and actual output"></div>
+        <p class="note" id="pv-note"></p>
+      </section>
+
+      <section class="card span-4" aria-labelledby="h-jepx">
+        <div class="card-head"><h2 id="h-jepx">JEPX Tokyo and imbalance</h2><span class="caps">JPY/kWh</span></div>
+        <div class="chart" id="chart-jepx" role="img" aria-label="JEPX spot and imbalance price estimate"></div>
+        <p class="note" id="jepx-note"></p>
+      </section>
+
+      <section class="card span-4" aria-labelledby="h-health">
+        <div class="card-head"><h2 id="h-health">Asset health</h2><span class="caps">This week</span></div>
+        <ul class="anomalies" id="anomalies"></ul>
+      </section>
+
+      <section class="card span-6" aria-labelledby="h-gain">
+        <div class="card-head"><h2 id="h-gain">Gain share and BESS-as-a-Service</h2><span class="caps">Jan-Jul 2026, JPY</span></div>
+        <div class="chart" id="chart-gain" role="img" aria-label="Monthly split of verified savings between client net, gain share and BESS-as-a-Service fee"></div>
+        <div id="gain-july" class="gain-july"></div>
+      </section>
+
+      <section class="card span-6" aria-labelledby="h-log">
+        <div class="card-head"><h2 id="h-log">Edge decisions and audit log</h2>
+          <div class="tabs" role="tablist">
+            <button class="tab btn" role="tab" aria-selected="true" data-tab="edge">Edge decisions</button>
+            <button class="tab btn" role="tab" aria-selected="false" data-tab="audit">Audit log</button>
+          </div>
+        </div>
+        <div class="table-wrap log" id="log-edge"></div>
+        <div class="table-wrap log" id="log-audit" hidden></div>
+      </section>
+    </main>
+
+    <aside class="rail" aria-label="Copilot">
+      <section class="card rail-chat" aria-labelledby="h-chat">
+        <div class="card-head"><h2 id="h-chat">Copilot</h2><span class="caps">Optimization Orchestrator</span></div>
+        <div class="chips" id="chips" aria-label="Suggested prompts"></div>
+        <div class="thread" id="thread" aria-live="polite"></div>
+        <form class="composer" id="composer">
+          <label for="chat-input" class="sr">Ask the copilot</label>
+          <textarea id="chat-input" rows="2" placeholder="Ask about the DR event, BESS, prices, anomalies…"></textarea>
+          <button class="btn primary" type="submit" id="send">Send</button>
+        </form>
+      </section>
+      <section class="card rail-trace" aria-labelledby="h-trace">
+        <div class="card-head"><h2 id="h-trace">Agent swarm console</h2><span class="caps" id="trace-stat">idle</span></div>
+        <div class="console" id="trace" aria-live="off"></div>
+      </section>
+      <section class="card rail-actions" aria-labelledby="h-actions">
+        <div class="card-head"><h2 id="h-actions">Pending actions</h2><span class="caps" id="actions-count">0 pending</span></div>
+        <div id="actions" class="actions"></div>
+      </section>
+    </aside>
+  </div>
+  <footer class="disclaimer">Concept demo. Synthetic data. Not affiliated with or endorsed by Mitsubishi Electric.</footer>
+  <script type="module" src="app.js"></script>
+</body>
+</html>

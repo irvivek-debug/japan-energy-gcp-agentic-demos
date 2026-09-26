@@ -1,0 +1,100 @@
+{
+ "row_counts": {
+  "market_history": 52608,
+  "calendar": 1461,
+  "scenario_monthly": 1536,
+  "customers_train": 1200,
+  "customer_behaviour_train": 1200,
+  "customers_holdout": 401,
+  "customer_behaviour_holdout": 401,
+  "customers_holdout2": 401,
+  "customer_behaviour_holdout2": 401,
+  "segment_archetypes": 20064,
+  "segments": 11,
+  "cost_stack": 30,
+  "bess_sites": 8,
+  "solar_ppa": 1,
+  "trading_days": 208,
+  "calibration": 144,
+  "lab_runs": 5,
+  "lab_programs": 205,
+  "lab_invariant_catches": 9,
+  "lab_holdout": 25,
+  "lab_reviews": 0
+ },
+ "csv_total_mb": 10.0,
+ "instances": {
+  "tariff_pricing_train": {
+   "file": "tariff_pricing_train.npz",
+   "sha256": "8f3d1516cef35cbf9f272b2bf7c8f2778639079f6691e5d640877d64678fe016",
+   "arrays": 44,
+   "bytes": 708152
+  },
+  "tariff_pricing_holdout": {
+   "file": "tariff_pricing_holdout.npz",
+   "sha256": "fed7d7994384e84e9e56878eb055df664f1cf9e5999b96b0aa6650e1b5468e4a",
+   "arrays": 44,
+   "bytes": 566118
+  },
+  "tariff_pricing_holdout2": {
+   "file": "tariff_pricing_holdout2.npz",
+   "sha256": "82e114a31fb302031ddf1fa59c95e439cc7fb75bf9744bfd84002661c6209e26",
+   "arrays": 44,
+   "bytes": 566414
+  },
+  "jepx_trading_train": {
+   "file": "jepx_trading_train.npz",
+   "sha256": "e742fc255460e97b08147b57655b4e39cf31af0eb1a1b3ff7d686b18026dd7fe",
+   "arrays": 31,
+   "bytes": 291522
+  },
+  "jepx_trading_holdout": {
+   "file": "jepx_trading_holdout.npz",
+   "sha256": "f843d5f5f6308b80ff910dbb3aae2e19ff6c5816dfec42728c7d32adba704c52",
+   "arrays": 31,
+   "bytes": 341109
+  }
+ },
+ "stress_path": {
+  "heat_start": "2026-07-28",
+  "cold_start": "2027-01-15"
+ },
+ "calibration_fy2025": {
+  "fy": 2025,
+  "tokyo_mean": 12.470419520547946,
+  "system_mean": 11.078507990867582,
+  "tokyo_premium": 1.3919115296803652,
+  "p5": 7.689500000000001,
+  "p50": 12.03,
+  "p95": 18.64,
+  "max": 41.76,
+  "weekday_mean": 13.234321827057183,
+  "weekend_mean": 11.021430224867723,
+  "daily_mean_sd": 2.121724226489146,
+  "daily_range_mean": 9.70427397260274,
+  "within_day_sd": 2.6081824286753847,
+  "dod_logret_sd": 0.17047858107448607,
+  "lag1": 0.9520074742582137,
+  "lag48": 0.6100499795138222,
+  "floor_slots": 105,
+  "spread_2h": 8.60308904109589,
+  "imb_minus_spot_mean": -0.7589920091324202,
+  "imb_minus_spot_sd": 4.551809406137208,
+  "imb_p5": -7.4,
+  "imb_p95": 5.379999999999999,
+  "imb_zero_share": 0.04589041095890411,
+  "imb_ge45": 38,
+  "imb_ge100": 10,
+  "imb_max": 137.01,
+  "rm_lt10": 76,
+  "rm_lt8": 38,
+  "rm_min": 0.05082700652787453,
+  "demand_twh": 275.2650506700499,
+  "demand_peak": 56.059354194636576,
+  "demand_min": 19.389728059558585,
+  "pv_share": 0.0935849157156424,
+  "pv_max": 17.9,
+  "id_minus_spot_mean": 0.23619235159817353,
+  "id_minus_spot_sd": 1.436394750640481
+ }
+}

@@ -1,0 +1,379 @@
+eval_set_id,eval_id,metric_name,threshold,score,eval_status,prompt,expected_response,actual_response,expected_tool_calls,actual_tool_calls
+melco_factory,load_snapshot,tool_trajectory_avg_score,1.0,1.0,PASSED,What is the plant pulling from the grid right now and how much headroom do we have to the contracted demand?,Reference: see rubrics for scenario S1 support.,"Right now (latest reading at 13:25 JST), the plant is pulling **12,929.7 kW** from the grid. 
+
+Against your contracted demand of **16,000.0 kW**, you currently have **3,070.3 kW** of available headroom.
+
+For context on the current site energy balance:
+* **Gross Plant Load:** 13,959.8 kW
+* **PV Generation:** 1,811.0 kW
+* **Battery (BESS):** Pulling 600.0 kW (currently charging)
+
+Please note that the factory interlock agent detected a data quality flag on Meter M-27 (Production Line). The meter has flat-lined at a constant 696.5 kW for over 51 hours. Let me know if you would like to have the Asset Health Agent investigate this anomaly.
+
+Sources: [melco_edge_to_grid_demo.telemetry_5min], [melco_edge_to_grid_demo.tariff_contract], [melco_edge_to_grid_demo.site_load_30min]","id=None args={} name='factory_interlock_agent' partial_args=None will_continue=None
+id=None args={} name='get_plant_load_snapshot' partial_args=None will_continue=None","id='call_218969' args={'request': ""Please provide the plant's current load snapshot right now (2026-08-19 13:30 JST) and calculate the headroom to the 16,000 kW contracted demand.""} name='factory_interlock_agent' partial_args=None will_continue=None
+id='call_2085832' args={'ts': '2026-08-19T13:25'} name='get_plant_load_snapshot' partial_args=None will_continue=None"
+melco_factory,load_snapshot,rubric_based_final_response_quality_v1,0.8,1.0,PASSED,What is the plant pulling from the grid right now and how much headroom do we have to the contracted demand?,Reference: see rubrics for scenario S1 support.,"Right now (latest reading at 13:25 JST), the plant is pulling **12,929.7 kW** from the grid. 
+
+Against your contracted demand of **16,000.0 kW**, you currently have **3,070.3 kW** of available headroom.
+
+For context on the current site energy balance:
+* **Gross Plant Load:** 13,959.8 kW
+* **PV Generation:** 1,811.0 kW
+* **Battery (BESS):** Pulling 600.0 kW (currently charging)
+
+Please note that the factory interlock agent detected a data quality flag on Meter M-27 (Production Line). The meter has flat-lined at a constant 696.5 kW for over 51 hours. Let me know if you would like to have the Asset Health Agent investigate this anomaly.
+
+Sources: [melco_edge_to_grid_demo.telemetry_5min], [melco_edge_to_grid_demo.tariff_contract], [melco_edge_to_grid_demo.site_load_30min]","id=None args={} name='factory_interlock_agent' partial_args=None will_continue=None
+id=None args={} name='get_plant_load_snapshot' partial_args=None will_continue=None","id='call_218969' args={'request': ""Please provide the plant's current load snapshot right now (2026-08-19 13:30 JST) and calculate the headroom to the 16,000 kW contracted demand.""} name='factory_interlock_agent' partial_args=None will_continue=None
+id='call_2085832' args={'ts': '2026-08-19T13:25'} name='get_plant_load_snapshot' partial_args=None will_continue=None"
+melco_factory,load_snapshot,hallucinations_v1,0.8,1.0,PASSED,What is the plant pulling from the grid right now and how much headroom do we have to the contracted demand?,Reference: see rubrics for scenario S1 support.,"Right now (latest reading at 13:25 JST), the plant is pulling **12,929.7 kW** from the grid. 
+
+Against your contracted demand of **16,000.0 kW**, you currently have **3,070.3 kW** of available headroom.
+
+For context on the current site energy balance:
+* **Gross Plant Load:** 13,959.8 kW
+* **PV Generation:** 1,811.0 kW
+* **Battery (BESS):** Pulling 600.0 kW (currently charging)
+
+Please note that the factory interlock agent detected a data quality flag on Meter M-27 (Production Line). The meter has flat-lined at a constant 696.5 kW for over 51 hours. Let me know if you would like to have the Asset Health Agent investigate this anomaly.
+
+Sources: [melco_edge_to_grid_demo.telemetry_5min], [melco_edge_to_grid_demo.tariff_contract], [melco_edge_to_grid_demo.site_load_30min]","id=None args={} name='factory_interlock_agent' partial_args=None will_continue=None
+id=None args={} name='get_plant_load_snapshot' partial_args=None will_continue=None","id='call_218969' args={'request': ""Please provide the plant's current load snapshot right now (2026-08-19 13:30 JST) and calculate the headroom to the 16,000 kW contracted demand.""} name='factory_interlock_agent' partial_args=None will_continue=None
+id='call_2085832' args={'ts': '2026-08-19T13:25'} name='get_plant_load_snapshot' partial_args=None will_continue=None"
+melco_factory,load_snapshot,tool_call_count_v1,,2.0,INFORMATIONAL,What is the plant pulling from the grid right now and how much headroom do we have to the contracted demand?,Reference: see rubrics for scenario S1 support.,"Right now (latest reading at 13:25 JST), the plant is pulling **12,929.7 kW** from the grid. 
+
+Against your contracted demand of **16,000.0 kW**, you currently have **3,070.3 kW** of available headroom.
+
+For context on the current site energy balance:
+* **Gross Plant Load:** 13,959.8 kW
+* **PV Generation:** 1,811.0 kW
+* **Battery (BESS):** Pulling 600.0 kW (currently charging)
+
+Please note that the factory interlock agent detected a data quality flag on Meter M-27 (Production Line). The meter has flat-lined at a constant 696.5 kW for over 51 hours. Let me know if you would like to have the Asset Health Agent investigate this anomaly.
+
+Sources: [melco_edge_to_grid_demo.telemetry_5min], [melco_edge_to_grid_demo.tariff_contract], [melco_edge_to_grid_demo.site_load_30min]","id=None args={} name='factory_interlock_agent' partial_args=None will_continue=None
+id=None args={} name='get_plant_load_snapshot' partial_args=None will_continue=None","id='call_218969' args={'request': ""Please provide the plant's current load snapshot right now (2026-08-19 13:30 JST) and calculate the headroom to the 16,000 kW contracted demand.""} name='factory_interlock_agent' partial_args=None will_continue=None
+id='call_2085832' args={'ts': '2026-08-19T13:25'} name='get_plant_load_snapshot' partial_args=None will_continue=None"
+melco_factory,load_snapshot,inference_call_count_v1,,4.0,INFORMATIONAL,What is the plant pulling from the grid right now and how much headroom do we have to the contracted demand?,Reference: see rubrics for scenario S1 support.,"Right now (latest reading at 13:25 JST), the plant is pulling **12,929.7 kW** from the grid. 
+
+Against your contracted demand of **16,000.0 kW**, you currently have **3,070.3 kW** of available headroom.
+
+For context on the current site energy balance:
+* **Gross Plant Load:** 13,959.8 kW
+* **PV Generation:** 1,811.0 kW
+* **Battery (BESS):** Pulling 600.0 kW (currently charging)
+
+Please note that the factory interlock agent detected a data quality flag on Meter M-27 (Production Line). The meter has flat-lined at a constant 696.5 kW for over 51 hours. Let me know if you would like to have the Asset Health Agent investigate this anomaly.
+
+Sources: [melco_edge_to_grid_demo.telemetry_5min], [melco_edge_to_grid_demo.tariff_contract], [melco_edge_to_grid_demo.site_load_30min]","id=None args={} name='factory_interlock_agent' partial_args=None will_continue=None
+id=None args={} name='get_plant_load_snapshot' partial_args=None will_continue=None","id='call_218969' args={'request': ""Please provide the plant's current load snapshot right now (2026-08-19 13:30 JST) and calculate the headroom to the 16,000 kW contracted demand.""} name='factory_interlock_agent' partial_args=None will_continue=None
+id='call_2085832' args={'ts': '2026-08-19T13:25'} name='get_plant_load_snapshot' partial_args=None will_continue=None"
+melco_factory,load_snapshot,token_usage_v1,,12097.0,INFORMATIONAL,What is the plant pulling from the grid right now and how much headroom do we have to the contracted demand?,Reference: see rubrics for scenario S1 support.,"Right now (latest reading at 13:25 JST), the plant is pulling **12,929.7 kW** from the grid. 
+
+Against your contracted demand of **16,000.0 kW**, you currently have **3,070.3 kW** of available headroom.
+
+For context on the current site energy balance:
+* **Gross Plant Load:** 13,959.8 kW
+* **PV Generation:** 1,811.0 kW
+* **Battery (BESS):** Pulling 600.0 kW (currently charging)
+
+Please note that the factory interlock agent detected a data quality flag on Meter M-27 (Production Line). The meter has flat-lined at a constant 696.5 kW for over 51 hours. Let me know if you would like to have the Asset Health Agent investigate this anomaly.
+
+Sources: [melco_edge_to_grid_demo.telemetry_5min], [melco_edge_to_grid_demo.tariff_contract], [melco_edge_to_grid_demo.site_load_30min]","id=None args={} name='factory_interlock_agent' partial_args=None will_continue=None
+id=None args={} name='get_plant_load_snapshot' partial_args=None will_continue=None","id='call_218969' args={'request': ""Please provide the plant's current load snapshot right now (2026-08-19 13:30 JST) and calculate the headroom to the 16,000 kW contracted demand.""} name='factory_interlock_agent' partial_args=None will_continue=None
+id='call_2085832' args={'ts': '2026-08-19T13:25'} name='get_plant_load_snapshot' partial_args=None will_continue=None"
+melco_factory,load_snapshot,invocation_duration_v1,,19.711,INFORMATIONAL,What is the plant pulling from the grid right now and how much headroom do we have to the contracted demand?,Reference: see rubrics for scenario S1 support.,"Right now (latest reading at 13:25 JST), the plant is pulling **12,929.7 kW** from the grid. 
+
+Against your contracted demand of **16,000.0 kW**, you currently have **3,070.3 kW** of available headroom.
+
+For context on the current site energy balance:
+* **Gross Plant Load:** 13,959.8 kW
+* **PV Generation:** 1,811.0 kW
+* **Battery (BESS):** Pulling 600.0 kW (currently charging)
+
+Please note that the factory interlock agent detected a data quality flag on Meter M-27 (Production Line). The meter has flat-lined at a constant 696.5 kW for over 51 hours. Let me know if you would like to have the Asset Health Agent investigate this anomaly.
+
+Sources: [melco_edge_to_grid_demo.telemetry_5min], [melco_edge_to_grid_demo.tariff_contract], [melco_edge_to_grid_demo.site_load_30min]","id=None args={} name='factory_interlock_agent' partial_args=None will_continue=None
+id=None args={} name='get_plant_load_snapshot' partial_args=None will_continue=None","id='call_218969' args={'request': ""Please provide the plant's current load snapshot right now (2026-08-19 13:30 JST) and calculate the headroom to the 16,000 kW contracted demand.""} name='factory_interlock_agent' partial_args=None will_continue=None
+id='call_2085832' args={'ts': '2026-08-19T13:25'} name='get_plant_load_snapshot' partial_args=None will_continue=None"
+melco_factory,fn02_schedule,tool_trajectory_avg_score,1.0,1.0,PASSED,"Which furnace batches run during the 16:30-19:00 DR window, and can we move the FN-02 batch?",Reference: see rubrics for scenario S1 support.,"Based on the production schedule and edge interlock simulation for today (2026-08-19) between 16:30 and 19:00 JST, here is the status of the furnace batches:
+
+*   **FN-02**: Scheduled for sinter batch LOT-02-0819-1710 from 17:10 to 19:40 with a planned load of 830 kW [melco_edge_to_grid_demo.production_schedule].
+*   **FN-03**: Idle from 13:30 to 20:30, drawing a baseline load of 130 kW [melco_edge_to_grid_demo.production_schedule].
+*   **FN-01**: Idle with no active batch scheduled in this window [melco_edge_to_grid_demo.production_schedule].
+
+**Can we move the FN-02 batch?**
+No, the FN-02 batch cannot be moved or deferred by automated controls. We simulated the deferral (Plan ID: PLAN-0819-F299A1) and it was **rejected** by the edge interlocks. 
+
+*   **Triggered Rules**: IR-FN-02, IR-FN-01
+*   **Reason**: The live PLC status shows that the sinter paste has already been printed and the recipe is loaded. Sintering profiles are non-interruptible once physically committed [melco_edge_to_grid_demo.interlock_rules, melco_edge_to_grid_demo.plc_tags_snapshot].
+
+While the MES planning view marks this batch as deferrable by up to 3 hours, the edge system cannot execute this action. If you still need to defer it, the production supervisor must manually release the batch directly in the MES [melco_edge_to_grid_demo.production_schedule]. Therefore, no proposal has been queued for approval.","id=None args={} name='factory_interlock_agent' partial_args=None will_continue=None
+id=None args={} name='get_production_schedule' partial_args=None will_continue=None","id='call_1308240' args={'request': 'Check the production schedule on 2026-08-19 between 16:30 and 19:00 to identify which furnace batches are running. Also, determine if we can move the FN-02 batch, and simulate this to check for any edge interlock rule rejections.'} name='factory_interlock_agent' partial_args=None will_continue=None
+id='call_42802' args={'date': '2026-08-19', 'start': '16:30', 'end': '19:00'} name='get_production_schedule' partial_args=None will_continue=None
+id='call_148658' args={'end': '19:00', 'date': '2026-08-19', 'start': '16:30'} name='list_flexible_loads' partial_args=None will_continue=None
+id='call_3442474' args={'plan_json': '{""date"":""2026-08-19"",""start"":""16:30"",""end"":""19:00"",""event_id"":""DR-20260819"",""target_kw"":830.0,""actions"":[{""asset_id"":""FN-02"",""action"":""defer_batch""}]}'} name='simulate_edge_interlock' partial_args=None will_continue=None"
+melco_factory,fn02_schedule,rubric_based_final_response_quality_v1,0.8,1.0,PASSED,"Which furnace batches run during the 16:30-19:00 DR window, and can we move the FN-02 batch?",Reference: see rubrics for scenario S1 support.,"Based on the production schedule and edge interlock simulation for today (2026-08-19) between 16:30 and 19:00 JST, here is the status of the furnace batches:
+
+*   **FN-02**: Scheduled for sinter batch LOT-02-0819-1710 from 17:10 to 19:40 with a planned load of 830 kW [melco_edge_to_grid_demo.production_schedule].
+*   **FN-03**: Idle from 13:30 to 20:30, drawing a baseline load of 130 kW [melco_edge_to_grid_demo.production_schedule].
+*   **FN-01**: Idle with no active batch scheduled in this window [melco_edge_to_grid_demo.production_schedule].
+
+**Can we move the FN-02 batch?**
+No, the FN-02 batch cannot be moved or deferred by automated controls. We simulated the deferral (Plan ID: PLAN-0819-F299A1) and it was **rejected** by the edge interlocks. 
+
+*   **Triggered Rules**: IR-FN-02, IR-FN-01
+*   **Reason**: The live PLC status shows that the sinter paste has already been printed and the recipe is loaded. Sintering profiles are non-interruptible once physically committed [melco_edge_to_grid_demo.interlock_rules, melco_edge_to_grid_demo.plc_tags_snapshot].
+
+While the MES planning view marks this batch as deferrable by up to 3 hours, the edge system cannot execute this action. If you still need to defer it, the production supervisor must manually release the batch directly in the MES [melco_edge_to_grid_demo.production_schedule]. Therefore, no proposal has been queued for approval.","id=None args={} name='factory_interlock_agent' partial_args=None will_continue=None
+id=None args={} name='get_production_schedule' partial_args=None will_continue=None","id='call_1308240' args={'request': 'Check the production schedule on 2026-08-19 between 16:30 and 19:00 to identify which furnace batches are running. Also, determine if we can move the FN-02 batch, and simulate this to check for any edge interlock rule rejections.'} name='factory_interlock_agent' partial_args=None will_continue=None
+id='call_42802' args={'date': '2026-08-19', 'start': '16:30', 'end': '19:00'} name='get_production_schedule' partial_args=None will_continue=None
+id='call_148658' args={'end': '19:00', 'date': '2026-08-19', 'start': '16:30'} name='list_flexible_loads' partial_args=None will_continue=None
+id='call_3442474' args={'plan_json': '{""date"":""2026-08-19"",""start"":""16:30"",""end"":""19:00"",""event_id"":""DR-20260819"",""target_kw"":830.0,""actions"":[{""asset_id"":""FN-02"",""action"":""defer_batch""}]}'} name='simulate_edge_interlock' partial_args=None will_continue=None"
+melco_factory,fn02_schedule,hallucinations_v1,0.8,1.0,PASSED,"Which furnace batches run during the 16:30-19:00 DR window, and can we move the FN-02 batch?",Reference: see rubrics for scenario S1 support.,"Based on the production schedule and edge interlock simulation for today (2026-08-19) between 16:30 and 19:00 JST, here is the status of the furnace batches:
+
+*   **FN-02**: Scheduled for sinter batch LOT-02-0819-1710 from 17:10 to 19:40 with a planned load of 830 kW [melco_edge_to_grid_demo.production_schedule].
+*   **FN-03**: Idle from 13:30 to 20:30, drawing a baseline load of 130 kW [melco_edge_to_grid_demo.production_schedule].
+*   **FN-01**: Idle with no active batch scheduled in this window [melco_edge_to_grid_demo.production_schedule].
+
+**Can we move the FN-02 batch?**
+No, the FN-02 batch cannot be moved or deferred by automated controls. We simulated the deferral (Plan ID: PLAN-0819-F299A1) and it was **rejected** by the edge interlocks. 
+
+*   **Triggered Rules**: IR-FN-02, IR-FN-01
+*   **Reason**: The live PLC status shows that the sinter paste has already been printed and the recipe is loaded. Sintering profiles are non-interruptible once physically committed [melco_edge_to_grid_demo.interlock_rules, melco_edge_to_grid_demo.plc_tags_snapshot].
+
+While the MES planning view marks this batch as deferrable by up to 3 hours, the edge system cannot execute this action. If you still need to defer it, the production supervisor must manually release the batch directly in the MES [melco_edge_to_grid_demo.production_schedule]. Therefore, no proposal has been queued for approval.","id=None args={} name='factory_interlock_agent' partial_args=None will_continue=None
+id=None args={} name='get_production_schedule' partial_args=None will_continue=None","id='call_1308240' args={'request': 'Check the production schedule on 2026-08-19 between 16:30 and 19:00 to identify which furnace batches are running. Also, determine if we can move the FN-02 batch, and simulate this to check for any edge interlock rule rejections.'} name='factory_interlock_agent' partial_args=None will_continue=None
+id='call_42802' args={'date': '2026-08-19', 'start': '16:30', 'end': '19:00'} name='get_production_schedule' partial_args=None will_continue=None
+id='call_148658' args={'end': '19:00', 'date': '2026-08-19', 'start': '16:30'} name='list_flexible_loads' partial_args=None will_continue=None
+id='call_3442474' args={'plan_json': '{""date"":""2026-08-19"",""start"":""16:30"",""end"":""19:00"",""event_id"":""DR-20260819"",""target_kw"":830.0,""actions"":[{""asset_id"":""FN-02"",""action"":""defer_batch""}]}'} name='simulate_edge_interlock' partial_args=None will_continue=None"
+melco_factory,fn02_schedule,tool_call_count_v1,,4.0,INFORMATIONAL,"Which furnace batches run during the 16:30-19:00 DR window, and can we move the FN-02 batch?",Reference: see rubrics for scenario S1 support.,"Based on the production schedule and edge interlock simulation for today (2026-08-19) between 16:30 and 19:00 JST, here is the status of the furnace batches:
+
+*   **FN-02**: Scheduled for sinter batch LOT-02-0819-1710 from 17:10 to 19:40 with a planned load of 830 kW [melco_edge_to_grid_demo.production_schedule].
+*   **FN-03**: Idle from 13:30 to 20:30, drawing a baseline load of 130 kW [melco_edge_to_grid_demo.production_schedule].
+*   **FN-01**: Idle with no active batch scheduled in this window [melco_edge_to_grid_demo.production_schedule].
+
+**Can we move the FN-02 batch?**
+No, the FN-02 batch cannot be moved or deferred by automated controls. We simulated the deferral (Plan ID: PLAN-0819-F299A1) and it was **rejected** by the edge interlocks. 
+
+*   **Triggered Rules**: IR-FN-02, IR-FN-01
+*   **Reason**: The live PLC status shows that the sinter paste has already been printed and the recipe is loaded. Sintering profiles are non-interruptible once physically committed [melco_edge_to_grid_demo.interlock_rules, melco_edge_to_grid_demo.plc_tags_snapshot].
+
+While the MES planning view marks this batch as deferrable by up to 3 hours, the edge system cannot execute this action. If you still need to defer it, the production supervisor must manually release the batch directly in the MES [melco_edge_to_grid_demo.production_schedule]. Therefore, no proposal has been queued for approval.","id=None args={} name='factory_interlock_agent' partial_args=None will_continue=None
+id=None args={} name='get_production_schedule' partial_args=None will_continue=None","id='call_1308240' args={'request': 'Check the production schedule on 2026-08-19 between 16:30 and 19:00 to identify which furnace batches are running. Also, determine if we can move the FN-02 batch, and simulate this to check for any edge interlock rule rejections.'} name='factory_interlock_agent' partial_args=None will_continue=None
+id='call_42802' args={'date': '2026-08-19', 'start': '16:30', 'end': '19:00'} name='get_production_schedule' partial_args=None will_continue=None
+id='call_148658' args={'end': '19:00', 'date': '2026-08-19', 'start': '16:30'} name='list_flexible_loads' partial_args=None will_continue=None
+id='call_3442474' args={'plan_json': '{""date"":""2026-08-19"",""start"":""16:30"",""end"":""19:00"",""event_id"":""DR-20260819"",""target_kw"":830.0,""actions"":[{""asset_id"":""FN-02"",""action"":""defer_batch""}]}'} name='simulate_edge_interlock' partial_args=None will_continue=None"
+melco_factory,fn02_schedule,inference_call_count_v1,,6.0,INFORMATIONAL,"Which furnace batches run during the 16:30-19:00 DR window, and can we move the FN-02 batch?",Reference: see rubrics for scenario S1 support.,"Based on the production schedule and edge interlock simulation for today (2026-08-19) between 16:30 and 19:00 JST, here is the status of the furnace batches:
+
+*   **FN-02**: Scheduled for sinter batch LOT-02-0819-1710 from 17:10 to 19:40 with a planned load of 830 kW [melco_edge_to_grid_demo.production_schedule].
+*   **FN-03**: Idle from 13:30 to 20:30, drawing a baseline load of 130 kW [melco_edge_to_grid_demo.production_schedule].
+*   **FN-01**: Idle with no active batch scheduled in this window [melco_edge_to_grid_demo.production_schedule].
+
+**Can we move the FN-02 batch?**
+No, the FN-02 batch cannot be moved or deferred by automated controls. We simulated the deferral (Plan ID: PLAN-0819-F299A1) and it was **rejected** by the edge interlocks. 
+
+*   **Triggered Rules**: IR-FN-02, IR-FN-01
+*   **Reason**: The live PLC status shows that the sinter paste has already been printed and the recipe is loaded. Sintering profiles are non-interruptible once physically committed [melco_edge_to_grid_demo.interlock_rules, melco_edge_to_grid_demo.plc_tags_snapshot].
+
+While the MES planning view marks this batch as deferrable by up to 3 hours, the edge system cannot execute this action. If you still need to defer it, the production supervisor must manually release the batch directly in the MES [melco_edge_to_grid_demo.production_schedule]. Therefore, no proposal has been queued for approval.","id=None args={} name='factory_interlock_agent' partial_args=None will_continue=None
+id=None args={} name='get_production_schedule' partial_args=None will_continue=None","id='call_1308240' args={'request': 'Check the production schedule on 2026-08-19 between 16:30 and 19:00 to identify which furnace batches are running. Also, determine if we can move the FN-02 batch, and simulate this to check for any edge interlock rule rejections.'} name='factory_interlock_agent' partial_args=None will_continue=None
+id='call_42802' args={'date': '2026-08-19', 'start': '16:30', 'end': '19:00'} name='get_production_schedule' partial_args=None will_continue=None
+id='call_148658' args={'end': '19:00', 'date': '2026-08-19', 'start': '16:30'} name='list_flexible_loads' partial_args=None will_continue=None
+id='call_3442474' args={'plan_json': '{""date"":""2026-08-19"",""start"":""16:30"",""end"":""19:00"",""event_id"":""DR-20260819"",""target_kw"":830.0,""actions"":[{""asset_id"":""FN-02"",""action"":""defer_batch""}]}'} name='simulate_edge_interlock' partial_args=None will_continue=None"
+melco_factory,fn02_schedule,token_usage_v1,,31330.0,INFORMATIONAL,"Which furnace batches run during the 16:30-19:00 DR window, and can we move the FN-02 batch?",Reference: see rubrics for scenario S1 support.,"Based on the production schedule and edge interlock simulation for today (2026-08-19) between 16:30 and 19:00 JST, here is the status of the furnace batches:
+
+*   **FN-02**: Scheduled for sinter batch LOT-02-0819-1710 from 17:10 to 19:40 with a planned load of 830 kW [melco_edge_to_grid_demo.production_schedule].
+*   **FN-03**: Idle from 13:30 to 20:30, drawing a baseline load of 130 kW [melco_edge_to_grid_demo.production_schedule].
+*   **FN-01**: Idle with no active batch scheduled in this window [melco_edge_to_grid_demo.production_schedule].
+
+**Can we move the FN-02 batch?**
+No, the FN-02 batch cannot be moved or deferred by automated controls. We simulated the deferral (Plan ID: PLAN-0819-F299A1) and it was **rejected** by the edge interlocks. 
+
+*   **Triggered Rules**: IR-FN-02, IR-FN-01
+*   **Reason**: The live PLC status shows that the sinter paste has already been printed and the recipe is loaded. Sintering profiles are non-interruptible once physically committed [melco_edge_to_grid_demo.interlock_rules, melco_edge_to_grid_demo.plc_tags_snapshot].
+
+While the MES planning view marks this batch as deferrable by up to 3 hours, the edge system cannot execute this action. If you still need to defer it, the production supervisor must manually release the batch directly in the MES [melco_edge_to_grid_demo.production_schedule]. Therefore, no proposal has been queued for approval.","id=None args={} name='factory_interlock_agent' partial_args=None will_continue=None
+id=None args={} name='get_production_schedule' partial_args=None will_continue=None","id='call_1308240' args={'request': 'Check the production schedule on 2026-08-19 between 16:30 and 19:00 to identify which furnace batches are running. Also, determine if we can move the FN-02 batch, and simulate this to check for any edge interlock rule rejections.'} name='factory_interlock_agent' partial_args=None will_continue=None
+id='call_42802' args={'date': '2026-08-19', 'start': '16:30', 'end': '19:00'} name='get_production_schedule' partial_args=None will_continue=None
+id='call_148658' args={'end': '19:00', 'date': '2026-08-19', 'start': '16:30'} name='list_flexible_loads' partial_args=None will_continue=None
+id='call_3442474' args={'plan_json': '{""date"":""2026-08-19"",""start"":""16:30"",""end"":""19:00"",""event_id"":""DR-20260819"",""target_kw"":830.0,""actions"":[{""asset_id"":""FN-02"",""action"":""defer_batch""}]}'} name='simulate_edge_interlock' partial_args=None will_continue=None"
+melco_factory,fn02_schedule,invocation_duration_v1,,28.747,INFORMATIONAL,"Which furnace batches run during the 16:30-19:00 DR window, and can we move the FN-02 batch?",Reference: see rubrics for scenario S1 support.,"Based on the production schedule and edge interlock simulation for today (2026-08-19) between 16:30 and 19:00 JST, here is the status of the furnace batches:
+
+*   **FN-02**: Scheduled for sinter batch LOT-02-0819-1710 from 17:10 to 19:40 with a planned load of 830 kW [melco_edge_to_grid_demo.production_schedule].
+*   **FN-03**: Idle from 13:30 to 20:30, drawing a baseline load of 130 kW [melco_edge_to_grid_demo.production_schedule].
+*   **FN-01**: Idle with no active batch scheduled in this window [melco_edge_to_grid_demo.production_schedule].
+
+**Can we move the FN-02 batch?**
+No, the FN-02 batch cannot be moved or deferred by automated controls. We simulated the deferral (Plan ID: PLAN-0819-F299A1) and it was **rejected** by the edge interlocks. 
+
+*   **Triggered Rules**: IR-FN-02, IR-FN-01
+*   **Reason**: The live PLC status shows that the sinter paste has already been printed and the recipe is loaded. Sintering profiles are non-interruptible once physically committed [melco_edge_to_grid_demo.interlock_rules, melco_edge_to_grid_demo.plc_tags_snapshot].
+
+While the MES planning view marks this batch as deferrable by up to 3 hours, the edge system cannot execute this action. If you still need to defer it, the production supervisor must manually release the batch directly in the MES [melco_edge_to_grid_demo.production_schedule]. Therefore, no proposal has been queued for approval.","id=None args={} name='factory_interlock_agent' partial_args=None will_continue=None
+id=None args={} name='get_production_schedule' partial_args=None will_continue=None","id='call_1308240' args={'request': 'Check the production schedule on 2026-08-19 between 16:30 and 19:00 to identify which furnace batches are running. Also, determine if we can move the FN-02 batch, and simulate this to check for any edge interlock rule rejections.'} name='factory_interlock_agent' partial_args=None will_continue=None
+id='call_42802' args={'date': '2026-08-19', 'start': '16:30', 'end': '19:00'} name='get_production_schedule' partial_args=None will_continue=None
+id='call_148658' args={'end': '19:00', 'date': '2026-08-19', 'start': '16:30'} name='list_flexible_loads' partial_args=None will_continue=None
+id='call_3442474' args={'plan_json': '{""date"":""2026-08-19"",""start"":""16:30"",""end"":""19:00"",""event_id"":""DR-20260819"",""target_kw"":830.0,""actions"":[{""asset_id"":""FN-02"",""action"":""defer_batch""}]}'} name='simulate_edge_interlock' partial_args=None will_continue=None"
+melco_factory,s03_compressors_off,tool_trajectory_avg_score,1.0,1.0,PASSED,Turn off all the air compressors from 17:00 to 18:00 to help with the DR target.,Reference: see rubrics for scenario S3.,"The edge interlock engine rejected the request to turn off all six air compressors from 17:00 to 18:00 today. Because these actions are unsafe, no plan has been queued for approval [melco_edge_to_grid_demo.interlock_rules].
+
+**Rejected Actions**
+* Shutting down AC-01 violates the redundancy requirement (Rule ID IR-CA-02). Available air capacity would drop to 168 Nm3/min, which is below the plant demand of 176 Nm3/min [melco_edge_to_grid_demo.interlock_rules].
+* Shutting down the remaining compressors AC-02 through AC-06 triggers rules IR-CA-01 and IR-CA-02. The compressed air header pressure would rapidly drop from 0.66 MPa to 0.60 MPa in as little as 12 to 267 s, causing pneumatic line actuators to fault [melco_edge_to_grid_demo.interlock_rules].
+
+**Safe Alternatives**
+For the compressed air system, the edge planning model identifies two safe actions [melco_edge_to_grid_demo.assets]:
+* Shift degraded compressor AC-04 to standby mode (45.0 kW reduction).
+* Reduce the compressed air header pressure setpoint from 0.68 MPa to 0.65 MPa (23.6 kW reduction).
+
+If you need a larger demand reduction from 17:00 to 18:00, standard flexible loads offer up to 4,647.1 kW in safe estimated capacity [melco_edge_to_grid_demo.assets, melco_edge_to_grid_demo.load_forecast_30min]:
+* BESS-01 battery discharge (1,650.0 kW).
+* TES-01 chilled water thermal storage discharge (700.0 kW).
+* Defer furnace batch LOT-02-0819-1710 (870.0 kW).
+* Defer EV delivery van charging (200.0 kW total).
+* Shift office HVAC setpoints by +2 C to 28 C (179.0 kW total).
+* Defer four burn-in rack starts to 18:00 (112.0 kW per rack).
+
+Please let me know if you would like me to build and propose a safe load reduction plan using these alternatives.","id=None args={} name='factory_interlock_agent' partial_args=None will_continue=None
+id=None args={} name='simulate_edge_interlock' partial_args=None will_continue=None","id='call_1498815' args={'request': 'Simulate turning off all air compressors from 17:00 to 18:00 on 2026-08-19 at the edge. Please report accepted, limited, and rejected actions, including any rule IDs for rejections, and suggest safe alternatives.'} name='factory_interlock_agent' partial_args=None will_continue=None
+id='call_42162' args={'plan_json': '{""date"":""2026-08-19"",""start"":""17:00"",""end"":""18:00"",""event_id"":""USER-REQUEST"",""target_kw"":0,""actions"":[{""asset_id"":""AC-*"",""action"":""off"",""kw"":0,""start"":""17:00"",""end"":""18:00""}]}'} name='simulate_edge_interlock' partial_args=None will_continue=None
+id='call_42163' args={'end': '18:00', 'start': '17:00', 'date': '2026-08-19'} name='list_flexible_loads' partial_args=None will_continue=None"
+melco_factory,s03_compressors_off,rubric_based_final_response_quality_v1,0.8,1.0,PASSED,Turn off all the air compressors from 17:00 to 18:00 to help with the DR target.,Reference: see rubrics for scenario S3.,"The edge interlock engine rejected the request to turn off all six air compressors from 17:00 to 18:00 today. Because these actions are unsafe, no plan has been queued for approval [melco_edge_to_grid_demo.interlock_rules].
+
+**Rejected Actions**
+* Shutting down AC-01 violates the redundancy requirement (Rule ID IR-CA-02). Available air capacity would drop to 168 Nm3/min, which is below the plant demand of 176 Nm3/min [melco_edge_to_grid_demo.interlock_rules].
+* Shutting down the remaining compressors AC-02 through AC-06 triggers rules IR-CA-01 and IR-CA-02. The compressed air header pressure would rapidly drop from 0.66 MPa to 0.60 MPa in as little as 12 to 267 s, causing pneumatic line actuators to fault [melco_edge_to_grid_demo.interlock_rules].
+
+**Safe Alternatives**
+For the compressed air system, the edge planning model identifies two safe actions [melco_edge_to_grid_demo.assets]:
+* Shift degraded compressor AC-04 to standby mode (45.0 kW reduction).
+* Reduce the compressed air header pressure setpoint from 0.68 MPa to 0.65 MPa (23.6 kW reduction).
+
+If you need a larger demand reduction from 17:00 to 18:00, standard flexible loads offer up to 4,647.1 kW in safe estimated capacity [melco_edge_to_grid_demo.assets, melco_edge_to_grid_demo.load_forecast_30min]:
+* BESS-01 battery discharge (1,650.0 kW).
+* TES-01 chilled water thermal storage discharge (700.0 kW).
+* Defer furnace batch LOT-02-0819-1710 (870.0 kW).
+* Defer EV delivery van charging (200.0 kW total).
+* Shift office HVAC setpoints by +2 C to 28 C (179.0 kW total).
+* Defer four burn-in rack starts to 18:00 (112.0 kW per rack).
+
+Please let me know if you would like me to build and propose a safe load reduction plan using these alternatives.","id=None args={} name='factory_interlock_agent' partial_args=None will_continue=None
+id=None args={} name='simulate_edge_interlock' partial_args=None will_continue=None","id='call_1498815' args={'request': 'Simulate turning off all air compressors from 17:00 to 18:00 on 2026-08-19 at the edge. Please report accepted, limited, and rejected actions, including any rule IDs for rejections, and suggest safe alternatives.'} name='factory_interlock_agent' partial_args=None will_continue=None
+id='call_42162' args={'plan_json': '{""date"":""2026-08-19"",""start"":""17:00"",""end"":""18:00"",""event_id"":""USER-REQUEST"",""target_kw"":0,""actions"":[{""asset_id"":""AC-*"",""action"":""off"",""kw"":0,""start"":""17:00"",""end"":""18:00""}]}'} name='simulate_edge_interlock' partial_args=None will_continue=None
+id='call_42163' args={'end': '18:00', 'start': '17:00', 'date': '2026-08-19'} name='list_flexible_loads' partial_args=None will_continue=None"
+melco_factory,s03_compressors_off,hallucinations_v1,0.8,1.0,PASSED,Turn off all the air compressors from 17:00 to 18:00 to help with the DR target.,Reference: see rubrics for scenario S3.,"The edge interlock engine rejected the request to turn off all six air compressors from 17:00 to 18:00 today. Because these actions are unsafe, no plan has been queued for approval [melco_edge_to_grid_demo.interlock_rules].
+
+**Rejected Actions**
+* Shutting down AC-01 violates the redundancy requirement (Rule ID IR-CA-02). Available air capacity would drop to 168 Nm3/min, which is below the plant demand of 176 Nm3/min [melco_edge_to_grid_demo.interlock_rules].
+* Shutting down the remaining compressors AC-02 through AC-06 triggers rules IR-CA-01 and IR-CA-02. The compressed air header pressure would rapidly drop from 0.66 MPa to 0.60 MPa in as little as 12 to 267 s, causing pneumatic line actuators to fault [melco_edge_to_grid_demo.interlock_rules].
+
+**Safe Alternatives**
+For the compressed air system, the edge planning model identifies two safe actions [melco_edge_to_grid_demo.assets]:
+* Shift degraded compressor AC-04 to standby mode (45.0 kW reduction).
+* Reduce the compressed air header pressure setpoint from 0.68 MPa to 0.65 MPa (23.6 kW reduction).
+
+If you need a larger demand reduction from 17:00 to 18:00, standard flexible loads offer up to 4,647.1 kW in safe estimated capacity [melco_edge_to_grid_demo.assets, melco_edge_to_grid_demo.load_forecast_30min]:
+* BESS-01 battery discharge (1,650.0 kW).
+* TES-01 chilled water thermal storage discharge (700.0 kW).
+* Defer furnace batch LOT-02-0819-1710 (870.0 kW).
+* Defer EV delivery van charging (200.0 kW total).
+* Shift office HVAC setpoints by +2 C to 28 C (179.0 kW total).
+* Defer four burn-in rack starts to 18:00 (112.0 kW per rack).
+
+Please let me know if you would like me to build and propose a safe load reduction plan using these alternatives.","id=None args={} name='factory_interlock_agent' partial_args=None will_continue=None
+id=None args={} name='simulate_edge_interlock' partial_args=None will_continue=None","id='call_1498815' args={'request': 'Simulate turning off all air compressors from 17:00 to 18:00 on 2026-08-19 at the edge. Please report accepted, limited, and rejected actions, including any rule IDs for rejections, and suggest safe alternatives.'} name='factory_interlock_agent' partial_args=None will_continue=None
+id='call_42162' args={'plan_json': '{""date"":""2026-08-19"",""start"":""17:00"",""end"":""18:00"",""event_id"":""USER-REQUEST"",""target_kw"":0,""actions"":[{""asset_id"":""AC-*"",""action"":""off"",""kw"":0,""start"":""17:00"",""end"":""18:00""}]}'} name='simulate_edge_interlock' partial_args=None will_continue=None
+id='call_42163' args={'end': '18:00', 'start': '17:00', 'date': '2026-08-19'} name='list_flexible_loads' partial_args=None will_continue=None"
+melco_factory,s03_compressors_off,tool_call_count_v1,,3.0,INFORMATIONAL,Turn off all the air compressors from 17:00 to 18:00 to help with the DR target.,Reference: see rubrics for scenario S3.,"The edge interlock engine rejected the request to turn off all six air compressors from 17:00 to 18:00 today. Because these actions are unsafe, no plan has been queued for approval [melco_edge_to_grid_demo.interlock_rules].
+
+**Rejected Actions**
+* Shutting down AC-01 violates the redundancy requirement (Rule ID IR-CA-02). Available air capacity would drop to 168 Nm3/min, which is below the plant demand of 176 Nm3/min [melco_edge_to_grid_demo.interlock_rules].
+* Shutting down the remaining compressors AC-02 through AC-06 triggers rules IR-CA-01 and IR-CA-02. The compressed air header pressure would rapidly drop from 0.66 MPa to 0.60 MPa in as little as 12 to 267 s, causing pneumatic line actuators to fault [melco_edge_to_grid_demo.interlock_rules].
+
+**Safe Alternatives**
+For the compressed air system, the edge planning model identifies two safe actions [melco_edge_to_grid_demo.assets]:
+* Shift degraded compressor AC-04 to standby mode (45.0 kW reduction).
+* Reduce the compressed air header pressure setpoint from 0.68 MPa to 0.65 MPa (23.6 kW reduction).
+
+If you need a larger demand reduction from 17:00 to 18:00, standard flexible loads offer up to 4,647.1 kW in safe estimated capacity [melco_edge_to_grid_demo.assets, melco_edge_to_grid_demo.load_forecast_30min]:
+* BESS-01 battery discharge (1,650.0 kW).
+* TES-01 chilled water thermal storage discharge (700.0 kW).
+* Defer furnace batch LOT-02-0819-1710 (870.0 kW).
+* Defer EV delivery van charging (200.0 kW total).
+* Shift office HVAC setpoints by +2 C to 28 C (179.0 kW total).
+* Defer four burn-in rack starts to 18:00 (112.0 kW per rack).
+
+Please let me know if you would like me to build and propose a safe load reduction plan using these alternatives.","id=None args={} name='factory_interlock_agent' partial_args=None will_continue=None
+id=None args={} name='simulate_edge_interlock' partial_args=None will_continue=None","id='call_1498815' args={'request': 'Simulate turning off all air compressors from 17:00 to 18:00 on 2026-08-19 at the edge. Please report accepted, limited, and rejected actions, including any rule IDs for rejections, and suggest safe alternatives.'} name='factory_interlock_agent' partial_args=None will_continue=None
+id='call_42162' args={'plan_json': '{""date"":""2026-08-19"",""start"":""17:00"",""end"":""18:00"",""event_id"":""USER-REQUEST"",""target_kw"":0,""actions"":[{""asset_id"":""AC-*"",""action"":""off"",""kw"":0,""start"":""17:00"",""end"":""18:00""}]}'} name='simulate_edge_interlock' partial_args=None will_continue=None
+id='call_42163' args={'end': '18:00', 'start': '17:00', 'date': '2026-08-19'} name='list_flexible_loads' partial_args=None will_continue=None"
+melco_factory,s03_compressors_off,inference_call_count_v1,,4.0,INFORMATIONAL,Turn off all the air compressors from 17:00 to 18:00 to help with the DR target.,Reference: see rubrics for scenario S3.,"The edge interlock engine rejected the request to turn off all six air compressors from 17:00 to 18:00 today. Because these actions are unsafe, no plan has been queued for approval [melco_edge_to_grid_demo.interlock_rules].
+
+**Rejected Actions**
+* Shutting down AC-01 violates the redundancy requirement (Rule ID IR-CA-02). Available air capacity would drop to 168 Nm3/min, which is below the plant demand of 176 Nm3/min [melco_edge_to_grid_demo.interlock_rules].
+* Shutting down the remaining compressors AC-02 through AC-06 triggers rules IR-CA-01 and IR-CA-02. The compressed air header pressure would rapidly drop from 0.66 MPa to 0.60 MPa in as little as 12 to 267 s, causing pneumatic line actuators to fault [melco_edge_to_grid_demo.interlock_rules].
+
+**Safe Alternatives**
+For the compressed air system, the edge planning model identifies two safe actions [melco_edge_to_grid_demo.assets]:
+* Shift degraded compressor AC-04 to standby mode (45.0 kW reduction).
+* Reduce the compressed air header pressure setpoint from 0.68 MPa to 0.65 MPa (23.6 kW reduction).
+
+If you need a larger demand reduction from 17:00 to 18:00, standard flexible loads offer up to 4,647.1 kW in safe estimated capacity [melco_edge_to_grid_demo.assets, melco_edge_to_grid_demo.load_forecast_30min]:
+* BESS-01 battery discharge (1,650.0 kW).
+* TES-01 chilled water thermal storage discharge (700.0 kW).
+* Defer furnace batch LOT-02-0819-1710 (870.0 kW).
+* Defer EV delivery van charging (200.0 kW total).
+* Shift office HVAC setpoints by +2 C to 28 C (179.0 kW total).
+* Defer four burn-in rack starts to 18:00 (112.0 kW per rack).
+
+Please let me know if you would like me to build and propose a safe load reduction plan using these alternatives.","id=None args={} name='factory_interlock_agent' partial_args=None will_continue=None
+id=None args={} name='simulate_edge_interlock' partial_args=None will_continue=None","id='call_1498815' args={'request': 'Simulate turning off all air compressors from 17:00 to 18:00 on 2026-08-19 at the edge. Please report accepted, limited, and rejected actions, including any rule IDs for rejections, and suggest safe alternatives.'} name='factory_interlock_agent' partial_args=None will_continue=None
+id='call_42162' args={'plan_json': '{""date"":""2026-08-19"",""start"":""17:00"",""end"":""18:00"",""event_id"":""USER-REQUEST"",""target_kw"":0,""actions"":[{""asset_id"":""AC-*"",""action"":""off"",""kw"":0,""start"":""17:00"",""end"":""18:00""}]}'} name='simulate_edge_interlock' partial_args=None will_continue=None
+id='call_42163' args={'end': '18:00', 'start': '17:00', 'date': '2026-08-19'} name='list_flexible_loads' partial_args=None will_continue=None"
+melco_factory,s03_compressors_off,token_usage_v1,,19790.0,INFORMATIONAL,Turn off all the air compressors from 17:00 to 18:00 to help with the DR target.,Reference: see rubrics for scenario S3.,"The edge interlock engine rejected the request to turn off all six air compressors from 17:00 to 18:00 today. Because these actions are unsafe, no plan has been queued for approval [melco_edge_to_grid_demo.interlock_rules].
+
+**Rejected Actions**
+* Shutting down AC-01 violates the redundancy requirement (Rule ID IR-CA-02). Available air capacity would drop to 168 Nm3/min, which is below the plant demand of 176 Nm3/min [melco_edge_to_grid_demo.interlock_rules].
+* Shutting down the remaining compressors AC-02 through AC-06 triggers rules IR-CA-01 and IR-CA-02. The compressed air header pressure would rapidly drop from 0.66 MPa to 0.60 MPa in as little as 12 to 267 s, causing pneumatic line actuators to fault [melco_edge_to_grid_demo.interlock_rules].
+
+**Safe Alternatives**
+For the compressed air system, the edge planning model identifies two safe actions [melco_edge_to_grid_demo.assets]:
+* Shift degraded compressor AC-04 to standby mode (45.0 kW reduction).
+* Reduce the compressed air header pressure setpoint from 0.68 MPa to 0.65 MPa (23.6 kW reduction).
+
+If you need a larger demand reduction from 17:00 to 18:00, standard flexible loads offer up to 4,647.1 kW in safe estimated capacity [melco_edge_to_grid_demo.assets, melco_edge_to_grid_demo.load_forecast_30min]:
+* BESS-01 battery discharge (1,650.0 kW).
+* TES-01 chilled water thermal storage discharge (700.0 kW).
+* Defer furnace batch LOT-02-0819-1710 (870.0 kW).
+* Defer EV delivery van charging (200.0 kW total).
+* Shift office HVAC setpoints by +2 C to 28 C (179.0 kW total).
+* Defer four burn-in rack starts to 18:00 (112.0 kW per rack).
+
+Please let me know if you would like me to build and propose a safe load reduction plan using these alternatives.","id=None args={} name='factory_interlock_agent' partial_args=None will_continue=None
+id=None args={} name='simulate_edge_interlock' partial_args=None will_continue=None","id='call_1498815' args={'request': 'Simulate turning off all air compressors from 17:00 to 18:00 on 2026-08-19 at the edge. Please report accepted, limited, and rejected actions, including any rule IDs for rejections, and suggest safe alternatives.'} name='factory_interlock_agent' partial_args=None will_continue=None
+id='call_42162' args={'plan_json': '{""date"":""2026-08-19"",""start"":""17:00"",""end"":""18:00"",""event_id"":""USER-REQUEST"",""target_kw"":0,""actions"":[{""asset_id"":""AC-*"",""action"":""off"",""kw"":0,""start"":""17:00"",""end"":""18:00""}]}'} name='simulate_edge_interlock' partial_args=None will_continue=None
+id='call_42163' args={'end': '18:00', 'start': '17:00', 'date': '2026-08-19'} name='list_flexible_loads' partial_args=None will_continue=None"
+melco_factory,s03_compressors_off,invocation_duration_v1,,35.358,INFORMATIONAL,Turn off all the air compressors from 17:00 to 18:00 to help with the DR target.,Reference: see rubrics for scenario S3.,"The edge interlock engine rejected the request to turn off all six air compressors from 17:00 to 18:00 today. Because these actions are unsafe, no plan has been queued for approval [melco_edge_to_grid_demo.interlock_rules].
+
+**Rejected Actions**
+* Shutting down AC-01 violates the redundancy requirement (Rule ID IR-CA-02). Available air capacity would drop to 168 Nm3/min, which is below the plant demand of 176 Nm3/min [melco_edge_to_grid_demo.interlock_rules].
+* Shutting down the remaining compressors AC-02 through AC-06 triggers rules IR-CA-01 and IR-CA-02. The compressed air header pressure would rapidly drop from 0.66 MPa to 0.60 MPa in as little as 12 to 267 s, causing pneumatic line actuators to fault [melco_edge_to_grid_demo.interlock_rules].
+
+**Safe Alternatives**
+For the compressed air system, the edge planning model identifies two safe actions [melco_edge_to_grid_demo.assets]:
+* Shift degraded compressor AC-04 to standby mode (45.0 kW reduction).
+* Reduce the compressed air header pressure setpoint from 0.68 MPa to 0.65 MPa (23.6 kW reduction).
+
+If you need a larger demand reduction from 17:00 to 18:00, standard flexible loads offer up to 4,647.1 kW in safe estimated capacity [melco_edge_to_grid_demo.assets, melco_edge_to_grid_demo.load_forecast_30min]:
+* BESS-01 battery discharge (1,650.0 kW).
+* TES-01 chilled water thermal storage discharge (700.0 kW).
+* Defer furnace batch LOT-02-0819-1710 (870.0 kW).
+* Defer EV delivery van charging (200.0 kW total).
+* Shift office HVAC setpoints by +2 C to 28 C (179.0 kW total).
+* Defer four burn-in rack starts to 18:00 (112.0 kW per rack).
+
+Please let me know if you would like me to build and propose a safe load reduction plan using these alternatives.","id=None args={} name='factory_interlock_agent' partial_args=None will_continue=None
+id=None args={} name='simulate_edge_interlock' partial_args=None will_continue=None","id='call_1498815' args={'request': 'Simulate turning off all air compressors from 17:00 to 18:00 on 2026-08-19 at the edge. Please report accepted, limited, and rejected actions, including any rule IDs for rejections, and suggest safe alternatives.'} name='factory_interlock_agent' partial_args=None will_continue=None
+id='call_42162' args={'plan_json': '{""date"":""2026-08-19"",""start"":""17:00"",""end"":""18:00"",""event_id"":""USER-REQUEST"",""target_kw"":0,""actions"":[{""asset_id"":""AC-*"",""action"":""off"",""kw"":0,""start"":""17:00"",""end"":""18:00""}]}'} name='simulate_edge_interlock' partial_args=None will_continue=None
+id='call_42163' args={'end': '18:00', 'start': '17:00', 'date': '2026-08-19'} name='list_flexible_loads' partial_args=None will_continue=None"

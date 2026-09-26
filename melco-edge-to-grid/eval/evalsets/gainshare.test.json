@@ -1,0 +1,141 @@
+{
+ "eval_set_id": "melco_gainshare",
+ "name": "Factory Energy Copilot - gainshare",
+ "eval_cases": [
+  {
+   "eval_id": "s05_july_gain_share",
+   "conversation": [
+    {
+     "invocation_id": "s05_july_gain_share-1",
+     "user_content": {
+      "role": "user",
+      "parts": [
+       {
+        "text": "Show me the July gain-share invoice and what the client nets."
+       }
+      ]
+     },
+     "final_response": {
+      "role": "model",
+      "parts": [
+       {
+        "text": "Reference: see rubrics for scenario S5."
+       }
+      ]
+     },
+     "intermediate_data": {
+      "tool_uses": [
+       {
+        "name": "gain_share_agent",
+        "args": {}
+       },
+       {
+        "name": "compute_gain_share",
+        "args": {}
+       }
+      ]
+     }
+    }
+   ],
+   "session_input": {
+    "app_name": "factory_copilot",
+    "user_id": "eval",
+    "state": {}
+   },
+   "rubrics": [
+    {
+     "rubric_id": "totals",
+     "rubric_content": {
+      "text_property": "The response gives total verified savings for July 2026 and eligible savings."
+     },
+     "type": "FINAL_RESPONSE_QUALITY"
+    },
+    {
+     "rubric_id": "share",
+     "rubric_content": {
+      "text_property": "The response gives the vendor gain share with its percentage and the BESS-as-a-Service fee."
+     },
+     "type": "FINAL_RESPONSE_QUALITY"
+    },
+    {
+     "rubric_id": "client_net",
+     "rubric_content": {
+      "text_property": "The response gives the client net benefit."
+     },
+     "type": "FINAL_RESPONSE_QUALITY"
+    },
+    {
+     "rubric_id": "penalty",
+     "rubric_content": {
+      "text_property": "The response mentions the DR penalty on the 22 July event or that DR lines reconcile with the aggregator."
+     },
+     "type": "FINAL_RESPONSE_QUALITY"
+    }
+   ]
+  },
+  {
+   "eval_id": "event_0722_penalty",
+   "conversation": [
+    {
+     "invocation_id": "event_0722_penalty-1",
+     "user_content": {
+      "role": "user",
+      "parts": [
+       {
+        "text": "What did the 22 July DR event earn after the penalty, and what was the gain share on it?"
+       }
+      ]
+     },
+     "final_response": {
+      "role": "model",
+      "parts": [
+       {
+        "text": "Reference: see rubrics for scenario S5 support."
+       }
+      ]
+     },
+     "intermediate_data": {
+      "tool_uses": [
+       {
+        "name": "gain_share_agent",
+        "args": {}
+       },
+       {
+        "name": "compute_event_savings",
+        "args": {}
+       }
+      ]
+     }
+    }
+   ],
+   "session_input": {
+    "app_name": "factory_copilot",
+    "user_id": "eval",
+    "state": {}
+   },
+   "rubrics": [
+    {
+     "rubric_id": "delivery",
+     "rubric_content": {
+      "text_property": "The response says the plant delivered well below the 2,500 kW requested and gives the delivered kW or performance %."
+     },
+     "type": "FINAL_RESPONSE_QUALITY"
+    },
+    {
+     "rubric_id": "penalty",
+     "rubric_content": {
+      "text_property": "The response gives the penalty and the payment in JPY."
+     },
+     "type": "FINAL_RESPONSE_QUALITY"
+    },
+    {
+     "rubric_id": "share",
+     "rubric_content": {
+      "text_property": "The response gives the vendor gain share on the event in JPY."
+     },
+     "type": "FINAL_RESPONSE_QUALITY"
+    }
+   ]
+  }
+ ]
+}

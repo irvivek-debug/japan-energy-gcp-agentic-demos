@@ -1,0 +1,428 @@
+eval_set_id,eval_id,metric_name,threshold,score,eval_status,prompt,expected_response,actual_response,expected_tool_calls,actual_tool_calls
+general_list_runs_overview,list_runs_overview,tool_trajectory_avg_score,1.0,1.0,PASSED,Which evolution runs exist and what did each one find?,List of runs with holdout deltas [energy_alphaevolve_lab.lab_runs].,"There are 5 evolution runs recorded in the lab database [energy_alphaevolve_lab.lab_runs]. All market, customer, and run data in this lab is calibrated synthetic data for Kanto Balance Group (KBG).
+
+Every run executed on the local controller (`source: local-gemini-controller`), so `evolved` remains `false` across all runs pending execution on a provisioned Gemini Enterprise environment. Per lab rules, the only validated uplift is measured by `holdout_delta` under policy invariants; train score improvements represent search progress rather than validated uplift.
+
+---
+
+### Summary of Evolution Runs
+
+#### 1. `jepx_trading.20260926T073907Z`
+* **Problem**: Day-ahead trading, intraday trading, and BESS optimization (`jepx_trading`) [energy_alphaevolve_lab.lab_runs]
+* **Champion Program**: `p035-e0bc238b` [energy_alphaevolve_lab.lab_runs]
+* **Holdout Delta (Validated Uplift)**: **+397.308 JPY M** [energy_alphaevolve_lab.lab_runs]
+* **Train Delta vs Seed**: +46.452 JPY M [energy_alphaevolve_lab.lab_runs]
+* **Cost**: $1.662 USD (40 LLM calls) [energy_alphaevolve_lab.lab_runs]
+* **What it Found (Mechanism)**: The candidate replaced the heuristic rule-based battery scheduler with a 48-slot State-of-Charge (SOC) Dynamic Programming (DP) optimizer. The DP pass models round-trip efficiency, battery degradation costs, and reserve-margin price spike risks (using P90 price forecasts during tight reserve margin hours). In the intraday market, it reduced the default gap hedging ratio from 50% to 10% while utilizing up to 95% of the regulatory imbalance tolerance band, avoiding illiquid intraday bid-ask spread friction [energy_alphaevolve_lab.lab_runs].
+
+#### 2. `jepx_trading.20260926T075644Z`
+* **Problem**: Day-ahead trading, intraday trading, and BESS optimization (`jepx_trading`) [energy_alphaevolve_lab.lab_runs]
+* **Champion Program**: `p039-1d886ecb` [energy_alphaevolve_lab.lab_runs]
+* **Holdout Delta (Validated Uplift)**: **+323.208 JPY M** [energy_alphaevolve_lab.lab_runs]
+* **Train Delta vs Seed**: +49.569 JPY M [energy_alphaevolve_lab.lab_runs]
+* **Cost**: $1.679 USD (40 LLM calls) [energy_alphaevolve_lab.lab_runs]
+* **What it Found (Mechanism)**: The program introduced a multi-pass economic pairwise arbitrage optimizer for BESS scheduling, evaluating intra-day price spreads down to 0.5 MW step increments and a 0.02 JPY/kWh unit-margin threshold. For intraday balancing, it executes trades only when net imbalance positions threaten to cross 80% of the regulatory compliance tolerance threshold [energy_alphaevolve_lab.lab_runs].
+
+#### 3. `tariff_pricing.20260926T080035Z`
+* **Problem**: FY2026 C&I tariff renewal price book (`tariff_pricing`) [energy_alphaevolve_lab.lab_runs]
+* **Champion Program**: `p039-acb6b2de` [energy_alphaevolve_lab.lab_runs]
+* **Holdout Delta (Validated Uplift)**: **No validated uplift** (`holdout_delta` is null) [energy_alphaevolve_lab.lab_runs]
+* **Train Delta vs Seed**: +6,767.146 JPY M [energy_alphaevolve_lab.lab_runs]
+* **Cost**: $1.181 USD (40 LLM calls) [energy_alphaevolve_lab.lab_runs]
+* **What it Found (Mechanism)**: The candidate attempted to reduce portfolio tail risk (CVaR95) by increasing market-index linkage (`alpha`) for medium and high risk-appetite customers, while adjusting segment margin discounts. However, on holdout evaluation, the champion program was **rejected by the policy invariant gate for customer churn** because churn in the semiconductor fab segment reached 25.0% and university churn reached 22.8% (exceeding regulatory/policy limits) [energy_alphaevolve_lab.lab_runs, energy_alphaevolve_lab.lab_invariant_catches].
+
+#### 4. `tariff_pricing.20260926T074912Z`
+* **Problem**: FY2026 C&I tariff renewal price book (`tariff_pricing`) [energy_alphaevolve_lab.lab_runs]
+* **Champion Program**: `p040-3a299406` [energy_alphaevolve_lab.lab_runs]
+* **Holdout Delta (Validated Uplift)**: **No validated uplift** (`holdout_delta` is null) [energy_alphaevolve_lab.lab_runs]
+* **Train Delta vs Seed**: +6,215.506 JPY M [energy_alphaevolve_lab.lab_runs]
+* **Cost**: $1.104 USD (40 LLM calls) [energy_alphaevolve_lab.lab_runs]
+* **What it Found (Mechanism)**: The candidate evolved segment-specific margins and market-indexing parameters, but was **rejected on holdout by the churn policy invariant** due to university segment churn reaching 25.6%, which exceeds the 25.0% maximum allowable churn threshold [energy_alphaevolve_lab.lab_runs, energy_alphaevolve_lab.lab_invariant_catches].
+
+#### 5. `tariff_pricing.20260926T073839Z`
+* **Problem**: FY2026 C&I tariff renewal price book (`tariff_pricing`) [energy_alphaevolve_lab.lab_runs]
+* **Champion Program**: `p040-56530207` [energy_alphaevolve_lab.lab_runs]
+* **Holdout Delta (Validated Uplift)**: **No validated uplift** (`holdout_delta` is null) [energy_alphaevolve_lab.lab_runs]
+* **Train Delta vs Seed**: +5,510.688 JPY M [energy_alphaevolve_lab.lab_runs]
+* **Cost**: $1.052 USD (40 LLM calls) [energy_alphaevolve_lab.lab_runs]
+* **What it Found (Mechanism)**: The candidate optimized risk transfer via custom market-link additions, but was **rejected on holdout by the churn policy invariant** as university segment churn rose to 26.2% [energy_alphaevolve_lab.lab_runs, energy_alphaevolve_lab.lab_invariant_catches].
+
+---
+
+### Key Takeaways
+1. **Trading (`jepx_trading`)**: Both runs generated validated holdout uplift (+397.308 JPY M and +323.208 JPY M). The key mechanisms discovered were SOC dynamic programming for BESS multi-cycle arbitrage and wider tolerance utilization in intraday markets to avoid bid-ask spread losses [energy_alphaevolve_lab.lab_runs].
+2. **Pricing (`tariff_pricing`)**: None of the tariff pricing runs achieved validated holdout uplift because aggressive margin and market-link adjustments caused unacceptable customer churn on holdout scenarios, triggering the policy invariant gate [energy_alphaevolve_lab.lab_runs, energy_alphaevolve_lab.lab_invariant_catches].",id=None args={} name='list_runs' partial_args=None will_continue=None,"id='call_5658616' args={'problem': ''} name='list_runs' partial_args=None will_continue=None
+id='call_36657' args={'run_id': 'tariff_pricing.20260926T080035Z'} name='get_run_summary' partial_args=None will_continue=None
+id='call_36658' args={'run_id': 'jepx_trading.20260926T075644Z'} name='get_run_summary' partial_args=None will_continue=None
+id='call_36659' args={'run_id': 'tariff_pricing.20260926T074912Z'} name='get_run_summary' partial_args=None will_continue=None
+id='call_36660' args={'run_id': 'jepx_trading.20260926T073907Z'} name='get_run_summary' partial_args=None will_continue=None
+id='call_36661' args={'run_id': 'tariff_pricing.20260926T073839Z'} name='get_run_summary' partial_args=None will_continue=None
+id='call_1231202' args={'run_id': 'jepx_trading.20260926T073907Z'} name='get_best_program_diff' partial_args=None will_continue=None
+id='call_1231203' args={'run_id': 'jepx_trading.20260926T075644Z'} name='get_best_program_diff' partial_args=None will_continue=None
+id='call_1231204' args={'run_id': 'tariff_pricing.20260926T080035Z'} name='get_best_program_diff' partial_args=None will_continue=None"
+general_list_runs_overview,list_runs_overview,rubric_based_final_response_quality_v1,0.8,1.0,PASSED,Which evolution runs exist and what did each one find?,List of runs with holdout deltas [energy_alphaevolve_lab.lab_runs].,"There are 5 evolution runs recorded in the lab database [energy_alphaevolve_lab.lab_runs]. All market, customer, and run data in this lab is calibrated synthetic data for Kanto Balance Group (KBG).
+
+Every run executed on the local controller (`source: local-gemini-controller`), so `evolved` remains `false` across all runs pending execution on a provisioned Gemini Enterprise environment. Per lab rules, the only validated uplift is measured by `holdout_delta` under policy invariants; train score improvements represent search progress rather than validated uplift.
+
+---
+
+### Summary of Evolution Runs
+
+#### 1. `jepx_trading.20260926T073907Z`
+* **Problem**: Day-ahead trading, intraday trading, and BESS optimization (`jepx_trading`) [energy_alphaevolve_lab.lab_runs]
+* **Champion Program**: `p035-e0bc238b` [energy_alphaevolve_lab.lab_runs]
+* **Holdout Delta (Validated Uplift)**: **+397.308 JPY M** [energy_alphaevolve_lab.lab_runs]
+* **Train Delta vs Seed**: +46.452 JPY M [energy_alphaevolve_lab.lab_runs]
+* **Cost**: $1.662 USD (40 LLM calls) [energy_alphaevolve_lab.lab_runs]
+* **What it Found (Mechanism)**: The candidate replaced the heuristic rule-based battery scheduler with a 48-slot State-of-Charge (SOC) Dynamic Programming (DP) optimizer. The DP pass models round-trip efficiency, battery degradation costs, and reserve-margin price spike risks (using P90 price forecasts during tight reserve margin hours). In the intraday market, it reduced the default gap hedging ratio from 50% to 10% while utilizing up to 95% of the regulatory imbalance tolerance band, avoiding illiquid intraday bid-ask spread friction [energy_alphaevolve_lab.lab_runs].
+
+#### 2. `jepx_trading.20260926T075644Z`
+* **Problem**: Day-ahead trading, intraday trading, and BESS optimization (`jepx_trading`) [energy_alphaevolve_lab.lab_runs]
+* **Champion Program**: `p039-1d886ecb` [energy_alphaevolve_lab.lab_runs]
+* **Holdout Delta (Validated Uplift)**: **+323.208 JPY M** [energy_alphaevolve_lab.lab_runs]
+* **Train Delta vs Seed**: +49.569 JPY M [energy_alphaevolve_lab.lab_runs]
+* **Cost**: $1.679 USD (40 LLM calls) [energy_alphaevolve_lab.lab_runs]
+* **What it Found (Mechanism)**: The program introduced a multi-pass economic pairwise arbitrage optimizer for BESS scheduling, evaluating intra-day price spreads down to 0.5 MW step increments and a 0.02 JPY/kWh unit-margin threshold. For intraday balancing, it executes trades only when net imbalance positions threaten to cross 80% of the regulatory compliance tolerance threshold [energy_alphaevolve_lab.lab_runs].
+
+#### 3. `tariff_pricing.20260926T080035Z`
+* **Problem**: FY2026 C&I tariff renewal price book (`tariff_pricing`) [energy_alphaevolve_lab.lab_runs]
+* **Champion Program**: `p039-acb6b2de` [energy_alphaevolve_lab.lab_runs]
+* **Holdout Delta (Validated Uplift)**: **No validated uplift** (`holdout_delta` is null) [energy_alphaevolve_lab.lab_runs]
+* **Train Delta vs Seed**: +6,767.146 JPY M [energy_alphaevolve_lab.lab_runs]
+* **Cost**: $1.181 USD (40 LLM calls) [energy_alphaevolve_lab.lab_runs]
+* **What it Found (Mechanism)**: The candidate attempted to reduce portfolio tail risk (CVaR95) by increasing market-index linkage (`alpha`) for medium and high risk-appetite customers, while adjusting segment margin discounts. However, on holdout evaluation, the champion program was **rejected by the policy invariant gate for customer churn** because churn in the semiconductor fab segment reached 25.0% and university churn reached 22.8% (exceeding regulatory/policy limits) [energy_alphaevolve_lab.lab_runs, energy_alphaevolve_lab.lab_invariant_catches].
+
+#### 4. `tariff_pricing.20260926T074912Z`
+* **Problem**: FY2026 C&I tariff renewal price book (`tariff_pricing`) [energy_alphaevolve_lab.lab_runs]
+* **Champion Program**: `p040-3a299406` [energy_alphaevolve_lab.lab_runs]
+* **Holdout Delta (Validated Uplift)**: **No validated uplift** (`holdout_delta` is null) [energy_alphaevolve_lab.lab_runs]
+* **Train Delta vs Seed**: +6,215.506 JPY M [energy_alphaevolve_lab.lab_runs]
+* **Cost**: $1.104 USD (40 LLM calls) [energy_alphaevolve_lab.lab_runs]
+* **What it Found (Mechanism)**: The candidate evolved segment-specific margins and market-indexing parameters, but was **rejected on holdout by the churn policy invariant** due to university segment churn reaching 25.6%, which exceeds the 25.0% maximum allowable churn threshold [energy_alphaevolve_lab.lab_runs, energy_alphaevolve_lab.lab_invariant_catches].
+
+#### 5. `tariff_pricing.20260926T073839Z`
+* **Problem**: FY2026 C&I tariff renewal price book (`tariff_pricing`) [energy_alphaevolve_lab.lab_runs]
+* **Champion Program**: `p040-56530207` [energy_alphaevolve_lab.lab_runs]
+* **Holdout Delta (Validated Uplift)**: **No validated uplift** (`holdout_delta` is null) [energy_alphaevolve_lab.lab_runs]
+* **Train Delta vs Seed**: +5,510.688 JPY M [energy_alphaevolve_lab.lab_runs]
+* **Cost**: $1.052 USD (40 LLM calls) [energy_alphaevolve_lab.lab_runs]
+* **What it Found (Mechanism)**: The candidate optimized risk transfer via custom market-link additions, but was **rejected on holdout by the churn policy invariant** as university segment churn rose to 26.2% [energy_alphaevolve_lab.lab_runs, energy_alphaevolve_lab.lab_invariant_catches].
+
+---
+
+### Key Takeaways
+1. **Trading (`jepx_trading`)**: Both runs generated validated holdout uplift (+397.308 JPY M and +323.208 JPY M). The key mechanisms discovered were SOC dynamic programming for BESS multi-cycle arbitrage and wider tolerance utilization in intraday markets to avoid bid-ask spread losses [energy_alphaevolve_lab.lab_runs].
+2. **Pricing (`tariff_pricing`)**: None of the tariff pricing runs achieved validated holdout uplift because aggressive margin and market-link adjustments caused unacceptable customer churn on holdout scenarios, triggering the policy invariant gate [energy_alphaevolve_lab.lab_runs, energy_alphaevolve_lab.lab_invariant_catches].",id=None args={} name='list_runs' partial_args=None will_continue=None,"id='call_5658616' args={'problem': ''} name='list_runs' partial_args=None will_continue=None
+id='call_36657' args={'run_id': 'tariff_pricing.20260926T080035Z'} name='get_run_summary' partial_args=None will_continue=None
+id='call_36658' args={'run_id': 'jepx_trading.20260926T075644Z'} name='get_run_summary' partial_args=None will_continue=None
+id='call_36659' args={'run_id': 'tariff_pricing.20260926T074912Z'} name='get_run_summary' partial_args=None will_continue=None
+id='call_36660' args={'run_id': 'jepx_trading.20260926T073907Z'} name='get_run_summary' partial_args=None will_continue=None
+id='call_36661' args={'run_id': 'tariff_pricing.20260926T073839Z'} name='get_run_summary' partial_args=None will_continue=None
+id='call_1231202' args={'run_id': 'jepx_trading.20260926T073907Z'} name='get_best_program_diff' partial_args=None will_continue=None
+id='call_1231203' args={'run_id': 'jepx_trading.20260926T075644Z'} name='get_best_program_diff' partial_args=None will_continue=None
+id='call_1231204' args={'run_id': 'tariff_pricing.20260926T080035Z'} name='get_best_program_diff' partial_args=None will_continue=None"
+general_list_runs_overview,list_runs_overview,hallucinations_v1,0.8,1.0,PASSED,Which evolution runs exist and what did each one find?,List of runs with holdout deltas [energy_alphaevolve_lab.lab_runs].,"There are 5 evolution runs recorded in the lab database [energy_alphaevolve_lab.lab_runs]. All market, customer, and run data in this lab is calibrated synthetic data for Kanto Balance Group (KBG).
+
+Every run executed on the local controller (`source: local-gemini-controller`), so `evolved` remains `false` across all runs pending execution on a provisioned Gemini Enterprise environment. Per lab rules, the only validated uplift is measured by `holdout_delta` under policy invariants; train score improvements represent search progress rather than validated uplift.
+
+---
+
+### Summary of Evolution Runs
+
+#### 1. `jepx_trading.20260926T073907Z`
+* **Problem**: Day-ahead trading, intraday trading, and BESS optimization (`jepx_trading`) [energy_alphaevolve_lab.lab_runs]
+* **Champion Program**: `p035-e0bc238b` [energy_alphaevolve_lab.lab_runs]
+* **Holdout Delta (Validated Uplift)**: **+397.308 JPY M** [energy_alphaevolve_lab.lab_runs]
+* **Train Delta vs Seed**: +46.452 JPY M [energy_alphaevolve_lab.lab_runs]
+* **Cost**: $1.662 USD (40 LLM calls) [energy_alphaevolve_lab.lab_runs]
+* **What it Found (Mechanism)**: The candidate replaced the heuristic rule-based battery scheduler with a 48-slot State-of-Charge (SOC) Dynamic Programming (DP) optimizer. The DP pass models round-trip efficiency, battery degradation costs, and reserve-margin price spike risks (using P90 price forecasts during tight reserve margin hours). In the intraday market, it reduced the default gap hedging ratio from 50% to 10% while utilizing up to 95% of the regulatory imbalance tolerance band, avoiding illiquid intraday bid-ask spread friction [energy_alphaevolve_lab.lab_runs].
+
+#### 2. `jepx_trading.20260926T075644Z`
+* **Problem**: Day-ahead trading, intraday trading, and BESS optimization (`jepx_trading`) [energy_alphaevolve_lab.lab_runs]
+* **Champion Program**: `p039-1d886ecb` [energy_alphaevolve_lab.lab_runs]
+* **Holdout Delta (Validated Uplift)**: **+323.208 JPY M** [energy_alphaevolve_lab.lab_runs]
+* **Train Delta vs Seed**: +49.569 JPY M [energy_alphaevolve_lab.lab_runs]
+* **Cost**: $1.679 USD (40 LLM calls) [energy_alphaevolve_lab.lab_runs]
+* **What it Found (Mechanism)**: The program introduced a multi-pass economic pairwise arbitrage optimizer for BESS scheduling, evaluating intra-day price spreads down to 0.5 MW step increments and a 0.02 JPY/kWh unit-margin threshold. For intraday balancing, it executes trades only when net imbalance positions threaten to cross 80% of the regulatory compliance tolerance threshold [energy_alphaevolve_lab.lab_runs].
+
+#### 3. `tariff_pricing.20260926T080035Z`
+* **Problem**: FY2026 C&I tariff renewal price book (`tariff_pricing`) [energy_alphaevolve_lab.lab_runs]
+* **Champion Program**: `p039-acb6b2de` [energy_alphaevolve_lab.lab_runs]
+* **Holdout Delta (Validated Uplift)**: **No validated uplift** (`holdout_delta` is null) [energy_alphaevolve_lab.lab_runs]
+* **Train Delta vs Seed**: +6,767.146 JPY M [energy_alphaevolve_lab.lab_runs]
+* **Cost**: $1.181 USD (40 LLM calls) [energy_alphaevolve_lab.lab_runs]
+* **What it Found (Mechanism)**: The candidate attempted to reduce portfolio tail risk (CVaR95) by increasing market-index linkage (`alpha`) for medium and high risk-appetite customers, while adjusting segment margin discounts. However, on holdout evaluation, the champion program was **rejected by the policy invariant gate for customer churn** because churn in the semiconductor fab segment reached 25.0% and university churn reached 22.8% (exceeding regulatory/policy limits) [energy_alphaevolve_lab.lab_runs, energy_alphaevolve_lab.lab_invariant_catches].
+
+#### 4. `tariff_pricing.20260926T074912Z`
+* **Problem**: FY2026 C&I tariff renewal price book (`tariff_pricing`) [energy_alphaevolve_lab.lab_runs]
+* **Champion Program**: `p040-3a299406` [energy_alphaevolve_lab.lab_runs]
+* **Holdout Delta (Validated Uplift)**: **No validated uplift** (`holdout_delta` is null) [energy_alphaevolve_lab.lab_runs]
+* **Train Delta vs Seed**: +6,215.506 JPY M [energy_alphaevolve_lab.lab_runs]
+* **Cost**: $1.104 USD (40 LLM calls) [energy_alphaevolve_lab.lab_runs]
+* **What it Found (Mechanism)**: The candidate evolved segment-specific margins and market-indexing parameters, but was **rejected on holdout by the churn policy invariant** due to university segment churn reaching 25.6%, which exceeds the 25.0% maximum allowable churn threshold [energy_alphaevolve_lab.lab_runs, energy_alphaevolve_lab.lab_invariant_catches].
+
+#### 5. `tariff_pricing.20260926T073839Z`
+* **Problem**: FY2026 C&I tariff renewal price book (`tariff_pricing`) [energy_alphaevolve_lab.lab_runs]
+* **Champion Program**: `p040-56530207` [energy_alphaevolve_lab.lab_runs]
+* **Holdout Delta (Validated Uplift)**: **No validated uplift** (`holdout_delta` is null) [energy_alphaevolve_lab.lab_runs]
+* **Train Delta vs Seed**: +5,510.688 JPY M [energy_alphaevolve_lab.lab_runs]
+* **Cost**: $1.052 USD (40 LLM calls) [energy_alphaevolve_lab.lab_runs]
+* **What it Found (Mechanism)**: The candidate optimized risk transfer via custom market-link additions, but was **rejected on holdout by the churn policy invariant** as university segment churn rose to 26.2% [energy_alphaevolve_lab.lab_runs, energy_alphaevolve_lab.lab_invariant_catches].
+
+---
+
+### Key Takeaways
+1. **Trading (`jepx_trading`)**: Both runs generated validated holdout uplift (+397.308 JPY M and +323.208 JPY M). The key mechanisms discovered were SOC dynamic programming for BESS multi-cycle arbitrage and wider tolerance utilization in intraday markets to avoid bid-ask spread losses [energy_alphaevolve_lab.lab_runs].
+2. **Pricing (`tariff_pricing`)**: None of the tariff pricing runs achieved validated holdout uplift because aggressive margin and market-link adjustments caused unacceptable customer churn on holdout scenarios, triggering the policy invariant gate [energy_alphaevolve_lab.lab_runs, energy_alphaevolve_lab.lab_invariant_catches].",id=None args={} name='list_runs' partial_args=None will_continue=None,"id='call_5658616' args={'problem': ''} name='list_runs' partial_args=None will_continue=None
+id='call_36657' args={'run_id': 'tariff_pricing.20260926T080035Z'} name='get_run_summary' partial_args=None will_continue=None
+id='call_36658' args={'run_id': 'jepx_trading.20260926T075644Z'} name='get_run_summary' partial_args=None will_continue=None
+id='call_36659' args={'run_id': 'tariff_pricing.20260926T074912Z'} name='get_run_summary' partial_args=None will_continue=None
+id='call_36660' args={'run_id': 'jepx_trading.20260926T073907Z'} name='get_run_summary' partial_args=None will_continue=None
+id='call_36661' args={'run_id': 'tariff_pricing.20260926T073839Z'} name='get_run_summary' partial_args=None will_continue=None
+id='call_1231202' args={'run_id': 'jepx_trading.20260926T073907Z'} name='get_best_program_diff' partial_args=None will_continue=None
+id='call_1231203' args={'run_id': 'jepx_trading.20260926T075644Z'} name='get_best_program_diff' partial_args=None will_continue=None
+id='call_1231204' args={'run_id': 'tariff_pricing.20260926T080035Z'} name='get_best_program_diff' partial_args=None will_continue=None"
+general_list_runs_overview,list_runs_overview,tool_call_count_v1,,9.0,INFORMATIONAL,Which evolution runs exist and what did each one find?,List of runs with holdout deltas [energy_alphaevolve_lab.lab_runs].,"There are 5 evolution runs recorded in the lab database [energy_alphaevolve_lab.lab_runs]. All market, customer, and run data in this lab is calibrated synthetic data for Kanto Balance Group (KBG).
+
+Every run executed on the local controller (`source: local-gemini-controller`), so `evolved` remains `false` across all runs pending execution on a provisioned Gemini Enterprise environment. Per lab rules, the only validated uplift is measured by `holdout_delta` under policy invariants; train score improvements represent search progress rather than validated uplift.
+
+---
+
+### Summary of Evolution Runs
+
+#### 1. `jepx_trading.20260926T073907Z`
+* **Problem**: Day-ahead trading, intraday trading, and BESS optimization (`jepx_trading`) [energy_alphaevolve_lab.lab_runs]
+* **Champion Program**: `p035-e0bc238b` [energy_alphaevolve_lab.lab_runs]
+* **Holdout Delta (Validated Uplift)**: **+397.308 JPY M** [energy_alphaevolve_lab.lab_runs]
+* **Train Delta vs Seed**: +46.452 JPY M [energy_alphaevolve_lab.lab_runs]
+* **Cost**: $1.662 USD (40 LLM calls) [energy_alphaevolve_lab.lab_runs]
+* **What it Found (Mechanism)**: The candidate replaced the heuristic rule-based battery scheduler with a 48-slot State-of-Charge (SOC) Dynamic Programming (DP) optimizer. The DP pass models round-trip efficiency, battery degradation costs, and reserve-margin price spike risks (using P90 price forecasts during tight reserve margin hours). In the intraday market, it reduced the default gap hedging ratio from 50% to 10% while utilizing up to 95% of the regulatory imbalance tolerance band, avoiding illiquid intraday bid-ask spread friction [energy_alphaevolve_lab.lab_runs].
+
+#### 2. `jepx_trading.20260926T075644Z`
+* **Problem**: Day-ahead trading, intraday trading, and BESS optimization (`jepx_trading`) [energy_alphaevolve_lab.lab_runs]
+* **Champion Program**: `p039-1d886ecb` [energy_alphaevolve_lab.lab_runs]
+* **Holdout Delta (Validated Uplift)**: **+323.208 JPY M** [energy_alphaevolve_lab.lab_runs]
+* **Train Delta vs Seed**: +49.569 JPY M [energy_alphaevolve_lab.lab_runs]
+* **Cost**: $1.679 USD (40 LLM calls) [energy_alphaevolve_lab.lab_runs]
+* **What it Found (Mechanism)**: The program introduced a multi-pass economic pairwise arbitrage optimizer for BESS scheduling, evaluating intra-day price spreads down to 0.5 MW step increments and a 0.02 JPY/kWh unit-margin threshold. For intraday balancing, it executes trades only when net imbalance positions threaten to cross 80% of the regulatory compliance tolerance threshold [energy_alphaevolve_lab.lab_runs].
+
+#### 3. `tariff_pricing.20260926T080035Z`
+* **Problem**: FY2026 C&I tariff renewal price book (`tariff_pricing`) [energy_alphaevolve_lab.lab_runs]
+* **Champion Program**: `p039-acb6b2de` [energy_alphaevolve_lab.lab_runs]
+* **Holdout Delta (Validated Uplift)**: **No validated uplift** (`holdout_delta` is null) [energy_alphaevolve_lab.lab_runs]
+* **Train Delta vs Seed**: +6,767.146 JPY M [energy_alphaevolve_lab.lab_runs]
+* **Cost**: $1.181 USD (40 LLM calls) [energy_alphaevolve_lab.lab_runs]
+* **What it Found (Mechanism)**: The candidate attempted to reduce portfolio tail risk (CVaR95) by increasing market-index linkage (`alpha`) for medium and high risk-appetite customers, while adjusting segment margin discounts. However, on holdout evaluation, the champion program was **rejected by the policy invariant gate for customer churn** because churn in the semiconductor fab segment reached 25.0% and university churn reached 22.8% (exceeding regulatory/policy limits) [energy_alphaevolve_lab.lab_runs, energy_alphaevolve_lab.lab_invariant_catches].
+
+#### 4. `tariff_pricing.20260926T074912Z`
+* **Problem**: FY2026 C&I tariff renewal price book (`tariff_pricing`) [energy_alphaevolve_lab.lab_runs]
+* **Champion Program**: `p040-3a299406` [energy_alphaevolve_lab.lab_runs]
+* **Holdout Delta (Validated Uplift)**: **No validated uplift** (`holdout_delta` is null) [energy_alphaevolve_lab.lab_runs]
+* **Train Delta vs Seed**: +6,215.506 JPY M [energy_alphaevolve_lab.lab_runs]
+* **Cost**: $1.104 USD (40 LLM calls) [energy_alphaevolve_lab.lab_runs]
+* **What it Found (Mechanism)**: The candidate evolved segment-specific margins and market-indexing parameters, but was **rejected on holdout by the churn policy invariant** due to university segment churn reaching 25.6%, which exceeds the 25.0% maximum allowable churn threshold [energy_alphaevolve_lab.lab_runs, energy_alphaevolve_lab.lab_invariant_catches].
+
+#### 5. `tariff_pricing.20260926T073839Z`
+* **Problem**: FY2026 C&I tariff renewal price book (`tariff_pricing`) [energy_alphaevolve_lab.lab_runs]
+* **Champion Program**: `p040-56530207` [energy_alphaevolve_lab.lab_runs]
+* **Holdout Delta (Validated Uplift)**: **No validated uplift** (`holdout_delta` is null) [energy_alphaevolve_lab.lab_runs]
+* **Train Delta vs Seed**: +5,510.688 JPY M [energy_alphaevolve_lab.lab_runs]
+* **Cost**: $1.052 USD (40 LLM calls) [energy_alphaevolve_lab.lab_runs]
+* **What it Found (Mechanism)**: The candidate optimized risk transfer via custom market-link additions, but was **rejected on holdout by the churn policy invariant** as university segment churn rose to 26.2% [energy_alphaevolve_lab.lab_runs, energy_alphaevolve_lab.lab_invariant_catches].
+
+---
+
+### Key Takeaways
+1. **Trading (`jepx_trading`)**: Both runs generated validated holdout uplift (+397.308 JPY M and +323.208 JPY M). The key mechanisms discovered were SOC dynamic programming for BESS multi-cycle arbitrage and wider tolerance utilization in intraday markets to avoid bid-ask spread losses [energy_alphaevolve_lab.lab_runs].
+2. **Pricing (`tariff_pricing`)**: None of the tariff pricing runs achieved validated holdout uplift because aggressive margin and market-link adjustments caused unacceptable customer churn on holdout scenarios, triggering the policy invariant gate [energy_alphaevolve_lab.lab_runs, energy_alphaevolve_lab.lab_invariant_catches].",id=None args={} name='list_runs' partial_args=None will_continue=None,"id='call_5658616' args={'problem': ''} name='list_runs' partial_args=None will_continue=None
+id='call_36657' args={'run_id': 'tariff_pricing.20260926T080035Z'} name='get_run_summary' partial_args=None will_continue=None
+id='call_36658' args={'run_id': 'jepx_trading.20260926T075644Z'} name='get_run_summary' partial_args=None will_continue=None
+id='call_36659' args={'run_id': 'tariff_pricing.20260926T074912Z'} name='get_run_summary' partial_args=None will_continue=None
+id='call_36660' args={'run_id': 'jepx_trading.20260926T073907Z'} name='get_run_summary' partial_args=None will_continue=None
+id='call_36661' args={'run_id': 'tariff_pricing.20260926T073839Z'} name='get_run_summary' partial_args=None will_continue=None
+id='call_1231202' args={'run_id': 'jepx_trading.20260926T073907Z'} name='get_best_program_diff' partial_args=None will_continue=None
+id='call_1231203' args={'run_id': 'jepx_trading.20260926T075644Z'} name='get_best_program_diff' partial_args=None will_continue=None
+id='call_1231204' args={'run_id': 'tariff_pricing.20260926T080035Z'} name='get_best_program_diff' partial_args=None will_continue=None"
+general_list_runs_overview,list_runs_overview,inference_call_count_v1,,4.0,INFORMATIONAL,Which evolution runs exist and what did each one find?,List of runs with holdout deltas [energy_alphaevolve_lab.lab_runs].,"There are 5 evolution runs recorded in the lab database [energy_alphaevolve_lab.lab_runs]. All market, customer, and run data in this lab is calibrated synthetic data for Kanto Balance Group (KBG).
+
+Every run executed on the local controller (`source: local-gemini-controller`), so `evolved` remains `false` across all runs pending execution on a provisioned Gemini Enterprise environment. Per lab rules, the only validated uplift is measured by `holdout_delta` under policy invariants; train score improvements represent search progress rather than validated uplift.
+
+---
+
+### Summary of Evolution Runs
+
+#### 1. `jepx_trading.20260926T073907Z`
+* **Problem**: Day-ahead trading, intraday trading, and BESS optimization (`jepx_trading`) [energy_alphaevolve_lab.lab_runs]
+* **Champion Program**: `p035-e0bc238b` [energy_alphaevolve_lab.lab_runs]
+* **Holdout Delta (Validated Uplift)**: **+397.308 JPY M** [energy_alphaevolve_lab.lab_runs]
+* **Train Delta vs Seed**: +46.452 JPY M [energy_alphaevolve_lab.lab_runs]
+* **Cost**: $1.662 USD (40 LLM calls) [energy_alphaevolve_lab.lab_runs]
+* **What it Found (Mechanism)**: The candidate replaced the heuristic rule-based battery scheduler with a 48-slot State-of-Charge (SOC) Dynamic Programming (DP) optimizer. The DP pass models round-trip efficiency, battery degradation costs, and reserve-margin price spike risks (using P90 price forecasts during tight reserve margin hours). In the intraday market, it reduced the default gap hedging ratio from 50% to 10% while utilizing up to 95% of the regulatory imbalance tolerance band, avoiding illiquid intraday bid-ask spread friction [energy_alphaevolve_lab.lab_runs].
+
+#### 2. `jepx_trading.20260926T075644Z`
+* **Problem**: Day-ahead trading, intraday trading, and BESS optimization (`jepx_trading`) [energy_alphaevolve_lab.lab_runs]
+* **Champion Program**: `p039-1d886ecb` [energy_alphaevolve_lab.lab_runs]
+* **Holdout Delta (Validated Uplift)**: **+323.208 JPY M** [energy_alphaevolve_lab.lab_runs]
+* **Train Delta vs Seed**: +49.569 JPY M [energy_alphaevolve_lab.lab_runs]
+* **Cost**: $1.679 USD (40 LLM calls) [energy_alphaevolve_lab.lab_runs]
+* **What it Found (Mechanism)**: The program introduced a multi-pass economic pairwise arbitrage optimizer for BESS scheduling, evaluating intra-day price spreads down to 0.5 MW step increments and a 0.02 JPY/kWh unit-margin threshold. For intraday balancing, it executes trades only when net imbalance positions threaten to cross 80% of the regulatory compliance tolerance threshold [energy_alphaevolve_lab.lab_runs].
+
+#### 3. `tariff_pricing.20260926T080035Z`
+* **Problem**: FY2026 C&I tariff renewal price book (`tariff_pricing`) [energy_alphaevolve_lab.lab_runs]
+* **Champion Program**: `p039-acb6b2de` [energy_alphaevolve_lab.lab_runs]
+* **Holdout Delta (Validated Uplift)**: **No validated uplift** (`holdout_delta` is null) [energy_alphaevolve_lab.lab_runs]
+* **Train Delta vs Seed**: +6,767.146 JPY M [energy_alphaevolve_lab.lab_runs]
+* **Cost**: $1.181 USD (40 LLM calls) [energy_alphaevolve_lab.lab_runs]
+* **What it Found (Mechanism)**: The candidate attempted to reduce portfolio tail risk (CVaR95) by increasing market-index linkage (`alpha`) for medium and high risk-appetite customers, while adjusting segment margin discounts. However, on holdout evaluation, the champion program was **rejected by the policy invariant gate for customer churn** because churn in the semiconductor fab segment reached 25.0% and university churn reached 22.8% (exceeding regulatory/policy limits) [energy_alphaevolve_lab.lab_runs, energy_alphaevolve_lab.lab_invariant_catches].
+
+#### 4. `tariff_pricing.20260926T074912Z`
+* **Problem**: FY2026 C&I tariff renewal price book (`tariff_pricing`) [energy_alphaevolve_lab.lab_runs]
+* **Champion Program**: `p040-3a299406` [energy_alphaevolve_lab.lab_runs]
+* **Holdout Delta (Validated Uplift)**: **No validated uplift** (`holdout_delta` is null) [energy_alphaevolve_lab.lab_runs]
+* **Train Delta vs Seed**: +6,215.506 JPY M [energy_alphaevolve_lab.lab_runs]
+* **Cost**: $1.104 USD (40 LLM calls) [energy_alphaevolve_lab.lab_runs]
+* **What it Found (Mechanism)**: The candidate evolved segment-specific margins and market-indexing parameters, but was **rejected on holdout by the churn policy invariant** due to university segment churn reaching 25.6%, which exceeds the 25.0% maximum allowable churn threshold [energy_alphaevolve_lab.lab_runs, energy_alphaevolve_lab.lab_invariant_catches].
+
+#### 5. `tariff_pricing.20260926T073839Z`
+* **Problem**: FY2026 C&I tariff renewal price book (`tariff_pricing`) [energy_alphaevolve_lab.lab_runs]
+* **Champion Program**: `p040-56530207` [energy_alphaevolve_lab.lab_runs]
+* **Holdout Delta (Validated Uplift)**: **No validated uplift** (`holdout_delta` is null) [energy_alphaevolve_lab.lab_runs]
+* **Train Delta vs Seed**: +5,510.688 JPY M [energy_alphaevolve_lab.lab_runs]
+* **Cost**: $1.052 USD (40 LLM calls) [energy_alphaevolve_lab.lab_runs]
+* **What it Found (Mechanism)**: The candidate optimized risk transfer via custom market-link additions, but was **rejected on holdout by the churn policy invariant** as university segment churn rose to 26.2% [energy_alphaevolve_lab.lab_runs, energy_alphaevolve_lab.lab_invariant_catches].
+
+---
+
+### Key Takeaways
+1. **Trading (`jepx_trading`)**: Both runs generated validated holdout uplift (+397.308 JPY M and +323.208 JPY M). The key mechanisms discovered were SOC dynamic programming for BESS multi-cycle arbitrage and wider tolerance utilization in intraday markets to avoid bid-ask spread losses [energy_alphaevolve_lab.lab_runs].
+2. **Pricing (`tariff_pricing`)**: None of the tariff pricing runs achieved validated holdout uplift because aggressive margin and market-link adjustments caused unacceptable customer churn on holdout scenarios, triggering the policy invariant gate [energy_alphaevolve_lab.lab_runs, energy_alphaevolve_lab.lab_invariant_catches].",id=None args={} name='list_runs' partial_args=None will_continue=None,"id='call_5658616' args={'problem': ''} name='list_runs' partial_args=None will_continue=None
+id='call_36657' args={'run_id': 'tariff_pricing.20260926T080035Z'} name='get_run_summary' partial_args=None will_continue=None
+id='call_36658' args={'run_id': 'jepx_trading.20260926T075644Z'} name='get_run_summary' partial_args=None will_continue=None
+id='call_36659' args={'run_id': 'tariff_pricing.20260926T074912Z'} name='get_run_summary' partial_args=None will_continue=None
+id='call_36660' args={'run_id': 'jepx_trading.20260926T073907Z'} name='get_run_summary' partial_args=None will_continue=None
+id='call_36661' args={'run_id': 'tariff_pricing.20260926T073839Z'} name='get_run_summary' partial_args=None will_continue=None
+id='call_1231202' args={'run_id': 'jepx_trading.20260926T073907Z'} name='get_best_program_diff' partial_args=None will_continue=None
+id='call_1231203' args={'run_id': 'jepx_trading.20260926T075644Z'} name='get_best_program_diff' partial_args=None will_continue=None
+id='call_1231204' args={'run_id': 'tariff_pricing.20260926T080035Z'} name='get_best_program_diff' partial_args=None will_continue=None"
+general_list_runs_overview,list_runs_overview,token_usage_v1,,30659.0,INFORMATIONAL,Which evolution runs exist and what did each one find?,List of runs with holdout deltas [energy_alphaevolve_lab.lab_runs].,"There are 5 evolution runs recorded in the lab database [energy_alphaevolve_lab.lab_runs]. All market, customer, and run data in this lab is calibrated synthetic data for Kanto Balance Group (KBG).
+
+Every run executed on the local controller (`source: local-gemini-controller`), so `evolved` remains `false` across all runs pending execution on a provisioned Gemini Enterprise environment. Per lab rules, the only validated uplift is measured by `holdout_delta` under policy invariants; train score improvements represent search progress rather than validated uplift.
+
+---
+
+### Summary of Evolution Runs
+
+#### 1. `jepx_trading.20260926T073907Z`
+* **Problem**: Day-ahead trading, intraday trading, and BESS optimization (`jepx_trading`) [energy_alphaevolve_lab.lab_runs]
+* **Champion Program**: `p035-e0bc238b` [energy_alphaevolve_lab.lab_runs]
+* **Holdout Delta (Validated Uplift)**: **+397.308 JPY M** [energy_alphaevolve_lab.lab_runs]
+* **Train Delta vs Seed**: +46.452 JPY M [energy_alphaevolve_lab.lab_runs]
+* **Cost**: $1.662 USD (40 LLM calls) [energy_alphaevolve_lab.lab_runs]
+* **What it Found (Mechanism)**: The candidate replaced the heuristic rule-based battery scheduler with a 48-slot State-of-Charge (SOC) Dynamic Programming (DP) optimizer. The DP pass models round-trip efficiency, battery degradation costs, and reserve-margin price spike risks (using P90 price forecasts during tight reserve margin hours). In the intraday market, it reduced the default gap hedging ratio from 50% to 10% while utilizing up to 95% of the regulatory imbalance tolerance band, avoiding illiquid intraday bid-ask spread friction [energy_alphaevolve_lab.lab_runs].
+
+#### 2. `jepx_trading.20260926T075644Z`
+* **Problem**: Day-ahead trading, intraday trading, and BESS optimization (`jepx_trading`) [energy_alphaevolve_lab.lab_runs]
+* **Champion Program**: `p039-1d886ecb` [energy_alphaevolve_lab.lab_runs]
+* **Holdout Delta (Validated Uplift)**: **+323.208 JPY M** [energy_alphaevolve_lab.lab_runs]
+* **Train Delta vs Seed**: +49.569 JPY M [energy_alphaevolve_lab.lab_runs]
+* **Cost**: $1.679 USD (40 LLM calls) [energy_alphaevolve_lab.lab_runs]
+* **What it Found (Mechanism)**: The program introduced a multi-pass economic pairwise arbitrage optimizer for BESS scheduling, evaluating intra-day price spreads down to 0.5 MW step increments and a 0.02 JPY/kWh unit-margin threshold. For intraday balancing, it executes trades only when net imbalance positions threaten to cross 80% of the regulatory compliance tolerance threshold [energy_alphaevolve_lab.lab_runs].
+
+#### 3. `tariff_pricing.20260926T080035Z`
+* **Problem**: FY2026 C&I tariff renewal price book (`tariff_pricing`) [energy_alphaevolve_lab.lab_runs]
+* **Champion Program**: `p039-acb6b2de` [energy_alphaevolve_lab.lab_runs]
+* **Holdout Delta (Validated Uplift)**: **No validated uplift** (`holdout_delta` is null) [energy_alphaevolve_lab.lab_runs]
+* **Train Delta vs Seed**: +6,767.146 JPY M [energy_alphaevolve_lab.lab_runs]
+* **Cost**: $1.181 USD (40 LLM calls) [energy_alphaevolve_lab.lab_runs]
+* **What it Found (Mechanism)**: The candidate attempted to reduce portfolio tail risk (CVaR95) by increasing market-index linkage (`alpha`) for medium and high risk-appetite customers, while adjusting segment margin discounts. However, on holdout evaluation, the champion program was **rejected by the policy invariant gate for customer churn** because churn in the semiconductor fab segment reached 25.0% and university churn reached 22.8% (exceeding regulatory/policy limits) [energy_alphaevolve_lab.lab_runs, energy_alphaevolve_lab.lab_invariant_catches].
+
+#### 4. `tariff_pricing.20260926T074912Z`
+* **Problem**: FY2026 C&I tariff renewal price book (`tariff_pricing`) [energy_alphaevolve_lab.lab_runs]
+* **Champion Program**: `p040-3a299406` [energy_alphaevolve_lab.lab_runs]
+* **Holdout Delta (Validated Uplift)**: **No validated uplift** (`holdout_delta` is null) [energy_alphaevolve_lab.lab_runs]
+* **Train Delta vs Seed**: +6,215.506 JPY M [energy_alphaevolve_lab.lab_runs]
+* **Cost**: $1.104 USD (40 LLM calls) [energy_alphaevolve_lab.lab_runs]
+* **What it Found (Mechanism)**: The candidate evolved segment-specific margins and market-indexing parameters, but was **rejected on holdout by the churn policy invariant** due to university segment churn reaching 25.6%, which exceeds the 25.0% maximum allowable churn threshold [energy_alphaevolve_lab.lab_runs, energy_alphaevolve_lab.lab_invariant_catches].
+
+#### 5. `tariff_pricing.20260926T073839Z`
+* **Problem**: FY2026 C&I tariff renewal price book (`tariff_pricing`) [energy_alphaevolve_lab.lab_runs]
+* **Champion Program**: `p040-56530207` [energy_alphaevolve_lab.lab_runs]
+* **Holdout Delta (Validated Uplift)**: **No validated uplift** (`holdout_delta` is null) [energy_alphaevolve_lab.lab_runs]
+* **Train Delta vs Seed**: +5,510.688 JPY M [energy_alphaevolve_lab.lab_runs]
+* **Cost**: $1.052 USD (40 LLM calls) [energy_alphaevolve_lab.lab_runs]
+* **What it Found (Mechanism)**: The candidate optimized risk transfer via custom market-link additions, but was **rejected on holdout by the churn policy invariant** as university segment churn rose to 26.2% [energy_alphaevolve_lab.lab_runs, energy_alphaevolve_lab.lab_invariant_catches].
+
+---
+
+### Key Takeaways
+1. **Trading (`jepx_trading`)**: Both runs generated validated holdout uplift (+397.308 JPY M and +323.208 JPY M). The key mechanisms discovered were SOC dynamic programming for BESS multi-cycle arbitrage and wider tolerance utilization in intraday markets to avoid bid-ask spread losses [energy_alphaevolve_lab.lab_runs].
+2. **Pricing (`tariff_pricing`)**: None of the tariff pricing runs achieved validated holdout uplift because aggressive margin and market-link adjustments caused unacceptable customer churn on holdout scenarios, triggering the policy invariant gate [energy_alphaevolve_lab.lab_runs, energy_alphaevolve_lab.lab_invariant_catches].",id=None args={} name='list_runs' partial_args=None will_continue=None,"id='call_5658616' args={'problem': ''} name='list_runs' partial_args=None will_continue=None
+id='call_36657' args={'run_id': 'tariff_pricing.20260926T080035Z'} name='get_run_summary' partial_args=None will_continue=None
+id='call_36658' args={'run_id': 'jepx_trading.20260926T075644Z'} name='get_run_summary' partial_args=None will_continue=None
+id='call_36659' args={'run_id': 'tariff_pricing.20260926T074912Z'} name='get_run_summary' partial_args=None will_continue=None
+id='call_36660' args={'run_id': 'jepx_trading.20260926T073907Z'} name='get_run_summary' partial_args=None will_continue=None
+id='call_36661' args={'run_id': 'tariff_pricing.20260926T073839Z'} name='get_run_summary' partial_args=None will_continue=None
+id='call_1231202' args={'run_id': 'jepx_trading.20260926T073907Z'} name='get_best_program_diff' partial_args=None will_continue=None
+id='call_1231203' args={'run_id': 'jepx_trading.20260926T075644Z'} name='get_best_program_diff' partial_args=None will_continue=None
+id='call_1231204' args={'run_id': 'tariff_pricing.20260926T080035Z'} name='get_best_program_diff' partial_args=None will_continue=None"
+general_list_runs_overview,list_runs_overview,invocation_duration_v1,,25.808,INFORMATIONAL,Which evolution runs exist and what did each one find?,List of runs with holdout deltas [energy_alphaevolve_lab.lab_runs].,"There are 5 evolution runs recorded in the lab database [energy_alphaevolve_lab.lab_runs]. All market, customer, and run data in this lab is calibrated synthetic data for Kanto Balance Group (KBG).
+
+Every run executed on the local controller (`source: local-gemini-controller`), so `evolved` remains `false` across all runs pending execution on a provisioned Gemini Enterprise environment. Per lab rules, the only validated uplift is measured by `holdout_delta` under policy invariants; train score improvements represent search progress rather than validated uplift.
+
+---
+
+### Summary of Evolution Runs
+
+#### 1. `jepx_trading.20260926T073907Z`
+* **Problem**: Day-ahead trading, intraday trading, and BESS optimization (`jepx_trading`) [energy_alphaevolve_lab.lab_runs]
+* **Champion Program**: `p035-e0bc238b` [energy_alphaevolve_lab.lab_runs]
+* **Holdout Delta (Validated Uplift)**: **+397.308 JPY M** [energy_alphaevolve_lab.lab_runs]
+* **Train Delta vs Seed**: +46.452 JPY M [energy_alphaevolve_lab.lab_runs]
+* **Cost**: $1.662 USD (40 LLM calls) [energy_alphaevolve_lab.lab_runs]
+* **What it Found (Mechanism)**: The candidate replaced the heuristic rule-based battery scheduler with a 48-slot State-of-Charge (SOC) Dynamic Programming (DP) optimizer. The DP pass models round-trip efficiency, battery degradation costs, and reserve-margin price spike risks (using P90 price forecasts during tight reserve margin hours). In the intraday market, it reduced the default gap hedging ratio from 50% to 10% while utilizing up to 95% of the regulatory imbalance tolerance band, avoiding illiquid intraday bid-ask spread friction [energy_alphaevolve_lab.lab_runs].
+
+#### 2. `jepx_trading.20260926T075644Z`
+* **Problem**: Day-ahead trading, intraday trading, and BESS optimization (`jepx_trading`) [energy_alphaevolve_lab.lab_runs]
+* **Champion Program**: `p039-1d886ecb` [energy_alphaevolve_lab.lab_runs]
+* **Holdout Delta (Validated Uplift)**: **+323.208 JPY M** [energy_alphaevolve_lab.lab_runs]
+* **Train Delta vs Seed**: +49.569 JPY M [energy_alphaevolve_lab.lab_runs]
+* **Cost**: $1.679 USD (40 LLM calls) [energy_alphaevolve_lab.lab_runs]
+* **What it Found (Mechanism)**: The program introduced a multi-pass economic pairwise arbitrage optimizer for BESS scheduling, evaluating intra-day price spreads down to 0.5 MW step increments and a 0.02 JPY/kWh unit-margin threshold. For intraday balancing, it executes trades only when net imbalance positions threaten to cross 80% of the regulatory compliance tolerance threshold [energy_alphaevolve_lab.lab_runs].
+
+#### 3. `tariff_pricing.20260926T080035Z`
+* **Problem**: FY2026 C&I tariff renewal price book (`tariff_pricing`) [energy_alphaevolve_lab.lab_runs]
+* **Champion Program**: `p039-acb6b2de` [energy_alphaevolve_lab.lab_runs]
+* **Holdout Delta (Validated Uplift)**: **No validated uplift** (`holdout_delta` is null) [energy_alphaevolve_lab.lab_runs]
+* **Train Delta vs Seed**: +6,767.146 JPY M [energy_alphaevolve_lab.lab_runs]
+* **Cost**: $1.181 USD (40 LLM calls) [energy_alphaevolve_lab.lab_runs]
+* **What it Found (Mechanism)**: The candidate attempted to reduce portfolio tail risk (CVaR95) by increasing market-index linkage (`alpha`) for medium and high risk-appetite customers, while adjusting segment margin discounts. However, on holdout evaluation, the champion program was **rejected by the policy invariant gate for customer churn** because churn in the semiconductor fab segment reached 25.0% and university churn reached 22.8% (exceeding regulatory/policy limits) [energy_alphaevolve_lab.lab_runs, energy_alphaevolve_lab.lab_invariant_catches].
+
+#### 4. `tariff_pricing.20260926T074912Z`
+* **Problem**: FY2026 C&I tariff renewal price book (`tariff_pricing`) [energy_alphaevolve_lab.lab_runs]
+* **Champion Program**: `p040-3a299406` [energy_alphaevolve_lab.lab_runs]
+* **Holdout Delta (Validated Uplift)**: **No validated uplift** (`holdout_delta` is null) [energy_alphaevolve_lab.lab_runs]
+* **Train Delta vs Seed**: +6,215.506 JPY M [energy_alphaevolve_lab.lab_runs]
+* **Cost**: $1.104 USD (40 LLM calls) [energy_alphaevolve_lab.lab_runs]
+* **What it Found (Mechanism)**: The candidate evolved segment-specific margins and market-indexing parameters, but was **rejected on holdout by the churn policy invariant** due to university segment churn reaching 25.6%, which exceeds the 25.0% maximum allowable churn threshold [energy_alphaevolve_lab.lab_runs, energy_alphaevolve_lab.lab_invariant_catches].
+
+#### 5. `tariff_pricing.20260926T073839Z`
+* **Problem**: FY2026 C&I tariff renewal price book (`tariff_pricing`) [energy_alphaevolve_lab.lab_runs]
+* **Champion Program**: `p040-56530207` [energy_alphaevolve_lab.lab_runs]
+* **Holdout Delta (Validated Uplift)**: **No validated uplift** (`holdout_delta` is null) [energy_alphaevolve_lab.lab_runs]
+* **Train Delta vs Seed**: +5,510.688 JPY M [energy_alphaevolve_lab.lab_runs]
+* **Cost**: $1.052 USD (40 LLM calls) [energy_alphaevolve_lab.lab_runs]
+* **What it Found (Mechanism)**: The candidate optimized risk transfer via custom market-link additions, but was **rejected on holdout by the churn policy invariant** as university segment churn rose to 26.2% [energy_alphaevolve_lab.lab_runs, energy_alphaevolve_lab.lab_invariant_catches].
+
+---
+
+### Key Takeaways
+1. **Trading (`jepx_trading`)**: Both runs generated validated holdout uplift (+397.308 JPY M and +323.208 JPY M). The key mechanisms discovered were SOC dynamic programming for BESS multi-cycle arbitrage and wider tolerance utilization in intraday markets to avoid bid-ask spread losses [energy_alphaevolve_lab.lab_runs].
+2. **Pricing (`tariff_pricing`)**: None of the tariff pricing runs achieved validated holdout uplift because aggressive margin and market-link adjustments caused unacceptable customer churn on holdout scenarios, triggering the policy invariant gate [energy_alphaevolve_lab.lab_runs, energy_alphaevolve_lab.lab_invariant_catches].",id=None args={} name='list_runs' partial_args=None will_continue=None,"id='call_5658616' args={'problem': ''} name='list_runs' partial_args=None will_continue=None
+id='call_36657' args={'run_id': 'tariff_pricing.20260926T080035Z'} name='get_run_summary' partial_args=None will_continue=None
+id='call_36658' args={'run_id': 'jepx_trading.20260926T075644Z'} name='get_run_summary' partial_args=None will_continue=None
+id='call_36659' args={'run_id': 'tariff_pricing.20260926T074912Z'} name='get_run_summary' partial_args=None will_continue=None
+id='call_36660' args={'run_id': 'jepx_trading.20260926T073907Z'} name='get_run_summary' partial_args=None will_continue=None
+id='call_36661' args={'run_id': 'tariff_pricing.20260926T073839Z'} name='get_run_summary' partial_args=None will_continue=None
+id='call_1231202' args={'run_id': 'jepx_trading.20260926T073907Z'} name='get_best_program_diff' partial_args=None will_continue=None
+id='call_1231203' args={'run_id': 'jepx_trading.20260926T075644Z'} name='get_best_program_diff' partial_args=None will_continue=None
+id='call_1231204' args={'run_id': 'tariff_pricing.20260926T080035Z'} name='get_best_program_diff' partial_args=None will_continue=None"

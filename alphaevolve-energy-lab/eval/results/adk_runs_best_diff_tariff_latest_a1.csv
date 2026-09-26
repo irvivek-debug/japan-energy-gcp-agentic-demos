@@ -1,0 +1,239 @@
+eval_set_id,eval_id,metric_name,threshold,score,eval_status,prompt,expected_response,actual_response,expected_tool_calls,actual_tool_calls
+runs_best_diff_tariff_latest,best_diff_tariff_latest,tool_trajectory_avg_score,1.0,1.0,PASSED,"What did the best program in run tariff_pricing.20260926T080035Z change versus the seed, and how much did it gain?",The champion p039-acb6b2de changed the price book logic; train and holdout deltas as recorded [energy_alphaevolve_lab.lab_runs].,"In run `tariff_pricing.20260926T080035Z`, the champion program (`p039-acb6b2de`) replaced the seed's flat cost-plus pricing with dynamic market indexing, segment margin tuning, and demand response incentives [energy_alphaevolve_lab.lab_runs].
+
+### Code Changes (Program `p039-acb6b2de` vs Seed)
+
+The program introduced the following logic changes [energy_alphaevolve_lab.lab_runs]:
+
+1. **Risk-Indexed Market Sharing (`alpha`)**: Instead of setting `alpha = 0.5` only for data centers and `0.0` for all other segments, it dynamically calculates `alpha` based on customer risk appetite (`0.70` for high risk, `0.50` for medium risk, `0.18` for low risk), adds extra index linkage for flexible loads (up to `+0.25`), and adjusts for high-energy segments (`+0.12` for `data_center` / `cold_storage`). It caps `alpha` at `0.30` for essential services (`hospital`, `water_utility`) and `0.80` for other accounts.
+2. **Segment & Procurement Margin Tuning**: Replaced the seed's flat `1.5` JPY/kWh margin with dynamic tuning starting at `1.18` JPY/kWh, applying discounts for tenders (`-0.38`), semiconductor fabs (`-0.31`), water utilities (`-0.25`), universities/hospitals (`-0.13`), and data centers/cold storage (`-0.07`). It adds `0.15` JPY/kWh for auto-renewals and `0.08` JPY/kWh for poor credit ratings (C/D), adjusting margins dynamically against estimated competitor quotes (`competitor_quote_est_jpy_kwh`) within a clamped range of `0.45` to `1.80` JPY/kWh.
+3. **Lower Demand Charge Adder**: Reduced the fixed adder over wheeling basic charges (`wheeling_basic_jpy_kw_month`) from `+50.0` JPY/kW/month to `+20.0` JPY/kW/month.
+4. **Demand Response (DR) Discount**: Introduced a DR discount of up to `180.0` JPY/kW/month based on annual DR market value estimates for participating accounts (versus `0.0` in the seed).
+5. **Tightened Imbalance Parameters**: Reduced the deviation band from `10.0%` to `5.0%` and increased the deviation penalty from `1.0` JPY/kWh to `2.2` JPY/kWh.
+
+---
+
+### Performance & Gains
+
+- **Train Progress (Search Score)**:
+  - **Seed Train Score**: `-8800.354` JPY M [energy_alphaevolve_lab.lab_runs]
+  - **Best Program Train Score**: `-2033.209` JPY M [energy_alphaevolve_lab.lab_runs]
+  - **Train Delta vs Seed**: `+6767.146` JPY M [energy_alphaevolve_lab.lab_runs]
+
+- **Validated Holdout Uplift**:
+  - **Holdout Delta**: `null` [energy_alphaevolve_lab.lab_runs]
+  - **Validated Uplift**: **No validated uplift** [energy_alphaevolve_lab.lab_runs].
+
+---
+
+### Policy Gate & Run Provenance
+
+* **Holdout Policy Violation**: The champion program failed the holdout promotion gate due to a policy invariant violation. Segment churn increased by more than 5% over the incumbent book (e.g., `semiconductor_fab` churn rose from 18.9% to 25.0%, and `university` churn rose from 17.0% to 22.8%) [energy_alphaevolve_lab.lab_runs]. 
+* **Run Execution**: This run had source `local-gemini-controller` (an AlphaEvolve-compatible run executed on a local controller), so `evolved` remains `false` [energy_alphaevolve_lab.lab_runs].",id=None args={'run_id': 'tariff_pricing.20260926T080035Z'} name='get_best_program_diff' partial_args=None will_continue=None,"id='call_351942' args={'run_id': 'tariff_pricing.20260926T080035Z'} name='get_best_program_diff' partial_args=None will_continue=None
+id='call_351943' args={'run_id': 'tariff_pricing.20260926T080035Z'} name='get_holdout_result' partial_args=None will_continue=None
+id='call_39254' args={'run_id': 'tariff_pricing.20260926T080035Z'} name='get_run_summary' partial_args=None will_continue=None
+id='call_1300507' args={'run_id': 'tariff_pricing.20260926T080035Z'} name='get_invariant_catches' partial_args=None will_continue=None"
+runs_best_diff_tariff_latest,best_diff_tariff_latest,rubric_based_final_response_quality_v1,0.8,0.75,FAILED,"What did the best program in run tariff_pricing.20260926T080035Z change versus the seed, and how much did it gain?",The champion p039-acb6b2de changed the price book logic; train and holdout deltas as recorded [energy_alphaevolve_lab.lab_runs].,"In run `tariff_pricing.20260926T080035Z`, the champion program (`p039-acb6b2de`) replaced the seed's flat cost-plus pricing with dynamic market indexing, segment margin tuning, and demand response incentives [energy_alphaevolve_lab.lab_runs].
+
+### Code Changes (Program `p039-acb6b2de` vs Seed)
+
+The program introduced the following logic changes [energy_alphaevolve_lab.lab_runs]:
+
+1. **Risk-Indexed Market Sharing (`alpha`)**: Instead of setting `alpha = 0.5` only for data centers and `0.0` for all other segments, it dynamically calculates `alpha` based on customer risk appetite (`0.70` for high risk, `0.50` for medium risk, `0.18` for low risk), adds extra index linkage for flexible loads (up to `+0.25`), and adjusts for high-energy segments (`+0.12` for `data_center` / `cold_storage`). It caps `alpha` at `0.30` for essential services (`hospital`, `water_utility`) and `0.80` for other accounts.
+2. **Segment & Procurement Margin Tuning**: Replaced the seed's flat `1.5` JPY/kWh margin with dynamic tuning starting at `1.18` JPY/kWh, applying discounts for tenders (`-0.38`), semiconductor fabs (`-0.31`), water utilities (`-0.25`), universities/hospitals (`-0.13`), and data centers/cold storage (`-0.07`). It adds `0.15` JPY/kWh for auto-renewals and `0.08` JPY/kWh for poor credit ratings (C/D), adjusting margins dynamically against estimated competitor quotes (`competitor_quote_est_jpy_kwh`) within a clamped range of `0.45` to `1.80` JPY/kWh.
+3. **Lower Demand Charge Adder**: Reduced the fixed adder over wheeling basic charges (`wheeling_basic_jpy_kw_month`) from `+50.0` JPY/kW/month to `+20.0` JPY/kW/month.
+4. **Demand Response (DR) Discount**: Introduced a DR discount of up to `180.0` JPY/kW/month based on annual DR market value estimates for participating accounts (versus `0.0` in the seed).
+5. **Tightened Imbalance Parameters**: Reduced the deviation band from `10.0%` to `5.0%` and increased the deviation penalty from `1.0` JPY/kWh to `2.2` JPY/kWh.
+
+---
+
+### Performance & Gains
+
+- **Train Progress (Search Score)**:
+  - **Seed Train Score**: `-8800.354` JPY M [energy_alphaevolve_lab.lab_runs]
+  - **Best Program Train Score**: `-2033.209` JPY M [energy_alphaevolve_lab.lab_runs]
+  - **Train Delta vs Seed**: `+6767.146` JPY M [energy_alphaevolve_lab.lab_runs]
+
+- **Validated Holdout Uplift**:
+  - **Holdout Delta**: `null` [energy_alphaevolve_lab.lab_runs]
+  - **Validated Uplift**: **No validated uplift** [energy_alphaevolve_lab.lab_runs].
+
+---
+
+### Policy Gate & Run Provenance
+
+* **Holdout Policy Violation**: The champion program failed the holdout promotion gate due to a policy invariant violation. Segment churn increased by more than 5% over the incumbent book (e.g., `semiconductor_fab` churn rose from 18.9% to 25.0%, and `university` churn rose from 17.0% to 22.8%) [energy_alphaevolve_lab.lab_runs]. 
+* **Run Execution**: This run had source `local-gemini-controller` (an AlphaEvolve-compatible run executed on a local controller), so `evolved` remains `false` [energy_alphaevolve_lab.lab_runs].",id=None args={'run_id': 'tariff_pricing.20260926T080035Z'} name='get_best_program_diff' partial_args=None will_continue=None,"id='call_351942' args={'run_id': 'tariff_pricing.20260926T080035Z'} name='get_best_program_diff' partial_args=None will_continue=None
+id='call_351943' args={'run_id': 'tariff_pricing.20260926T080035Z'} name='get_holdout_result' partial_args=None will_continue=None
+id='call_39254' args={'run_id': 'tariff_pricing.20260926T080035Z'} name='get_run_summary' partial_args=None will_continue=None
+id='call_1300507' args={'run_id': 'tariff_pricing.20260926T080035Z'} name='get_invariant_catches' partial_args=None will_continue=None"
+runs_best_diff_tariff_latest,best_diff_tariff_latest,hallucinations_v1,0.8,1.0,PASSED,"What did the best program in run tariff_pricing.20260926T080035Z change versus the seed, and how much did it gain?",The champion p039-acb6b2de changed the price book logic; train and holdout deltas as recorded [energy_alphaevolve_lab.lab_runs].,"In run `tariff_pricing.20260926T080035Z`, the champion program (`p039-acb6b2de`) replaced the seed's flat cost-plus pricing with dynamic market indexing, segment margin tuning, and demand response incentives [energy_alphaevolve_lab.lab_runs].
+
+### Code Changes (Program `p039-acb6b2de` vs Seed)
+
+The program introduced the following logic changes [energy_alphaevolve_lab.lab_runs]:
+
+1. **Risk-Indexed Market Sharing (`alpha`)**: Instead of setting `alpha = 0.5` only for data centers and `0.0` for all other segments, it dynamically calculates `alpha` based on customer risk appetite (`0.70` for high risk, `0.50` for medium risk, `0.18` for low risk), adds extra index linkage for flexible loads (up to `+0.25`), and adjusts for high-energy segments (`+0.12` for `data_center` / `cold_storage`). It caps `alpha` at `0.30` for essential services (`hospital`, `water_utility`) and `0.80` for other accounts.
+2. **Segment & Procurement Margin Tuning**: Replaced the seed's flat `1.5` JPY/kWh margin with dynamic tuning starting at `1.18` JPY/kWh, applying discounts for tenders (`-0.38`), semiconductor fabs (`-0.31`), water utilities (`-0.25`), universities/hospitals (`-0.13`), and data centers/cold storage (`-0.07`). It adds `0.15` JPY/kWh for auto-renewals and `0.08` JPY/kWh for poor credit ratings (C/D), adjusting margins dynamically against estimated competitor quotes (`competitor_quote_est_jpy_kwh`) within a clamped range of `0.45` to `1.80` JPY/kWh.
+3. **Lower Demand Charge Adder**: Reduced the fixed adder over wheeling basic charges (`wheeling_basic_jpy_kw_month`) from `+50.0` JPY/kW/month to `+20.0` JPY/kW/month.
+4. **Demand Response (DR) Discount**: Introduced a DR discount of up to `180.0` JPY/kW/month based on annual DR market value estimates for participating accounts (versus `0.0` in the seed).
+5. **Tightened Imbalance Parameters**: Reduced the deviation band from `10.0%` to `5.0%` and increased the deviation penalty from `1.0` JPY/kWh to `2.2` JPY/kWh.
+
+---
+
+### Performance & Gains
+
+- **Train Progress (Search Score)**:
+  - **Seed Train Score**: `-8800.354` JPY M [energy_alphaevolve_lab.lab_runs]
+  - **Best Program Train Score**: `-2033.209` JPY M [energy_alphaevolve_lab.lab_runs]
+  - **Train Delta vs Seed**: `+6767.146` JPY M [energy_alphaevolve_lab.lab_runs]
+
+- **Validated Holdout Uplift**:
+  - **Holdout Delta**: `null` [energy_alphaevolve_lab.lab_runs]
+  - **Validated Uplift**: **No validated uplift** [energy_alphaevolve_lab.lab_runs].
+
+---
+
+### Policy Gate & Run Provenance
+
+* **Holdout Policy Violation**: The champion program failed the holdout promotion gate due to a policy invariant violation. Segment churn increased by more than 5% over the incumbent book (e.g., `semiconductor_fab` churn rose from 18.9% to 25.0%, and `university` churn rose from 17.0% to 22.8%) [energy_alphaevolve_lab.lab_runs]. 
+* **Run Execution**: This run had source `local-gemini-controller` (an AlphaEvolve-compatible run executed on a local controller), so `evolved` remains `false` [energy_alphaevolve_lab.lab_runs].",id=None args={'run_id': 'tariff_pricing.20260926T080035Z'} name='get_best_program_diff' partial_args=None will_continue=None,"id='call_351942' args={'run_id': 'tariff_pricing.20260926T080035Z'} name='get_best_program_diff' partial_args=None will_continue=None
+id='call_351943' args={'run_id': 'tariff_pricing.20260926T080035Z'} name='get_holdout_result' partial_args=None will_continue=None
+id='call_39254' args={'run_id': 'tariff_pricing.20260926T080035Z'} name='get_run_summary' partial_args=None will_continue=None
+id='call_1300507' args={'run_id': 'tariff_pricing.20260926T080035Z'} name='get_invariant_catches' partial_args=None will_continue=None"
+runs_best_diff_tariff_latest,best_diff_tariff_latest,tool_call_count_v1,,4.0,INFORMATIONAL,"What did the best program in run tariff_pricing.20260926T080035Z change versus the seed, and how much did it gain?",The champion p039-acb6b2de changed the price book logic; train and holdout deltas as recorded [energy_alphaevolve_lab.lab_runs].,"In run `tariff_pricing.20260926T080035Z`, the champion program (`p039-acb6b2de`) replaced the seed's flat cost-plus pricing with dynamic market indexing, segment margin tuning, and demand response incentives [energy_alphaevolve_lab.lab_runs].
+
+### Code Changes (Program `p039-acb6b2de` vs Seed)
+
+The program introduced the following logic changes [energy_alphaevolve_lab.lab_runs]:
+
+1. **Risk-Indexed Market Sharing (`alpha`)**: Instead of setting `alpha = 0.5` only for data centers and `0.0` for all other segments, it dynamically calculates `alpha` based on customer risk appetite (`0.70` for high risk, `0.50` for medium risk, `0.18` for low risk), adds extra index linkage for flexible loads (up to `+0.25`), and adjusts for high-energy segments (`+0.12` for `data_center` / `cold_storage`). It caps `alpha` at `0.30` for essential services (`hospital`, `water_utility`) and `0.80` for other accounts.
+2. **Segment & Procurement Margin Tuning**: Replaced the seed's flat `1.5` JPY/kWh margin with dynamic tuning starting at `1.18` JPY/kWh, applying discounts for tenders (`-0.38`), semiconductor fabs (`-0.31`), water utilities (`-0.25`), universities/hospitals (`-0.13`), and data centers/cold storage (`-0.07`). It adds `0.15` JPY/kWh for auto-renewals and `0.08` JPY/kWh for poor credit ratings (C/D), adjusting margins dynamically against estimated competitor quotes (`competitor_quote_est_jpy_kwh`) within a clamped range of `0.45` to `1.80` JPY/kWh.
+3. **Lower Demand Charge Adder**: Reduced the fixed adder over wheeling basic charges (`wheeling_basic_jpy_kw_month`) from `+50.0` JPY/kW/month to `+20.0` JPY/kW/month.
+4. **Demand Response (DR) Discount**: Introduced a DR discount of up to `180.0` JPY/kW/month based on annual DR market value estimates for participating accounts (versus `0.0` in the seed).
+5. **Tightened Imbalance Parameters**: Reduced the deviation band from `10.0%` to `5.0%` and increased the deviation penalty from `1.0` JPY/kWh to `2.2` JPY/kWh.
+
+---
+
+### Performance & Gains
+
+- **Train Progress (Search Score)**:
+  - **Seed Train Score**: `-8800.354` JPY M [energy_alphaevolve_lab.lab_runs]
+  - **Best Program Train Score**: `-2033.209` JPY M [energy_alphaevolve_lab.lab_runs]
+  - **Train Delta vs Seed**: `+6767.146` JPY M [energy_alphaevolve_lab.lab_runs]
+
+- **Validated Holdout Uplift**:
+  - **Holdout Delta**: `null` [energy_alphaevolve_lab.lab_runs]
+  - **Validated Uplift**: **No validated uplift** [energy_alphaevolve_lab.lab_runs].
+
+---
+
+### Policy Gate & Run Provenance
+
+* **Holdout Policy Violation**: The champion program failed the holdout promotion gate due to a policy invariant violation. Segment churn increased by more than 5% over the incumbent book (e.g., `semiconductor_fab` churn rose from 18.9% to 25.0%, and `university` churn rose from 17.0% to 22.8%) [energy_alphaevolve_lab.lab_runs]. 
+* **Run Execution**: This run had source `local-gemini-controller` (an AlphaEvolve-compatible run executed on a local controller), so `evolved` remains `false` [energy_alphaevolve_lab.lab_runs].",id=None args={'run_id': 'tariff_pricing.20260926T080035Z'} name='get_best_program_diff' partial_args=None will_continue=None,"id='call_351942' args={'run_id': 'tariff_pricing.20260926T080035Z'} name='get_best_program_diff' partial_args=None will_continue=None
+id='call_351943' args={'run_id': 'tariff_pricing.20260926T080035Z'} name='get_holdout_result' partial_args=None will_continue=None
+id='call_39254' args={'run_id': 'tariff_pricing.20260926T080035Z'} name='get_run_summary' partial_args=None will_continue=None
+id='call_1300507' args={'run_id': 'tariff_pricing.20260926T080035Z'} name='get_invariant_catches' partial_args=None will_continue=None"
+runs_best_diff_tariff_latest,best_diff_tariff_latest,inference_call_count_v1,,4.0,INFORMATIONAL,"What did the best program in run tariff_pricing.20260926T080035Z change versus the seed, and how much did it gain?",The champion p039-acb6b2de changed the price book logic; train and holdout deltas as recorded [energy_alphaevolve_lab.lab_runs].,"In run `tariff_pricing.20260926T080035Z`, the champion program (`p039-acb6b2de`) replaced the seed's flat cost-plus pricing with dynamic market indexing, segment margin tuning, and demand response incentives [energy_alphaevolve_lab.lab_runs].
+
+### Code Changes (Program `p039-acb6b2de` vs Seed)
+
+The program introduced the following logic changes [energy_alphaevolve_lab.lab_runs]:
+
+1. **Risk-Indexed Market Sharing (`alpha`)**: Instead of setting `alpha = 0.5` only for data centers and `0.0` for all other segments, it dynamically calculates `alpha` based on customer risk appetite (`0.70` for high risk, `0.50` for medium risk, `0.18` for low risk), adds extra index linkage for flexible loads (up to `+0.25`), and adjusts for high-energy segments (`+0.12` for `data_center` / `cold_storage`). It caps `alpha` at `0.30` for essential services (`hospital`, `water_utility`) and `0.80` for other accounts.
+2. **Segment & Procurement Margin Tuning**: Replaced the seed's flat `1.5` JPY/kWh margin with dynamic tuning starting at `1.18` JPY/kWh, applying discounts for tenders (`-0.38`), semiconductor fabs (`-0.31`), water utilities (`-0.25`), universities/hospitals (`-0.13`), and data centers/cold storage (`-0.07`). It adds `0.15` JPY/kWh for auto-renewals and `0.08` JPY/kWh for poor credit ratings (C/D), adjusting margins dynamically against estimated competitor quotes (`competitor_quote_est_jpy_kwh`) within a clamped range of `0.45` to `1.80` JPY/kWh.
+3. **Lower Demand Charge Adder**: Reduced the fixed adder over wheeling basic charges (`wheeling_basic_jpy_kw_month`) from `+50.0` JPY/kW/month to `+20.0` JPY/kW/month.
+4. **Demand Response (DR) Discount**: Introduced a DR discount of up to `180.0` JPY/kW/month based on annual DR market value estimates for participating accounts (versus `0.0` in the seed).
+5. **Tightened Imbalance Parameters**: Reduced the deviation band from `10.0%` to `5.0%` and increased the deviation penalty from `1.0` JPY/kWh to `2.2` JPY/kWh.
+
+---
+
+### Performance & Gains
+
+- **Train Progress (Search Score)**:
+  - **Seed Train Score**: `-8800.354` JPY M [energy_alphaevolve_lab.lab_runs]
+  - **Best Program Train Score**: `-2033.209` JPY M [energy_alphaevolve_lab.lab_runs]
+  - **Train Delta vs Seed**: `+6767.146` JPY M [energy_alphaevolve_lab.lab_runs]
+
+- **Validated Holdout Uplift**:
+  - **Holdout Delta**: `null` [energy_alphaevolve_lab.lab_runs]
+  - **Validated Uplift**: **No validated uplift** [energy_alphaevolve_lab.lab_runs].
+
+---
+
+### Policy Gate & Run Provenance
+
+* **Holdout Policy Violation**: The champion program failed the holdout promotion gate due to a policy invariant violation. Segment churn increased by more than 5% over the incumbent book (e.g., `semiconductor_fab` churn rose from 18.9% to 25.0%, and `university` churn rose from 17.0% to 22.8%) [energy_alphaevolve_lab.lab_runs]. 
+* **Run Execution**: This run had source `local-gemini-controller` (an AlphaEvolve-compatible run executed on a local controller), so `evolved` remains `false` [energy_alphaevolve_lab.lab_runs].",id=None args={'run_id': 'tariff_pricing.20260926T080035Z'} name='get_best_program_diff' partial_args=None will_continue=None,"id='call_351942' args={'run_id': 'tariff_pricing.20260926T080035Z'} name='get_best_program_diff' partial_args=None will_continue=None
+id='call_351943' args={'run_id': 'tariff_pricing.20260926T080035Z'} name='get_holdout_result' partial_args=None will_continue=None
+id='call_39254' args={'run_id': 'tariff_pricing.20260926T080035Z'} name='get_run_summary' partial_args=None will_continue=None
+id='call_1300507' args={'run_id': 'tariff_pricing.20260926T080035Z'} name='get_invariant_catches' partial_args=None will_continue=None"
+runs_best_diff_tariff_latest,best_diff_tariff_latest,token_usage_v1,,20127.0,INFORMATIONAL,"What did the best program in run tariff_pricing.20260926T080035Z change versus the seed, and how much did it gain?",The champion p039-acb6b2de changed the price book logic; train and holdout deltas as recorded [energy_alphaevolve_lab.lab_runs].,"In run `tariff_pricing.20260926T080035Z`, the champion program (`p039-acb6b2de`) replaced the seed's flat cost-plus pricing with dynamic market indexing, segment margin tuning, and demand response incentives [energy_alphaevolve_lab.lab_runs].
+
+### Code Changes (Program `p039-acb6b2de` vs Seed)
+
+The program introduced the following logic changes [energy_alphaevolve_lab.lab_runs]:
+
+1. **Risk-Indexed Market Sharing (`alpha`)**: Instead of setting `alpha = 0.5` only for data centers and `0.0` for all other segments, it dynamically calculates `alpha` based on customer risk appetite (`0.70` for high risk, `0.50` for medium risk, `0.18` for low risk), adds extra index linkage for flexible loads (up to `+0.25`), and adjusts for high-energy segments (`+0.12` for `data_center` / `cold_storage`). It caps `alpha` at `0.30` for essential services (`hospital`, `water_utility`) and `0.80` for other accounts.
+2. **Segment & Procurement Margin Tuning**: Replaced the seed's flat `1.5` JPY/kWh margin with dynamic tuning starting at `1.18` JPY/kWh, applying discounts for tenders (`-0.38`), semiconductor fabs (`-0.31`), water utilities (`-0.25`), universities/hospitals (`-0.13`), and data centers/cold storage (`-0.07`). It adds `0.15` JPY/kWh for auto-renewals and `0.08` JPY/kWh for poor credit ratings (C/D), adjusting margins dynamically against estimated competitor quotes (`competitor_quote_est_jpy_kwh`) within a clamped range of `0.45` to `1.80` JPY/kWh.
+3. **Lower Demand Charge Adder**: Reduced the fixed adder over wheeling basic charges (`wheeling_basic_jpy_kw_month`) from `+50.0` JPY/kW/month to `+20.0` JPY/kW/month.
+4. **Demand Response (DR) Discount**: Introduced a DR discount of up to `180.0` JPY/kW/month based on annual DR market value estimates for participating accounts (versus `0.0` in the seed).
+5. **Tightened Imbalance Parameters**: Reduced the deviation band from `10.0%` to `5.0%` and increased the deviation penalty from `1.0` JPY/kWh to `2.2` JPY/kWh.
+
+---
+
+### Performance & Gains
+
+- **Train Progress (Search Score)**:
+  - **Seed Train Score**: `-8800.354` JPY M [energy_alphaevolve_lab.lab_runs]
+  - **Best Program Train Score**: `-2033.209` JPY M [energy_alphaevolve_lab.lab_runs]
+  - **Train Delta vs Seed**: `+6767.146` JPY M [energy_alphaevolve_lab.lab_runs]
+
+- **Validated Holdout Uplift**:
+  - **Holdout Delta**: `null` [energy_alphaevolve_lab.lab_runs]
+  - **Validated Uplift**: **No validated uplift** [energy_alphaevolve_lab.lab_runs].
+
+---
+
+### Policy Gate & Run Provenance
+
+* **Holdout Policy Violation**: The champion program failed the holdout promotion gate due to a policy invariant violation. Segment churn increased by more than 5% over the incumbent book (e.g., `semiconductor_fab` churn rose from 18.9% to 25.0%, and `university` churn rose from 17.0% to 22.8%) [energy_alphaevolve_lab.lab_runs]. 
+* **Run Execution**: This run had source `local-gemini-controller` (an AlphaEvolve-compatible run executed on a local controller), so `evolved` remains `false` [energy_alphaevolve_lab.lab_runs].",id=None args={'run_id': 'tariff_pricing.20260926T080035Z'} name='get_best_program_diff' partial_args=None will_continue=None,"id='call_351942' args={'run_id': 'tariff_pricing.20260926T080035Z'} name='get_best_program_diff' partial_args=None will_continue=None
+id='call_351943' args={'run_id': 'tariff_pricing.20260926T080035Z'} name='get_holdout_result' partial_args=None will_continue=None
+id='call_39254' args={'run_id': 'tariff_pricing.20260926T080035Z'} name='get_run_summary' partial_args=None will_continue=None
+id='call_1300507' args={'run_id': 'tariff_pricing.20260926T080035Z'} name='get_invariant_catches' partial_args=None will_continue=None"
+runs_best_diff_tariff_latest,best_diff_tariff_latest,invocation_duration_v1,,15.968,INFORMATIONAL,"What did the best program in run tariff_pricing.20260926T080035Z change versus the seed, and how much did it gain?",The champion p039-acb6b2de changed the price book logic; train and holdout deltas as recorded [energy_alphaevolve_lab.lab_runs].,"In run `tariff_pricing.20260926T080035Z`, the champion program (`p039-acb6b2de`) replaced the seed's flat cost-plus pricing with dynamic market indexing, segment margin tuning, and demand response incentives [energy_alphaevolve_lab.lab_runs].
+
+### Code Changes (Program `p039-acb6b2de` vs Seed)
+
+The program introduced the following logic changes [energy_alphaevolve_lab.lab_runs]:
+
+1. **Risk-Indexed Market Sharing (`alpha`)**: Instead of setting `alpha = 0.5` only for data centers and `0.0` for all other segments, it dynamically calculates `alpha` based on customer risk appetite (`0.70` for high risk, `0.50` for medium risk, `0.18` for low risk), adds extra index linkage for flexible loads (up to `+0.25`), and adjusts for high-energy segments (`+0.12` for `data_center` / `cold_storage`). It caps `alpha` at `0.30` for essential services (`hospital`, `water_utility`) and `0.80` for other accounts.
+2. **Segment & Procurement Margin Tuning**: Replaced the seed's flat `1.5` JPY/kWh margin with dynamic tuning starting at `1.18` JPY/kWh, applying discounts for tenders (`-0.38`), semiconductor fabs (`-0.31`), water utilities (`-0.25`), universities/hospitals (`-0.13`), and data centers/cold storage (`-0.07`). It adds `0.15` JPY/kWh for auto-renewals and `0.08` JPY/kWh for poor credit ratings (C/D), adjusting margins dynamically against estimated competitor quotes (`competitor_quote_est_jpy_kwh`) within a clamped range of `0.45` to `1.80` JPY/kWh.
+3. **Lower Demand Charge Adder**: Reduced the fixed adder over wheeling basic charges (`wheeling_basic_jpy_kw_month`) from `+50.0` JPY/kW/month to `+20.0` JPY/kW/month.
+4. **Demand Response (DR) Discount**: Introduced a DR discount of up to `180.0` JPY/kW/month based on annual DR market value estimates for participating accounts (versus `0.0` in the seed).
+5. **Tightened Imbalance Parameters**: Reduced the deviation band from `10.0%` to `5.0%` and increased the deviation penalty from `1.0` JPY/kWh to `2.2` JPY/kWh.
+
+---
+
+### Performance & Gains
+
+- **Train Progress (Search Score)**:
+  - **Seed Train Score**: `-8800.354` JPY M [energy_alphaevolve_lab.lab_runs]
+  - **Best Program Train Score**: `-2033.209` JPY M [energy_alphaevolve_lab.lab_runs]
+  - **Train Delta vs Seed**: `+6767.146` JPY M [energy_alphaevolve_lab.lab_runs]
+
+- **Validated Holdout Uplift**:
+  - **Holdout Delta**: `null` [energy_alphaevolve_lab.lab_runs]
+  - **Validated Uplift**: **No validated uplift** [energy_alphaevolve_lab.lab_runs].
+
+---
+
+### Policy Gate & Run Provenance
+
+* **Holdout Policy Violation**: The champion program failed the holdout promotion gate due to a policy invariant violation. Segment churn increased by more than 5% over the incumbent book (e.g., `semiconductor_fab` churn rose from 18.9% to 25.0%, and `university` churn rose from 17.0% to 22.8%) [energy_alphaevolve_lab.lab_runs]. 
+* **Run Execution**: This run had source `local-gemini-controller` (an AlphaEvolve-compatible run executed on a local controller), so `evolved` remains `false` [energy_alphaevolve_lab.lab_runs].",id=None args={'run_id': 'tariff_pricing.20260926T080035Z'} name='get_best_program_diff' partial_args=None will_continue=None,"id='call_351942' args={'run_id': 'tariff_pricing.20260926T080035Z'} name='get_best_program_diff' partial_args=None will_continue=None
+id='call_351943' args={'run_id': 'tariff_pricing.20260926T080035Z'} name='get_holdout_result' partial_args=None will_continue=None
+id='call_39254' args={'run_id': 'tariff_pricing.20260926T080035Z'} name='get_run_summary' partial_args=None will_continue=None
+id='call_1300507' args={'run_id': 'tariff_pricing.20260926T080035Z'} name='get_invariant_catches' partial_args=None will_continue=None"

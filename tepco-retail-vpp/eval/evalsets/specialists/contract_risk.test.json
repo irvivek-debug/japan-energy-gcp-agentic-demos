@@ -1,0 +1,105 @@
+{
+ "eval_set_id": "specialist_contract_risk",
+ "name": "contract_risk specialist (chat-mode clone)",
+ "eval_cases": [
+  {
+   "eval_id": "R1_breaches",
+   "conversation": [
+    {
+     "invocation_id": "R1_breaches-1",
+     "user_content": {
+      "role": "user",
+      "parts": [
+       {
+        "text": "Which customers breached their deviation band this month, and what did it cost?"
+       }
+      ]
+     },
+     "final_response": {
+      "role": "model",
+      "parts": [
+       {
+        "text": "See rubric."
+       }
+      ]
+     },
+     "intermediate_data": {
+      "tool_uses": [
+       {
+        "name": "get_deviation_breaches",
+        "args": {
+         "from_date": "2026-08-01",
+         "to_date": "2026-08-19"
+        }
+       }
+      ]
+     }
+    }
+   ],
+   "session_input": {
+    "app_name": "retail_desk",
+    "user_id": "eval",
+    "state": {}
+   },
+   "rubrics": [
+    {
+     "rubric_id": "r1",
+     "type": "FINAL_RESPONSE_QUALITY",
+     "rubric_content": {
+      "text_property": "Names Kanagawa Cold Chain as the main source of breaches with its cost in JPY."
+     }
+    }
+   ]
+  },
+  {
+   "eval_id": "R2_margin_at_risk",
+   "conversation": [
+    {
+     "invocation_id": "R2_margin_at_risk-1",
+     "user_content": {
+      "role": "user",
+      "parts": [
+       {
+        "text": "What is our margin at risk if the Tokyo spot price is 40% higher for the rest of August?"
+       }
+      ]
+     },
+     "final_response": {
+      "role": "model",
+      "parts": [
+       {
+        "text": "See rubric."
+       }
+      ]
+     },
+     "intermediate_data": {
+      "tool_uses": [
+       {
+        "name": "compute_margin_at_risk",
+        "args": {
+         "from_date": "2026-08-20",
+         "to_date": "2026-08-31",
+         "price_shock_pct": 40
+        }
+       }
+      ]
+     }
+    }
+   ],
+   "session_input": {
+    "app_name": "retail_desk",
+    "user_id": "eval",
+    "state": {}
+   },
+   "rubrics": [
+    {
+     "rubric_id": "r2",
+     "type": "FINAL_RESPONSE_QUALITY",
+     "rubric_content": {
+      "text_property": "States the margin at risk in JPY and the effect on expected margin."
+     }
+    }
+   ]
+  }
+ ]
+}

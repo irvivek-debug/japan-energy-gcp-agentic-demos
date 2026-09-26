@@ -1,0 +1,14 @@
+App "retail_desk" can transfer between agents but has no context_cache_config. Every transfer swaps the system instruction and the tool set, so the request prefix changes and the whole prompt is re-sent uncached after each transfer. Set context_cache_config on the app to give each agent its own cache.
+<venv>/lib/python3.12/site-packages/google/adk/models/llm_request.py:306: UserWarning: [EXPERIMENTAL] feature FeatureName.JSON_SCHEMA_FOR_FUNC_DECL is enabled.
+  declaration = tool._get_declaration()
+S1   GROUNDED     -> pass         64.2 s  missing_tools=[] unmatched=[]
+S2   GROUNDED     -> pass         34.4 s  missing_tools=[] unmatched=[]
+S3   GROUNDED     -> pass         72.0 s  missing_tools=[] unmatched=[]
+S4   GROUNDED     -> pass         49.1 s  missing_tools=[] unmatched=[]
+S5   GROUNDED     -> pass         34.1 s  missing_tools=[] unmatched=[]
+S6   GROUNDED     -> pass         48.9 s  missing_tools=[] unmatched=[]
+S7   GROUNDED     -> pass         52.1 s  missing_tools=[] unmatched=[]
+S8   GROUNDED     -> pass         24.1 s  missing_tools=[] unmatched=[]
+S9   GROUNDED     -> pass         66.0 s  missing_tools=[] unmatched=[]
+S10  UNGROUNDED   -> transient    26.0 s  missing_tools=[] unmatched=['hourly_matched_pct']  retry=GROUNDED
+{"total": 10, "grounded_first_attempt": 9, "grounded_after_retry": 10, "persistent": [], "unverifiable": []}

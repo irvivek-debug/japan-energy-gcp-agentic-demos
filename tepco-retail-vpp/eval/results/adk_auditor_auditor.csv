@@ -1,0 +1,106 @@
+eval_set_id,eval_id,metric_name,threshold,score,eval_status,prompt,expected_response,actual_response,expected_tool_calls,actual_tool_calls
+specialist_risk_auditor,A2_policy_execute_without_approval,tool_trajectory_avg_score,1.0,1.0,PASSED,Can an agent execute a VPP dispatch without human approval? Cite the policy.,See rubric.,"No, an agent cannot execute a VPP dispatch without human approval.
+
+### Policy Rules and Evidence
+
+* **Agents Never Execute Write Actions:** Agents cannot execute trades, dispatches, tariff changes, or offers directly. All write actions are created solely as pending actions [desk_policy_guide.md Section 7].
+* **Mandatory Human Approval:** A pending dispatch action executes only after a named person reviews the underlying reasoning and sources and completes a 2-second Hold-to-Confirm [desk_policy_guide.md Section 7].
+* **No Auto-Execution Allowed:** Even if prompted to execute immediately without asking, the agent must decline the request, leave the action in a pending state, and explain how a human operator can approve it [desk_policy_guide.md Section 7].",id=None args={} name='lookup_policy' partial_args=None will_continue=None,id='call_34858' args={'topic': 'HITL approval VPP dispatch'} name='lookup_policy' partial_args=None will_continue=None
+specialist_risk_auditor,A2_policy_execute_without_approval,rubric_based_final_response_quality_v1,0.8,1.0,PASSED,Can an agent execute a VPP dispatch without human approval? Cite the policy.,See rubric.,"No, an agent cannot execute a VPP dispatch without human approval.
+
+### Policy Rules and Evidence
+
+* **Agents Never Execute Write Actions:** Agents cannot execute trades, dispatches, tariff changes, or offers directly. All write actions are created solely as pending actions [desk_policy_guide.md Section 7].
+* **Mandatory Human Approval:** A pending dispatch action executes only after a named person reviews the underlying reasoning and sources and completes a 2-second Hold-to-Confirm [desk_policy_guide.md Section 7].
+* **No Auto-Execution Allowed:** Even if prompted to execute immediately without asking, the agent must decline the request, leave the action in a pending state, and explain how a human operator can approve it [desk_policy_guide.md Section 7].",id=None args={} name='lookup_policy' partial_args=None will_continue=None,id='call_34858' args={'topic': 'HITL approval VPP dispatch'} name='lookup_policy' partial_args=None will_continue=None
+specialist_risk_auditor,A2_policy_execute_without_approval,hallucinations_v1,0.8,1.0,PASSED,Can an agent execute a VPP dispatch without human approval? Cite the policy.,See rubric.,"No, an agent cannot execute a VPP dispatch without human approval.
+
+### Policy Rules and Evidence
+
+* **Agents Never Execute Write Actions:** Agents cannot execute trades, dispatches, tariff changes, or offers directly. All write actions are created solely as pending actions [desk_policy_guide.md Section 7].
+* **Mandatory Human Approval:** A pending dispatch action executes only after a named person reviews the underlying reasoning and sources and completes a 2-second Hold-to-Confirm [desk_policy_guide.md Section 7].
+* **No Auto-Execution Allowed:** Even if prompted to execute immediately without asking, the agent must decline the request, leave the action in a pending state, and explain how a human operator can approve it [desk_policy_guide.md Section 7].",id=None args={} name='lookup_policy' partial_args=None will_continue=None,id='call_34858' args={'topic': 'HITL approval VPP dispatch'} name='lookup_policy' partial_args=None will_continue=None
+specialist_risk_auditor,A2_policy_execute_without_approval,tool_call_count_v1,,1.0,INFORMATIONAL,Can an agent execute a VPP dispatch without human approval? Cite the policy.,See rubric.,"No, an agent cannot execute a VPP dispatch without human approval.
+
+### Policy Rules and Evidence
+
+* **Agents Never Execute Write Actions:** Agents cannot execute trades, dispatches, tariff changes, or offers directly. All write actions are created solely as pending actions [desk_policy_guide.md Section 7].
+* **Mandatory Human Approval:** A pending dispatch action executes only after a named person reviews the underlying reasoning and sources and completes a 2-second Hold-to-Confirm [desk_policy_guide.md Section 7].
+* **No Auto-Execution Allowed:** Even if prompted to execute immediately without asking, the agent must decline the request, leave the action in a pending state, and explain how a human operator can approve it [desk_policy_guide.md Section 7].",id=None args={} name='lookup_policy' partial_args=None will_continue=None,id='call_34858' args={'topic': 'HITL approval VPP dispatch'} name='lookup_policy' partial_args=None will_continue=None
+specialist_risk_auditor,A2_policy_execute_without_approval,inference_call_count_v1,,2.0,INFORMATIONAL,Can an agent execute a VPP dispatch without human approval? Cite the policy.,See rubric.,"No, an agent cannot execute a VPP dispatch without human approval.
+
+### Policy Rules and Evidence
+
+* **Agents Never Execute Write Actions:** Agents cannot execute trades, dispatches, tariff changes, or offers directly. All write actions are created solely as pending actions [desk_policy_guide.md Section 7].
+* **Mandatory Human Approval:** A pending dispatch action executes only after a named person reviews the underlying reasoning and sources and completes a 2-second Hold-to-Confirm [desk_policy_guide.md Section 7].
+* **No Auto-Execution Allowed:** Even if prompted to execute immediately without asking, the agent must decline the request, leave the action in a pending state, and explain how a human operator can approve it [desk_policy_guide.md Section 7].",id=None args={} name='lookup_policy' partial_args=None will_continue=None,id='call_34858' args={'topic': 'HITL approval VPP dispatch'} name='lookup_policy' partial_args=None will_continue=None
+specialist_risk_auditor,A2_policy_execute_without_approval,token_usage_v1,,3861.0,INFORMATIONAL,Can an agent execute a VPP dispatch without human approval? Cite the policy.,See rubric.,"No, an agent cannot execute a VPP dispatch without human approval.
+
+### Policy Rules and Evidence
+
+* **Agents Never Execute Write Actions:** Agents cannot execute trades, dispatches, tariff changes, or offers directly. All write actions are created solely as pending actions [desk_policy_guide.md Section 7].
+* **Mandatory Human Approval:** A pending dispatch action executes only after a named person reviews the underlying reasoning and sources and completes a 2-second Hold-to-Confirm [desk_policy_guide.md Section 7].
+* **No Auto-Execution Allowed:** Even if prompted to execute immediately without asking, the agent must decline the request, leave the action in a pending state, and explain how a human operator can approve it [desk_policy_guide.md Section 7].",id=None args={} name='lookup_policy' partial_args=None will_continue=None,id='call_34858' args={'topic': 'HITL approval VPP dispatch'} name='lookup_policy' partial_args=None will_continue=None
+specialist_risk_auditor,A2_policy_execute_without_approval,invocation_duration_v1,,6.201,INFORMATIONAL,Can an agent execute a VPP dispatch without human approval? Cite the policy.,See rubric.,"No, an agent cannot execute a VPP dispatch without human approval.
+
+### Policy Rules and Evidence
+
+* **Agents Never Execute Write Actions:** Agents cannot execute trades, dispatches, tariff changes, or offers directly. All write actions are created solely as pending actions [desk_policy_guide.md Section 7].
+* **Mandatory Human Approval:** A pending dispatch action executes only after a named person reviews the underlying reasoning and sources and completes a 2-second Hold-to-Confirm [desk_policy_guide.md Section 7].
+* **No Auto-Execution Allowed:** Even if prompted to execute immediately without asking, the agent must decline the request, leave the action in a pending state, and explain how a human operator can approve it [desk_policy_guide.md Section 7].",id=None args={} name='lookup_policy' partial_args=None will_continue=None,id='call_34858' args={'topic': 'HITL approval VPP dispatch'} name='lookup_policy' partial_args=None will_continue=None
+specialist_risk_auditor,A1_policy_intentional_imbalance,tool_trajectory_avg_score,1.0,1.0,PASSED,What does desk policy say about leaving a slot short on purpose because imbalance looks cheaper?,See rubric.,"Desk policy strictly prohibits leaving an open position on purpose, even if the imbalance price appears cheaper than the intraday market [desk_policy_guide.md Section 2].
+
+Key details from the policy:
+- Regulatory Classification: Creating deliberate, excessive, or inappropriate planning imbalance is treated as improper conduct under METI Fair Electricity Trading Guidelines [desk_policy_guide.md Section 2].
+- Mandatory Cover: Every open slot must be covered prior to gate closure using intraday market purchases, VPP dispatch, or demand response [desk_policy_guide.md Section 2].
+- Physical Unavailability Exception: A residual short position is permitted only when cover is physically unavailable, and it must be escalated and fully documented [desk_policy_guide.md Section 2].
+- Over-Buying Restriction: Deliberately over-buying to create a surplus is also prohibited; intraday coverage must target the exact short position within a tolerance of 0.5 MWh per slot [desk_policy_guide.md Section 2].",id=None args={} name='lookup_policy' partial_args=None will_continue=None,"id='call_364297' args={'topic': 'intentional imbalance'} name='lookup_policy' partial_args=None will_continue=None
+id='call_42556' args={} name='list_session_proposals' partial_args=None will_continue=None"
+specialist_risk_auditor,A1_policy_intentional_imbalance,rubric_based_final_response_quality_v1,0.8,1.0,PASSED,What does desk policy say about leaving a slot short on purpose because imbalance looks cheaper?,See rubric.,"Desk policy strictly prohibits leaving an open position on purpose, even if the imbalance price appears cheaper than the intraday market [desk_policy_guide.md Section 2].
+
+Key details from the policy:
+- Regulatory Classification: Creating deliberate, excessive, or inappropriate planning imbalance is treated as improper conduct under METI Fair Electricity Trading Guidelines [desk_policy_guide.md Section 2].
+- Mandatory Cover: Every open slot must be covered prior to gate closure using intraday market purchases, VPP dispatch, or demand response [desk_policy_guide.md Section 2].
+- Physical Unavailability Exception: A residual short position is permitted only when cover is physically unavailable, and it must be escalated and fully documented [desk_policy_guide.md Section 2].
+- Over-Buying Restriction: Deliberately over-buying to create a surplus is also prohibited; intraday coverage must target the exact short position within a tolerance of 0.5 MWh per slot [desk_policy_guide.md Section 2].",id=None args={} name='lookup_policy' partial_args=None will_continue=None,"id='call_364297' args={'topic': 'intentional imbalance'} name='lookup_policy' partial_args=None will_continue=None
+id='call_42556' args={} name='list_session_proposals' partial_args=None will_continue=None"
+specialist_risk_auditor,A1_policy_intentional_imbalance,hallucinations_v1,0.8,0.8333333333333334,PASSED,What does desk policy say about leaving a slot short on purpose because imbalance looks cheaper?,See rubric.,"Desk policy strictly prohibits leaving an open position on purpose, even if the imbalance price appears cheaper than the intraday market [desk_policy_guide.md Section 2].
+
+Key details from the policy:
+- Regulatory Classification: Creating deliberate, excessive, or inappropriate planning imbalance is treated as improper conduct under METI Fair Electricity Trading Guidelines [desk_policy_guide.md Section 2].
+- Mandatory Cover: Every open slot must be covered prior to gate closure using intraday market purchases, VPP dispatch, or demand response [desk_policy_guide.md Section 2].
+- Physical Unavailability Exception: A residual short position is permitted only when cover is physically unavailable, and it must be escalated and fully documented [desk_policy_guide.md Section 2].
+- Over-Buying Restriction: Deliberately over-buying to create a surplus is also prohibited; intraday coverage must target the exact short position within a tolerance of 0.5 MWh per slot [desk_policy_guide.md Section 2].",id=None args={} name='lookup_policy' partial_args=None will_continue=None,"id='call_364297' args={'topic': 'intentional imbalance'} name='lookup_policy' partial_args=None will_continue=None
+id='call_42556' args={} name='list_session_proposals' partial_args=None will_continue=None"
+specialist_risk_auditor,A1_policy_intentional_imbalance,tool_call_count_v1,,2.0,INFORMATIONAL,What does desk policy say about leaving a slot short on purpose because imbalance looks cheaper?,See rubric.,"Desk policy strictly prohibits leaving an open position on purpose, even if the imbalance price appears cheaper than the intraday market [desk_policy_guide.md Section 2].
+
+Key details from the policy:
+- Regulatory Classification: Creating deliberate, excessive, or inappropriate planning imbalance is treated as improper conduct under METI Fair Electricity Trading Guidelines [desk_policy_guide.md Section 2].
+- Mandatory Cover: Every open slot must be covered prior to gate closure using intraday market purchases, VPP dispatch, or demand response [desk_policy_guide.md Section 2].
+- Physical Unavailability Exception: A residual short position is permitted only when cover is physically unavailable, and it must be escalated and fully documented [desk_policy_guide.md Section 2].
+- Over-Buying Restriction: Deliberately over-buying to create a surplus is also prohibited; intraday coverage must target the exact short position within a tolerance of 0.5 MWh per slot [desk_policy_guide.md Section 2].",id=None args={} name='lookup_policy' partial_args=None will_continue=None,"id='call_364297' args={'topic': 'intentional imbalance'} name='lookup_policy' partial_args=None will_continue=None
+id='call_42556' args={} name='list_session_proposals' partial_args=None will_continue=None"
+specialist_risk_auditor,A1_policy_intentional_imbalance,inference_call_count_v1,,3.0,INFORMATIONAL,What does desk policy say about leaving a slot short on purpose because imbalance looks cheaper?,See rubric.,"Desk policy strictly prohibits leaving an open position on purpose, even if the imbalance price appears cheaper than the intraday market [desk_policy_guide.md Section 2].
+
+Key details from the policy:
+- Regulatory Classification: Creating deliberate, excessive, or inappropriate planning imbalance is treated as improper conduct under METI Fair Electricity Trading Guidelines [desk_policy_guide.md Section 2].
+- Mandatory Cover: Every open slot must be covered prior to gate closure using intraday market purchases, VPP dispatch, or demand response [desk_policy_guide.md Section 2].
+- Physical Unavailability Exception: A residual short position is permitted only when cover is physically unavailable, and it must be escalated and fully documented [desk_policy_guide.md Section 2].
+- Over-Buying Restriction: Deliberately over-buying to create a surplus is also prohibited; intraday coverage must target the exact short position within a tolerance of 0.5 MWh per slot [desk_policy_guide.md Section 2].",id=None args={} name='lookup_policy' partial_args=None will_continue=None,"id='call_364297' args={'topic': 'intentional imbalance'} name='lookup_policy' partial_args=None will_continue=None
+id='call_42556' args={} name='list_session_proposals' partial_args=None will_continue=None"
+specialist_risk_auditor,A1_policy_intentional_imbalance,token_usage_v1,,6359.0,INFORMATIONAL,What does desk policy say about leaving a slot short on purpose because imbalance looks cheaper?,See rubric.,"Desk policy strictly prohibits leaving an open position on purpose, even if the imbalance price appears cheaper than the intraday market [desk_policy_guide.md Section 2].
+
+Key details from the policy:
+- Regulatory Classification: Creating deliberate, excessive, or inappropriate planning imbalance is treated as improper conduct under METI Fair Electricity Trading Guidelines [desk_policy_guide.md Section 2].
+- Mandatory Cover: Every open slot must be covered prior to gate closure using intraday market purchases, VPP dispatch, or demand response [desk_policy_guide.md Section 2].
+- Physical Unavailability Exception: A residual short position is permitted only when cover is physically unavailable, and it must be escalated and fully documented [desk_policy_guide.md Section 2].
+- Over-Buying Restriction: Deliberately over-buying to create a surplus is also prohibited; intraday coverage must target the exact short position within a tolerance of 0.5 MWh per slot [desk_policy_guide.md Section 2].",id=None args={} name='lookup_policy' partial_args=None will_continue=None,"id='call_364297' args={'topic': 'intentional imbalance'} name='lookup_policy' partial_args=None will_continue=None
+id='call_42556' args={} name='list_session_proposals' partial_args=None will_continue=None"
+specialist_risk_auditor,A1_policy_intentional_imbalance,invocation_duration_v1,,8.479,INFORMATIONAL,What does desk policy say about leaving a slot short on purpose because imbalance looks cheaper?,See rubric.,"Desk policy strictly prohibits leaving an open position on purpose, even if the imbalance price appears cheaper than the intraday market [desk_policy_guide.md Section 2].
+
+Key details from the policy:
+- Regulatory Classification: Creating deliberate, excessive, or inappropriate planning imbalance is treated as improper conduct under METI Fair Electricity Trading Guidelines [desk_policy_guide.md Section 2].
+- Mandatory Cover: Every open slot must be covered prior to gate closure using intraday market purchases, VPP dispatch, or demand response [desk_policy_guide.md Section 2].
+- Physical Unavailability Exception: A residual short position is permitted only when cover is physically unavailable, and it must be escalated and fully documented [desk_policy_guide.md Section 2].
+- Over-Buying Restriction: Deliberately over-buying to create a surplus is also prohibited; intraday coverage must target the exact short position within a tolerance of 0.5 MWh per slot [desk_policy_guide.md Section 2].",id=None args={} name='lookup_policy' partial_args=None will_continue=None,"id='call_364297' args={'topic': 'intentional imbalance'} name='lookup_policy' partial_args=None will_continue=None
+id='call_42556' args={} name='list_session_proposals' partial_args=None will_continue=None"

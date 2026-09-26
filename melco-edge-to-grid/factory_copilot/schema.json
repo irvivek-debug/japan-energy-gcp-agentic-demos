@@ -1,0 +1,1058 @@
+{
+ "dataset_default": "melco_edge_to_grid_demo",
+ "generated_by": "data/generate.py",
+ "seed": 20260819,
+ "demo_now": "2026-08-19T13:30",
+ "tables": {
+  "assets": {
+   "description": "Asset register: every load, generator and storage asset with its PLC tag, meter and flexibility class.",
+   "columns": [
+    {
+     "name": "asset_id",
+     "type": "STRING",
+     "description": "Asset identifier, e.g. AC-04"
+    },
+    {
+     "name": "asset_name",
+     "type": "STRING",
+     "description": "Descriptive name"
+    },
+    {
+     "name": "asset_class",
+     "type": "STRING",
+     "description": "Class used for load stacks and interlock rules"
+    },
+    {
+     "name": "area",
+     "type": "STRING",
+     "description": "Plant area"
+    },
+    {
+     "name": "criticality",
+     "type": "STRING",
+     "description": "critical / high / medium / low"
+    },
+    {
+     "name": "flex_class",
+     "type": "STRING",
+     "description": "none, trim, setpoint, tes_shift, storage, standby, batch, defer, dim, shift, generation"
+    },
+    {
+     "name": "flex_method",
+     "type": "STRING",
+     "description": "How flexibility is delivered and its limits"
+    },
+    {
+     "name": "rated_kw",
+     "type": "FLOAT64",
+     "description": "Rated electrical power kW"
+    },
+    {
+     "name": "flex_kw_nominal",
+     "type": "FLOAT64",
+     "description": "Nominal flexible kW (planning value; the edge engine decides)"
+    },
+    {
+     "name": "max_shift_h",
+     "type": "FLOAT64",
+     "description": "Maximum deferral in hours"
+    },
+    {
+     "name": "meter_id",
+     "type": "STRING",
+     "description": "ME96-series meter measuring this asset (shared meters cover several assets)"
+    },
+    {
+     "name": "plc_tag",
+     "type": "STRING",
+     "description": "MELSEC iQ-R style controller/device tag"
+    },
+    {
+     "name": "controller",
+     "type": "STRING",
+     "description": "Controller family"
+    }
+   ]
+  },
+  "meters": {
+   "description": "ME96-series meter register (57 meters).",
+   "columns": [
+    {
+     "name": "meter_id",
+     "type": "STRING",
+     "description": "Meter id M-01..M-57"
+    },
+    {
+     "name": "meter_model",
+     "type": "STRING",
+     "description": "Meter model family"
+    },
+    {
+     "name": "role",
+     "type": "STRING",
+     "description": "receiving_point / feeder / generation / storage"
+    },
+    {
+     "name": "asset_ids",
+     "type": "STRING",
+     "description": "Semicolon-separated asset ids on this meter"
+    },
+    {
+     "name": "asset_class",
+     "type": "STRING",
+     "description": "Asset class of the metered assets"
+    },
+    {
+     "name": "feeder",
+     "type": "STRING",
+     "description": "Feeder name"
+    },
+    {
+     "name": "comms",
+     "type": "STRING",
+     "description": "Communication path"
+    },
+    {
+     "name": "install_year",
+     "type": "INT64",
+     "description": "Installation year"
+    }
+   ]
+  },
+  "telemetry_5min": {
+   "description": "5-minute average power per ME96 meter (2026-08-05 to now). Storage meter: + discharge / - charge.",
+   "columns": [
+    {
+     "name": "ts",
+     "type": "STRING",
+     "description": "Interval start, ISO local time JST"
+    },
+    {
+     "name": "date",
+     "type": "STRING",
+     "description": "Date"
+    },
+    {
+     "name": "hour",
+     "type": "INT64",
+     "description": "Hour 0-23"
+    },
+    {
+     "name": "slot",
+     "type": "INT64",
+     "description": "30-min slot 1-48"
+    },
+    {
+     "name": "meter_id",
+     "type": "STRING",
+     "description": "Meter id"
+    },
+    {
+     "name": "asset_class",
+     "type": "STRING",
+     "description": "Asset class of the meter"
+    },
+    {
+     "name": "kw",
+     "type": "FLOAT64",
+     "description": "Average kW over the interval"
+    },
+    {
+     "name": "kwh",
+     "type": "FLOAT64",
+     "description": "Energy kWh in the interval"
+    },
+    {
+     "name": "quality",
+     "type": "STRING",
+     "description": "Quality flag reported by the gateway"
+    }
+   ]
+  },
+  "site_load_30min": {
+   "description": "Receiving-point 30-minute load history (2026-06-01 to now), the basis for DR baselines and settlement.",
+   "columns": [
+    {
+     "name": "date",
+     "type": "STRING",
+     "description": "Date"
+    },
+    {
+     "name": "slot",
+     "type": "INT64",
+     "description": "30-min slot 1-48"
+    },
+    {
+     "name": "ts",
+     "type": "STRING",
+     "description": "Slot start"
+    },
+    {
+     "name": "hour",
+     "type": "INT64",
+     "description": "Hour"
+    },
+    {
+     "name": "month",
+     "type": "STRING",
+     "description": "YYYY-MM"
+    },
+    {
+     "name": "day_type",
+     "type": "STRING",
+     "description": "weekday / saturday / sunday / holiday / reduced"
+    },
+    {
+     "name": "baseline_eligible",
+     "type": "BOOL",
+     "description": "Weekday, not a holiday, reduced day or DR event day"
+    },
+    {
+     "name": "import_kw",
+     "type": "FLOAT64",
+     "description": "Average receiving-point import kW (after PV and BESS)"
+    },
+    {
+     "name": "import_kwh",
+     "type": "FLOAT64",
+     "description": "Import kWh in the slot"
+    },
+    {
+     "name": "gross_load_kw",
+     "type": "FLOAT64",
+     "description": "Sum of plant loads incl. transformer losses kW"
+    },
+    {
+     "name": "pv_kw",
+     "type": "FLOAT64",
+     "description": "PV output kW"
+    },
+    {
+     "name": "bess_kw",
+     "type": "FLOAT64",
+     "description": "BESS power kW (+ discharge, - charge)"
+    },
+    {
+     "name": "temp_c",
+     "type": "FLOAT64",
+     "description": "Outdoor temperature C"
+    },
+    {
+     "name": "is_dr_event",
+     "type": "BOOL",
+     "description": "Slot inside a DR event window"
+    },
+    {
+     "name": "event_id",
+     "type": "STRING",
+     "description": "DR event id when inside an event"
+    }
+   ]
+  },
+  "pv_forecast_30min": {
+   "description": "PV output forecast per 30-min slot from a weather ensemble (p10/p50/p90), issued daily at 06:00 and at 13:00 on the demo day.",
+   "columns": [
+    {
+     "name": "issued_at",
+     "type": "STRING",
+     "description": "Forecast issue time"
+    },
+    {
+     "name": "date",
+     "type": "STRING",
+     "description": "Target date"
+    },
+    {
+     "name": "slot",
+     "type": "INT64",
+     "description": "Target slot"
+    },
+    {
+     "name": "ts",
+     "type": "STRING",
+     "description": "Slot start"
+    },
+    {
+     "name": "p10_kw",
+     "type": "FLOAT64",
+     "description": "10th percentile PV kW (downside)"
+    },
+    {
+     "name": "p50_kw",
+     "type": "FLOAT64",
+     "description": "Median PV kW"
+    },
+    {
+     "name": "p90_kw",
+     "type": "FLOAT64",
+     "description": "90th percentile PV kW"
+    },
+    {
+     "name": "clear_sky_kw",
+     "type": "FLOAT64",
+     "description": "Clear-sky PV kW for reference"
+    },
+    {
+     "name": "model",
+     "type": "STRING",
+     "description": "Forecast source"
+    }
+   ]
+  },
+  "pv_actual_5min": {
+   "description": "Measured PV output, total of the three arrays (5-min).",
+   "columns": [
+    {
+     "name": "ts",
+     "type": "STRING",
+     "description": "Interval start"
+    },
+    {
+     "name": "date",
+     "type": "STRING",
+     "description": "Date"
+    },
+    {
+     "name": "hour",
+     "type": "INT64",
+     "description": "Hour"
+    },
+    {
+     "name": "slot",
+     "type": "INT64",
+     "description": "Slot"
+    },
+    {
+     "name": "pv_kw",
+     "type": "FLOAT64",
+     "description": "PV kW"
+    },
+    {
+     "name": "irradiance_wm2",
+     "type": "FLOAT64",
+     "description": "Plane-of-array irradiance W/m2"
+    },
+    {
+     "name": "module_temp_c",
+     "type": "FLOAT64",
+     "description": "Module temperature C"
+    }
+   ]
+  },
+  "jepx_prices_30min": {
+   "description": "JEPX Tokyo-area prices per 30-min slot (synthetic, calibrated to the FY2026 regime in MARKET_FACTS), with the wide-area reserve margin, imbalance price and the plant's all-in market-linked energy price.",
+   "columns": [
+    {
+     "name": "date",
+     "type": "STRING",
+     "description": "Delivery date"
+    },
+    {
+     "name": "slot",
+     "type": "INT64",
+     "description": "Slot 1-48"
+    },
+    {
+     "name": "ts",
+     "type": "STRING",
+     "description": "Slot start"
+    },
+    {
+     "name": "hour",
+     "type": "INT64",
+     "description": "Hour"
+    },
+    {
+     "name": "area",
+     "type": "STRING",
+     "description": "JEPX area"
+    },
+    {
+     "name": "spot_jpy_kwh",
+     "type": "FLOAT64",
+     "description": "Day-ahead spot area price JPY/kWh"
+    },
+    {
+     "name": "intraday_jpy_kwh",
+     "type": "FLOAT64",
+     "description": "Intraday (continuous) price JPY/kWh; latest indicative for future slots"
+    },
+    {
+     "name": "imbalance_jpy_kwh",
+     "type": "FLOAT64",
+     "description": "Imbalance price JPY/kWh (settled, or estimate for future slots) incl. scarcity adjustment, cap 200 until 2026-09-30"
+    },
+    {
+     "name": "reserve_margin_pct",
+     "type": "FLOAT64",
+     "description": "Wide-area reserve margin % (forecast for future slots)"
+    },
+    {
+     "name": "plant_energy_price_jpy_kwh",
+     "type": "FLOAT64",
+     "description": "Plant all-in energy price = spot x 1.04 + service fee + wheeling energy + capacity + renewable levy"
+    },
+    {
+     "name": "price_status",
+     "type": "STRING",
+     "description": "settled / spot_cleared_imbalance_estimate / spot_cleared"
+    }
+   ]
+  },
+  "load_forecast_30min": {
+   "description": "Asset-level load forecast for the rest of the demo day (no DR action), issued 13:00.",
+   "columns": [
+    {
+     "name": "issued_at",
+     "type": "STRING",
+     "description": "Issue time"
+    },
+    {
+     "name": "date",
+     "type": "STRING",
+     "description": "Date"
+    },
+    {
+     "name": "slot",
+     "type": "INT64",
+     "description": "Slot"
+    },
+    {
+     "name": "ts",
+     "type": "STRING",
+     "description": "Slot start"
+    },
+    {
+     "name": "asset_id",
+     "type": "STRING",
+     "description": "Asset"
+    },
+    {
+     "name": "asset_class",
+     "type": "STRING",
+     "description": "Asset class"
+    },
+    {
+     "name": "forecast_kw",
+     "type": "FLOAT64",
+     "description": "Forecast average kW"
+    }
+   ]
+  },
+  "site_plan_30min": {
+   "description": "Demo-day 30-minute plan: day-ahead nomination (30-min plan-vs-actual balancing), load and PV forecasts, import before BESS for PV p50 and p10.",
+   "columns": [
+    {
+     "name": "date",
+     "type": "STRING",
+     "description": "Date"
+    },
+    {
+     "name": "slot",
+     "type": "INT64",
+     "description": "Slot"
+    },
+    {
+     "name": "ts",
+     "type": "STRING",
+     "description": "Slot start"
+    },
+    {
+     "name": "is_actual",
+     "type": "BOOL",
+     "description": "True for slots already metered (before 13:30)"
+    },
+    {
+     "name": "nominated_kw",
+     "type": "FLOAT64",
+     "description": "Day-ahead nominated import kW (plan submitted by 12:00 D-1, includes the rule_based_v1 BESS plan)"
+    },
+    {
+     "name": "forecast_gross_kw",
+     "type": "FLOAT64",
+     "description": "Forecast gross plant load incl. losses kW"
+    },
+    {
+     "name": "pv_p50_kw",
+     "type": "FLOAT64",
+     "description": "PV p50 kW (13:00 issue)"
+    },
+    {
+     "name": "pv_p10_kw",
+     "type": "FLOAT64",
+     "description": "PV p10 kW"
+    },
+    {
+     "name": "pv_p90_kw",
+     "type": "FLOAT64",
+     "description": "PV p90 kW"
+    },
+    {
+     "name": "forecast_import_p50_kw",
+     "type": "FLOAT64",
+     "description": "Import before BESS with PV p50"
+    },
+    {
+     "name": "forecast_import_p10pv_kw",
+     "type": "FLOAT64",
+     "description": "Import before BESS with PV p10 (downside)"
+    },
+    {
+     "name": "actual_bess_kw",
+     "type": "FLOAT64",
+     "description": "Metered BESS kW for past slots"
+    },
+    {
+     "name": "temp_forecast_c",
+     "type": "FLOAT64",
+     "description": "Outdoor temperature forecast C"
+    }
+   ]
+  },
+  "bess_state_5min": {
+   "description": "BESS-01 state every 5 minutes (+ discharge / - charge), plus the 13:30 snapshot.",
+   "columns": [
+    {
+     "name": "ts",
+     "type": "STRING",
+     "description": "Interval start"
+    },
+    {
+     "name": "date",
+     "type": "STRING",
+     "description": "Date"
+    },
+    {
+     "name": "hour",
+     "type": "INT64",
+     "description": "Hour"
+    },
+    {
+     "name": "slot",
+     "type": "INT64",
+     "description": "Slot"
+    },
+    {
+     "name": "soc_pct",
+     "type": "FLOAT64",
+     "description": "State of charge % at interval start"
+    },
+    {
+     "name": "power_kw",
+     "type": "FLOAT64",
+     "description": "Power kW (+ discharge)"
+    },
+    {
+     "name": "mode",
+     "type": "STRING",
+     "description": "charge / discharge / idle"
+    },
+    {
+     "name": "cell_temp_c",
+     "type": "FLOAT64",
+     "description": "Average cell temperature C"
+    },
+    {
+     "name": "available_discharge_kw",
+     "type": "FLOAT64",
+     "description": "Discharge power available for 30 min within SOC limits"
+    },
+    {
+     "name": "available_charge_kw",
+     "type": "FLOAT64",
+     "description": "Charge power available for 30 min"
+    },
+    {
+     "name": "policy",
+     "type": "STRING",
+     "description": "Active dispatch policy"
+    }
+   ]
+  },
+  "compressor_perf": {
+   "description": "Daily compressed-air performance per compressor (energy, delivered air, specific power).",
+   "columns": [
+    {
+     "name": "date",
+     "type": "STRING",
+     "description": "Date (demo day is partial to 13:30)"
+    },
+    {
+     "name": "compressor_id",
+     "type": "STRING",
+     "description": "Compressor"
+    },
+    {
+     "name": "runtime_h",
+     "type": "FLOAT64",
+     "description": "Loaded running hours"
+    },
+    {
+     "name": "energy_kwh",
+     "type": "FLOAT64",
+     "description": "Electrical energy kWh"
+    },
+    {
+     "name": "air_nm3",
+     "type": "FLOAT64",
+     "description": "Delivered air Nm3 (header flow meter)"
+    },
+    {
+     "name": "specific_power_kw_per_nm3min",
+     "type": "FLOAT64",
+     "description": "kW per Nm3/min; lower is better"
+    },
+    {
+     "name": "avg_load_pct",
+     "type": "FLOAT64",
+     "description": "Average load %"
+    },
+    {
+     "name": "header_pressure_mpa",
+     "type": "FLOAT64",
+     "description": "Average header pressure MPa"
+    }
+   ]
+  },
+  "production_schedule": {
+   "description": "Production and utility schedule for 2026-08-18 and the demo day (planning view from MES).",
+   "columns": [
+    {
+     "name": "schedule_id",
+     "type": "STRING",
+     "description": "Schedule row id"
+    },
+    {
+     "name": "date",
+     "type": "STRING",
+     "description": "Start date"
+    },
+    {
+     "name": "asset_id",
+     "type": "STRING",
+     "description": "Asset"
+    },
+    {
+     "name": "asset_class",
+     "type": "STRING",
+     "description": "Asset class"
+    },
+    {
+     "name": "job_type",
+     "type": "STRING",
+     "description": "sinter_batch / burn_in_cycle / production_run / ev_charge_session / idle_window"
+    },
+    {
+     "name": "lot_id",
+     "type": "STRING",
+     "description": "Lot or run id"
+    },
+    {
+     "name": "product",
+     "type": "STRING",
+     "description": "Product"
+    },
+    {
+     "name": "start_ts",
+     "type": "STRING",
+     "description": "Start"
+    },
+    {
+     "name": "end_ts",
+     "type": "STRING",
+     "description": "End"
+    },
+    {
+     "name": "start_slot",
+     "type": "INT64",
+     "description": "Start slot"
+    },
+    {
+     "name": "end_slot",
+     "type": "INT64",
+     "description": "End slot (exclusive)"
+    },
+    {
+     "name": "planned_kw",
+     "type": "FLOAT64",
+     "description": "Planned average kW"
+    },
+    {
+     "name": "interruptible",
+     "type": "BOOL",
+     "description": "Can be interrupted once started"
+    },
+    {
+     "name": "deferrable_h",
+     "type": "FLOAT64",
+     "description": "Maximum start deferral h"
+    },
+    {
+     "name": "status",
+     "type": "STRING",
+     "description": "completed / running / planned (relative to 13:30)"
+    },
+    {
+     "name": "customer_due",
+     "type": "STRING",
+     "description": "Customer due time"
+    },
+    {
+     "name": "notes",
+     "type": "STRING",
+     "description": "Planner notes"
+    }
+   ]
+  },
+  "plc_tags_snapshot": {
+   "description": "Edge live state at 13:30 read from MELSEC iQ-R PLC tags via OPC UA (the edge interlock engine's view).",
+   "columns": [
+    {
+     "name": "ts",
+     "type": "STRING",
+     "description": "Snapshot time"
+    },
+    {
+     "name": "asset_id",
+     "type": "STRING",
+     "description": "Asset or subsystem"
+    },
+    {
+     "name": "plc_tag",
+     "type": "STRING",
+     "description": "PLC device tag"
+    },
+    {
+     "name": "tag_name",
+     "type": "STRING",
+     "description": "Tag name"
+    },
+    {
+     "name": "value",
+     "type": "FLOAT64",
+     "description": "Value"
+    },
+    {
+     "name": "unit",
+     "type": "STRING",
+     "description": "Unit"
+    },
+    {
+     "name": "note",
+     "type": "STRING",
+     "description": "Note"
+    }
+   ]
+  },
+  "interlock_rules": {
+   "description": "Hard and soft interlocks enforced by the edge engine, with rationale and source.",
+   "columns": [
+    {
+     "name": "rule_id",
+     "type": "STRING",
+     "description": "Rule id"
+    },
+    {
+     "name": "asset_class",
+     "type": "STRING",
+     "description": "Asset class"
+    },
+    {
+     "name": "applies_to",
+     "type": "STRING",
+     "description": "Asset ids (semicolon list) or *"
+    },
+    {
+     "name": "parameter",
+     "type": "STRING",
+     "description": "Checked parameter"
+    },
+    {
+     "name": "operator",
+     "type": "STRING",
+     "description": "Comparison"
+    },
+    {
+     "name": "limit_value",
+     "type": "FLOAT64",
+     "description": "Limit"
+    },
+    {
+     "name": "unit",
+     "type": "STRING",
+     "description": "Unit"
+    },
+    {
+     "name": "severity",
+     "type": "STRING",
+     "description": "hard (reject) / soft (limit or stage)"
+    },
+    {
+     "name": "rationale",
+     "type": "STRING",
+     "description": "Why the rule exists"
+    },
+    {
+     "name": "source",
+     "type": "STRING",
+     "description": "Document the rule comes from"
+    }
+   ]
+  },
+  "dr_events": {
+   "description": "Demand-response events from the aggregator: three settled summer events and today's dispatch.",
+   "columns": [
+    {
+     "name": "event_id",
+     "type": "STRING",
+     "description": "Event id"
+    },
+    {
+     "name": "date",
+     "type": "STRING",
+     "description": "Event date"
+    },
+    {
+     "name": "start_time",
+     "type": "STRING",
+     "description": "Start HH:MM"
+    },
+    {
+     "name": "end_time",
+     "type": "STRING",
+     "description": "End HH:MM"
+    },
+    {
+     "name": "start_slot",
+     "type": "INT64",
+     "description": "First slot"
+    },
+    {
+     "name": "end_slot",
+     "type": "INT64",
+     "description": "End slot (exclusive)"
+    },
+    {
+     "name": "requested_kw",
+     "type": "FLOAT64",
+     "description": "Requested reduction kW"
+    },
+    {
+     "name": "notified_at",
+     "type": "STRING",
+     "description": "Dispatch time"
+    },
+    {
+     "name": "program",
+     "type": "STRING",
+     "description": "Program"
+    },
+    {
+     "name": "baseline_method",
+     "type": "STRING",
+     "description": "Baseline method"
+    },
+    {
+     "name": "energy_rate_jpy_kwh",
+     "type": "FLOAT64",
+     "description": "Payment per delivered kWh"
+    },
+    {
+     "name": "penalty_rate_jpy_kwh",
+     "type": "FLOAT64",
+     "description": "Penalty per kWh short"
+    },
+    {
+     "name": "status",
+     "type": "STRING",
+     "description": "settled / notified"
+    },
+    {
+     "name": "baseline_kw",
+     "type": "FLOAT64",
+     "description": "Average baseline kW"
+    },
+    {
+     "name": "actual_kw",
+     "type": "FLOAT64",
+     "description": "Average actual import kW"
+    },
+    {
+     "name": "delivered_kw",
+     "type": "FLOAT64",
+     "description": "Average delivered reduction kW"
+    },
+    {
+     "name": "delivered_kwh",
+     "type": "FLOAT64",
+     "description": "Delivered kWh"
+    },
+    {
+     "name": "shortfall_kwh",
+     "type": "FLOAT64",
+     "description": "Shortfall kWh"
+    },
+    {
+     "name": "payment_jpy",
+     "type": "FLOAT64",
+     "description": "Energy payment JPY"
+    },
+    {
+     "name": "penalty_jpy",
+     "type": "FLOAT64",
+     "description": "Penalty JPY"
+    },
+    {
+     "name": "net_settlement_jpy",
+     "type": "FLOAT64",
+     "description": "Payment minus penalty JPY"
+    },
+    {
+     "name": "notes",
+     "type": "STRING",
+     "description": "Notes"
+    }
+   ]
+  },
+  "tariff_contract": {
+   "description": "Tariff, DR, gain-share and BESS-as-a-Service contract parameters.",
+   "columns": [
+    {
+     "name": "contract_id",
+     "type": "STRING",
+     "description": "Contract id"
+    },
+    {
+     "name": "parameter",
+     "type": "STRING",
+     "description": "Parameter name"
+    },
+    {
+     "name": "value",
+     "type": "FLOAT64",
+     "description": "Value"
+    },
+    {
+     "name": "unit",
+     "type": "STRING",
+     "description": "Unit"
+    },
+    {
+     "name": "category",
+     "type": "STRING",
+     "description": "tariff / market / dr / gain_share / baas"
+    },
+    {
+     "name": "description",
+     "type": "STRING",
+     "description": "Description and source"
+    }
+   ]
+  },
+  "savings_ledger": {
+   "description": "Monthly verified savings by category, January to July 2026 (July derived from site data and settled DR events).",
+   "columns": [
+    {
+     "name": "month",
+     "type": "STRING",
+     "description": "YYYY-MM"
+    },
+    {
+     "name": "category",
+     "type": "STRING",
+     "description": "Savings category"
+    },
+    {
+     "name": "amount_jpy",
+     "type": "FLOAT64",
+     "description": "Amount JPY (negative = cost)"
+    },
+    {
+     "name": "gain_share_eligible",
+     "type": "BOOL",
+     "description": "Counts toward the Auto-DR gain share"
+    },
+    {
+     "name": "basis",
+     "type": "STRING",
+     "description": "How the amount was computed"
+    },
+    {
+     "name": "event_ids",
+     "type": "STRING",
+     "description": "DR events included"
+    }
+   ]
+  },
+  "edge_decisions": {
+   "description": "Edge interlock decision log for past DR events (new simulations are appended at runtime).",
+   "columns": [
+    {
+     "name": "decision_id",
+     "type": "STRING",
+     "description": "Decision id"
+    },
+    {
+     "name": "ts",
+     "type": "STRING",
+     "description": "Decision time"
+    },
+    {
+     "name": "event_id",
+     "type": "STRING",
+     "description": "DR event"
+    },
+    {
+     "name": "plan_id",
+     "type": "STRING",
+     "description": "Plan id"
+    },
+    {
+     "name": "asset_id",
+     "type": "STRING",
+     "description": "Asset"
+    },
+    {
+     "name": "action",
+     "type": "STRING",
+     "description": "Requested action"
+    },
+    {
+     "name": "requested_kw",
+     "type": "FLOAT64",
+     "description": "Requested kW"
+    },
+    {
+     "name": "granted_kw",
+     "type": "FLOAT64",
+     "description": "Granted kW"
+    },
+    {
+     "name": "verdict",
+     "type": "STRING",
+     "description": "ACCEPT / LIMIT / REJECT"
+    },
+    {
+     "name": "rule_id",
+     "type": "STRING",
+     "description": "Deciding rule"
+    },
+    {
+     "name": "reason",
+     "type": "STRING",
+     "description": "Reason"
+    },
+    {
+     "name": "latency_ms",
+     "type": "FLOAT64",
+     "description": "Simulated edge decision latency ms"
+    },
+    {
+     "name": "edge_node",
+     "type": "STRING",
+     "description": "Edge node"
+    }
+   ]
+  }
+ }
+}

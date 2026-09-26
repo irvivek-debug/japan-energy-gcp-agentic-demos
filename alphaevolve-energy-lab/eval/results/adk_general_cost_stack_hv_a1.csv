@@ -1,0 +1,225 @@
+eval_set_id,eval_id,metric_name,threshold,score,eval_status,prompt,expected_response,actual_response,expected_tool_calls,actual_tool_calls
+general_cost_stack_hv,cost_stack_hv,tool_trajectory_avg_score,1.0,1.0,PASSED,Explain the high-voltage cost stack and how wheeling changes in November 2026.,"HV wheeling basic 653.87 to 762.44 JPY/kW-month from November 2026, energy 1.84 JPY/kWh [energy_alphaevolve_lab.cost_stack].","Note: All market, customer, and run data in this lab is calibrated synthetic data about a fictional balance group.
+
+---
+
+### High-Voltage (HV) Retail Cost Stack Overview
+
+The retail cost stack for High Voltage (HV) customers comprises the following components [energy_alphaevolve_lab.cost_stack]:
+
+* **Wheeling Basic Charge (`wheeling_basic`)**: 653.87 JPY/kW-month through October 2026, increasing to 762.44 JPY/kW-month effective November 2026 [energy_alphaevolve_lab.cost_stack].
+* **Wheeling Energy Rate (`wheeling_energy`)**: 1.84 JPY/kWh from April 2024 onwards [energy_alphaevolve_lab.cost_stack].
+* **Loss Factor (`loss_factor`)**: 1.04 ratio (procurement equals consumption multiplied by 1.04) [energy_alphaevolve_lab.cost_stack].
+* **Balancing Overhead (`balancing_overhead`)**: 0.25 JPY/kWh for FY2026 [energy_alphaevolve_lab.cost_stack].
+* **Capacity Contribution (`capacity_contribution`)**: 4,596.9 JPY/kW-year of coincident peak for FY2026 (derived from 252.83 bn JPY Tokyo burden / 55.0 GW Tokyo H3 peak), estimated at 0.94 JPY/kWh [energy_alphaevolve_lab.cost_stack].
+* **Renewable Energy Surcharge (`renewable_surcharge`)**: 4.18 JPY/kWh for FY2026. This is a pass-through cost billed directly to the customer and remitted; it is excluded from margin calculations and offers [energy_alphaevolve_lab.cost_stack].
+* **Non-Fossil Certificates (`nfc_fit` / `nfc_nonfit_renewable`)**: 0.4 JPY/kWh for FIT certificates and 1.21 JPY/kWh for non-FIT renewable certificates in FY2026 R1 [energy_alphaevolve_lab.cost_stack].
+* **Imbalance Scarcity Parameters (`imbalance_scarcity_C` / `imbalance_scarcity_D`)**: Cap C is 200 JPY/kWh until September 30, 2026, rising to 300 JPY/kWh on October 1, 2026. Price D (at 8% reserve margin) is 45 JPY/kWh until September 30, 2026, rising to 50 JPY/kWh on October 1, 2026 [energy_alphaevolve_lab.cost_stack].
+
+---
+
+### Wheeling Changes in November 2026
+
+Starting November 2026, the high-voltage basic wheeling rate increases while the energy component remains fixed [energy_alphaevolve_lab.cost_stack]:
+
+* **Basic Charge Rate Change**: Increases from 653.87 JPY/kW-month (in place from April 2024 through October 2026) to 762.44 JPY/kW-month starting November 2026 [energy_alphaevolve_lab.cost_stack].
+* **Basic Charge Difference**: An increase of +108.57 JPY/kW-month, or +16.6% [energy_alphaevolve_lab.cost_stack].
+* **Energy Charge Rate**: Unchanged at 1.84 JPY/kWh [energy_alphaevolve_lab.cost_stack].
+
+#### Worked Customer Impact
+For an HV customer with a 1,000 kW contract operating at a 60% load factor (438,000 kWh/month) [energy_alphaevolve_lab.cost_stack]:
+* **Total wheeling cost until October 2026**: 3.333 JPY/kWh [energy_alphaevolve_lab.cost_stack].
+* **Total wheeling cost from November 2026**: 3.581 JPY/kWh [energy_alphaevolve_lab.cost_stack].
+* **Effective per-kWh increase**: +0.248 JPY/kWh [energy_alphaevolve_lab.cost_stack].",id=None args={'voltage': 'HV'} name='explain_cost_stack' partial_args=None will_continue=None,id='call_1862146' args={'voltage': 'HV'} name='explain_cost_stack' partial_args=None will_continue=None
+general_cost_stack_hv,cost_stack_hv,rubric_based_final_response_quality_v1,0.8,1.0,PASSED,Explain the high-voltage cost stack and how wheeling changes in November 2026.,"HV wheeling basic 653.87 to 762.44 JPY/kW-month from November 2026, energy 1.84 JPY/kWh [energy_alphaevolve_lab.cost_stack].","Note: All market, customer, and run data in this lab is calibrated synthetic data about a fictional balance group.
+
+---
+
+### High-Voltage (HV) Retail Cost Stack Overview
+
+The retail cost stack for High Voltage (HV) customers comprises the following components [energy_alphaevolve_lab.cost_stack]:
+
+* **Wheeling Basic Charge (`wheeling_basic`)**: 653.87 JPY/kW-month through October 2026, increasing to 762.44 JPY/kW-month effective November 2026 [energy_alphaevolve_lab.cost_stack].
+* **Wheeling Energy Rate (`wheeling_energy`)**: 1.84 JPY/kWh from April 2024 onwards [energy_alphaevolve_lab.cost_stack].
+* **Loss Factor (`loss_factor`)**: 1.04 ratio (procurement equals consumption multiplied by 1.04) [energy_alphaevolve_lab.cost_stack].
+* **Balancing Overhead (`balancing_overhead`)**: 0.25 JPY/kWh for FY2026 [energy_alphaevolve_lab.cost_stack].
+* **Capacity Contribution (`capacity_contribution`)**: 4,596.9 JPY/kW-year of coincident peak for FY2026 (derived from 252.83 bn JPY Tokyo burden / 55.0 GW Tokyo H3 peak), estimated at 0.94 JPY/kWh [energy_alphaevolve_lab.cost_stack].
+* **Renewable Energy Surcharge (`renewable_surcharge`)**: 4.18 JPY/kWh for FY2026. This is a pass-through cost billed directly to the customer and remitted; it is excluded from margin calculations and offers [energy_alphaevolve_lab.cost_stack].
+* **Non-Fossil Certificates (`nfc_fit` / `nfc_nonfit_renewable`)**: 0.4 JPY/kWh for FIT certificates and 1.21 JPY/kWh for non-FIT renewable certificates in FY2026 R1 [energy_alphaevolve_lab.cost_stack].
+* **Imbalance Scarcity Parameters (`imbalance_scarcity_C` / `imbalance_scarcity_D`)**: Cap C is 200 JPY/kWh until September 30, 2026, rising to 300 JPY/kWh on October 1, 2026. Price D (at 8% reserve margin) is 45 JPY/kWh until September 30, 2026, rising to 50 JPY/kWh on October 1, 2026 [energy_alphaevolve_lab.cost_stack].
+
+---
+
+### Wheeling Changes in November 2026
+
+Starting November 2026, the high-voltage basic wheeling rate increases while the energy component remains fixed [energy_alphaevolve_lab.cost_stack]:
+
+* **Basic Charge Rate Change**: Increases from 653.87 JPY/kW-month (in place from April 2024 through October 2026) to 762.44 JPY/kW-month starting November 2026 [energy_alphaevolve_lab.cost_stack].
+* **Basic Charge Difference**: An increase of +108.57 JPY/kW-month, or +16.6% [energy_alphaevolve_lab.cost_stack].
+* **Energy Charge Rate**: Unchanged at 1.84 JPY/kWh [energy_alphaevolve_lab.cost_stack].
+
+#### Worked Customer Impact
+For an HV customer with a 1,000 kW contract operating at a 60% load factor (438,000 kWh/month) [energy_alphaevolve_lab.cost_stack]:
+* **Total wheeling cost until October 2026**: 3.333 JPY/kWh [energy_alphaevolve_lab.cost_stack].
+* **Total wheeling cost from November 2026**: 3.581 JPY/kWh [energy_alphaevolve_lab.cost_stack].
+* **Effective per-kWh increase**: +0.248 JPY/kWh [energy_alphaevolve_lab.cost_stack].",id=None args={'voltage': 'HV'} name='explain_cost_stack' partial_args=None will_continue=None,id='call_1862146' args={'voltage': 'HV'} name='explain_cost_stack' partial_args=None will_continue=None
+general_cost_stack_hv,cost_stack_hv,hallucinations_v1,0.8,1.0,PASSED,Explain the high-voltage cost stack and how wheeling changes in November 2026.,"HV wheeling basic 653.87 to 762.44 JPY/kW-month from November 2026, energy 1.84 JPY/kWh [energy_alphaevolve_lab.cost_stack].","Note: All market, customer, and run data in this lab is calibrated synthetic data about a fictional balance group.
+
+---
+
+### High-Voltage (HV) Retail Cost Stack Overview
+
+The retail cost stack for High Voltage (HV) customers comprises the following components [energy_alphaevolve_lab.cost_stack]:
+
+* **Wheeling Basic Charge (`wheeling_basic`)**: 653.87 JPY/kW-month through October 2026, increasing to 762.44 JPY/kW-month effective November 2026 [energy_alphaevolve_lab.cost_stack].
+* **Wheeling Energy Rate (`wheeling_energy`)**: 1.84 JPY/kWh from April 2024 onwards [energy_alphaevolve_lab.cost_stack].
+* **Loss Factor (`loss_factor`)**: 1.04 ratio (procurement equals consumption multiplied by 1.04) [energy_alphaevolve_lab.cost_stack].
+* **Balancing Overhead (`balancing_overhead`)**: 0.25 JPY/kWh for FY2026 [energy_alphaevolve_lab.cost_stack].
+* **Capacity Contribution (`capacity_contribution`)**: 4,596.9 JPY/kW-year of coincident peak for FY2026 (derived from 252.83 bn JPY Tokyo burden / 55.0 GW Tokyo H3 peak), estimated at 0.94 JPY/kWh [energy_alphaevolve_lab.cost_stack].
+* **Renewable Energy Surcharge (`renewable_surcharge`)**: 4.18 JPY/kWh for FY2026. This is a pass-through cost billed directly to the customer and remitted; it is excluded from margin calculations and offers [energy_alphaevolve_lab.cost_stack].
+* **Non-Fossil Certificates (`nfc_fit` / `nfc_nonfit_renewable`)**: 0.4 JPY/kWh for FIT certificates and 1.21 JPY/kWh for non-FIT renewable certificates in FY2026 R1 [energy_alphaevolve_lab.cost_stack].
+* **Imbalance Scarcity Parameters (`imbalance_scarcity_C` / `imbalance_scarcity_D`)**: Cap C is 200 JPY/kWh until September 30, 2026, rising to 300 JPY/kWh on October 1, 2026. Price D (at 8% reserve margin) is 45 JPY/kWh until September 30, 2026, rising to 50 JPY/kWh on October 1, 2026 [energy_alphaevolve_lab.cost_stack].
+
+---
+
+### Wheeling Changes in November 2026
+
+Starting November 2026, the high-voltage basic wheeling rate increases while the energy component remains fixed [energy_alphaevolve_lab.cost_stack]:
+
+* **Basic Charge Rate Change**: Increases from 653.87 JPY/kW-month (in place from April 2024 through October 2026) to 762.44 JPY/kW-month starting November 2026 [energy_alphaevolve_lab.cost_stack].
+* **Basic Charge Difference**: An increase of +108.57 JPY/kW-month, or +16.6% [energy_alphaevolve_lab.cost_stack].
+* **Energy Charge Rate**: Unchanged at 1.84 JPY/kWh [energy_alphaevolve_lab.cost_stack].
+
+#### Worked Customer Impact
+For an HV customer with a 1,000 kW contract operating at a 60% load factor (438,000 kWh/month) [energy_alphaevolve_lab.cost_stack]:
+* **Total wheeling cost until October 2026**: 3.333 JPY/kWh [energy_alphaevolve_lab.cost_stack].
+* **Total wheeling cost from November 2026**: 3.581 JPY/kWh [energy_alphaevolve_lab.cost_stack].
+* **Effective per-kWh increase**: +0.248 JPY/kWh [energy_alphaevolve_lab.cost_stack].",id=None args={'voltage': 'HV'} name='explain_cost_stack' partial_args=None will_continue=None,id='call_1862146' args={'voltage': 'HV'} name='explain_cost_stack' partial_args=None will_continue=None
+general_cost_stack_hv,cost_stack_hv,tool_call_count_v1,,1.0,INFORMATIONAL,Explain the high-voltage cost stack and how wheeling changes in November 2026.,"HV wheeling basic 653.87 to 762.44 JPY/kW-month from November 2026, energy 1.84 JPY/kWh [energy_alphaevolve_lab.cost_stack].","Note: All market, customer, and run data in this lab is calibrated synthetic data about a fictional balance group.
+
+---
+
+### High-Voltage (HV) Retail Cost Stack Overview
+
+The retail cost stack for High Voltage (HV) customers comprises the following components [energy_alphaevolve_lab.cost_stack]:
+
+* **Wheeling Basic Charge (`wheeling_basic`)**: 653.87 JPY/kW-month through October 2026, increasing to 762.44 JPY/kW-month effective November 2026 [energy_alphaevolve_lab.cost_stack].
+* **Wheeling Energy Rate (`wheeling_energy`)**: 1.84 JPY/kWh from April 2024 onwards [energy_alphaevolve_lab.cost_stack].
+* **Loss Factor (`loss_factor`)**: 1.04 ratio (procurement equals consumption multiplied by 1.04) [energy_alphaevolve_lab.cost_stack].
+* **Balancing Overhead (`balancing_overhead`)**: 0.25 JPY/kWh for FY2026 [energy_alphaevolve_lab.cost_stack].
+* **Capacity Contribution (`capacity_contribution`)**: 4,596.9 JPY/kW-year of coincident peak for FY2026 (derived from 252.83 bn JPY Tokyo burden / 55.0 GW Tokyo H3 peak), estimated at 0.94 JPY/kWh [energy_alphaevolve_lab.cost_stack].
+* **Renewable Energy Surcharge (`renewable_surcharge`)**: 4.18 JPY/kWh for FY2026. This is a pass-through cost billed directly to the customer and remitted; it is excluded from margin calculations and offers [energy_alphaevolve_lab.cost_stack].
+* **Non-Fossil Certificates (`nfc_fit` / `nfc_nonfit_renewable`)**: 0.4 JPY/kWh for FIT certificates and 1.21 JPY/kWh for non-FIT renewable certificates in FY2026 R1 [energy_alphaevolve_lab.cost_stack].
+* **Imbalance Scarcity Parameters (`imbalance_scarcity_C` / `imbalance_scarcity_D`)**: Cap C is 200 JPY/kWh until September 30, 2026, rising to 300 JPY/kWh on October 1, 2026. Price D (at 8% reserve margin) is 45 JPY/kWh until September 30, 2026, rising to 50 JPY/kWh on October 1, 2026 [energy_alphaevolve_lab.cost_stack].
+
+---
+
+### Wheeling Changes in November 2026
+
+Starting November 2026, the high-voltage basic wheeling rate increases while the energy component remains fixed [energy_alphaevolve_lab.cost_stack]:
+
+* **Basic Charge Rate Change**: Increases from 653.87 JPY/kW-month (in place from April 2024 through October 2026) to 762.44 JPY/kW-month starting November 2026 [energy_alphaevolve_lab.cost_stack].
+* **Basic Charge Difference**: An increase of +108.57 JPY/kW-month, or +16.6% [energy_alphaevolve_lab.cost_stack].
+* **Energy Charge Rate**: Unchanged at 1.84 JPY/kWh [energy_alphaevolve_lab.cost_stack].
+
+#### Worked Customer Impact
+For an HV customer with a 1,000 kW contract operating at a 60% load factor (438,000 kWh/month) [energy_alphaevolve_lab.cost_stack]:
+* **Total wheeling cost until October 2026**: 3.333 JPY/kWh [energy_alphaevolve_lab.cost_stack].
+* **Total wheeling cost from November 2026**: 3.581 JPY/kWh [energy_alphaevolve_lab.cost_stack].
+* **Effective per-kWh increase**: +0.248 JPY/kWh [energy_alphaevolve_lab.cost_stack].",id=None args={'voltage': 'HV'} name='explain_cost_stack' partial_args=None will_continue=None,id='call_1862146' args={'voltage': 'HV'} name='explain_cost_stack' partial_args=None will_continue=None
+general_cost_stack_hv,cost_stack_hv,inference_call_count_v1,,2.0,INFORMATIONAL,Explain the high-voltage cost stack and how wheeling changes in November 2026.,"HV wheeling basic 653.87 to 762.44 JPY/kW-month from November 2026, energy 1.84 JPY/kWh [energy_alphaevolve_lab.cost_stack].","Note: All market, customer, and run data in this lab is calibrated synthetic data about a fictional balance group.
+
+---
+
+### High-Voltage (HV) Retail Cost Stack Overview
+
+The retail cost stack for High Voltage (HV) customers comprises the following components [energy_alphaevolve_lab.cost_stack]:
+
+* **Wheeling Basic Charge (`wheeling_basic`)**: 653.87 JPY/kW-month through October 2026, increasing to 762.44 JPY/kW-month effective November 2026 [energy_alphaevolve_lab.cost_stack].
+* **Wheeling Energy Rate (`wheeling_energy`)**: 1.84 JPY/kWh from April 2024 onwards [energy_alphaevolve_lab.cost_stack].
+* **Loss Factor (`loss_factor`)**: 1.04 ratio (procurement equals consumption multiplied by 1.04) [energy_alphaevolve_lab.cost_stack].
+* **Balancing Overhead (`balancing_overhead`)**: 0.25 JPY/kWh for FY2026 [energy_alphaevolve_lab.cost_stack].
+* **Capacity Contribution (`capacity_contribution`)**: 4,596.9 JPY/kW-year of coincident peak for FY2026 (derived from 252.83 bn JPY Tokyo burden / 55.0 GW Tokyo H3 peak), estimated at 0.94 JPY/kWh [energy_alphaevolve_lab.cost_stack].
+* **Renewable Energy Surcharge (`renewable_surcharge`)**: 4.18 JPY/kWh for FY2026. This is a pass-through cost billed directly to the customer and remitted; it is excluded from margin calculations and offers [energy_alphaevolve_lab.cost_stack].
+* **Non-Fossil Certificates (`nfc_fit` / `nfc_nonfit_renewable`)**: 0.4 JPY/kWh for FIT certificates and 1.21 JPY/kWh for non-FIT renewable certificates in FY2026 R1 [energy_alphaevolve_lab.cost_stack].
+* **Imbalance Scarcity Parameters (`imbalance_scarcity_C` / `imbalance_scarcity_D`)**: Cap C is 200 JPY/kWh until September 30, 2026, rising to 300 JPY/kWh on October 1, 2026. Price D (at 8% reserve margin) is 45 JPY/kWh until September 30, 2026, rising to 50 JPY/kWh on October 1, 2026 [energy_alphaevolve_lab.cost_stack].
+
+---
+
+### Wheeling Changes in November 2026
+
+Starting November 2026, the high-voltage basic wheeling rate increases while the energy component remains fixed [energy_alphaevolve_lab.cost_stack]:
+
+* **Basic Charge Rate Change**: Increases from 653.87 JPY/kW-month (in place from April 2024 through October 2026) to 762.44 JPY/kW-month starting November 2026 [energy_alphaevolve_lab.cost_stack].
+* **Basic Charge Difference**: An increase of +108.57 JPY/kW-month, or +16.6% [energy_alphaevolve_lab.cost_stack].
+* **Energy Charge Rate**: Unchanged at 1.84 JPY/kWh [energy_alphaevolve_lab.cost_stack].
+
+#### Worked Customer Impact
+For an HV customer with a 1,000 kW contract operating at a 60% load factor (438,000 kWh/month) [energy_alphaevolve_lab.cost_stack]:
+* **Total wheeling cost until October 2026**: 3.333 JPY/kWh [energy_alphaevolve_lab.cost_stack].
+* **Total wheeling cost from November 2026**: 3.581 JPY/kWh [energy_alphaevolve_lab.cost_stack].
+* **Effective per-kWh increase**: +0.248 JPY/kWh [energy_alphaevolve_lab.cost_stack].",id=None args={'voltage': 'HV'} name='explain_cost_stack' partial_args=None will_continue=None,id='call_1862146' args={'voltage': 'HV'} name='explain_cost_stack' partial_args=None will_continue=None
+general_cost_stack_hv,cost_stack_hv,token_usage_v1,,8047.0,INFORMATIONAL,Explain the high-voltage cost stack and how wheeling changes in November 2026.,"HV wheeling basic 653.87 to 762.44 JPY/kW-month from November 2026, energy 1.84 JPY/kWh [energy_alphaevolve_lab.cost_stack].","Note: All market, customer, and run data in this lab is calibrated synthetic data about a fictional balance group.
+
+---
+
+### High-Voltage (HV) Retail Cost Stack Overview
+
+The retail cost stack for High Voltage (HV) customers comprises the following components [energy_alphaevolve_lab.cost_stack]:
+
+* **Wheeling Basic Charge (`wheeling_basic`)**: 653.87 JPY/kW-month through October 2026, increasing to 762.44 JPY/kW-month effective November 2026 [energy_alphaevolve_lab.cost_stack].
+* **Wheeling Energy Rate (`wheeling_energy`)**: 1.84 JPY/kWh from April 2024 onwards [energy_alphaevolve_lab.cost_stack].
+* **Loss Factor (`loss_factor`)**: 1.04 ratio (procurement equals consumption multiplied by 1.04) [energy_alphaevolve_lab.cost_stack].
+* **Balancing Overhead (`balancing_overhead`)**: 0.25 JPY/kWh for FY2026 [energy_alphaevolve_lab.cost_stack].
+* **Capacity Contribution (`capacity_contribution`)**: 4,596.9 JPY/kW-year of coincident peak for FY2026 (derived from 252.83 bn JPY Tokyo burden / 55.0 GW Tokyo H3 peak), estimated at 0.94 JPY/kWh [energy_alphaevolve_lab.cost_stack].
+* **Renewable Energy Surcharge (`renewable_surcharge`)**: 4.18 JPY/kWh for FY2026. This is a pass-through cost billed directly to the customer and remitted; it is excluded from margin calculations and offers [energy_alphaevolve_lab.cost_stack].
+* **Non-Fossil Certificates (`nfc_fit` / `nfc_nonfit_renewable`)**: 0.4 JPY/kWh for FIT certificates and 1.21 JPY/kWh for non-FIT renewable certificates in FY2026 R1 [energy_alphaevolve_lab.cost_stack].
+* **Imbalance Scarcity Parameters (`imbalance_scarcity_C` / `imbalance_scarcity_D`)**: Cap C is 200 JPY/kWh until September 30, 2026, rising to 300 JPY/kWh on October 1, 2026. Price D (at 8% reserve margin) is 45 JPY/kWh until September 30, 2026, rising to 50 JPY/kWh on October 1, 2026 [energy_alphaevolve_lab.cost_stack].
+
+---
+
+### Wheeling Changes in November 2026
+
+Starting November 2026, the high-voltage basic wheeling rate increases while the energy component remains fixed [energy_alphaevolve_lab.cost_stack]:
+
+* **Basic Charge Rate Change**: Increases from 653.87 JPY/kW-month (in place from April 2024 through October 2026) to 762.44 JPY/kW-month starting November 2026 [energy_alphaevolve_lab.cost_stack].
+* **Basic Charge Difference**: An increase of +108.57 JPY/kW-month, or +16.6% [energy_alphaevolve_lab.cost_stack].
+* **Energy Charge Rate**: Unchanged at 1.84 JPY/kWh [energy_alphaevolve_lab.cost_stack].
+
+#### Worked Customer Impact
+For an HV customer with a 1,000 kW contract operating at a 60% load factor (438,000 kWh/month) [energy_alphaevolve_lab.cost_stack]:
+* **Total wheeling cost until October 2026**: 3.333 JPY/kWh [energy_alphaevolve_lab.cost_stack].
+* **Total wheeling cost from November 2026**: 3.581 JPY/kWh [energy_alphaevolve_lab.cost_stack].
+* **Effective per-kWh increase**: +0.248 JPY/kWh [energy_alphaevolve_lab.cost_stack].",id=None args={'voltage': 'HV'} name='explain_cost_stack' partial_args=None will_continue=None,id='call_1862146' args={'voltage': 'HV'} name='explain_cost_stack' partial_args=None will_continue=None
+general_cost_stack_hv,cost_stack_hv,invocation_duration_v1,,13.09,INFORMATIONAL,Explain the high-voltage cost stack and how wheeling changes in November 2026.,"HV wheeling basic 653.87 to 762.44 JPY/kW-month from November 2026, energy 1.84 JPY/kWh [energy_alphaevolve_lab.cost_stack].","Note: All market, customer, and run data in this lab is calibrated synthetic data about a fictional balance group.
+
+---
+
+### High-Voltage (HV) Retail Cost Stack Overview
+
+The retail cost stack for High Voltage (HV) customers comprises the following components [energy_alphaevolve_lab.cost_stack]:
+
+* **Wheeling Basic Charge (`wheeling_basic`)**: 653.87 JPY/kW-month through October 2026, increasing to 762.44 JPY/kW-month effective November 2026 [energy_alphaevolve_lab.cost_stack].
+* **Wheeling Energy Rate (`wheeling_energy`)**: 1.84 JPY/kWh from April 2024 onwards [energy_alphaevolve_lab.cost_stack].
+* **Loss Factor (`loss_factor`)**: 1.04 ratio (procurement equals consumption multiplied by 1.04) [energy_alphaevolve_lab.cost_stack].
+* **Balancing Overhead (`balancing_overhead`)**: 0.25 JPY/kWh for FY2026 [energy_alphaevolve_lab.cost_stack].
+* **Capacity Contribution (`capacity_contribution`)**: 4,596.9 JPY/kW-year of coincident peak for FY2026 (derived from 252.83 bn JPY Tokyo burden / 55.0 GW Tokyo H3 peak), estimated at 0.94 JPY/kWh [energy_alphaevolve_lab.cost_stack].
+* **Renewable Energy Surcharge (`renewable_surcharge`)**: 4.18 JPY/kWh for FY2026. This is a pass-through cost billed directly to the customer and remitted; it is excluded from margin calculations and offers [energy_alphaevolve_lab.cost_stack].
+* **Non-Fossil Certificates (`nfc_fit` / `nfc_nonfit_renewable`)**: 0.4 JPY/kWh for FIT certificates and 1.21 JPY/kWh for non-FIT renewable certificates in FY2026 R1 [energy_alphaevolve_lab.cost_stack].
+* **Imbalance Scarcity Parameters (`imbalance_scarcity_C` / `imbalance_scarcity_D`)**: Cap C is 200 JPY/kWh until September 30, 2026, rising to 300 JPY/kWh on October 1, 2026. Price D (at 8% reserve margin) is 45 JPY/kWh until September 30, 2026, rising to 50 JPY/kWh on October 1, 2026 [energy_alphaevolve_lab.cost_stack].
+
+---
+
+### Wheeling Changes in November 2026
+
+Starting November 2026, the high-voltage basic wheeling rate increases while the energy component remains fixed [energy_alphaevolve_lab.cost_stack]:
+
+* **Basic Charge Rate Change**: Increases from 653.87 JPY/kW-month (in place from April 2024 through October 2026) to 762.44 JPY/kW-month starting November 2026 [energy_alphaevolve_lab.cost_stack].
+* **Basic Charge Difference**: An increase of +108.57 JPY/kW-month, or +16.6% [energy_alphaevolve_lab.cost_stack].
+* **Energy Charge Rate**: Unchanged at 1.84 JPY/kWh [energy_alphaevolve_lab.cost_stack].
+
+#### Worked Customer Impact
+For an HV customer with a 1,000 kW contract operating at a 60% load factor (438,000 kWh/month) [energy_alphaevolve_lab.cost_stack]:
+* **Total wheeling cost until October 2026**: 3.333 JPY/kWh [energy_alphaevolve_lab.cost_stack].
+* **Total wheeling cost from November 2026**: 3.581 JPY/kWh [energy_alphaevolve_lab.cost_stack].
+* **Effective per-kWh increase**: +0.248 JPY/kWh [energy_alphaevolve_lab.cost_stack].",id=None args={'voltage': 'HV'} name='explain_cost_stack' partial_args=None will_continue=None,id='call_1862146' args={'voltage': 'HV'} name='explain_cost_stack' partial_args=None will_continue=None

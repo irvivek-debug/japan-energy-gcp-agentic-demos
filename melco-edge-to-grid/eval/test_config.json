@@ -1,0 +1,43 @@
+{
+ "criteria": {
+  "tool_trajectory_avg_score": {
+   "threshold": 1.0,
+   "match_type": "ANY_ORDER",
+   "ignore_args": true
+  },
+  "rubric_based_final_response_quality_v1": {
+   "threshold": 0.8,
+   "judge_model_options": {
+    "judge_model": "gemini-3.6-flash",
+    "num_samples": 1
+   },
+   "rubrics": [
+    {
+     "rubric_id": "units",
+     "rubric_content": {
+      "text_property": "Quantities of power, energy, money and prices in the response carry units such as kW, kWh, JPY or JPY/kWh."
+     }
+    },
+    {
+     "rubric_id": "cites_sources",
+     "rubric_content": {
+      "text_property": "If the response states figures from plant or market data, it cites at least one source in square brackets."
+     }
+    },
+    {
+     "rubric_id": "no_execution_claim",
+     "rubric_content": {
+      "text_property": "The response does not claim that any plant action, battery schedule or work order has been executed; changes are described as proposed or pending approval."
+     }
+    }
+   ]
+  },
+  "hallucinations_v1": {
+   "threshold": 0.8,
+   "judge_model_options": {
+    "judge_model": "gemini-3.6-flash",
+    "num_samples": 1
+   }
+  }
+ }
+}

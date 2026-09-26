@@ -1,0 +1,75 @@
+<workspace>/.venv/lib/python3.12/site-packages/google/adk/evaluation/agent_evaluator.py:205: UserWarning: [EXPERIMENTAL] UserSimulatorProvider: This feature is experimental and may change or be removed in future versions without notice. It may introduce breaking changes at any time.
+  user_simulator_provider = UserSimulatorProvider(
+<workspace>/.venv/lib/python3.12/site-packages/google/adk/dependencies/vertexai.py:19: UserWarning: The `vertexai.preview.rag` module is deprecated and will be removed in a future version. Please migrate to the `agentplatform` client. For example:
+
+    import agentplatform
+
+    client = agentplatform.Client(project="your-project", location="us-central1")
+    client.rag.create_corpus(...)
+
+  from vertexai.preview import rag as rag
+<workspace>/.venv/lib/python3.12/site-packages/google/adk/evaluation/metric_evaluator_registry.py:285: UserWarning: [EXPERIMENTAL] MetricEvaluatorRegistry: This feature is experimental and may change or be removed in future versions without notice. It may introduce breaking changes at any time.
+  return MetricEvaluatorRegistry()
+<workspace>/.venv/lib/python3.12/site-packages/google/adk/evaluation/agent_evaluator.py:742: UserWarning: [EXPERIMENTAL] LocalEvalService: This feature is experimental and may change or be removed in future versions without notice. It may introduce breaking changes at any time.
+  eval_service = LocalEvalService(
+<workspace>/.venv/lib/python3.12/site-packages/google/adk/evaluation/simulation/user_simulator_provider.py:169: UserWarning: [EXPERIMENTAL] StaticUserSimulator: This feature is experimental and may change or be removed in future versions without notice. It may introduce breaking changes at any time.
+  static_simulator = StaticUserSimulator(
+<workspace>/.venv/lib/python3.12/site-packages/google/adk/evaluation/simulation/static_user_simulator.py:39: UserWarning: [EXPERIMENTAL] UserSimulator: This feature is experimental and may change or be removed in future versions without notice. It may introduce breaking changes at any time.
+  super().__init__(
+App "factory_copilot" can transfer between agents but has no context_cache_config. Every transfer swaps the system instruction and the tool set, so the request prefix changes and the whole prompt is re-sent uncached after each transfer. Set context_cache_config on the app to give each agent its own cache.
+<workspace>/.venv/lib/python3.12/site-packages/google/adk/models/llm_request.py:306: UserWarning: [EXPERIMENTAL] feature FeatureName.JSON_SCHEMA_FOR_FUNC_DECL is enabled.
+  declaration = tool._get_declaration()
+<workspace>/.venv/lib/python3.12/site-packages/google/adk/evaluation/metric_evaluator_registry.py:115: UserWarning: [EXPERIMENTAL] RubricBasedFinalResponseQualityV1Evaluator: This feature is experimental and may change or be removed in future versions without notice. It may introduce breaking changes at any time.
+  return evaluator_factory(eval_metric=eval_metric)
+<workspace>/.venv/lib/python3.12/site-packages/google/adk/evaluation/rubric_based_final_response_quality_v1.py:271: UserWarning: [EXPERIMENTAL] RubricBasedEvaluator: This feature is experimental and may change or be removed in future versions without notice. It may introduce breaking changes at any time.
+  super().__init__(
+<workspace>/.venv/lib/python3.12/site-packages/google/adk/evaluation/rubric_based_evaluator.py:363: UserWarning: [EXPERIMENTAL] LlmAsJudge: This feature is experimental and may change or be removed in future versions without notice. It may introduce breaking changes at any time.
+  super().__init__(
+Direct use of automatic function calling (AFC) in AsyncModels.generate_content is not recommended. Instead, we recommend to use AFC in AsyncChat.send_message. Similarly, direct use of AFC in AsyncModels.generate_content_stream is not recommended. Instead, we recommend to use AFC in AsyncChat.send_message_stream.
+<workspace>/.venv/lib/python3.12/site-packages/google/adk/evaluation/metric_evaluator_registry.py:115: UserWarning: [EXPERIMENTAL] HallucinationsV1Evaluator: This feature is experimental and may change or be removed in future versions without notice. It may introduce breaking changes at any time.
+  return evaluator_factory(eval_metric=eval_metric)
+[bess] 2 cases in 93s; first-attempt pass 2; retried 0; err=None
+Auto-rater response did not match the expected Property/Rationale/Verdict format; no rubric verdicts were parsed. Raw auto-rater response: ID: units
+Property: Quantities of power, energy, money and prices in the response carry units such as kW, kWh, JPY or JPY/kWh.
+Evidence: The final answer presents all figures with appropriate units, for example: "3,000 kW", "3,575.7 kW", "1,650 kW", "212.5 kW", "610.9 kW", "55.00 JPY/kWh", "62.40 JPY/kWh", "9,965 JPY", "3,723 kW", "337,500 JPY", "701,315 JPY", "175,329 JPY", and "525,986 JPY".
+Rationale: All physical and financial quantities mentioned throughout the response explicitly include their units (kW, %, JPY/kWh, JPY).
+Verdict: yes
+
+ID: cites_sources
+Property: If the response states figures from plant or market data, it cites at least one source in square brackets.
+Evidence: The final answer contains structured citations in square brackets in Section 6 and Section 7, such as `[melco_edge_to_grid_demo.dr_events]`, `[melco_edge_to_grid_demo.site_load_30min]`, `[melco_edge_to_grid_demo.site_plan_30min]`, `[melco_edge_to_grid_demo.tariff_contract]`, `[melco_edge_to_grid_demo.jepx_prices_30min]`, `[melco_edge_to_grid_demo.pv_forecast_30min]`, `[melco_edge_to_grid_demo.bess_state_5min]`, `[melco_edge_to_grid_demo.interlock_rules]`, and `[plant_energy_policy.md Section 6]`.
+Rationale: Figures cited from plant and market data tools are accompanied by source citations in square brackets.
+Verdict: yes
+
+ID: no_execution_claim
+Property: The response does not claim that any plant action, battery schedule or work order has been executed; changes are described as proposed or pending approval.
+Evidence: In Section 6, the response states: "The load-shed plan and the battery schedule are queued in the pending-actions tray for a human Hold-to-Confirm. Nothing has executed automatically." Tool call outputs in Step 10 (`propose_bess_schedule`) and Step 13 (`propose_load_shed_plan`) confirm status as `pending_approval`.
+Rationale: The final answer correctly describes all proposed changes as pending human Hold-to-Confirm approval and explicitly clarifies that no actions have been executed.
+Verdict: yes
+
+ID: plan
+Property: The response states the target and the edge-verified firm reduction in kW.
+Evidence: Step 12 (`simulate_edge_interlock`) and Step 13 (`propose_load_shed_plan`) show `target_kw`: 3000.0 and `firm_reduction_kw`: 3575.7. The final answer states: "Target Load Reduction: 3,000 kW" and "Edge-Verified Firm Reduction: 3,575.7 kW".
+Rationale: The target load reduction (3,000 kW) and the edge-verified firm reduction (3,575.7 kW) are accurately stated in the final answer and match the trusted tool outputs.
+Verdict: yes
+
+ID: risks
+Property: The response mentions at least one risk from the data: the PV cloud band (p10) or the JEPX evening spike or the reserve margin.
+Evidence: Step 0 (`market_intelligence_agent`), Step 6 (`get_jepx_prices`), Step 7 (`get_pv_forecast`), and Step 8 (`get_deviation_exposure`) return data for the PV cloud band (p10), JEPX price spikes, reserve margin, and deviation exposure. The final answer in Section 4 details the PV p10 risk (212.5 kW forecast, 610.9 kW deficit), JEPX price spike (55.00 JPY/kWh average, 62.40 JPY/kWh peak), reserve margin (dropping to 5.4 %), and deviation exposure (9,965 JPY).
+Rationale: The response explicitly details all three risks (PV cloud band p10, JEPX evening spike, and reserve margin) consistent with the tool outputs.
+Verdict: yes
+
+ID: earn
+Property: The response states what the event earns in JPY (DR payment or event value) and how it is split with the equipment vendor.
+Evidence: Step 17 (`compute_event_savings`) output gives `dr_energy_payment`: 337500 JPY, `event_value_jpy`: 701315 JPY, `vendor_gain_share_jpy`: 175329 JPY (25%), and `client_share_jpy`: 525986 JPY (75%). The final answer states these exact figures in Section 5: "DR Energy Payment: 337,500 JPY", "Total Estimated Gross Savings: 701,315 JPY", and "Gain-Share Split: 175,329 JPY to the equipment vendor (25 %) and a 525,986 JPY client net share (75 %)".
+Rationale: The final answer clearly states the earnings in JPY and how they are split with the equipment vendor, fully aligned with the trusted evidence.
+Verdict: yes
+
+ID: approval
+Property: The response says what still needs approval (pending Hold-to-Confirm) and gives the safety audit verdict.
+Evidence: Step 10 and Step 13 tool outputs confirm proposals are queued for Hold-to-Confirm. Step 16 (`audit_plan`) tool response gives `verdict`: "APPROVED". The final answer states in Section 6: "Pending Approvals: The load-shed plan and the battery schedule are queued in the pending-actions tray for a human Hold-to-Confirm" and "Audit Verdict: APPROVED".
+Rationale: The final answer accurately states what is pending approval and provides the safety audit verdict.
+Verdict: yes
+[end_to_end] 2 cases in 156s; first-attempt pass 0; retried 2; err=None
+[factory] 3 cases in 82s; first-attempt pass 3; retried 0; err=None
+[gainshare] 2 cases in 72s; first-attempt pass 2; retried 0; err=None

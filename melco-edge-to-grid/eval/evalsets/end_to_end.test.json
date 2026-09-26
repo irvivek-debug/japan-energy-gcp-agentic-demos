@@ -1,0 +1,235 @@
+{
+ "eval_set_id": "melco_end_to_end",
+ "name": "Factory Energy Copilot - end_to_end",
+ "eval_cases": [
+  {
+   "eval_id": "s01_dr_response_plan",
+   "conversation": [
+    {
+     "invocation_id": "s01_dr_response_plan-1",
+     "user_content": {
+      "role": "user",
+      "parts": [
+       {
+        "text": "The aggregator just called a DR event: we need 3,000 kW off from 16:30 to 19:00 today. Build the Event Response Plan."
+       }
+      ]
+     },
+     "final_response": {
+      "role": "model",
+      "parts": [
+       {
+        "text": "Reference: see rubrics for scenario S1."
+       }
+      ]
+     },
+     "intermediate_data": {
+      "tool_uses": [
+       {
+        "name": "market_intelligence_agent",
+        "args": {}
+       },
+       {
+        "name": "get_dr_events",
+        "args": {}
+       },
+       {
+        "name": "factory_interlock_agent",
+        "args": {}
+       },
+       {
+        "name": "list_flexible_loads",
+        "args": {}
+       },
+       {
+        "name": "simulate_edge_interlock",
+        "args": {}
+       },
+       {
+        "name": "propose_load_shed_plan",
+        "args": {}
+       },
+       {
+        "name": "bess_strategy_agent",
+        "args": {}
+       },
+       {
+        "name": "optimize_bess_schedule",
+        "args": {}
+       },
+       {
+        "name": "gain_share_agent",
+        "args": {}
+       },
+       {
+        "name": "compute_event_savings",
+        "args": {}
+       },
+       {
+        "name": "safety_auditor",
+        "args": {}
+       },
+       {
+        "name": "audit_plan",
+        "args": {}
+       }
+      ]
+     }
+    }
+   ],
+   "session_input": {
+    "app_name": "factory_copilot",
+    "user_id": "eval",
+    "state": {}
+   },
+   "rubrics": [
+    {
+     "rubric_id": "firm_vs_target",
+     "rubric_content": {
+      "text_property": "The response states an edge-verified firm reduction above the 3,000 kW target and gives the margin in kW or percent."
+     },
+     "type": "FINAL_RESPONSE_QUALITY"
+    },
+    {
+     "rubric_id": "fn02_rejected",
+     "rubric_content": {
+      "text_property": "The response says the edge rejected the FN-02 furnace action and names rule IR-FN-02 or IR-FN-01."
+     },
+     "type": "FINAL_RESPONSE_QUALITY"
+    },
+    {
+     "rubric_id": "bess_soc",
+     "rubric_content": {
+      "text_property": "The response gives the battery state of charge at the start of the DR window (16:30)."
+     },
+     "type": "FINAL_RESPONSE_QUALITY"
+    },
+    {
+     "rubric_id": "pending_hitl",
+     "rubric_content": {
+      "text_property": "The response says the proposals are pending Hold-to-Confirm approval."
+     },
+     "type": "FINAL_RESPONSE_QUALITY"
+    },
+    {
+     "rubric_id": "value",
+     "rubric_content": {
+      "text_property": "The response gives an estimated event value, DR payment or gain-share split in JPY."
+     },
+     "type": "FINAL_RESPONSE_QUALITY"
+    }
+   ]
+  },
+  {
+   "eval_id": "s10_event_brief",
+   "conversation": [
+    {
+     "invocation_id": "s10_event_brief-1",
+     "user_content": {
+      "role": "user",
+      "parts": [
+       {
+        "text": "Give the plant manager an end-to-end brief for today's DR event: the plan, the risks, what we earn and what still needs approval."
+       }
+      ]
+     },
+     "final_response": {
+      "role": "model",
+      "parts": [
+       {
+        "text": "Reference: see rubrics for scenario S10."
+       }
+      ]
+     },
+     "intermediate_data": {
+      "tool_uses": [
+       {
+        "name": "market_intelligence_agent",
+        "args": {}
+       },
+       {
+        "name": "get_dr_events",
+        "args": {}
+       },
+       {
+        "name": "factory_interlock_agent",
+        "args": {}
+       },
+       {
+        "name": "list_flexible_loads",
+        "args": {}
+       },
+       {
+        "name": "simulate_edge_interlock",
+        "args": {}
+       },
+       {
+        "name": "propose_load_shed_plan",
+        "args": {}
+       },
+       {
+        "name": "bess_strategy_agent",
+        "args": {}
+       },
+       {
+        "name": "optimize_bess_schedule",
+        "args": {}
+       },
+       {
+        "name": "gain_share_agent",
+        "args": {}
+       },
+       {
+        "name": "compute_event_savings",
+        "args": {}
+       },
+       {
+        "name": "safety_auditor",
+        "args": {}
+       },
+       {
+        "name": "audit_plan",
+        "args": {}
+       }
+      ]
+     }
+    }
+   ],
+   "session_input": {
+    "app_name": "factory_copilot",
+    "user_id": "eval",
+    "state": {}
+   },
+   "rubrics": [
+    {
+     "rubric_id": "plan",
+     "rubric_content": {
+      "text_property": "The response states the target and the edge-verified firm reduction in kW."
+     },
+     "type": "FINAL_RESPONSE_QUALITY"
+    },
+    {
+     "rubric_id": "risks",
+     "rubric_content": {
+      "text_property": "The response mentions at least one risk from the data: the PV cloud band (p10) or the JEPX evening spike or the reserve margin."
+     },
+     "type": "FINAL_RESPONSE_QUALITY"
+    },
+    {
+     "rubric_id": "earn",
+     "rubric_content": {
+      "text_property": "The response states what the event earns in JPY (DR payment or event value) and how it is split with the equipment vendor."
+     },
+     "type": "FINAL_RESPONSE_QUALITY"
+    },
+    {
+     "rubric_id": "approval",
+     "rubric_content": {
+      "text_property": "The response says what still needs approval (pending Hold-to-Confirm) and gives the safety audit verdict."
+     },
+     "type": "FINAL_RESPONSE_QUALITY"
+    }
+   ]
+  }
+ ]
+}

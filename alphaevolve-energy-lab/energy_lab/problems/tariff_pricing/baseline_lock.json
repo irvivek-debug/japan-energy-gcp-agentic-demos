@@ -1,0 +1,63 @@
+{
+ "problem": "tariff_pricing",
+ "fold": "train",
+ "instance_sha256": "8f3d1516cef35cbf9f272b2bf7c8f2778639079f6691e5d640877d64678fe016",
+ "seed_score": -8800.354397563551,
+ "seed_raw": -8800.354397563551,
+ "null_score": null,
+ "null_raw": -10827.924156700457,
+ "null_valid": false,
+ "null_insights": [
+  {
+   "label": "policy: churn",
+   "text": "segment churn rises more than 5% above the incumbent book: data_center 17.9% -> 36.9%, semiconductor_fab 20.3% -> 47.5%, water_utility 16.8% -> 31.1%; energy-weighted churn 22.3% > 14% (train guard band); segment churn > 22% (train guard band): data_center 36.9%, semiconductor_fab 47.5%, water_utility 31.1% (pricing customers out is a strategy change, not an uplift)"
+  },
+  {
+   "label": "raw_objective",
+   "text": "would have scored -10827.9 JPY M without the policy gate"
+  },
+  {
+   "label": "score_components",
+   "text": "E[margin] 5673.5 - 0.5 x CVaR95 34886.0 + LTV 941.6 = -10827.9 JPY M"
+  },
+  {
+   "label": "risk",
+   "text": "worst scenario margin -33450.4 JPY M; energy-weighted mean alpha 0.00"
+  },
+  {
+   "label": "retention",
+   "text": "churn 7.8% by count, 22.3% by energy; highest segment semiconductor_fab 47.5%; retained 4.67 TWh"
+  }
+ ],
+ "seed_metrics": {
+  "expected_margin_jpy_m": 7613.943114732486,
+  "cvar95_shortfall_jpy_m": 34904.92631223363,
+  "ltv_jpy_m": 1038.1656438207751,
+  "worst_scenario_margin_jpy_m": -31554.188847523477,
+  "churn_count": 0.10060635296578084,
+  "churn_energy": 0.1331753852306053,
+  "mean_alpha": 0.10583174661463174,
+  "dr_enrolled_mw": 0.0,
+  "flex_value_jpy_m": 74.01010608364359,
+  "imbalance_cost_jpy_m": 597.6747535241125,
+  "penalty_revenue_jpy_m": 1.4908883010798408,
+  "retained_twh": 5.215972874510898,
+  "margin_per_kwh": 1.4597359491533868
+ },
+ "null_metrics": {
+  "expected_margin_jpy_m": 5673.490268847298,
+  "cvar95_shortfall_jpy_m": 34886.01778074229,
+  "ltv_jpy_m": 941.5944648233881,
+  "worst_scenario_margin_jpy_m": -33450.38135152785,
+  "churn_count": 0.07837050528498202,
+  "churn_energy": 0.22322800384423513,
+  "mean_alpha": 0.0,
+  "dr_enrolled_mw": 0.0,
+  "flex_value_jpy_m": 0.0,
+  "imbalance_cost_jpy_m": 631.6144784934907,
+  "penalty_revenue_jpy_m": 0.0,
+  "retained_twh": 4.674096227304325,
+  "margin_per_kwh": 1.2138154614158103
+ },
+ "recorded_at": "2026-09-26T08:00:22.283247+00:00"
+}

@@ -1,0 +1,414 @@
+eval_set_id,eval_id,metric_name,threshold,score,eval_status,prompt,expected_response,actual_response,expected_tool_calls,actual_tool_calls
+melco_market_retry,s02_jepx_spike,tool_trajectory_avg_score,1.0,1.0,PASSED,JEPX Tokyo is forecast to spike this evening. How should we respond between 17:00 and 19:30?,Reference: see rubrics for scenario S2.,"Here is the Event Response Plan for the 17:00 to 19:30 JEPX spike window.
+
+### 1. Headline
+* **Target:** 3,000.0 kW
+* **Edge-Verified Firm Reduction:** 3,306.2 kW
+* **Margin:** 306.2 kW (10.2 %)
+
+### 2. Edge Verdicts
+* **Accepted actions:** 26
+* **Limited actions:** 5
+* **Rejected actions:** 
+  * FN-01 (defer_batch): Rejected by rule IR-FN-01.
+  * FN-02 (defer_batch): Rejected by rules IR-FN-02 and IR-FN-01.
+
+### 3. Battery
+* **SOC now (13:30 JST):** 63.86 %
+* **SOC at DR start (16:30 JST):** 89.22 %
+* **Firm contribution:** 1,700 kW during the window.
+* **Policy:** forecast_aware_v2
+
+### 4. Risks
+* **PV p10 risk:** The p10 forecast risk remains small (12.5 % gap) during the 17:00 to 19:30 window, with the primary cloud band risk concentrating earlier from 14:30 to 16:00.
+* **JEPX spike prices and reserve margin:** Average spot price is 55.00 JPY/kWh with a peak spot price of 62.40 JPY/kWh. The peak estimated imbalance price is 125.60 JPY/kWh. The minimum wide-area reserve margin is 5.4 %.
+* **Deviation exposure:** 0 JPY imbalance cost at risk for 17:00 to 19:30. All slots in this window stay within the +/-7.5 % tolerance band.
+
+### 5. Value
+* **Estimated measured delivery:** 2,851.3 kW average
+* **DR payment:** 320,771 JPY (minus 22,306 JPY under-performance penalty)
+* **Total event value:** 583,310 JPY 
+* **Gain share split:** 437,483 JPY (75 %) client net, 145,828 JPY (25 %) vendor share
+
+### 6. Approvals
+* **Pending Hold-to-Confirm:** The load shed plan (act-32420fbd) and BESS schedule (act-ff1d253e) are queued in the pending-actions tray. Nothing has executed.
+* **Audit verdict:** APPROVED
+* **Plan ID:** PLAN-0819-F066A5
+
+### 7. Sources
+[melco_edge_to_grid_demo.dr_events], [melco_edge_to_grid_demo.site_load_30min], [melco_edge_to_grid_demo.site_plan_30min], [melco_edge_to_grid_demo.jepx_prices_30min], [melco_edge_to_grid_demo.tariff_contract], [melco_edge_to_grid_demo.bess_state_5min], [melco_edge_to_grid_demo.interlock_rules], [melco_edge_to_grid_demo.pv_forecast_30min], [melco_edge_to_grid_demo.assets], [plant_energy_policy.md Section 6]","id=None args={} name='market_intelligence_agent' partial_args=None will_continue=None
+id=None args={} name='get_jepx_prices' partial_args=None will_continue=None
+id=None args={} name='bess_strategy_agent' partial_args=None will_continue=None
+id=None args={} name='factory_interlock_agent' partial_args=None will_continue=None
+id=None args={} name='simulate_edge_interlock' partial_args=None will_continue=None","id='call_1027842' args={'request': 'Get JEPX Tokyo spike prices, reserve margin, PV p10/p50/p90 risk, and deviation exposure for 2026-08-19 17:00-19:30.'} name='market_intelligence_agent' partial_args=None will_continue=None
+id='call_1027843' args={'request': 'Build, edge-simulate and propose the load-shed plan for 2026-08-19 17:00-19:30; return the plan_id.'} name='factory_interlock_agent' partial_args=None will_continue=None
+id='call_1027844' args={'request': 'Optimize with forecast_aware_v2 and propose the schedule for 2026-08-19 17:00-19:30.'} name='bess_strategy_agent' partial_args=None will_continue=None
+id='call_34205' args={'ts': '2026-08-19T13:30'} name='get_bess_state' partial_args=None will_continue=None
+id='call_34206' args={'date': '2026-08-19', 'policy': 'forecast_aware_v2'} name='optimize_bess_schedule' partial_args=None will_continue=None
+id='call_43652' args={'start': '17:00', 'end': '19:30', 'date': '2026-08-19'} name='list_flexible_loads' partial_args=None will_continue=None
+id='call_33741' args={'date': '2026-08-19'} name='get_jepx_prices' partial_args=None will_continue=None
+id='call_33742' args={'date': '2026-08-19'} name='get_dr_events' partial_args=None will_continue=None
+id='call_33743' args={'date': '2026-08-19'} name='get_pv_forecast' partial_args=None will_continue=None
+id='call_33744' args={'date': '2026-08-19'} name='get_deviation_exposure' partial_args=None will_continue=None
+id='call_64303' args={'date': '2026-08-19'} name='compare_bess_policies' partial_args=None will_continue=None
+id='call_40079' args={'plan_json': '{""date"":""2026-08-19"",""start"":""17:00"",""end"":""19:30"",""event_id"":""DR-20260819"",""target_kw"":3000.0,""actions"":[{""asset_id"":""BESS-01"",""action"":""dispatch_policy"",""policy"":""forecast_aware_v2""},{""asset_id"":""TES-01"",""action"":""tes_discharge"",""kw"":700},{""asset_id"":""CH-*"",""action"":""chw_setpoint"",""delta_c"":1.5},{""asset_id"":""AC-04"",""action"":""standby""},{""asset_id"":""COMP-HDR"",""action"":""pressure_setpoint"",""to_mpa"":0.65},{""asset_id"":""CR-AHU-05"",""action"":""trim""},{""asset_id"":""CR-AHU-06"",""action"":""trim""},{""asset_id"":""FN-01"",""action"":""defer_batch""},{""asset_id"":""FN-02"",""action"":""defer_batch""},{""asset_id"":""FN-03"",""action"":""standby""},{""asset_id"":""BI-05"",""action"":""defer""},{""asset_id"":""BI-06"",""action"":""defer""},{""asset_id"":""EV-07,EV-08,EV-09,EV-10"",""action"":""defer""},{""asset_id"":""OF-AHU-*"",""action"":""setpoint_shift"",""delta_c"":2},{""asset_id"":""LT-*"",""action"":""dim"",""pct"":30},{""asset_id"":""WW-*"",""action"":""shift"",""minutes"":150}]}'} name='simulate_edge_interlock' partial_args=None will_continue=None
+id='call_1415571' args={'date': '2026-08-19', 'policy': 'forecast_aware_v2', 'rationale': 'forecast_aware_v2 delivers 1,700 kW firm DR contribution during the 16:30-19:00 DR window, fully covers the JEPX price spike (17:00-19:30), avoids PV-risk charging, and lowers BESS energy cost to JPY -130,353 without violating SOC limits or setting a new billing peak.'} name='propose_bess_schedule' partial_args=None will_continue=None
+id='call_46588' args={'rationale': 'Edge-verified load-shed plan delivers a firm reduction of 3,306.2 kW against the 3,000.0 kW DR target (306.2 kW or 10.2 % margin) across the 17:00-19:30 window, averaging 3,425.2 kW reduction across slots.', 'event_id': 'DR-20260819', 'plan_id': 'PLAN-0819-F066A5'} name='propose_load_shed_plan' partial_args=None will_continue=None
+id='call_3539582' args={'request': 'Compute event savings for plan_id PLAN-0819-F066A5.'} name='gain_share_agent' partial_args=None will_continue=None
+id='call_3539583' args={'request': 'Audit plan_id PLAN-0819-F066A5.'} name='safety_auditor' partial_args=None will_continue=None
+id='call_28868' args={'plan_id': 'PLAN-0819-F066A5'} name='audit_plan' partial_args=None will_continue=None
+id='call_1992481' args={'plan_id': 'PLAN-0819-F066A5', 'event_id': 'DR-20260819'} name='compute_event_savings' partial_args=None will_continue=None"
+melco_market_retry,s02_jepx_spike,rubric_based_final_response_quality_v1,0.8,1.0,PASSED,JEPX Tokyo is forecast to spike this evening. How should we respond between 17:00 and 19:30?,Reference: see rubrics for scenario S2.,"Here is the Event Response Plan for the 17:00 to 19:30 JEPX spike window.
+
+### 1. Headline
+* **Target:** 3,000.0 kW
+* **Edge-Verified Firm Reduction:** 3,306.2 kW
+* **Margin:** 306.2 kW (10.2 %)
+
+### 2. Edge Verdicts
+* **Accepted actions:** 26
+* **Limited actions:** 5
+* **Rejected actions:** 
+  * FN-01 (defer_batch): Rejected by rule IR-FN-01.
+  * FN-02 (defer_batch): Rejected by rules IR-FN-02 and IR-FN-01.
+
+### 3. Battery
+* **SOC now (13:30 JST):** 63.86 %
+* **SOC at DR start (16:30 JST):** 89.22 %
+* **Firm contribution:** 1,700 kW during the window.
+* **Policy:** forecast_aware_v2
+
+### 4. Risks
+* **PV p10 risk:** The p10 forecast risk remains small (12.5 % gap) during the 17:00 to 19:30 window, with the primary cloud band risk concentrating earlier from 14:30 to 16:00.
+* **JEPX spike prices and reserve margin:** Average spot price is 55.00 JPY/kWh with a peak spot price of 62.40 JPY/kWh. The peak estimated imbalance price is 125.60 JPY/kWh. The minimum wide-area reserve margin is 5.4 %.
+* **Deviation exposure:** 0 JPY imbalance cost at risk for 17:00 to 19:30. All slots in this window stay within the +/-7.5 % tolerance band.
+
+### 5. Value
+* **Estimated measured delivery:** 2,851.3 kW average
+* **DR payment:** 320,771 JPY (minus 22,306 JPY under-performance penalty)
+* **Total event value:** 583,310 JPY 
+* **Gain share split:** 437,483 JPY (75 %) client net, 145,828 JPY (25 %) vendor share
+
+### 6. Approvals
+* **Pending Hold-to-Confirm:** The load shed plan (act-32420fbd) and BESS schedule (act-ff1d253e) are queued in the pending-actions tray. Nothing has executed.
+* **Audit verdict:** APPROVED
+* **Plan ID:** PLAN-0819-F066A5
+
+### 7. Sources
+[melco_edge_to_grid_demo.dr_events], [melco_edge_to_grid_demo.site_load_30min], [melco_edge_to_grid_demo.site_plan_30min], [melco_edge_to_grid_demo.jepx_prices_30min], [melco_edge_to_grid_demo.tariff_contract], [melco_edge_to_grid_demo.bess_state_5min], [melco_edge_to_grid_demo.interlock_rules], [melco_edge_to_grid_demo.pv_forecast_30min], [melco_edge_to_grid_demo.assets], [plant_energy_policy.md Section 6]","id=None args={} name='market_intelligence_agent' partial_args=None will_continue=None
+id=None args={} name='get_jepx_prices' partial_args=None will_continue=None
+id=None args={} name='bess_strategy_agent' partial_args=None will_continue=None
+id=None args={} name='factory_interlock_agent' partial_args=None will_continue=None
+id=None args={} name='simulate_edge_interlock' partial_args=None will_continue=None","id='call_1027842' args={'request': 'Get JEPX Tokyo spike prices, reserve margin, PV p10/p50/p90 risk, and deviation exposure for 2026-08-19 17:00-19:30.'} name='market_intelligence_agent' partial_args=None will_continue=None
+id='call_1027843' args={'request': 'Build, edge-simulate and propose the load-shed plan for 2026-08-19 17:00-19:30; return the plan_id.'} name='factory_interlock_agent' partial_args=None will_continue=None
+id='call_1027844' args={'request': 'Optimize with forecast_aware_v2 and propose the schedule for 2026-08-19 17:00-19:30.'} name='bess_strategy_agent' partial_args=None will_continue=None
+id='call_34205' args={'ts': '2026-08-19T13:30'} name='get_bess_state' partial_args=None will_continue=None
+id='call_34206' args={'date': '2026-08-19', 'policy': 'forecast_aware_v2'} name='optimize_bess_schedule' partial_args=None will_continue=None
+id='call_43652' args={'start': '17:00', 'end': '19:30', 'date': '2026-08-19'} name='list_flexible_loads' partial_args=None will_continue=None
+id='call_33741' args={'date': '2026-08-19'} name='get_jepx_prices' partial_args=None will_continue=None
+id='call_33742' args={'date': '2026-08-19'} name='get_dr_events' partial_args=None will_continue=None
+id='call_33743' args={'date': '2026-08-19'} name='get_pv_forecast' partial_args=None will_continue=None
+id='call_33744' args={'date': '2026-08-19'} name='get_deviation_exposure' partial_args=None will_continue=None
+id='call_64303' args={'date': '2026-08-19'} name='compare_bess_policies' partial_args=None will_continue=None
+id='call_40079' args={'plan_json': '{""date"":""2026-08-19"",""start"":""17:00"",""end"":""19:30"",""event_id"":""DR-20260819"",""target_kw"":3000.0,""actions"":[{""asset_id"":""BESS-01"",""action"":""dispatch_policy"",""policy"":""forecast_aware_v2""},{""asset_id"":""TES-01"",""action"":""tes_discharge"",""kw"":700},{""asset_id"":""CH-*"",""action"":""chw_setpoint"",""delta_c"":1.5},{""asset_id"":""AC-04"",""action"":""standby""},{""asset_id"":""COMP-HDR"",""action"":""pressure_setpoint"",""to_mpa"":0.65},{""asset_id"":""CR-AHU-05"",""action"":""trim""},{""asset_id"":""CR-AHU-06"",""action"":""trim""},{""asset_id"":""FN-01"",""action"":""defer_batch""},{""asset_id"":""FN-02"",""action"":""defer_batch""},{""asset_id"":""FN-03"",""action"":""standby""},{""asset_id"":""BI-05"",""action"":""defer""},{""asset_id"":""BI-06"",""action"":""defer""},{""asset_id"":""EV-07,EV-08,EV-09,EV-10"",""action"":""defer""},{""asset_id"":""OF-AHU-*"",""action"":""setpoint_shift"",""delta_c"":2},{""asset_id"":""LT-*"",""action"":""dim"",""pct"":30},{""asset_id"":""WW-*"",""action"":""shift"",""minutes"":150}]}'} name='simulate_edge_interlock' partial_args=None will_continue=None
+id='call_1415571' args={'date': '2026-08-19', 'policy': 'forecast_aware_v2', 'rationale': 'forecast_aware_v2 delivers 1,700 kW firm DR contribution during the 16:30-19:00 DR window, fully covers the JEPX price spike (17:00-19:30), avoids PV-risk charging, and lowers BESS energy cost to JPY -130,353 without violating SOC limits or setting a new billing peak.'} name='propose_bess_schedule' partial_args=None will_continue=None
+id='call_46588' args={'rationale': 'Edge-verified load-shed plan delivers a firm reduction of 3,306.2 kW against the 3,000.0 kW DR target (306.2 kW or 10.2 % margin) across the 17:00-19:30 window, averaging 3,425.2 kW reduction across slots.', 'event_id': 'DR-20260819', 'plan_id': 'PLAN-0819-F066A5'} name='propose_load_shed_plan' partial_args=None will_continue=None
+id='call_3539582' args={'request': 'Compute event savings for plan_id PLAN-0819-F066A5.'} name='gain_share_agent' partial_args=None will_continue=None
+id='call_3539583' args={'request': 'Audit plan_id PLAN-0819-F066A5.'} name='safety_auditor' partial_args=None will_continue=None
+id='call_28868' args={'plan_id': 'PLAN-0819-F066A5'} name='audit_plan' partial_args=None will_continue=None
+id='call_1992481' args={'plan_id': 'PLAN-0819-F066A5', 'event_id': 'DR-20260819'} name='compute_event_savings' partial_args=None will_continue=None"
+melco_market_retry,s02_jepx_spike,hallucinations_v1,0.8,1.0,PASSED,JEPX Tokyo is forecast to spike this evening. How should we respond between 17:00 and 19:30?,Reference: see rubrics for scenario S2.,"Here is the Event Response Plan for the 17:00 to 19:30 JEPX spike window.
+
+### 1. Headline
+* **Target:** 3,000.0 kW
+* **Edge-Verified Firm Reduction:** 3,306.2 kW
+* **Margin:** 306.2 kW (10.2 %)
+
+### 2. Edge Verdicts
+* **Accepted actions:** 26
+* **Limited actions:** 5
+* **Rejected actions:** 
+  * FN-01 (defer_batch): Rejected by rule IR-FN-01.
+  * FN-02 (defer_batch): Rejected by rules IR-FN-02 and IR-FN-01.
+
+### 3. Battery
+* **SOC now (13:30 JST):** 63.86 %
+* **SOC at DR start (16:30 JST):** 89.22 %
+* **Firm contribution:** 1,700 kW during the window.
+* **Policy:** forecast_aware_v2
+
+### 4. Risks
+* **PV p10 risk:** The p10 forecast risk remains small (12.5 % gap) during the 17:00 to 19:30 window, with the primary cloud band risk concentrating earlier from 14:30 to 16:00.
+* **JEPX spike prices and reserve margin:** Average spot price is 55.00 JPY/kWh with a peak spot price of 62.40 JPY/kWh. The peak estimated imbalance price is 125.60 JPY/kWh. The minimum wide-area reserve margin is 5.4 %.
+* **Deviation exposure:** 0 JPY imbalance cost at risk for 17:00 to 19:30. All slots in this window stay within the +/-7.5 % tolerance band.
+
+### 5. Value
+* **Estimated measured delivery:** 2,851.3 kW average
+* **DR payment:** 320,771 JPY (minus 22,306 JPY under-performance penalty)
+* **Total event value:** 583,310 JPY 
+* **Gain share split:** 437,483 JPY (75 %) client net, 145,828 JPY (25 %) vendor share
+
+### 6. Approvals
+* **Pending Hold-to-Confirm:** The load shed plan (act-32420fbd) and BESS schedule (act-ff1d253e) are queued in the pending-actions tray. Nothing has executed.
+* **Audit verdict:** APPROVED
+* **Plan ID:** PLAN-0819-F066A5
+
+### 7. Sources
+[melco_edge_to_grid_demo.dr_events], [melco_edge_to_grid_demo.site_load_30min], [melco_edge_to_grid_demo.site_plan_30min], [melco_edge_to_grid_demo.jepx_prices_30min], [melco_edge_to_grid_demo.tariff_contract], [melco_edge_to_grid_demo.bess_state_5min], [melco_edge_to_grid_demo.interlock_rules], [melco_edge_to_grid_demo.pv_forecast_30min], [melco_edge_to_grid_demo.assets], [plant_energy_policy.md Section 6]","id=None args={} name='market_intelligence_agent' partial_args=None will_continue=None
+id=None args={} name='get_jepx_prices' partial_args=None will_continue=None
+id=None args={} name='bess_strategy_agent' partial_args=None will_continue=None
+id=None args={} name='factory_interlock_agent' partial_args=None will_continue=None
+id=None args={} name='simulate_edge_interlock' partial_args=None will_continue=None","id='call_1027842' args={'request': 'Get JEPX Tokyo spike prices, reserve margin, PV p10/p50/p90 risk, and deviation exposure for 2026-08-19 17:00-19:30.'} name='market_intelligence_agent' partial_args=None will_continue=None
+id='call_1027843' args={'request': 'Build, edge-simulate and propose the load-shed plan for 2026-08-19 17:00-19:30; return the plan_id.'} name='factory_interlock_agent' partial_args=None will_continue=None
+id='call_1027844' args={'request': 'Optimize with forecast_aware_v2 and propose the schedule for 2026-08-19 17:00-19:30.'} name='bess_strategy_agent' partial_args=None will_continue=None
+id='call_34205' args={'ts': '2026-08-19T13:30'} name='get_bess_state' partial_args=None will_continue=None
+id='call_34206' args={'date': '2026-08-19', 'policy': 'forecast_aware_v2'} name='optimize_bess_schedule' partial_args=None will_continue=None
+id='call_43652' args={'start': '17:00', 'end': '19:30', 'date': '2026-08-19'} name='list_flexible_loads' partial_args=None will_continue=None
+id='call_33741' args={'date': '2026-08-19'} name='get_jepx_prices' partial_args=None will_continue=None
+id='call_33742' args={'date': '2026-08-19'} name='get_dr_events' partial_args=None will_continue=None
+id='call_33743' args={'date': '2026-08-19'} name='get_pv_forecast' partial_args=None will_continue=None
+id='call_33744' args={'date': '2026-08-19'} name='get_deviation_exposure' partial_args=None will_continue=None
+id='call_64303' args={'date': '2026-08-19'} name='compare_bess_policies' partial_args=None will_continue=None
+id='call_40079' args={'plan_json': '{""date"":""2026-08-19"",""start"":""17:00"",""end"":""19:30"",""event_id"":""DR-20260819"",""target_kw"":3000.0,""actions"":[{""asset_id"":""BESS-01"",""action"":""dispatch_policy"",""policy"":""forecast_aware_v2""},{""asset_id"":""TES-01"",""action"":""tes_discharge"",""kw"":700},{""asset_id"":""CH-*"",""action"":""chw_setpoint"",""delta_c"":1.5},{""asset_id"":""AC-04"",""action"":""standby""},{""asset_id"":""COMP-HDR"",""action"":""pressure_setpoint"",""to_mpa"":0.65},{""asset_id"":""CR-AHU-05"",""action"":""trim""},{""asset_id"":""CR-AHU-06"",""action"":""trim""},{""asset_id"":""FN-01"",""action"":""defer_batch""},{""asset_id"":""FN-02"",""action"":""defer_batch""},{""asset_id"":""FN-03"",""action"":""standby""},{""asset_id"":""BI-05"",""action"":""defer""},{""asset_id"":""BI-06"",""action"":""defer""},{""asset_id"":""EV-07,EV-08,EV-09,EV-10"",""action"":""defer""},{""asset_id"":""OF-AHU-*"",""action"":""setpoint_shift"",""delta_c"":2},{""asset_id"":""LT-*"",""action"":""dim"",""pct"":30},{""asset_id"":""WW-*"",""action"":""shift"",""minutes"":150}]}'} name='simulate_edge_interlock' partial_args=None will_continue=None
+id='call_1415571' args={'date': '2026-08-19', 'policy': 'forecast_aware_v2', 'rationale': 'forecast_aware_v2 delivers 1,700 kW firm DR contribution during the 16:30-19:00 DR window, fully covers the JEPX price spike (17:00-19:30), avoids PV-risk charging, and lowers BESS energy cost to JPY -130,353 without violating SOC limits or setting a new billing peak.'} name='propose_bess_schedule' partial_args=None will_continue=None
+id='call_46588' args={'rationale': 'Edge-verified load-shed plan delivers a firm reduction of 3,306.2 kW against the 3,000.0 kW DR target (306.2 kW or 10.2 % margin) across the 17:00-19:30 window, averaging 3,425.2 kW reduction across slots.', 'event_id': 'DR-20260819', 'plan_id': 'PLAN-0819-F066A5'} name='propose_load_shed_plan' partial_args=None will_continue=None
+id='call_3539582' args={'request': 'Compute event savings for plan_id PLAN-0819-F066A5.'} name='gain_share_agent' partial_args=None will_continue=None
+id='call_3539583' args={'request': 'Audit plan_id PLAN-0819-F066A5.'} name='safety_auditor' partial_args=None will_continue=None
+id='call_28868' args={'plan_id': 'PLAN-0819-F066A5'} name='audit_plan' partial_args=None will_continue=None
+id='call_1992481' args={'plan_id': 'PLAN-0819-F066A5', 'event_id': 'DR-20260819'} name='compute_event_savings' partial_args=None will_continue=None"
+melco_market_retry,s02_jepx_spike,tool_call_count_v1,,18.0,INFORMATIONAL,JEPX Tokyo is forecast to spike this evening. How should we respond between 17:00 and 19:30?,Reference: see rubrics for scenario S2.,"Here is the Event Response Plan for the 17:00 to 19:30 JEPX spike window.
+
+### 1. Headline
+* **Target:** 3,000.0 kW
+* **Edge-Verified Firm Reduction:** 3,306.2 kW
+* **Margin:** 306.2 kW (10.2 %)
+
+### 2. Edge Verdicts
+* **Accepted actions:** 26
+* **Limited actions:** 5
+* **Rejected actions:** 
+  * FN-01 (defer_batch): Rejected by rule IR-FN-01.
+  * FN-02 (defer_batch): Rejected by rules IR-FN-02 and IR-FN-01.
+
+### 3. Battery
+* **SOC now (13:30 JST):** 63.86 %
+* **SOC at DR start (16:30 JST):** 89.22 %
+* **Firm contribution:** 1,700 kW during the window.
+* **Policy:** forecast_aware_v2
+
+### 4. Risks
+* **PV p10 risk:** The p10 forecast risk remains small (12.5 % gap) during the 17:00 to 19:30 window, with the primary cloud band risk concentrating earlier from 14:30 to 16:00.
+* **JEPX spike prices and reserve margin:** Average spot price is 55.00 JPY/kWh with a peak spot price of 62.40 JPY/kWh. The peak estimated imbalance price is 125.60 JPY/kWh. The minimum wide-area reserve margin is 5.4 %.
+* **Deviation exposure:** 0 JPY imbalance cost at risk for 17:00 to 19:30. All slots in this window stay within the +/-7.5 % tolerance band.
+
+### 5. Value
+* **Estimated measured delivery:** 2,851.3 kW average
+* **DR payment:** 320,771 JPY (minus 22,306 JPY under-performance penalty)
+* **Total event value:** 583,310 JPY 
+* **Gain share split:** 437,483 JPY (75 %) client net, 145,828 JPY (25 %) vendor share
+
+### 6. Approvals
+* **Pending Hold-to-Confirm:** The load shed plan (act-32420fbd) and BESS schedule (act-ff1d253e) are queued in the pending-actions tray. Nothing has executed.
+* **Audit verdict:** APPROVED
+* **Plan ID:** PLAN-0819-F066A5
+
+### 7. Sources
+[melco_edge_to_grid_demo.dr_events], [melco_edge_to_grid_demo.site_load_30min], [melco_edge_to_grid_demo.site_plan_30min], [melco_edge_to_grid_demo.jepx_prices_30min], [melco_edge_to_grid_demo.tariff_contract], [melco_edge_to_grid_demo.bess_state_5min], [melco_edge_to_grid_demo.interlock_rules], [melco_edge_to_grid_demo.pv_forecast_30min], [melco_edge_to_grid_demo.assets], [plant_energy_policy.md Section 6]","id=None args={} name='market_intelligence_agent' partial_args=None will_continue=None
+id=None args={} name='get_jepx_prices' partial_args=None will_continue=None
+id=None args={} name='bess_strategy_agent' partial_args=None will_continue=None
+id=None args={} name='factory_interlock_agent' partial_args=None will_continue=None
+id=None args={} name='simulate_edge_interlock' partial_args=None will_continue=None","id='call_1027842' args={'request': 'Get JEPX Tokyo spike prices, reserve margin, PV p10/p50/p90 risk, and deviation exposure for 2026-08-19 17:00-19:30.'} name='market_intelligence_agent' partial_args=None will_continue=None
+id='call_1027843' args={'request': 'Build, edge-simulate and propose the load-shed plan for 2026-08-19 17:00-19:30; return the plan_id.'} name='factory_interlock_agent' partial_args=None will_continue=None
+id='call_1027844' args={'request': 'Optimize with forecast_aware_v2 and propose the schedule for 2026-08-19 17:00-19:30.'} name='bess_strategy_agent' partial_args=None will_continue=None
+id='call_34205' args={'ts': '2026-08-19T13:30'} name='get_bess_state' partial_args=None will_continue=None
+id='call_34206' args={'date': '2026-08-19', 'policy': 'forecast_aware_v2'} name='optimize_bess_schedule' partial_args=None will_continue=None
+id='call_43652' args={'start': '17:00', 'end': '19:30', 'date': '2026-08-19'} name='list_flexible_loads' partial_args=None will_continue=None
+id='call_33741' args={'date': '2026-08-19'} name='get_jepx_prices' partial_args=None will_continue=None
+id='call_33742' args={'date': '2026-08-19'} name='get_dr_events' partial_args=None will_continue=None
+id='call_33743' args={'date': '2026-08-19'} name='get_pv_forecast' partial_args=None will_continue=None
+id='call_33744' args={'date': '2026-08-19'} name='get_deviation_exposure' partial_args=None will_continue=None
+id='call_64303' args={'date': '2026-08-19'} name='compare_bess_policies' partial_args=None will_continue=None
+id='call_40079' args={'plan_json': '{""date"":""2026-08-19"",""start"":""17:00"",""end"":""19:30"",""event_id"":""DR-20260819"",""target_kw"":3000.0,""actions"":[{""asset_id"":""BESS-01"",""action"":""dispatch_policy"",""policy"":""forecast_aware_v2""},{""asset_id"":""TES-01"",""action"":""tes_discharge"",""kw"":700},{""asset_id"":""CH-*"",""action"":""chw_setpoint"",""delta_c"":1.5},{""asset_id"":""AC-04"",""action"":""standby""},{""asset_id"":""COMP-HDR"",""action"":""pressure_setpoint"",""to_mpa"":0.65},{""asset_id"":""CR-AHU-05"",""action"":""trim""},{""asset_id"":""CR-AHU-06"",""action"":""trim""},{""asset_id"":""FN-01"",""action"":""defer_batch""},{""asset_id"":""FN-02"",""action"":""defer_batch""},{""asset_id"":""FN-03"",""action"":""standby""},{""asset_id"":""BI-05"",""action"":""defer""},{""asset_id"":""BI-06"",""action"":""defer""},{""asset_id"":""EV-07,EV-08,EV-09,EV-10"",""action"":""defer""},{""asset_id"":""OF-AHU-*"",""action"":""setpoint_shift"",""delta_c"":2},{""asset_id"":""LT-*"",""action"":""dim"",""pct"":30},{""asset_id"":""WW-*"",""action"":""shift"",""minutes"":150}]}'} name='simulate_edge_interlock' partial_args=None will_continue=None
+id='call_1415571' args={'date': '2026-08-19', 'policy': 'forecast_aware_v2', 'rationale': 'forecast_aware_v2 delivers 1,700 kW firm DR contribution during the 16:30-19:00 DR window, fully covers the JEPX price spike (17:00-19:30), avoids PV-risk charging, and lowers BESS energy cost to JPY -130,353 without violating SOC limits or setting a new billing peak.'} name='propose_bess_schedule' partial_args=None will_continue=None
+id='call_46588' args={'rationale': 'Edge-verified load-shed plan delivers a firm reduction of 3,306.2 kW against the 3,000.0 kW DR target (306.2 kW or 10.2 % margin) across the 17:00-19:30 window, averaging 3,425.2 kW reduction across slots.', 'event_id': 'DR-20260819', 'plan_id': 'PLAN-0819-F066A5'} name='propose_load_shed_plan' partial_args=None will_continue=None
+id='call_3539582' args={'request': 'Compute event savings for plan_id PLAN-0819-F066A5.'} name='gain_share_agent' partial_args=None will_continue=None
+id='call_3539583' args={'request': 'Audit plan_id PLAN-0819-F066A5.'} name='safety_auditor' partial_args=None will_continue=None
+id='call_28868' args={'plan_id': 'PLAN-0819-F066A5'} name='audit_plan' partial_args=None will_continue=None
+id='call_1992481' args={'plan_id': 'PLAN-0819-F066A5', 'event_id': 'DR-20260819'} name='compute_event_savings' partial_args=None will_continue=None"
+melco_market_retry,s02_jepx_spike,inference_call_count_v1,,17.0,INFORMATIONAL,JEPX Tokyo is forecast to spike this evening. How should we respond between 17:00 and 19:30?,Reference: see rubrics for scenario S2.,"Here is the Event Response Plan for the 17:00 to 19:30 JEPX spike window.
+
+### 1. Headline
+* **Target:** 3,000.0 kW
+* **Edge-Verified Firm Reduction:** 3,306.2 kW
+* **Margin:** 306.2 kW (10.2 %)
+
+### 2. Edge Verdicts
+* **Accepted actions:** 26
+* **Limited actions:** 5
+* **Rejected actions:** 
+  * FN-01 (defer_batch): Rejected by rule IR-FN-01.
+  * FN-02 (defer_batch): Rejected by rules IR-FN-02 and IR-FN-01.
+
+### 3. Battery
+* **SOC now (13:30 JST):** 63.86 %
+* **SOC at DR start (16:30 JST):** 89.22 %
+* **Firm contribution:** 1,700 kW during the window.
+* **Policy:** forecast_aware_v2
+
+### 4. Risks
+* **PV p10 risk:** The p10 forecast risk remains small (12.5 % gap) during the 17:00 to 19:30 window, with the primary cloud band risk concentrating earlier from 14:30 to 16:00.
+* **JEPX spike prices and reserve margin:** Average spot price is 55.00 JPY/kWh with a peak spot price of 62.40 JPY/kWh. The peak estimated imbalance price is 125.60 JPY/kWh. The minimum wide-area reserve margin is 5.4 %.
+* **Deviation exposure:** 0 JPY imbalance cost at risk for 17:00 to 19:30. All slots in this window stay within the +/-7.5 % tolerance band.
+
+### 5. Value
+* **Estimated measured delivery:** 2,851.3 kW average
+* **DR payment:** 320,771 JPY (minus 22,306 JPY under-performance penalty)
+* **Total event value:** 583,310 JPY 
+* **Gain share split:** 437,483 JPY (75 %) client net, 145,828 JPY (25 %) vendor share
+
+### 6. Approvals
+* **Pending Hold-to-Confirm:** The load shed plan (act-32420fbd) and BESS schedule (act-ff1d253e) are queued in the pending-actions tray. Nothing has executed.
+* **Audit verdict:** APPROVED
+* **Plan ID:** PLAN-0819-F066A5
+
+### 7. Sources
+[melco_edge_to_grid_demo.dr_events], [melco_edge_to_grid_demo.site_load_30min], [melco_edge_to_grid_demo.site_plan_30min], [melco_edge_to_grid_demo.jepx_prices_30min], [melco_edge_to_grid_demo.tariff_contract], [melco_edge_to_grid_demo.bess_state_5min], [melco_edge_to_grid_demo.interlock_rules], [melco_edge_to_grid_demo.pv_forecast_30min], [melco_edge_to_grid_demo.assets], [plant_energy_policy.md Section 6]","id=None args={} name='market_intelligence_agent' partial_args=None will_continue=None
+id=None args={} name='get_jepx_prices' partial_args=None will_continue=None
+id=None args={} name='bess_strategy_agent' partial_args=None will_continue=None
+id=None args={} name='factory_interlock_agent' partial_args=None will_continue=None
+id=None args={} name='simulate_edge_interlock' partial_args=None will_continue=None","id='call_1027842' args={'request': 'Get JEPX Tokyo spike prices, reserve margin, PV p10/p50/p90 risk, and deviation exposure for 2026-08-19 17:00-19:30.'} name='market_intelligence_agent' partial_args=None will_continue=None
+id='call_1027843' args={'request': 'Build, edge-simulate and propose the load-shed plan for 2026-08-19 17:00-19:30; return the plan_id.'} name='factory_interlock_agent' partial_args=None will_continue=None
+id='call_1027844' args={'request': 'Optimize with forecast_aware_v2 and propose the schedule for 2026-08-19 17:00-19:30.'} name='bess_strategy_agent' partial_args=None will_continue=None
+id='call_34205' args={'ts': '2026-08-19T13:30'} name='get_bess_state' partial_args=None will_continue=None
+id='call_34206' args={'date': '2026-08-19', 'policy': 'forecast_aware_v2'} name='optimize_bess_schedule' partial_args=None will_continue=None
+id='call_43652' args={'start': '17:00', 'end': '19:30', 'date': '2026-08-19'} name='list_flexible_loads' partial_args=None will_continue=None
+id='call_33741' args={'date': '2026-08-19'} name='get_jepx_prices' partial_args=None will_continue=None
+id='call_33742' args={'date': '2026-08-19'} name='get_dr_events' partial_args=None will_continue=None
+id='call_33743' args={'date': '2026-08-19'} name='get_pv_forecast' partial_args=None will_continue=None
+id='call_33744' args={'date': '2026-08-19'} name='get_deviation_exposure' partial_args=None will_continue=None
+id='call_64303' args={'date': '2026-08-19'} name='compare_bess_policies' partial_args=None will_continue=None
+id='call_40079' args={'plan_json': '{""date"":""2026-08-19"",""start"":""17:00"",""end"":""19:30"",""event_id"":""DR-20260819"",""target_kw"":3000.0,""actions"":[{""asset_id"":""BESS-01"",""action"":""dispatch_policy"",""policy"":""forecast_aware_v2""},{""asset_id"":""TES-01"",""action"":""tes_discharge"",""kw"":700},{""asset_id"":""CH-*"",""action"":""chw_setpoint"",""delta_c"":1.5},{""asset_id"":""AC-04"",""action"":""standby""},{""asset_id"":""COMP-HDR"",""action"":""pressure_setpoint"",""to_mpa"":0.65},{""asset_id"":""CR-AHU-05"",""action"":""trim""},{""asset_id"":""CR-AHU-06"",""action"":""trim""},{""asset_id"":""FN-01"",""action"":""defer_batch""},{""asset_id"":""FN-02"",""action"":""defer_batch""},{""asset_id"":""FN-03"",""action"":""standby""},{""asset_id"":""BI-05"",""action"":""defer""},{""asset_id"":""BI-06"",""action"":""defer""},{""asset_id"":""EV-07,EV-08,EV-09,EV-10"",""action"":""defer""},{""asset_id"":""OF-AHU-*"",""action"":""setpoint_shift"",""delta_c"":2},{""asset_id"":""LT-*"",""action"":""dim"",""pct"":30},{""asset_id"":""WW-*"",""action"":""shift"",""minutes"":150}]}'} name='simulate_edge_interlock' partial_args=None will_continue=None
+id='call_1415571' args={'date': '2026-08-19', 'policy': 'forecast_aware_v2', 'rationale': 'forecast_aware_v2 delivers 1,700 kW firm DR contribution during the 16:30-19:00 DR window, fully covers the JEPX price spike (17:00-19:30), avoids PV-risk charging, and lowers BESS energy cost to JPY -130,353 without violating SOC limits or setting a new billing peak.'} name='propose_bess_schedule' partial_args=None will_continue=None
+id='call_46588' args={'rationale': 'Edge-verified load-shed plan delivers a firm reduction of 3,306.2 kW against the 3,000.0 kW DR target (306.2 kW or 10.2 % margin) across the 17:00-19:30 window, averaging 3,425.2 kW reduction across slots.', 'event_id': 'DR-20260819', 'plan_id': 'PLAN-0819-F066A5'} name='propose_load_shed_plan' partial_args=None will_continue=None
+id='call_3539582' args={'request': 'Compute event savings for plan_id PLAN-0819-F066A5.'} name='gain_share_agent' partial_args=None will_continue=None
+id='call_3539583' args={'request': 'Audit plan_id PLAN-0819-F066A5.'} name='safety_auditor' partial_args=None will_continue=None
+id='call_28868' args={'plan_id': 'PLAN-0819-F066A5'} name='audit_plan' partial_args=None will_continue=None
+id='call_1992481' args={'plan_id': 'PLAN-0819-F066A5', 'event_id': 'DR-20260819'} name='compute_event_savings' partial_args=None will_continue=None"
+melco_market_retry,s02_jepx_spike,token_usage_v1,,122968.0,INFORMATIONAL,JEPX Tokyo is forecast to spike this evening. How should we respond between 17:00 and 19:30?,Reference: see rubrics for scenario S2.,"Here is the Event Response Plan for the 17:00 to 19:30 JEPX spike window.
+
+### 1. Headline
+* **Target:** 3,000.0 kW
+* **Edge-Verified Firm Reduction:** 3,306.2 kW
+* **Margin:** 306.2 kW (10.2 %)
+
+### 2. Edge Verdicts
+* **Accepted actions:** 26
+* **Limited actions:** 5
+* **Rejected actions:** 
+  * FN-01 (defer_batch): Rejected by rule IR-FN-01.
+  * FN-02 (defer_batch): Rejected by rules IR-FN-02 and IR-FN-01.
+
+### 3. Battery
+* **SOC now (13:30 JST):** 63.86 %
+* **SOC at DR start (16:30 JST):** 89.22 %
+* **Firm contribution:** 1,700 kW during the window.
+* **Policy:** forecast_aware_v2
+
+### 4. Risks
+* **PV p10 risk:** The p10 forecast risk remains small (12.5 % gap) during the 17:00 to 19:30 window, with the primary cloud band risk concentrating earlier from 14:30 to 16:00.
+* **JEPX spike prices and reserve margin:** Average spot price is 55.00 JPY/kWh with a peak spot price of 62.40 JPY/kWh. The peak estimated imbalance price is 125.60 JPY/kWh. The minimum wide-area reserve margin is 5.4 %.
+* **Deviation exposure:** 0 JPY imbalance cost at risk for 17:00 to 19:30. All slots in this window stay within the +/-7.5 % tolerance band.
+
+### 5. Value
+* **Estimated measured delivery:** 2,851.3 kW average
+* **DR payment:** 320,771 JPY (minus 22,306 JPY under-performance penalty)
+* **Total event value:** 583,310 JPY 
+* **Gain share split:** 437,483 JPY (75 %) client net, 145,828 JPY (25 %) vendor share
+
+### 6. Approvals
+* **Pending Hold-to-Confirm:** The load shed plan (act-32420fbd) and BESS schedule (act-ff1d253e) are queued in the pending-actions tray. Nothing has executed.
+* **Audit verdict:** APPROVED
+* **Plan ID:** PLAN-0819-F066A5
+
+### 7. Sources
+[melco_edge_to_grid_demo.dr_events], [melco_edge_to_grid_demo.site_load_30min], [melco_edge_to_grid_demo.site_plan_30min], [melco_edge_to_grid_demo.jepx_prices_30min], [melco_edge_to_grid_demo.tariff_contract], [melco_edge_to_grid_demo.bess_state_5min], [melco_edge_to_grid_demo.interlock_rules], [melco_edge_to_grid_demo.pv_forecast_30min], [melco_edge_to_grid_demo.assets], [plant_energy_policy.md Section 6]","id=None args={} name='market_intelligence_agent' partial_args=None will_continue=None
+id=None args={} name='get_jepx_prices' partial_args=None will_continue=None
+id=None args={} name='bess_strategy_agent' partial_args=None will_continue=None
+id=None args={} name='factory_interlock_agent' partial_args=None will_continue=None
+id=None args={} name='simulate_edge_interlock' partial_args=None will_continue=None","id='call_1027842' args={'request': 'Get JEPX Tokyo spike prices, reserve margin, PV p10/p50/p90 risk, and deviation exposure for 2026-08-19 17:00-19:30.'} name='market_intelligence_agent' partial_args=None will_continue=None
+id='call_1027843' args={'request': 'Build, edge-simulate and propose the load-shed plan for 2026-08-19 17:00-19:30; return the plan_id.'} name='factory_interlock_agent' partial_args=None will_continue=None
+id='call_1027844' args={'request': 'Optimize with forecast_aware_v2 and propose the schedule for 2026-08-19 17:00-19:30.'} name='bess_strategy_agent' partial_args=None will_continue=None
+id='call_34205' args={'ts': '2026-08-19T13:30'} name='get_bess_state' partial_args=None will_continue=None
+id='call_34206' args={'date': '2026-08-19', 'policy': 'forecast_aware_v2'} name='optimize_bess_schedule' partial_args=None will_continue=None
+id='call_43652' args={'start': '17:00', 'end': '19:30', 'date': '2026-08-19'} name='list_flexible_loads' partial_args=None will_continue=None
+id='call_33741' args={'date': '2026-08-19'} name='get_jepx_prices' partial_args=None will_continue=None
+id='call_33742' args={'date': '2026-08-19'} name='get_dr_events' partial_args=None will_continue=None
+id='call_33743' args={'date': '2026-08-19'} name='get_pv_forecast' partial_args=None will_continue=None
+id='call_33744' args={'date': '2026-08-19'} name='get_deviation_exposure' partial_args=None will_continue=None
+id='call_64303' args={'date': '2026-08-19'} name='compare_bess_policies' partial_args=None will_continue=None
+id='call_40079' args={'plan_json': '{""date"":""2026-08-19"",""start"":""17:00"",""end"":""19:30"",""event_id"":""DR-20260819"",""target_kw"":3000.0,""actions"":[{""asset_id"":""BESS-01"",""action"":""dispatch_policy"",""policy"":""forecast_aware_v2""},{""asset_id"":""TES-01"",""action"":""tes_discharge"",""kw"":700},{""asset_id"":""CH-*"",""action"":""chw_setpoint"",""delta_c"":1.5},{""asset_id"":""AC-04"",""action"":""standby""},{""asset_id"":""COMP-HDR"",""action"":""pressure_setpoint"",""to_mpa"":0.65},{""asset_id"":""CR-AHU-05"",""action"":""trim""},{""asset_id"":""CR-AHU-06"",""action"":""trim""},{""asset_id"":""FN-01"",""action"":""defer_batch""},{""asset_id"":""FN-02"",""action"":""defer_batch""},{""asset_id"":""FN-03"",""action"":""standby""},{""asset_id"":""BI-05"",""action"":""defer""},{""asset_id"":""BI-06"",""action"":""defer""},{""asset_id"":""EV-07,EV-08,EV-09,EV-10"",""action"":""defer""},{""asset_id"":""OF-AHU-*"",""action"":""setpoint_shift"",""delta_c"":2},{""asset_id"":""LT-*"",""action"":""dim"",""pct"":30},{""asset_id"":""WW-*"",""action"":""shift"",""minutes"":150}]}'} name='simulate_edge_interlock' partial_args=None will_continue=None
+id='call_1415571' args={'date': '2026-08-19', 'policy': 'forecast_aware_v2', 'rationale': 'forecast_aware_v2 delivers 1,700 kW firm DR contribution during the 16:30-19:00 DR window, fully covers the JEPX price spike (17:00-19:30), avoids PV-risk charging, and lowers BESS energy cost to JPY -130,353 without violating SOC limits or setting a new billing peak.'} name='propose_bess_schedule' partial_args=None will_continue=None
+id='call_46588' args={'rationale': 'Edge-verified load-shed plan delivers a firm reduction of 3,306.2 kW against the 3,000.0 kW DR target (306.2 kW or 10.2 % margin) across the 17:00-19:30 window, averaging 3,425.2 kW reduction across slots.', 'event_id': 'DR-20260819', 'plan_id': 'PLAN-0819-F066A5'} name='propose_load_shed_plan' partial_args=None will_continue=None
+id='call_3539582' args={'request': 'Compute event savings for plan_id PLAN-0819-F066A5.'} name='gain_share_agent' partial_args=None will_continue=None
+id='call_3539583' args={'request': 'Audit plan_id PLAN-0819-F066A5.'} name='safety_auditor' partial_args=None will_continue=None
+id='call_28868' args={'plan_id': 'PLAN-0819-F066A5'} name='audit_plan' partial_args=None will_continue=None
+id='call_1992481' args={'plan_id': 'PLAN-0819-F066A5', 'event_id': 'DR-20260819'} name='compute_event_savings' partial_args=None will_continue=None"
+melco_market_retry,s02_jepx_spike,invocation_duration_v1,,80.268,INFORMATIONAL,JEPX Tokyo is forecast to spike this evening. How should we respond between 17:00 and 19:30?,Reference: see rubrics for scenario S2.,"Here is the Event Response Plan for the 17:00 to 19:30 JEPX spike window.
+
+### 1. Headline
+* **Target:** 3,000.0 kW
+* **Edge-Verified Firm Reduction:** 3,306.2 kW
+* **Margin:** 306.2 kW (10.2 %)
+
+### 2. Edge Verdicts
+* **Accepted actions:** 26
+* **Limited actions:** 5
+* **Rejected actions:** 
+  * FN-01 (defer_batch): Rejected by rule IR-FN-01.
+  * FN-02 (defer_batch): Rejected by rules IR-FN-02 and IR-FN-01.
+
+### 3. Battery
+* **SOC now (13:30 JST):** 63.86 %
+* **SOC at DR start (16:30 JST):** 89.22 %
+* **Firm contribution:** 1,700 kW during the window.
+* **Policy:** forecast_aware_v2
+
+### 4. Risks
+* **PV p10 risk:** The p10 forecast risk remains small (12.5 % gap) during the 17:00 to 19:30 window, with the primary cloud band risk concentrating earlier from 14:30 to 16:00.
+* **JEPX spike prices and reserve margin:** Average spot price is 55.00 JPY/kWh with a peak spot price of 62.40 JPY/kWh. The peak estimated imbalance price is 125.60 JPY/kWh. The minimum wide-area reserve margin is 5.4 %.
+* **Deviation exposure:** 0 JPY imbalance cost at risk for 17:00 to 19:30. All slots in this window stay within the +/-7.5 % tolerance band.
+
+### 5. Value
+* **Estimated measured delivery:** 2,851.3 kW average
+* **DR payment:** 320,771 JPY (minus 22,306 JPY under-performance penalty)
+* **Total event value:** 583,310 JPY 
+* **Gain share split:** 437,483 JPY (75 %) client net, 145,828 JPY (25 %) vendor share
+
+### 6. Approvals
+* **Pending Hold-to-Confirm:** The load shed plan (act-32420fbd) and BESS schedule (act-ff1d253e) are queued in the pending-actions tray. Nothing has executed.
+* **Audit verdict:** APPROVED
+* **Plan ID:** PLAN-0819-F066A5
+
+### 7. Sources
+[melco_edge_to_grid_demo.dr_events], [melco_edge_to_grid_demo.site_load_30min], [melco_edge_to_grid_demo.site_plan_30min], [melco_edge_to_grid_demo.jepx_prices_30min], [melco_edge_to_grid_demo.tariff_contract], [melco_edge_to_grid_demo.bess_state_5min], [melco_edge_to_grid_demo.interlock_rules], [melco_edge_to_grid_demo.pv_forecast_30min], [melco_edge_to_grid_demo.assets], [plant_energy_policy.md Section 6]","id=None args={} name='market_intelligence_agent' partial_args=None will_continue=None
+id=None args={} name='get_jepx_prices' partial_args=None will_continue=None
+id=None args={} name='bess_strategy_agent' partial_args=None will_continue=None
+id=None args={} name='factory_interlock_agent' partial_args=None will_continue=None
+id=None args={} name='simulate_edge_interlock' partial_args=None will_continue=None","id='call_1027842' args={'request': 'Get JEPX Tokyo spike prices, reserve margin, PV p10/p50/p90 risk, and deviation exposure for 2026-08-19 17:00-19:30.'} name='market_intelligence_agent' partial_args=None will_continue=None
+id='call_1027843' args={'request': 'Build, edge-simulate and propose the load-shed plan for 2026-08-19 17:00-19:30; return the plan_id.'} name='factory_interlock_agent' partial_args=None will_continue=None
+id='call_1027844' args={'request': 'Optimize with forecast_aware_v2 and propose the schedule for 2026-08-19 17:00-19:30.'} name='bess_strategy_agent' partial_args=None will_continue=None
+id='call_34205' args={'ts': '2026-08-19T13:30'} name='get_bess_state' partial_args=None will_continue=None
+id='call_34206' args={'date': '2026-08-19', 'policy': 'forecast_aware_v2'} name='optimize_bess_schedule' partial_args=None will_continue=None
+id='call_43652' args={'start': '17:00', 'end': '19:30', 'date': '2026-08-19'} name='list_flexible_loads' partial_args=None will_continue=None
+id='call_33741' args={'date': '2026-08-19'} name='get_jepx_prices' partial_args=None will_continue=None
+id='call_33742' args={'date': '2026-08-19'} name='get_dr_events' partial_args=None will_continue=None
+id='call_33743' args={'date': '2026-08-19'} name='get_pv_forecast' partial_args=None will_continue=None
+id='call_33744' args={'date': '2026-08-19'} name='get_deviation_exposure' partial_args=None will_continue=None
+id='call_64303' args={'date': '2026-08-19'} name='compare_bess_policies' partial_args=None will_continue=None
+id='call_40079' args={'plan_json': '{""date"":""2026-08-19"",""start"":""17:00"",""end"":""19:30"",""event_id"":""DR-20260819"",""target_kw"":3000.0,""actions"":[{""asset_id"":""BESS-01"",""action"":""dispatch_policy"",""policy"":""forecast_aware_v2""},{""asset_id"":""TES-01"",""action"":""tes_discharge"",""kw"":700},{""asset_id"":""CH-*"",""action"":""chw_setpoint"",""delta_c"":1.5},{""asset_id"":""AC-04"",""action"":""standby""},{""asset_id"":""COMP-HDR"",""action"":""pressure_setpoint"",""to_mpa"":0.65},{""asset_id"":""CR-AHU-05"",""action"":""trim""},{""asset_id"":""CR-AHU-06"",""action"":""trim""},{""asset_id"":""FN-01"",""action"":""defer_batch""},{""asset_id"":""FN-02"",""action"":""defer_batch""},{""asset_id"":""FN-03"",""action"":""standby""},{""asset_id"":""BI-05"",""action"":""defer""},{""asset_id"":""BI-06"",""action"":""defer""},{""asset_id"":""EV-07,EV-08,EV-09,EV-10"",""action"":""defer""},{""asset_id"":""OF-AHU-*"",""action"":""setpoint_shift"",""delta_c"":2},{""asset_id"":""LT-*"",""action"":""dim"",""pct"":30},{""asset_id"":""WW-*"",""action"":""shift"",""minutes"":150}]}'} name='simulate_edge_interlock' partial_args=None will_continue=None
+id='call_1415571' args={'date': '2026-08-19', 'policy': 'forecast_aware_v2', 'rationale': 'forecast_aware_v2 delivers 1,700 kW firm DR contribution during the 16:30-19:00 DR window, fully covers the JEPX price spike (17:00-19:30), avoids PV-risk charging, and lowers BESS energy cost to JPY -130,353 without violating SOC limits or setting a new billing peak.'} name='propose_bess_schedule' partial_args=None will_continue=None
+id='call_46588' args={'rationale': 'Edge-verified load-shed plan delivers a firm reduction of 3,306.2 kW against the 3,000.0 kW DR target (306.2 kW or 10.2 % margin) across the 17:00-19:30 window, averaging 3,425.2 kW reduction across slots.', 'event_id': 'DR-20260819', 'plan_id': 'PLAN-0819-F066A5'} name='propose_load_shed_plan' partial_args=None will_continue=None
+id='call_3539582' args={'request': 'Compute event savings for plan_id PLAN-0819-F066A5.'} name='gain_share_agent' partial_args=None will_continue=None
+id='call_3539583' args={'request': 'Audit plan_id PLAN-0819-F066A5.'} name='safety_auditor' partial_args=None will_continue=None
+id='call_28868' args={'plan_id': 'PLAN-0819-F066A5'} name='audit_plan' partial_args=None will_continue=None
+id='call_1992481' args={'plan_id': 'PLAN-0819-F066A5', 'event_id': 'DR-20260819'} name='compute_event_savings' partial_args=None will_continue=None"

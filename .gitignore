@@ -1,0 +1,25 @@
+# secrets and local config
+.env
+.env.*
+!.env.example
+*.local.json
+*credentials*.json
+*service-account*.json
+*.pem
+*.key
+# python
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
+*.egg-info/
+# runtime artefacts
+eval/results/raw/
+**/cache/
+**/.cache/
+*.npz
+# frozen AlphaEvolve evaluator instances: committed so the baseline lock verifies from a clean clone
+!alphaevolve-energy-lab/data/instances/*.npz
+.adk/
+_pilot/
+.DS_Store

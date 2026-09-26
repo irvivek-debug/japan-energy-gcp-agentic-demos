@@ -1,0 +1,9 @@
+resource_id,resource_type,region,contracted_mw,available_mw_new_ppa,nfc_certificate_type,cost_jpy_kwh
+CR-SOL-KANTO,solar,Kanto,560.0,150.0,non_fit_renewable_tracked,11.5
+CR-SOL-TOHOKU,solar,Tohoku,260.0,90.0,non_fit_renewable_tracked,11.5
+CR-WND-ON,onshore_wind,Tohoku,180.0,70.0,non_fit_renewable_tracked,15.5
+CR-WND-OFF,offshore_wind,Kanto offshore,120.0,90.0,non_fit_renewable_tracked,22.0
+CR-HYD-ROR,hydro_run_of_river,Chubu-Kanto mountains,140.0,30.0,non_fit_renewable_tracked,12.5
+CR-HYD-RES,hydro_reservoir,Kanto mountains,90.0,25.0,non_fit_renewable_tracked,15.0
+CR-NUC-G,nuclear_generic,contracted share (generic),300.0,28.0,non_fit_nonrenewable_tracked,12.0
+CR-BIO,biomass,Ibaraki coast,60.0,15.0,non_fit_renewable_tracked,23.0

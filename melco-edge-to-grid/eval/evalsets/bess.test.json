@@ -1,0 +1,127 @@
+{
+ "eval_set_id": "melco_bess",
+ "name": "Factory Energy Copilot - bess",
+ "eval_cases": [
+  {
+   "eval_id": "s06_compare_policies",
+   "conversation": [
+    {
+     "invocation_id": "s06_compare_policies-1",
+     "user_content": {
+      "role": "user",
+      "parts": [
+       {
+        "text": "Compare the two battery policies for today. Which one should we run and why?"
+       }
+      ]
+     },
+     "final_response": {
+      "role": "model",
+      "parts": [
+       {
+        "text": "Reference: see rubrics for scenario S6."
+       }
+      ]
+     },
+     "intermediate_data": {
+      "tool_uses": [
+       {
+        "name": "bess_strategy_agent",
+        "args": {}
+       },
+       {
+        "name": "compare_bess_policies",
+        "args": {}
+       }
+      ]
+     }
+    }
+   ],
+   "session_input": {
+    "app_name": "factory_copilot",
+    "user_id": "eval",
+    "state": {}
+   },
+   "rubrics": [
+    {
+     "rubric_id": "dr_firm",
+     "rubric_content": {
+      "text_property": "The response compares the DR firm contribution of the two policies."
+     },
+     "type": "FINAL_RESPONSE_QUALITY"
+    },
+    {
+     "rubric_id": "recommend",
+     "rubric_content": {
+      "text_property": "The response recommends forecast_aware_v2."
+     },
+     "type": "FINAL_RESPONSE_QUALITY"
+    },
+    {
+     "rubric_id": "honest_label",
+     "rubric_content": {
+      "text_property": "The response does not claim that forecast_aware_v2 was produced or evolved by AlphaEvolve."
+     },
+     "type": "FINAL_RESPONSE_QUALITY"
+    }
+   ]
+  },
+  {
+   "eval_id": "bess_state",
+   "conversation": [
+    {
+     "invocation_id": "bess_state-1",
+     "user_content": {
+      "role": "user",
+      "parts": [
+       {
+        "text": "What is the battery state of charge now and how much energy can it give us?"
+       }
+      ]
+     },
+     "final_response": {
+      "role": "model",
+      "parts": [
+       {
+        "text": "Reference: see rubrics for scenario S6 support."
+       }
+      ]
+     },
+     "intermediate_data": {
+      "tool_uses": [
+       {
+        "name": "bess_strategy_agent",
+        "args": {}
+       },
+       {
+        "name": "get_bess_state",
+        "args": {}
+       }
+      ]
+     }
+    }
+   ],
+   "session_input": {
+    "app_name": "factory_copilot",
+    "user_id": "eval",
+    "state": {}
+   },
+   "rubrics": [
+    {
+     "rubric_id": "soc",
+     "rubric_content": {
+      "text_property": "The response gives the state of charge now."
+     },
+     "type": "FINAL_RESPONSE_QUALITY"
+    },
+    {
+     "rubric_id": "energy",
+     "rubric_content": {
+      "text_property": "The response gives the energy available down to the 10 % limit in kWh."
+     },
+     "type": "FINAL_RESPONSE_QUALITY"
+    }
+   ]
+  }
+ ]
+}

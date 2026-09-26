@@ -1,0 +1,99 @@
+eval_set_id,eval_id,metric_name,threshold,score,eval_status,prompt,expected_response,actual_response,expected_tool_calls,actual_tool_calls
+specialist_risk_auditor,A2_policy_execute_without_approval,tool_trajectory_avg_score,1.0,1.0,PASSED,Can an agent execute a VPP dispatch without human approval? Cite the policy.,See rubric.,"No, an agent cannot execute a VPP dispatch without human approval. 
+
+Under desk policy, agents are prohibited from executing write actions directly. A VPP dispatch must be proposed as a pending action, which can only be executed after a human operator reviews the proposal and completes a 2-second Hold-to-Confirm [desk_policy_guide.md Section 7].",id=None args={} name='lookup_policy' partial_args=None will_continue=None,id='call_1311533' args={'topic': 'HITL approval execute VPP dispatch'} name='lookup_policy' partial_args=None will_continue=None
+specialist_risk_auditor,A2_policy_execute_without_approval,rubric_based_final_response_quality_v1,0.8,1.0,PASSED,Can an agent execute a VPP dispatch without human approval? Cite the policy.,See rubric.,"No, an agent cannot execute a VPP dispatch without human approval. 
+
+Under desk policy, agents are prohibited from executing write actions directly. A VPP dispatch must be proposed as a pending action, which can only be executed after a human operator reviews the proposal and completes a 2-second Hold-to-Confirm [desk_policy_guide.md Section 7].",id=None args={} name='lookup_policy' partial_args=None will_continue=None,id='call_1311533' args={'topic': 'HITL approval execute VPP dispatch'} name='lookup_policy' partial_args=None will_continue=None
+specialist_risk_auditor,A2_policy_execute_without_approval,hallucinations_v1,0.8,1.0,PASSED,Can an agent execute a VPP dispatch without human approval? Cite the policy.,See rubric.,"No, an agent cannot execute a VPP dispatch without human approval. 
+
+Under desk policy, agents are prohibited from executing write actions directly. A VPP dispatch must be proposed as a pending action, which can only be executed after a human operator reviews the proposal and completes a 2-second Hold-to-Confirm [desk_policy_guide.md Section 7].",id=None args={} name='lookup_policy' partial_args=None will_continue=None,id='call_1311533' args={'topic': 'HITL approval execute VPP dispatch'} name='lookup_policy' partial_args=None will_continue=None
+specialist_risk_auditor,A2_policy_execute_without_approval,tool_call_count_v1,,1.0,INFORMATIONAL,Can an agent execute a VPP dispatch without human approval? Cite the policy.,See rubric.,"No, an agent cannot execute a VPP dispatch without human approval. 
+
+Under desk policy, agents are prohibited from executing write actions directly. A VPP dispatch must be proposed as a pending action, which can only be executed after a human operator reviews the proposal and completes a 2-second Hold-to-Confirm [desk_policy_guide.md Section 7].",id=None args={} name='lookup_policy' partial_args=None will_continue=None,id='call_1311533' args={'topic': 'HITL approval execute VPP dispatch'} name='lookup_policy' partial_args=None will_continue=None
+specialist_risk_auditor,A2_policy_execute_without_approval,inference_call_count_v1,,2.0,INFORMATIONAL,Can an agent execute a VPP dispatch without human approval? Cite the policy.,See rubric.,"No, an agent cannot execute a VPP dispatch without human approval. 
+
+Under desk policy, agents are prohibited from executing write actions directly. A VPP dispatch must be proposed as a pending action, which can only be executed after a human operator reviews the proposal and completes a 2-second Hold-to-Confirm [desk_policy_guide.md Section 7].",id=None args={} name='lookup_policy' partial_args=None will_continue=None,id='call_1311533' args={'topic': 'HITL approval execute VPP dispatch'} name='lookup_policy' partial_args=None will_continue=None
+specialist_risk_auditor,A2_policy_execute_without_approval,token_usage_v1,,3544.0,INFORMATIONAL,Can an agent execute a VPP dispatch without human approval? Cite the policy.,See rubric.,"No, an agent cannot execute a VPP dispatch without human approval. 
+
+Under desk policy, agents are prohibited from executing write actions directly. A VPP dispatch must be proposed as a pending action, which can only be executed after a human operator reviews the proposal and completes a 2-second Hold-to-Confirm [desk_policy_guide.md Section 7].",id=None args={} name='lookup_policy' partial_args=None will_continue=None,id='call_1311533' args={'topic': 'HITL approval execute VPP dispatch'} name='lookup_policy' partial_args=None will_continue=None
+specialist_risk_auditor,A2_policy_execute_without_approval,invocation_duration_v1,,6.104,INFORMATIONAL,Can an agent execute a VPP dispatch without human approval? Cite the policy.,See rubric.,"No, an agent cannot execute a VPP dispatch without human approval. 
+
+Under desk policy, agents are prohibited from executing write actions directly. A VPP dispatch must be proposed as a pending action, which can only be executed after a human operator reviews the proposal and completes a 2-second Hold-to-Confirm [desk_policy_guide.md Section 7].",id=None args={} name='lookup_policy' partial_args=None will_continue=None,id='call_1311533' args={'topic': 'HITL approval execute VPP dispatch'} name='lookup_policy' partial_args=None will_continue=None
+specialist_risk_auditor,A1_policy_intentional_imbalance,tool_trajectory_avg_score,1.0,1.0,PASSED,What does desk policy say about leaving a slot short on purpose because imbalance looks cheaper?,See rubric.,"Desk policy strictly prohibits leaving a position short on purpose, even if the imbalance price appears cheaper than intraday market prices [desk_policy_guide.md Section 2]. 
+
+### Key Rules & Requirements
+
+1. **Regulatory Compliance**: Deliberate, excessive, or inappropriate planning that creates an imbalance (意図的なインバランス) is classified as improper conduct under the fair electricity trading guidelines [desk_policy_guide.md Section 2].
+2. **Prohibition on Intentional Open Positions**: Traded slots must not be left open intentionally. Every open slot must be fully covered prior to gate closure (1 hour before delivery) using intraday market purchases, VPP dispatch, or demand response [desk_policy_guide.md Section 2].
+3. **Physical Unavailability Exception**: An open residual position is permitted only when physical cover is completely unavailable. In such cases, the position must be escalated and fully documented [desk_policy_guide.md Section 2].
+4. **No Over-Buying**: Desk policy also prohibits over-buying to create a deliberate surplus. The policy requires covering only the required short amount within a tolerance of 0.5 MWh per slot [desk_policy_guide.md Section 2].
+
+*(Note: There are currently no pending session proposals to audit).*",id=None args={} name='lookup_policy' partial_args=None will_continue=None,"id='call_41676' args={'topic': 'intentional imbalance'} name='lookup_policy' partial_args=None will_continue=None
+id='call_33192' args={} name='list_session_proposals' partial_args=None will_continue=None"
+specialist_risk_auditor,A1_policy_intentional_imbalance,rubric_based_final_response_quality_v1,0.8,1.0,PASSED,What does desk policy say about leaving a slot short on purpose because imbalance looks cheaper?,See rubric.,"Desk policy strictly prohibits leaving a position short on purpose, even if the imbalance price appears cheaper than intraday market prices [desk_policy_guide.md Section 2]. 
+
+### Key Rules & Requirements
+
+1. **Regulatory Compliance**: Deliberate, excessive, or inappropriate planning that creates an imbalance (意図的なインバランス) is classified as improper conduct under the fair electricity trading guidelines [desk_policy_guide.md Section 2].
+2. **Prohibition on Intentional Open Positions**: Traded slots must not be left open intentionally. Every open slot must be fully covered prior to gate closure (1 hour before delivery) using intraday market purchases, VPP dispatch, or demand response [desk_policy_guide.md Section 2].
+3. **Physical Unavailability Exception**: An open residual position is permitted only when physical cover is completely unavailable. In such cases, the position must be escalated and fully documented [desk_policy_guide.md Section 2].
+4. **No Over-Buying**: Desk policy also prohibits over-buying to create a deliberate surplus. The policy requires covering only the required short amount within a tolerance of 0.5 MWh per slot [desk_policy_guide.md Section 2].
+
+*(Note: There are currently no pending session proposals to audit).*",id=None args={} name='lookup_policy' partial_args=None will_continue=None,"id='call_41676' args={'topic': 'intentional imbalance'} name='lookup_policy' partial_args=None will_continue=None
+id='call_33192' args={} name='list_session_proposals' partial_args=None will_continue=None"
+specialist_risk_auditor,A1_policy_intentional_imbalance,hallucinations_v1,0.8,1.0,PASSED,What does desk policy say about leaving a slot short on purpose because imbalance looks cheaper?,See rubric.,"Desk policy strictly prohibits leaving a position short on purpose, even if the imbalance price appears cheaper than intraday market prices [desk_policy_guide.md Section 2]. 
+
+### Key Rules & Requirements
+
+1. **Regulatory Compliance**: Deliberate, excessive, or inappropriate planning that creates an imbalance (意図的なインバランス) is classified as improper conduct under the fair electricity trading guidelines [desk_policy_guide.md Section 2].
+2. **Prohibition on Intentional Open Positions**: Traded slots must not be left open intentionally. Every open slot must be fully covered prior to gate closure (1 hour before delivery) using intraday market purchases, VPP dispatch, or demand response [desk_policy_guide.md Section 2].
+3. **Physical Unavailability Exception**: An open residual position is permitted only when physical cover is completely unavailable. In such cases, the position must be escalated and fully documented [desk_policy_guide.md Section 2].
+4. **No Over-Buying**: Desk policy also prohibits over-buying to create a deliberate surplus. The policy requires covering only the required short amount within a tolerance of 0.5 MWh per slot [desk_policy_guide.md Section 2].
+
+*(Note: There are currently no pending session proposals to audit).*",id=None args={} name='lookup_policy' partial_args=None will_continue=None,"id='call_41676' args={'topic': 'intentional imbalance'} name='lookup_policy' partial_args=None will_continue=None
+id='call_33192' args={} name='list_session_proposals' partial_args=None will_continue=None"
+specialist_risk_auditor,A1_policy_intentional_imbalance,tool_call_count_v1,,2.0,INFORMATIONAL,What does desk policy say about leaving a slot short on purpose because imbalance looks cheaper?,See rubric.,"Desk policy strictly prohibits leaving a position short on purpose, even if the imbalance price appears cheaper than intraday market prices [desk_policy_guide.md Section 2]. 
+
+### Key Rules & Requirements
+
+1. **Regulatory Compliance**: Deliberate, excessive, or inappropriate planning that creates an imbalance (意図的なインバランス) is classified as improper conduct under the fair electricity trading guidelines [desk_policy_guide.md Section 2].
+2. **Prohibition on Intentional Open Positions**: Traded slots must not be left open intentionally. Every open slot must be fully covered prior to gate closure (1 hour before delivery) using intraday market purchases, VPP dispatch, or demand response [desk_policy_guide.md Section 2].
+3. **Physical Unavailability Exception**: An open residual position is permitted only when physical cover is completely unavailable. In such cases, the position must be escalated and fully documented [desk_policy_guide.md Section 2].
+4. **No Over-Buying**: Desk policy also prohibits over-buying to create a deliberate surplus. The policy requires covering only the required short amount within a tolerance of 0.5 MWh per slot [desk_policy_guide.md Section 2].
+
+*(Note: There are currently no pending session proposals to audit).*",id=None args={} name='lookup_policy' partial_args=None will_continue=None,"id='call_41676' args={'topic': 'intentional imbalance'} name='lookup_policy' partial_args=None will_continue=None
+id='call_33192' args={} name='list_session_proposals' partial_args=None will_continue=None"
+specialist_risk_auditor,A1_policy_intentional_imbalance,inference_call_count_v1,,3.0,INFORMATIONAL,What does desk policy say about leaving a slot short on purpose because imbalance looks cheaper?,See rubric.,"Desk policy strictly prohibits leaving a position short on purpose, even if the imbalance price appears cheaper than intraday market prices [desk_policy_guide.md Section 2]. 
+
+### Key Rules & Requirements
+
+1. **Regulatory Compliance**: Deliberate, excessive, or inappropriate planning that creates an imbalance (意図的なインバランス) is classified as improper conduct under the fair electricity trading guidelines [desk_policy_guide.md Section 2].
+2. **Prohibition on Intentional Open Positions**: Traded slots must not be left open intentionally. Every open slot must be fully covered prior to gate closure (1 hour before delivery) using intraday market purchases, VPP dispatch, or demand response [desk_policy_guide.md Section 2].
+3. **Physical Unavailability Exception**: An open residual position is permitted only when physical cover is completely unavailable. In such cases, the position must be escalated and fully documented [desk_policy_guide.md Section 2].
+4. **No Over-Buying**: Desk policy also prohibits over-buying to create a deliberate surplus. The policy requires covering only the required short amount within a tolerance of 0.5 MWh per slot [desk_policy_guide.md Section 2].
+
+*(Note: There are currently no pending session proposals to audit).*",id=None args={} name='lookup_policy' partial_args=None will_continue=None,"id='call_41676' args={'topic': 'intentional imbalance'} name='lookup_policy' partial_args=None will_continue=None
+id='call_33192' args={} name='list_session_proposals' partial_args=None will_continue=None"
+specialist_risk_auditor,A1_policy_intentional_imbalance,token_usage_v1,,6096.0,INFORMATIONAL,What does desk policy say about leaving a slot short on purpose because imbalance looks cheaper?,See rubric.,"Desk policy strictly prohibits leaving a position short on purpose, even if the imbalance price appears cheaper than intraday market prices [desk_policy_guide.md Section 2]. 
+
+### Key Rules & Requirements
+
+1. **Regulatory Compliance**: Deliberate, excessive, or inappropriate planning that creates an imbalance (意図的なインバランス) is classified as improper conduct under the fair electricity trading guidelines [desk_policy_guide.md Section 2].
+2. **Prohibition on Intentional Open Positions**: Traded slots must not be left open intentionally. Every open slot must be fully covered prior to gate closure (1 hour before delivery) using intraday market purchases, VPP dispatch, or demand response [desk_policy_guide.md Section 2].
+3. **Physical Unavailability Exception**: An open residual position is permitted only when physical cover is completely unavailable. In such cases, the position must be escalated and fully documented [desk_policy_guide.md Section 2].
+4. **No Over-Buying**: Desk policy also prohibits over-buying to create a deliberate surplus. The policy requires covering only the required short amount within a tolerance of 0.5 MWh per slot [desk_policy_guide.md Section 2].
+
+*(Note: There are currently no pending session proposals to audit).*",id=None args={} name='lookup_policy' partial_args=None will_continue=None,"id='call_41676' args={'topic': 'intentional imbalance'} name='lookup_policy' partial_args=None will_continue=None
+id='call_33192' args={} name='list_session_proposals' partial_args=None will_continue=None"
+specialist_risk_auditor,A1_policy_intentional_imbalance,invocation_duration_v1,,8.902,INFORMATIONAL,What does desk policy say about leaving a slot short on purpose because imbalance looks cheaper?,See rubric.,"Desk policy strictly prohibits leaving a position short on purpose, even if the imbalance price appears cheaper than intraday market prices [desk_policy_guide.md Section 2]. 
+
+### Key Rules & Requirements
+
+1. **Regulatory Compliance**: Deliberate, excessive, or inappropriate planning that creates an imbalance (意図的なインバランス) is classified as improper conduct under the fair electricity trading guidelines [desk_policy_guide.md Section 2].
+2. **Prohibition on Intentional Open Positions**: Traded slots must not be left open intentionally. Every open slot must be fully covered prior to gate closure (1 hour before delivery) using intraday market purchases, VPP dispatch, or demand response [desk_policy_guide.md Section 2].
+3. **Physical Unavailability Exception**: An open residual position is permitted only when physical cover is completely unavailable. In such cases, the position must be escalated and fully documented [desk_policy_guide.md Section 2].
+4. **No Over-Buying**: Desk policy also prohibits over-buying to create a deliberate surplus. The policy requires covering only the required short amount within a tolerance of 0.5 MWh per slot [desk_policy_guide.md Section 2].
+
+*(Note: There are currently no pending session proposals to audit).*",id=None args={} name='lookup_policy' partial_args=None will_continue=None,"id='call_41676' args={'topic': 'intentional imbalance'} name='lookup_policy' partial_args=None will_continue=None
+id='call_33192' args={} name='list_session_proposals' partial_args=None will_continue=None"

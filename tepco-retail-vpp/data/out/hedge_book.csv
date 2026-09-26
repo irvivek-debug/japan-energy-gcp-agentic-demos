@@ -1,0 +1,5 @@
+hedge_id,product,instrument,start_date,end_date,mw,price_jpy_kwh
+HB-2608-01,baseload,bilateral,2026-08-01,2026-08-31,366.0,19.8
+HB-2608-02,baseload,futures,2026-08-01,2026-08-31,200.0,20.6
+HB-2608-03,baseload,futures,2026-08-17,2026-08-23,100.0,24.5
+HB-2609-01,baseload,bilateral,2026-09-01,2026-09-30,532.0,21.9

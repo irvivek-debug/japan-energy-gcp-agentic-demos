@@ -1,0 +1,10 @@
+<venv>/lib/python3.12/site-packages/google/adk/models/llm_request.py:306: UserWarning: [EXPERIMENTAL] feature FeatureName.JSON_SCHEMA_FOR_FUNC_DECL is enabled.
+  declaration = tool._get_declaration()
+fy2025_tokyo_mean              GROUNDED     clean      tools=['get_market_stats'] (5.7 s)
+fy2024_imb_ge45                GROUNDED     clean      tools=['get_market_stats'] (4.2 s)
+dc_segment_twh                 GROUNDED     clean      tools=['get_portfolio_stats'] (5.0 s)
+hv_wheeling_nov26              GROUNDED     clean      tools=['explain_cost_stack'] (5.2 s)
+tariff_first_seed_best         GROUNDED     clean      tools=['get_run_summary'] (4.9 s)
+tariff_latest_holdout_delta    GROUNDED     clean      tools=['get_run_summary', 'get_holdout_result'] (9.7 s)
+trading_programs_invalid       GROUNDED     clean      tools=['get_run_summary'] (6.2 s)
+GROUNDING: 7/7 GROUNDED; unverifiable: none

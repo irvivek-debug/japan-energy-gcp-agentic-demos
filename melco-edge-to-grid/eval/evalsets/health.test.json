@@ -1,0 +1,127 @@
+{
+ "eval_set_id": "melco_health",
+ "name": "Factory Energy Copilot - health",
+ "eval_cases": [
+  {
+   "eval_id": "s04_anomalies",
+   "conversation": [
+    {
+     "invocation_id": "s04_anomalies-1",
+     "user_content": {
+      "role": "user",
+      "parts": [
+       {
+        "text": "Any energy anomalies this week? Put a cost on them."
+       }
+      ]
+     },
+     "final_response": {
+      "role": "model",
+      "parts": [
+       {
+        "text": "Reference: see rubrics for scenario S4."
+       }
+      ]
+     },
+     "intermediate_data": {
+      "tool_uses": [
+       {
+        "name": "asset_health_agent",
+        "args": {}
+       },
+       {
+        "name": "detect_energy_anomalies",
+        "args": {}
+       }
+      ]
+     }
+    }
+   ],
+   "session_input": {
+    "app_name": "factory_copilot",
+    "user_id": "eval",
+    "state": {}
+   },
+   "rubrics": [
+    {
+     "rubric_id": "ac04",
+     "rubric_content": {
+      "text_property": "The response reports AC-04 specific power well above its peers with an annual cost in JPY."
+     },
+     "type": "FINAL_RESPONSE_QUALITY"
+    },
+    {
+     "rubric_id": "m27",
+     "rubric_content": {
+      "text_property": "The response reports meter M-27 stuck (flat reading) since 2026-08-17 with its duration or unallocated energy."
+     },
+     "type": "FINAL_RESPONSE_QUALITY"
+    },
+    {
+     "rubric_id": "peak",
+     "rubric_content": {
+      "text_property": "The response reports that August's billing peak was set around the 2026-08-06 DR event with an extra demand charge in JPY."
+     },
+     "type": "FINAL_RESPONSE_QUALITY"
+    }
+   ]
+  },
+  {
+   "eval_id": "work_order_ac04",
+   "conversation": [
+    {
+     "invocation_id": "work_order_ac04-1",
+     "user_content": {
+      "role": "user",
+      "parts": [
+       {
+        "text": "Raise a work order for the AC-04 air leak."
+       }
+      ]
+     },
+     "final_response": {
+      "role": "model",
+      "parts": [
+       {
+        "text": "Reference: see rubrics for scenario S4 follow-up."
+       }
+      ]
+     },
+     "intermediate_data": {
+      "tool_uses": [
+       {
+        "name": "asset_health_agent",
+        "args": {}
+       },
+       {
+        "name": "propose_work_order",
+        "args": {}
+       }
+      ]
+     }
+    }
+   ],
+   "session_input": {
+    "app_name": "factory_copilot",
+    "user_id": "eval",
+    "state": {}
+   },
+   "rubrics": [
+    {
+     "rubric_id": "pending",
+     "rubric_content": {
+      "text_property": "The response says the work order is queued for Hold-to-Confirm approval and not yet created."
+     },
+     "type": "FINAL_RESPONSE_QUALITY"
+    },
+    {
+     "rubric_id": "evidence",
+     "rubric_content": {
+      "text_property": "The response includes evidence for the work order, such as the specific-power excess or the annual cost."
+     },
+     "type": "FINAL_RESPONSE_QUALITY"
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,1119 @@
+{
+ "tables": {
+  "jepx_spot_30min": {
+   "description": "JEPX day-ahead spot results per 30-minute slot, Tokyo area and system price (synthetic).",
+   "columns": [
+    {
+     "name": "date",
+     "type": "STRING",
+     "description": "Delivery date YYYY-MM-DD"
+    },
+    {
+     "name": "slot",
+     "type": "INT64",
+     "description": "30-minute slot 1-48 (slot 1 = 00:00-00:30)"
+    },
+    {
+     "name": "hour",
+     "type": "INT64",
+     "description": "Hour of day 0-23"
+    },
+    {
+     "name": "month",
+     "type": "STRING",
+     "description": "YYYY-MM"
+    },
+    {
+     "name": "start_time",
+     "type": "STRING",
+     "description": "Slot start YYYY-MM-DDTHH:MM JST"
+    },
+    {
+     "name": "tokyo_price_jpy_kwh",
+     "type": "FLOAT64",
+     "description": "Tokyo area price JPY/kWh"
+    },
+    {
+     "name": "system_price_jpy_kwh",
+     "type": "FLOAT64",
+     "description": "System price JPY/kWh"
+    },
+    {
+     "name": "system_volume_mwh",
+     "type": "FLOAT64",
+     "description": "Contracted volume MWh (system)"
+    }
+   ]
+  },
+  "jepx_intraday_30min": {
+   "description": "JEPX intraday (continuous) market per slot for the scenario fortnight; open slots on the scenario day hold the 15:40 order-book snapshot.",
+   "columns": [
+    {
+     "name": "date",
+     "type": "STRING",
+     "description": "Delivery date"
+    },
+    {
+     "name": "slot",
+     "type": "INT64",
+     "description": "Slot 1-48"
+    },
+    {
+     "name": "hour",
+     "type": "INT64",
+     "description": "Hour 0-23"
+    },
+    {
+     "name": "month",
+     "type": "STRING",
+     "description": "YYYY-MM"
+    },
+    {
+     "name": "start_time",
+     "type": "STRING",
+     "description": "Slot start"
+    },
+    {
+     "name": "gate_closure_time",
+     "type": "STRING",
+     "description": "Gate closure (1 h before delivery)"
+    },
+    {
+     "name": "snapshot_time",
+     "type": "STRING",
+     "description": "Time of the book snapshot"
+    },
+    {
+     "name": "vwap_jpy_kwh",
+     "type": "FLOAT64",
+     "description": "Volume-weighted average price JPY/kWh"
+    },
+    {
+     "name": "best_bid_jpy_kwh",
+     "type": "FLOAT64",
+     "description": "Best bid JPY/kWh"
+    },
+    {
+     "name": "best_ask_jpy_kwh",
+     "type": "FLOAT64",
+     "description": "Best ask JPY/kWh"
+    },
+    {
+     "name": "ask_depth_mwh",
+     "type": "FLOAT64",
+     "description": "MWh available at best ask"
+    },
+    {
+     "name": "ask_level2_jpy_kwh",
+     "type": "FLOAT64",
+     "description": "Second ask level JPY/kWh"
+    },
+    {
+     "name": "ask_level2_depth_mwh",
+     "type": "FLOAT64",
+     "description": "MWh available at second ask level"
+    },
+    {
+     "name": "traded_volume_mwh",
+     "type": "FLOAT64",
+     "description": "Traded volume MWh"
+    }
+   ]
+  },
+  "imbalance_30min": {
+   "description": "Wide-area reserve margin and imbalance settlement price per slot; scenario-day slots from 32 are forecasts with p10/p90.",
+   "columns": [
+    {
+     "name": "date",
+     "type": "STRING",
+     "description": "Delivery date"
+    },
+    {
+     "name": "slot",
+     "type": "INT64",
+     "description": "Slot 1-48"
+    },
+    {
+     "name": "hour",
+     "type": "INT64",
+     "description": "Hour 0-23"
+    },
+    {
+     "name": "month",
+     "type": "STRING",
+     "description": "YYYY-MM"
+    },
+    {
+     "name": "start_time",
+     "type": "STRING",
+     "description": "Slot start"
+    },
+    {
+     "name": "reserve_margin_pct",
+     "type": "FLOAT64",
+     "description": "Wide-area reserve margin % (actual or forecast)"
+    },
+    {
+     "name": "imbalance_price_jpy_kwh",
+     "type": "FLOAT64",
+     "description": "Imbalance price JPY/kWh (actual, or p50 forecast when is_forecast)"
+    },
+    {
+     "name": "imbalance_p10_jpy_kwh",
+     "type": "FLOAT64",
+     "description": "p10 forecast JPY/kWh (equals actual when settled)"
+    },
+    {
+     "name": "imbalance_p90_jpy_kwh",
+     "type": "FLOAT64",
+     "description": "p90 forecast JPY/kWh (equals actual when settled)"
+    },
+    {
+     "name": "scarcity_flag",
+     "type": "BOOL",
+     "description": "True when the reserve margin is inside the scarcity-pricing range"
+    },
+    {
+     "name": "is_forecast",
+     "type": "BOOL",
+     "description": "True for slots not yet settled"
+    }
+   ]
+  },
+  "weather_forecast_hourly": {
+   "description": "WeatherNext-style ensemble forecast (p10/p50/p90) for 10 Kanto cells.",
+   "columns": [
+    {
+     "name": "cell_id",
+     "type": "STRING",
+     "description": "Grid cell id"
+    },
+    {
+     "name": "cell_name",
+     "type": "STRING",
+     "description": "Cell name"
+    },
+    {
+     "name": "lat",
+     "type": "FLOAT64",
+     "description": "Latitude"
+    },
+    {
+     "name": "lon",
+     "type": "FLOAT64",
+     "description": "Longitude"
+    },
+    {
+     "name": "issue_time",
+     "type": "STRING",
+     "description": "Forecast issue time"
+    },
+    {
+     "name": "date",
+     "type": "STRING",
+     "description": "Valid date"
+    },
+    {
+     "name": "hour",
+     "type": "INT64",
+     "description": "Valid hour 0-23"
+    },
+    {
+     "name": "month",
+     "type": "STRING",
+     "description": "YYYY-MM"
+    },
+    {
+     "name": "valid_time",
+     "type": "STRING",
+     "description": "Valid time"
+    },
+    {
+     "name": "temp_p10_c",
+     "type": "FLOAT64",
+     "description": "Temperature p10 degC"
+    },
+    {
+     "name": "temp_p50_c",
+     "type": "FLOAT64",
+     "description": "Temperature p50 degC"
+    },
+    {
+     "name": "temp_p90_c",
+     "type": "FLOAT64",
+     "description": "Temperature p90 degC"
+    },
+    {
+     "name": "ghi_p10_wm2",
+     "type": "FLOAT64",
+     "description": "Global horizontal irradiance p10 W/m2"
+    },
+    {
+     "name": "ghi_p50_wm2",
+     "type": "FLOAT64",
+     "description": "GHI p50 W/m2"
+    },
+    {
+     "name": "ghi_p90_wm2",
+     "type": "FLOAT64",
+     "description": "GHI p90 W/m2"
+    }
+   ]
+  },
+  "customers": {
+   "description": "C&I retail customers of the desk portfolio (fictional names).",
+   "columns": [
+    {
+     "name": "customer_id",
+     "type": "STRING",
+     "description": "Customer id C-NNNN"
+    },
+    {
+     "name": "name",
+     "type": "STRING",
+     "description": "Fictional customer name"
+    },
+    {
+     "name": "segment",
+     "type": "STRING",
+     "description": "Segment"
+    },
+    {
+     "name": "voltage",
+     "type": "STRING",
+     "description": "extra_high (>= 2,000 kW) or high"
+    },
+    {
+     "name": "prefecture",
+     "type": "STRING",
+     "description": "Prefecture"
+    },
+    {
+     "name": "tariff_type",
+     "type": "STRING",
+     "description": "fixed, market_linked or bandwidth"
+    },
+    {
+     "name": "deviation_band_pct",
+     "type": "FLOAT64",
+     "description": "Bandwidth tariff deviation band +/- % (null if not bandwidth)"
+    },
+    {
+     "name": "fixed_energy_price_jpy_kwh",
+     "type": "FLOAT64",
+     "description": "Energy price for fixed and bandwidth tariffs JPY/kWh"
+    },
+    {
+     "name": "market_adder_jpy_kwh",
+     "type": "FLOAT64",
+     "description": "Adder over spot for market-linked tariffs JPY/kWh"
+    },
+    {
+     "name": "contracted_kw",
+     "type": "FLOAT64",
+     "description": "Contracted demand kW"
+    },
+    {
+     "name": "annual_mwh",
+     "type": "FLOAT64",
+     "description": "Expected annual consumption MWh"
+    },
+    {
+     "name": "margin_jpy_kwh",
+     "type": "FLOAT64",
+     "description": "Expected retail margin JPY/kWh"
+    },
+    {
+     "name": "dr_enrolled",
+     "type": "BOOL",
+     "description": "Enrolled in demand response"
+    },
+    {
+     "name": "essential_facility",
+     "type": "BOOL",
+     "description": "Essential facility (no involuntary curtailment)"
+    },
+    {
+     "name": "cfe_contract",
+     "type": "BOOL",
+     "description": "Has a clean-energy (CFE) supply contract"
+    },
+    {
+     "name": "cfe_product",
+     "type": "STRING",
+     "description": "hourly_24x7 or annual_volumetric (null if none)"
+    },
+    {
+     "name": "contract_end",
+     "type": "STRING",
+     "description": "Contract end date"
+    }
+   ]
+  },
+  "customer_load_30min": {
+   "description": "Per-customer 30-minute load, 2026-08-01 to the scenario day. actual_kwh is null after 'now' (slot 32 onward on 2026-08-19).",
+   "columns": [
+    {
+     "name": "customer_id",
+     "type": "STRING",
+     "description": "Customer id"
+    },
+    {
+     "name": "date",
+     "type": "STRING",
+     "description": "Date"
+    },
+    {
+     "name": "slot",
+     "type": "INT64",
+     "description": "Slot 1-48"
+    },
+    {
+     "name": "month",
+     "type": "STRING",
+     "description": "YYYY-MM"
+    },
+    {
+     "name": "forecast_da_kwh",
+     "type": "FLOAT64",
+     "description": "Day-ahead forecast kWh (basis of the balancing plan)"
+    },
+    {
+     "name": "forecast_latest_kwh",
+     "type": "FLOAT64",
+     "description": "Latest intraday forecast kWh"
+    },
+    {
+     "name": "actual_kwh",
+     "type": "FLOAT64",
+     "description": "Metered kWh (null if not delivered)"
+    },
+    {
+     "name": "nominated_kwh",
+     "type": "FLOAT64",
+     "description": "Customer nomination kWh (bandwidth tariffs only)"
+    },
+    {
+     "name": "is_actual",
+     "type": "BOOL",
+     "description": "True when metered"
+    }
+   ]
+  },
+  "balance_position_30min": {
+   "description": "Balance group (C&I desk) plan vs actual per slot: demand, procurement by source and open position (negative = short).",
+   "columns": [
+    {
+     "name": "date",
+     "type": "STRING",
+     "description": "Date"
+    },
+    {
+     "name": "slot",
+     "type": "INT64",
+     "description": "Slot"
+    },
+    {
+     "name": "hour",
+     "type": "INT64",
+     "description": "Hour"
+    },
+    {
+     "name": "month",
+     "type": "STRING",
+     "description": "YYYY-MM"
+    },
+    {
+     "name": "start_time",
+     "type": "STRING",
+     "description": "Slot start"
+    },
+    {
+     "name": "gate_closure_time",
+     "type": "STRING",
+     "description": "Gate closure time"
+    },
+    {
+     "name": "gate_status",
+     "type": "STRING",
+     "description": "delivered, in_delivery, closed or open at 15:40 snapshot"
+    },
+    {
+     "name": "demand_forecast_da_mwh",
+     "type": "FLOAT64",
+     "description": "Day-ahead demand plan MWh"
+    },
+    {
+     "name": "demand_forecast_latest_mwh",
+     "type": "FLOAT64",
+     "description": "Latest demand forecast MWh"
+    },
+    {
+     "name": "demand_actual_mwh",
+     "type": "FLOAT64",
+     "description": "Metered demand MWh (null if not delivered)"
+    },
+    {
+     "name": "procured_bilateral_mwh",
+     "type": "FLOAT64",
+     "description": "Bilateral MWh"
+    },
+    {
+     "name": "procured_spot_mwh",
+     "type": "FLOAT64",
+     "description": "JEPX spot MWh"
+    },
+    {
+     "name": "procured_intraday_mwh",
+     "type": "FLOAT64",
+     "description": "Intraday MWh already bought"
+    },
+    {
+     "name": "vpp_dispatched_mwh",
+     "type": "FLOAT64",
+     "description": "VPP energy already scheduled MWh"
+    },
+    {
+     "name": "total_procured_mwh",
+     "type": "FLOAT64",
+     "description": "Total supply MWh"
+    },
+    {
+     "name": "open_position_mwh",
+     "type": "FLOAT64",
+     "description": "Supply minus demand MWh (negative = short)"
+    }
+   ]
+  },
+  "customer_forecast_daily": {
+   "description": "Daily consumption forecast per customer for the rest of August.",
+   "columns": [
+    {
+     "name": "customer_id",
+     "type": "STRING",
+     "description": "Customer id"
+    },
+    {
+     "name": "date",
+     "type": "STRING",
+     "description": "Date"
+    },
+    {
+     "name": "month",
+     "type": "STRING",
+     "description": "YYYY-MM"
+    },
+    {
+     "name": "forecast_mwh",
+     "type": "FLOAT64",
+     "description": "Forecast MWh"
+    }
+   ]
+  },
+  "forward_curve_daily": {
+   "description": "Synthetic Tokyo-area forward marks per delivery day.",
+   "columns": [
+    {
+     "name": "date",
+     "type": "STRING",
+     "description": "Delivery date"
+    },
+    {
+     "name": "month",
+     "type": "STRING",
+     "description": "YYYY-MM"
+    },
+    {
+     "name": "baseload_jpy_kwh",
+     "type": "FLOAT64",
+     "description": "Baseload forward JPY/kWh"
+    },
+    {
+     "name": "peak_jpy_kwh",
+     "type": "FLOAT64",
+     "description": "Peak forward JPY/kWh"
+    },
+    {
+     "name": "source_note",
+     "type": "STRING",
+     "description": "Provenance note"
+    }
+   ]
+  },
+  "hedge_book": {
+   "description": "Baseload hedges covering price-exposed retail volume.",
+   "columns": [
+    {
+     "name": "hedge_id",
+     "type": "STRING",
+     "description": "Hedge id"
+    },
+    {
+     "name": "product",
+     "type": "STRING",
+     "description": "baseload"
+    },
+    {
+     "name": "instrument",
+     "type": "STRING",
+     "description": "bilateral or futures"
+    },
+    {
+     "name": "start_date",
+     "type": "STRING",
+     "description": "Start date"
+    },
+    {
+     "name": "end_date",
+     "type": "STRING",
+     "description": "End date"
+    },
+    {
+     "name": "mw",
+     "type": "FLOAT64",
+     "description": "MW hedged each hour"
+    },
+    {
+     "name": "price_jpy_kwh",
+     "type": "FLOAT64",
+     "description": "Hedge price JPY/kWh"
+    }
+   ]
+  },
+  "vpp_clusters": {
+   "description": "Mega-VPP clusters (aggregated DER pools).",
+   "columns": [
+    {
+     "name": "cluster_id",
+     "type": "STRING",
+     "description": "Cluster id"
+    },
+    {
+     "name": "name",
+     "type": "STRING",
+     "description": "Cluster name"
+    },
+    {
+     "name": "asset_class",
+     "type": "STRING",
+     "description": "residential_battery, heat_pump_water_heater, cni_bess, ev_depot, dr_load"
+    },
+    {
+     "name": "area",
+     "type": "STRING",
+     "description": "Prefecture"
+    },
+    {
+     "name": "device_count",
+     "type": "INT64",
+     "description": "Devices in pool"
+    },
+    {
+     "name": "capacity_kw",
+     "type": "FLOAT64",
+     "description": "Dispatchable power kW"
+    },
+    {
+     "name": "energy_kwh",
+     "type": "FLOAT64",
+     "description": "Energy capacity kWh"
+    },
+    {
+     "name": "min_soc_pct",
+     "type": "FLOAT64",
+     "description": "SOC floor % (0 for non-storage)"
+    },
+    {
+     "name": "max_soc_pct",
+     "type": "FLOAT64",
+     "description": "SOC ceiling %"
+    },
+    {
+     "name": "dispatch_cost_jpy_kwh",
+     "type": "FLOAT64",
+     "description": "Dispatch cost incl. customer incentive JPY/kWh"
+    },
+    {
+     "name": "response_time_s",
+     "type": "INT64",
+     "description": "Response time seconds"
+    },
+    {
+     "name": "telemetry_interval_s",
+     "type": "INT64",
+     "description": "Expected telemetry interval seconds"
+    },
+    {
+     "name": "program",
+     "type": "STRING",
+     "description": "Program"
+    }
+   ]
+  },
+  "vpp_telemetry_30min": {
+   "description": "Cluster telemetry per slot (2026-08-18 and 2026-08-19 up to the 15:40 snapshot).",
+   "columns": [
+    {
+     "name": "cluster_id",
+     "type": "STRING",
+     "description": "Cluster id"
+    },
+    {
+     "name": "date",
+     "type": "STRING",
+     "description": "Date"
+    },
+    {
+     "name": "slot",
+     "type": "INT64",
+     "description": "Slot"
+    },
+    {
+     "name": "hour",
+     "type": "INT64",
+     "description": "Hour"
+    },
+    {
+     "name": "month",
+     "type": "STRING",
+     "description": "YYYY-MM"
+    },
+    {
+     "name": "timestamp",
+     "type": "STRING",
+     "description": "Record time"
+    },
+    {
+     "name": "soc_pct",
+     "type": "FLOAT64",
+     "description": "State of charge % (null for non-storage)"
+    },
+    {
+     "name": "available_kw",
+     "type": "FLOAT64",
+     "description": "Available up-regulation kW"
+    },
+    {
+     "name": "available_kwh",
+     "type": "FLOAT64",
+     "description": "Energy above SOC floor kWh"
+    },
+    {
+     "name": "online_devices",
+     "type": "INT64",
+     "description": "Devices reporting"
+    },
+    {
+     "name": "last_seen",
+     "type": "STRING",
+     "description": "Last device heartbeat time"
+    }
+   ]
+  },
+  "ancillary_commitments": {
+   "description": "Balancing-market dKW commitments already awarded for the scenario evening block.",
+   "columns": [
+    {
+     "name": "commitment_id",
+     "type": "STRING",
+     "description": "Commitment id"
+    },
+    {
+     "name": "date",
+     "type": "STRING",
+     "description": "Date"
+    },
+    {
+     "name": "from_slot",
+     "type": "INT64",
+     "description": "First slot"
+    },
+    {
+     "name": "to_slot",
+     "type": "INT64",
+     "description": "Last slot"
+    },
+    {
+     "name": "product",
+     "type": "STRING",
+     "description": "Balancing product"
+    },
+    {
+     "name": "cluster_id",
+     "type": "STRING",
+     "description": "Cluster holding the reserve"
+    },
+    {
+     "name": "committed_kw",
+     "type": "FLOAT64",
+     "description": "dKW committed kW"
+    },
+    {
+     "name": "response_minutes",
+     "type": "INT64",
+     "description": "Required response minutes (EPRX product requirement)"
+    },
+    {
+     "name": "duration_hours",
+     "type": "FLOAT64",
+     "description": "Required delivery duration hours (EPRX product requirement)"
+    },
+    {
+     "name": "reserve_energy_kwh",
+     "type": "FLOAT64",
+     "description": "Energy the desk must hold back: committed kW x duration x 2 activations (desk policy)"
+    },
+    {
+     "name": "price_jpy_per_dkw_30min",
+     "type": "FLOAT64",
+     "description": "Cleared dKW price JPY per dKW per 30 min"
+    },
+    {
+     "name": "tso_area",
+     "type": "STRING",
+     "description": "TSO area"
+    },
+    {
+     "name": "status",
+     "type": "STRING",
+     "description": "Status"
+    },
+    {
+     "name": "awarded_at",
+     "type": "STRING",
+     "description": "Award time"
+    }
+   ]
+  },
+  "clean_resources": {
+   "description": "Contracted clean supply resources (generic, no named plants).",
+   "columns": [
+    {
+     "name": "resource_id",
+     "type": "STRING",
+     "description": "Resource id"
+    },
+    {
+     "name": "resource_type",
+     "type": "STRING",
+     "description": "Type"
+    },
+    {
+     "name": "region",
+     "type": "STRING",
+     "description": "Region"
+    },
+    {
+     "name": "contracted_mw",
+     "type": "FLOAT64",
+     "description": "MW contracted to the retail portfolio"
+    },
+    {
+     "name": "available_mw_new_ppa",
+     "type": "FLOAT64",
+     "description": "MW available for new PPAs"
+    },
+    {
+     "name": "nfc_certificate_type",
+     "type": "STRING",
+     "description": "Non-fossil certificate type"
+    },
+    {
+     "name": "cost_jpy_kwh",
+     "type": "FLOAT64",
+     "description": "Desk cost JPY/kWh"
+    }
+   ]
+  },
+  "clean_supply_hourly": {
+   "description": "Hourly capacity factor and generation per resource: 'actual' (2026-07-01 to now) and 'p50_projection' (2027).",
+   "columns": [
+    {
+     "name": "resource_id",
+     "type": "STRING",
+     "description": "Resource id"
+    },
+    {
+     "name": "period",
+     "type": "STRING",
+     "description": "actual or p50_projection"
+    },
+    {
+     "name": "date",
+     "type": "STRING",
+     "description": "Date"
+    },
+    {
+     "name": "hour",
+     "type": "INT64",
+     "description": "Hour"
+    },
+    {
+     "name": "month",
+     "type": "STRING",
+     "description": "YYYY-MM"
+    },
+    {
+     "name": "capacity_factor",
+     "type": "FLOAT64",
+     "description": "Capacity factor 0-1"
+    },
+    {
+     "name": "generation_mwh",
+     "type": "FLOAT64",
+     "description": "Generation MWh for contracted MW"
+    }
+   ]
+  },
+  "grid_mix_hourly": {
+   "description": "Tokyo-area grid carbon-free share and carbon intensity per hour.",
+   "columns": [
+    {
+     "name": "date",
+     "type": "STRING",
+     "description": "Date"
+    },
+    {
+     "name": "hour",
+     "type": "INT64",
+     "description": "Hour"
+    },
+    {
+     "name": "month",
+     "type": "STRING",
+     "description": "YYYY-MM"
+    },
+    {
+     "name": "grid_cfe_share_pct",
+     "type": "FLOAT64",
+     "description": "Carbon-free share of grid mix %"
+    },
+    {
+     "name": "carbon_intensity_g_kwh",
+     "type": "FLOAT64",
+     "description": "gCO2/kWh"
+    }
+   ]
+  },
+  "cfe_allocation_hourly": {
+   "description": "Hourly load and allocated contracted clean energy for customers with CFE contracts.",
+   "columns": [
+    {
+     "name": "customer_id",
+     "type": "STRING",
+     "description": "Customer id"
+    },
+    {
+     "name": "date",
+     "type": "STRING",
+     "description": "Date"
+    },
+    {
+     "name": "hour",
+     "type": "INT64",
+     "description": "Hour"
+    },
+    {
+     "name": "month",
+     "type": "STRING",
+     "description": "YYYY-MM"
+    },
+    {
+     "name": "load_mwh",
+     "type": "FLOAT64",
+     "description": "Metered load MWh"
+    },
+    {
+     "name": "allocated_cfe_mwh",
+     "type": "FLOAT64",
+     "description": "Contracted clean energy allocated MWh"
+    }
+   ]
+  },
+  "nfc_ledger": {
+   "description": "Non-fossil certificate claim ledger at 30-minute granularity (Powerledger-style provenance).",
+   "columns": [
+    {
+     "name": "entry_id",
+     "type": "STRING",
+     "description": "Ledger entry id"
+    },
+    {
+     "name": "certificate_id",
+     "type": "STRING",
+     "description": "Certificate id"
+    },
+    {
+     "name": "resource_id",
+     "type": "STRING",
+     "description": "Generating resource"
+    },
+    {
+     "name": "generation_date",
+     "type": "STRING",
+     "description": "Generation date"
+    },
+    {
+     "name": "generation_hour",
+     "type": "INT64",
+     "description": "Generation hour"
+    },
+    {
+     "name": "generation_slot",
+     "type": "INT64",
+     "description": "Generation slot"
+    },
+    {
+     "name": "generation_start",
+     "type": "STRING",
+     "description": "Generation slot start"
+    },
+    {
+     "name": "mwh",
+     "type": "FLOAT64",
+     "description": "Certified MWh"
+    },
+    {
+     "name": "vintage_fy",
+     "type": "STRING",
+     "description": "Fiscal-year vintage"
+    },
+    {
+     "name": "issue_date",
+     "type": "STRING",
+     "description": "Issue date"
+    },
+    {
+     "name": "expiry_date",
+     "type": "STRING",
+     "description": "Last date the certificate may be claimed"
+    },
+    {
+     "name": "claimed_by_customer_id",
+     "type": "STRING",
+     "description": "Customer claiming the certificate"
+    },
+    {
+     "name": "claim_date",
+     "type": "STRING",
+     "description": "Claim date"
+    },
+    {
+     "name": "claim_month",
+     "type": "STRING",
+     "description": "Consumption month the claim is applied to"
+    },
+    {
+     "name": "resource_type",
+     "type": "STRING",
+     "description": "Resource type"
+    },
+    {
+     "name": "certificate_type",
+     "type": "STRING",
+     "description": "Certificate type"
+    }
+   ]
+  },
+  "prospects": {
+   "description": "Enterprise prospects in the onboarding pipeline (fictional).",
+   "columns": [
+    {
+     "name": "prospect_id",
+     "type": "STRING",
+     "description": "Prospect id"
+    },
+    {
+     "name": "name",
+     "type": "STRING",
+     "description": "Site name"
+    },
+    {
+     "name": "legal_entity",
+     "type": "STRING",
+     "description": "Legal entity (fictional)"
+    },
+    {
+     "name": "site",
+     "type": "STRING",
+     "description": "Location"
+    },
+    {
+     "name": "segment",
+     "type": "STRING",
+     "description": "Segment"
+    },
+    {
+     "name": "projected_peak_mw",
+     "type": "FLOAT64",
+     "description": "Projected peak MW"
+    },
+    {
+     "name": "projected_annual_mwh",
+     "type": "FLOAT64",
+     "description": "Projected annual MWh"
+    },
+    {
+     "name": "load_factor",
+     "type": "FLOAT64",
+     "description": "Load factor"
+    },
+    {
+     "name": "cfe_ambition_pct",
+     "type": "FLOAT64",
+     "description": "Stated hourly CFE ambition %"
+    },
+    {
+     "name": "current_supplier",
+     "type": "STRING",
+     "description": "Current supplier"
+    },
+    {
+     "name": "bill_document",
+     "type": "STRING",
+     "description": "Bill file in docs_corpus"
+    },
+    {
+     "name": "stage",
+     "type": "STRING",
+     "description": "Pipeline stage"
+    },
+    {
+     "name": "desired_start",
+     "type": "STRING",
+     "description": "Desired supply start"
+    }
+   ]
+  },
+  "prospect_load_hourly": {
+   "description": "Projected hourly load for contract year 1 (2027).",
+   "columns": [
+    {
+     "name": "prospect_id",
+     "type": "STRING",
+     "description": "Prospect id"
+    },
+    {
+     "name": "date",
+     "type": "STRING",
+     "description": "Date"
+    },
+    {
+     "name": "hour",
+     "type": "INT64",
+     "description": "Hour"
+    },
+    {
+     "name": "month",
+     "type": "STRING",
+     "description": "YYYY-MM"
+    },
+    {
+     "name": "load_mwh",
+     "type": "FLOAT64",
+     "description": "Load MWh"
+    }
+   ]
+  }
+ }
+}

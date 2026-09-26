@@ -1,0 +1,386 @@
+eval_set_id,eval_id,metric_name,threshold,score,eval_status,prompt,expected_response,actual_response,expected_tool_calls,actual_tool_calls
+specialist_cfe,C2_otemachi_hourly,tool_trajectory_avg_score,1.0,1.0,PASSED,Is Otemachi Edge Center (C-0001) 100% renewable hour by hour in August 2026?,See rubric.,"No, Otemachi Edge Center (C-0001) is not 100% renewable hour by hour in August 2026 (month-to-date period 2026-08-01 to 2026-08-19). Its 24/7 carbon-free energy (CFE) score is 66% [tepco_retail_desk_demo.cfe_allocation_hourly, tepco_retail_desk_demo.grid_mix_hourly, tepco_retail_desk_demo.customers].
+
+### Key Performance Figures (2026-08 MTD)
+- **Annual-Style Volumetric Match**: 110.4% [tepco_retail_desk_demo.cfe_allocation_hourly, tepco_retail_desk_demo.grid_mix_hourly, tepco_retail_desk_demo.customers]
+- **Contracted Hourly-Matched Share**: 62% [tepco_retail_desk_demo.cfe_allocation_hourly, tepco_retail_desk_demo.grid_mix_hourly, tepco_retail_desk_demo.customers]
+- **Grid Carbon-Free Contribution**: 4% [tepco_retail_desk_demo.cfe_allocation_hourly, tepco_retail_desk_demo.grid_mix_hourly, tepco_retail_desk_demo.customers]
+- **24/7 CFE Score**: 66% [tepco_retail_desk_demo.cfe_allocation_hourly, tepco_retail_desk_demo.grid_mix_hourly, tepco_retail_desk_demo.customers]
+
+### Explanation of Difference
+- Total contracted clean energy is 11,930.9 MWh [tepco_retail_desk_demo.cfe_allocation_hourly, tepco_retail_desk_demo.grid_mix_hourly, tepco_retail_desk_demo.customers] against total load of 10,803.7 MWh [tepco_retail_desk_demo.cfe_allocation_hourly, tepco_retail_desk_demo.grid_mix_hourly, tepco_retail_desk_demo.customers], creating a net volumetric surplus of 110.4%.
+- Under 24/7 hourly matching rules, clean generation exceeding demand in any single hour cannot offset deficits in other hours. A total of 5,233.4 MWh of excess clean generation was uncounted [tepco_retail_desk_demo.cfe_allocation_hourly, tepco_retail_desk_demo.grid_mix_hourly, tepco_retail_desk_demo.customers].
+
+### Weakest Hours & Certificate Audit Status
+- A total of 215 out of 447 hours fell below 50% hourly matched coverage [tepco_retail_desk_demo.cfe_allocation_hourly, tepco_retail_desk_demo.grid_mix_hourly, tepco_retail_desk_demo.customers].
+- The weakest performance occurs during late evening hours:
+  - Hour 20: 22.6% matched [tepco_retail_desk_demo.cfe_allocation_hourly, tepco_retail_desk_demo.grid_mix_hourly, tepco_retail_desk_demo.customers]
+  - Hour 21: 22.8% matched [tepco_retail_desk_demo.cfe_allocation_hourly, tepco_retail_desk_demo.grid_mix_hourly, tepco_retail_desk_demo.customers]
+  - Hour 22: 23.2% matched [tepco_retail_desk_demo.cfe_allocation_hourly, tepco_retail_desk_demo.grid_mix_hourly, tepco_retail_desk_demo.customers]
+- No certificate ledger findings or provenance issues affect this customer for August 2026 [tepco_retail_desk_demo.cfe_allocation_hourly, tepco_retail_desk_demo.grid_mix_hourly, tepco_retail_desk_demo.customers].","id=None args={'customer_id': 'C-0001', 'month': '2026-08'} name='get_cfe_score' partial_args=None will_continue=None","id='call_4625196' args={'customer_id': 'C-0001', 'month': '2026-08'} name='get_cfe_score' partial_args=None will_continue=None"
+specialist_cfe,C2_otemachi_hourly,rubric_based_final_response_quality_v1,0.8,1.0,PASSED,Is Otemachi Edge Center (C-0001) 100% renewable hour by hour in August 2026?,See rubric.,"No, Otemachi Edge Center (C-0001) is not 100% renewable hour by hour in August 2026 (month-to-date period 2026-08-01 to 2026-08-19). Its 24/7 carbon-free energy (CFE) score is 66% [tepco_retail_desk_demo.cfe_allocation_hourly, tepco_retail_desk_demo.grid_mix_hourly, tepco_retail_desk_demo.customers].
+
+### Key Performance Figures (2026-08 MTD)
+- **Annual-Style Volumetric Match**: 110.4% [tepco_retail_desk_demo.cfe_allocation_hourly, tepco_retail_desk_demo.grid_mix_hourly, tepco_retail_desk_demo.customers]
+- **Contracted Hourly-Matched Share**: 62% [tepco_retail_desk_demo.cfe_allocation_hourly, tepco_retail_desk_demo.grid_mix_hourly, tepco_retail_desk_demo.customers]
+- **Grid Carbon-Free Contribution**: 4% [tepco_retail_desk_demo.cfe_allocation_hourly, tepco_retail_desk_demo.grid_mix_hourly, tepco_retail_desk_demo.customers]
+- **24/7 CFE Score**: 66% [tepco_retail_desk_demo.cfe_allocation_hourly, tepco_retail_desk_demo.grid_mix_hourly, tepco_retail_desk_demo.customers]
+
+### Explanation of Difference
+- Total contracted clean energy is 11,930.9 MWh [tepco_retail_desk_demo.cfe_allocation_hourly, tepco_retail_desk_demo.grid_mix_hourly, tepco_retail_desk_demo.customers] against total load of 10,803.7 MWh [tepco_retail_desk_demo.cfe_allocation_hourly, tepco_retail_desk_demo.grid_mix_hourly, tepco_retail_desk_demo.customers], creating a net volumetric surplus of 110.4%.
+- Under 24/7 hourly matching rules, clean generation exceeding demand in any single hour cannot offset deficits in other hours. A total of 5,233.4 MWh of excess clean generation was uncounted [tepco_retail_desk_demo.cfe_allocation_hourly, tepco_retail_desk_demo.grid_mix_hourly, tepco_retail_desk_demo.customers].
+
+### Weakest Hours & Certificate Audit Status
+- A total of 215 out of 447 hours fell below 50% hourly matched coverage [tepco_retail_desk_demo.cfe_allocation_hourly, tepco_retail_desk_demo.grid_mix_hourly, tepco_retail_desk_demo.customers].
+- The weakest performance occurs during late evening hours:
+  - Hour 20: 22.6% matched [tepco_retail_desk_demo.cfe_allocation_hourly, tepco_retail_desk_demo.grid_mix_hourly, tepco_retail_desk_demo.customers]
+  - Hour 21: 22.8% matched [tepco_retail_desk_demo.cfe_allocation_hourly, tepco_retail_desk_demo.grid_mix_hourly, tepco_retail_desk_demo.customers]
+  - Hour 22: 23.2% matched [tepco_retail_desk_demo.cfe_allocation_hourly, tepco_retail_desk_demo.grid_mix_hourly, tepco_retail_desk_demo.customers]
+- No certificate ledger findings or provenance issues affect this customer for August 2026 [tepco_retail_desk_demo.cfe_allocation_hourly, tepco_retail_desk_demo.grid_mix_hourly, tepco_retail_desk_demo.customers].","id=None args={'customer_id': 'C-0001', 'month': '2026-08'} name='get_cfe_score' partial_args=None will_continue=None","id='call_4625196' args={'customer_id': 'C-0001', 'month': '2026-08'} name='get_cfe_score' partial_args=None will_continue=None"
+specialist_cfe,C2_otemachi_hourly,hallucinations_v1,0.8,1.0,PASSED,Is Otemachi Edge Center (C-0001) 100% renewable hour by hour in August 2026?,See rubric.,"No, Otemachi Edge Center (C-0001) is not 100% renewable hour by hour in August 2026 (month-to-date period 2026-08-01 to 2026-08-19). Its 24/7 carbon-free energy (CFE) score is 66% [tepco_retail_desk_demo.cfe_allocation_hourly, tepco_retail_desk_demo.grid_mix_hourly, tepco_retail_desk_demo.customers].
+
+### Key Performance Figures (2026-08 MTD)
+- **Annual-Style Volumetric Match**: 110.4% [tepco_retail_desk_demo.cfe_allocation_hourly, tepco_retail_desk_demo.grid_mix_hourly, tepco_retail_desk_demo.customers]
+- **Contracted Hourly-Matched Share**: 62% [tepco_retail_desk_demo.cfe_allocation_hourly, tepco_retail_desk_demo.grid_mix_hourly, tepco_retail_desk_demo.customers]
+- **Grid Carbon-Free Contribution**: 4% [tepco_retail_desk_demo.cfe_allocation_hourly, tepco_retail_desk_demo.grid_mix_hourly, tepco_retail_desk_demo.customers]
+- **24/7 CFE Score**: 66% [tepco_retail_desk_demo.cfe_allocation_hourly, tepco_retail_desk_demo.grid_mix_hourly, tepco_retail_desk_demo.customers]
+
+### Explanation of Difference
+- Total contracted clean energy is 11,930.9 MWh [tepco_retail_desk_demo.cfe_allocation_hourly, tepco_retail_desk_demo.grid_mix_hourly, tepco_retail_desk_demo.customers] against total load of 10,803.7 MWh [tepco_retail_desk_demo.cfe_allocation_hourly, tepco_retail_desk_demo.grid_mix_hourly, tepco_retail_desk_demo.customers], creating a net volumetric surplus of 110.4%.
+- Under 24/7 hourly matching rules, clean generation exceeding demand in any single hour cannot offset deficits in other hours. A total of 5,233.4 MWh of excess clean generation was uncounted [tepco_retail_desk_demo.cfe_allocation_hourly, tepco_retail_desk_demo.grid_mix_hourly, tepco_retail_desk_demo.customers].
+
+### Weakest Hours & Certificate Audit Status
+- A total of 215 out of 447 hours fell below 50% hourly matched coverage [tepco_retail_desk_demo.cfe_allocation_hourly, tepco_retail_desk_demo.grid_mix_hourly, tepco_retail_desk_demo.customers].
+- The weakest performance occurs during late evening hours:
+  - Hour 20: 22.6% matched [tepco_retail_desk_demo.cfe_allocation_hourly, tepco_retail_desk_demo.grid_mix_hourly, tepco_retail_desk_demo.customers]
+  - Hour 21: 22.8% matched [tepco_retail_desk_demo.cfe_allocation_hourly, tepco_retail_desk_demo.grid_mix_hourly, tepco_retail_desk_demo.customers]
+  - Hour 22: 23.2% matched [tepco_retail_desk_demo.cfe_allocation_hourly, tepco_retail_desk_demo.grid_mix_hourly, tepco_retail_desk_demo.customers]
+- No certificate ledger findings or provenance issues affect this customer for August 2026 [tepco_retail_desk_demo.cfe_allocation_hourly, tepco_retail_desk_demo.grid_mix_hourly, tepco_retail_desk_demo.customers].","id=None args={'customer_id': 'C-0001', 'month': '2026-08'} name='get_cfe_score' partial_args=None will_continue=None","id='call_4625196' args={'customer_id': 'C-0001', 'month': '2026-08'} name='get_cfe_score' partial_args=None will_continue=None"
+specialist_cfe,C2_otemachi_hourly,tool_call_count_v1,,1.0,INFORMATIONAL,Is Otemachi Edge Center (C-0001) 100% renewable hour by hour in August 2026?,See rubric.,"No, Otemachi Edge Center (C-0001) is not 100% renewable hour by hour in August 2026 (month-to-date period 2026-08-01 to 2026-08-19). Its 24/7 carbon-free energy (CFE) score is 66% [tepco_retail_desk_demo.cfe_allocation_hourly, tepco_retail_desk_demo.grid_mix_hourly, tepco_retail_desk_demo.customers].
+
+### Key Performance Figures (2026-08 MTD)
+- **Annual-Style Volumetric Match**: 110.4% [tepco_retail_desk_demo.cfe_allocation_hourly, tepco_retail_desk_demo.grid_mix_hourly, tepco_retail_desk_demo.customers]
+- **Contracted Hourly-Matched Share**: 62% [tepco_retail_desk_demo.cfe_allocation_hourly, tepco_retail_desk_demo.grid_mix_hourly, tepco_retail_desk_demo.customers]
+- **Grid Carbon-Free Contribution**: 4% [tepco_retail_desk_demo.cfe_allocation_hourly, tepco_retail_desk_demo.grid_mix_hourly, tepco_retail_desk_demo.customers]
+- **24/7 CFE Score**: 66% [tepco_retail_desk_demo.cfe_allocation_hourly, tepco_retail_desk_demo.grid_mix_hourly, tepco_retail_desk_demo.customers]
+
+### Explanation of Difference
+- Total contracted clean energy is 11,930.9 MWh [tepco_retail_desk_demo.cfe_allocation_hourly, tepco_retail_desk_demo.grid_mix_hourly, tepco_retail_desk_demo.customers] against total load of 10,803.7 MWh [tepco_retail_desk_demo.cfe_allocation_hourly, tepco_retail_desk_demo.grid_mix_hourly, tepco_retail_desk_demo.customers], creating a net volumetric surplus of 110.4%.
+- Under 24/7 hourly matching rules, clean generation exceeding demand in any single hour cannot offset deficits in other hours. A total of 5,233.4 MWh of excess clean generation was uncounted [tepco_retail_desk_demo.cfe_allocation_hourly, tepco_retail_desk_demo.grid_mix_hourly, tepco_retail_desk_demo.customers].
+
+### Weakest Hours & Certificate Audit Status
+- A total of 215 out of 447 hours fell below 50% hourly matched coverage [tepco_retail_desk_demo.cfe_allocation_hourly, tepco_retail_desk_demo.grid_mix_hourly, tepco_retail_desk_demo.customers].
+- The weakest performance occurs during late evening hours:
+  - Hour 20: 22.6% matched [tepco_retail_desk_demo.cfe_allocation_hourly, tepco_retail_desk_demo.grid_mix_hourly, tepco_retail_desk_demo.customers]
+  - Hour 21: 22.8% matched [tepco_retail_desk_demo.cfe_allocation_hourly, tepco_retail_desk_demo.grid_mix_hourly, tepco_retail_desk_demo.customers]
+  - Hour 22: 23.2% matched [tepco_retail_desk_demo.cfe_allocation_hourly, tepco_retail_desk_demo.grid_mix_hourly, tepco_retail_desk_demo.customers]
+- No certificate ledger findings or provenance issues affect this customer for August 2026 [tepco_retail_desk_demo.cfe_allocation_hourly, tepco_retail_desk_demo.grid_mix_hourly, tepco_retail_desk_demo.customers].","id=None args={'customer_id': 'C-0001', 'month': '2026-08'} name='get_cfe_score' partial_args=None will_continue=None","id='call_4625196' args={'customer_id': 'C-0001', 'month': '2026-08'} name='get_cfe_score' partial_args=None will_continue=None"
+specialist_cfe,C2_otemachi_hourly,inference_call_count_v1,,2.0,INFORMATIONAL,Is Otemachi Edge Center (C-0001) 100% renewable hour by hour in August 2026?,See rubric.,"No, Otemachi Edge Center (C-0001) is not 100% renewable hour by hour in August 2026 (month-to-date period 2026-08-01 to 2026-08-19). Its 24/7 carbon-free energy (CFE) score is 66% [tepco_retail_desk_demo.cfe_allocation_hourly, tepco_retail_desk_demo.grid_mix_hourly, tepco_retail_desk_demo.customers].
+
+### Key Performance Figures (2026-08 MTD)
+- **Annual-Style Volumetric Match**: 110.4% [tepco_retail_desk_demo.cfe_allocation_hourly, tepco_retail_desk_demo.grid_mix_hourly, tepco_retail_desk_demo.customers]
+- **Contracted Hourly-Matched Share**: 62% [tepco_retail_desk_demo.cfe_allocation_hourly, tepco_retail_desk_demo.grid_mix_hourly, tepco_retail_desk_demo.customers]
+- **Grid Carbon-Free Contribution**: 4% [tepco_retail_desk_demo.cfe_allocation_hourly, tepco_retail_desk_demo.grid_mix_hourly, tepco_retail_desk_demo.customers]
+- **24/7 CFE Score**: 66% [tepco_retail_desk_demo.cfe_allocation_hourly, tepco_retail_desk_demo.grid_mix_hourly, tepco_retail_desk_demo.customers]
+
+### Explanation of Difference
+- Total contracted clean energy is 11,930.9 MWh [tepco_retail_desk_demo.cfe_allocation_hourly, tepco_retail_desk_demo.grid_mix_hourly, tepco_retail_desk_demo.customers] against total load of 10,803.7 MWh [tepco_retail_desk_demo.cfe_allocation_hourly, tepco_retail_desk_demo.grid_mix_hourly, tepco_retail_desk_demo.customers], creating a net volumetric surplus of 110.4%.
+- Under 24/7 hourly matching rules, clean generation exceeding demand in any single hour cannot offset deficits in other hours. A total of 5,233.4 MWh of excess clean generation was uncounted [tepco_retail_desk_demo.cfe_allocation_hourly, tepco_retail_desk_demo.grid_mix_hourly, tepco_retail_desk_demo.customers].
+
+### Weakest Hours & Certificate Audit Status
+- A total of 215 out of 447 hours fell below 50% hourly matched coverage [tepco_retail_desk_demo.cfe_allocation_hourly, tepco_retail_desk_demo.grid_mix_hourly, tepco_retail_desk_demo.customers].
+- The weakest performance occurs during late evening hours:
+  - Hour 20: 22.6% matched [tepco_retail_desk_demo.cfe_allocation_hourly, tepco_retail_desk_demo.grid_mix_hourly, tepco_retail_desk_demo.customers]
+  - Hour 21: 22.8% matched [tepco_retail_desk_demo.cfe_allocation_hourly, tepco_retail_desk_demo.grid_mix_hourly, tepco_retail_desk_demo.customers]
+  - Hour 22: 23.2% matched [tepco_retail_desk_demo.cfe_allocation_hourly, tepco_retail_desk_demo.grid_mix_hourly, tepco_retail_desk_demo.customers]
+- No certificate ledger findings or provenance issues affect this customer for August 2026 [tepco_retail_desk_demo.cfe_allocation_hourly, tepco_retail_desk_demo.grid_mix_hourly, tepco_retail_desk_demo.customers].","id=None args={'customer_id': 'C-0001', 'month': '2026-08'} name='get_cfe_score' partial_args=None will_continue=None","id='call_4625196' args={'customer_id': 'C-0001', 'month': '2026-08'} name='get_cfe_score' partial_args=None will_continue=None"
+specialist_cfe,C2_otemachi_hourly,token_usage_v1,,5958.0,INFORMATIONAL,Is Otemachi Edge Center (C-0001) 100% renewable hour by hour in August 2026?,See rubric.,"No, Otemachi Edge Center (C-0001) is not 100% renewable hour by hour in August 2026 (month-to-date period 2026-08-01 to 2026-08-19). Its 24/7 carbon-free energy (CFE) score is 66% [tepco_retail_desk_demo.cfe_allocation_hourly, tepco_retail_desk_demo.grid_mix_hourly, tepco_retail_desk_demo.customers].
+
+### Key Performance Figures (2026-08 MTD)
+- **Annual-Style Volumetric Match**: 110.4% [tepco_retail_desk_demo.cfe_allocation_hourly, tepco_retail_desk_demo.grid_mix_hourly, tepco_retail_desk_demo.customers]
+- **Contracted Hourly-Matched Share**: 62% [tepco_retail_desk_demo.cfe_allocation_hourly, tepco_retail_desk_demo.grid_mix_hourly, tepco_retail_desk_demo.customers]
+- **Grid Carbon-Free Contribution**: 4% [tepco_retail_desk_demo.cfe_allocation_hourly, tepco_retail_desk_demo.grid_mix_hourly, tepco_retail_desk_demo.customers]
+- **24/7 CFE Score**: 66% [tepco_retail_desk_demo.cfe_allocation_hourly, tepco_retail_desk_demo.grid_mix_hourly, tepco_retail_desk_demo.customers]
+
+### Explanation of Difference
+- Total contracted clean energy is 11,930.9 MWh [tepco_retail_desk_demo.cfe_allocation_hourly, tepco_retail_desk_demo.grid_mix_hourly, tepco_retail_desk_demo.customers] against total load of 10,803.7 MWh [tepco_retail_desk_demo.cfe_allocation_hourly, tepco_retail_desk_demo.grid_mix_hourly, tepco_retail_desk_demo.customers], creating a net volumetric surplus of 110.4%.
+- Under 24/7 hourly matching rules, clean generation exceeding demand in any single hour cannot offset deficits in other hours. A total of 5,233.4 MWh of excess clean generation was uncounted [tepco_retail_desk_demo.cfe_allocation_hourly, tepco_retail_desk_demo.grid_mix_hourly, tepco_retail_desk_demo.customers].
+
+### Weakest Hours & Certificate Audit Status
+- A total of 215 out of 447 hours fell below 50% hourly matched coverage [tepco_retail_desk_demo.cfe_allocation_hourly, tepco_retail_desk_demo.grid_mix_hourly, tepco_retail_desk_demo.customers].
+- The weakest performance occurs during late evening hours:
+  - Hour 20: 22.6% matched [tepco_retail_desk_demo.cfe_allocation_hourly, tepco_retail_desk_demo.grid_mix_hourly, tepco_retail_desk_demo.customers]
+  - Hour 21: 22.8% matched [tepco_retail_desk_demo.cfe_allocation_hourly, tepco_retail_desk_demo.grid_mix_hourly, tepco_retail_desk_demo.customers]
+  - Hour 22: 23.2% matched [tepco_retail_desk_demo.cfe_allocation_hourly, tepco_retail_desk_demo.grid_mix_hourly, tepco_retail_desk_demo.customers]
+- No certificate ledger findings or provenance issues affect this customer for August 2026 [tepco_retail_desk_demo.cfe_allocation_hourly, tepco_retail_desk_demo.grid_mix_hourly, tepco_retail_desk_demo.customers].","id=None args={'customer_id': 'C-0001', 'month': '2026-08'} name='get_cfe_score' partial_args=None will_continue=None","id='call_4625196' args={'customer_id': 'C-0001', 'month': '2026-08'} name='get_cfe_score' partial_args=None will_continue=None"
+specialist_cfe,C2_otemachi_hourly,invocation_duration_v1,,13.308,INFORMATIONAL,Is Otemachi Edge Center (C-0001) 100% renewable hour by hour in August 2026?,See rubric.,"No, Otemachi Edge Center (C-0001) is not 100% renewable hour by hour in August 2026 (month-to-date period 2026-08-01 to 2026-08-19). Its 24/7 carbon-free energy (CFE) score is 66% [tepco_retail_desk_demo.cfe_allocation_hourly, tepco_retail_desk_demo.grid_mix_hourly, tepco_retail_desk_demo.customers].
+
+### Key Performance Figures (2026-08 MTD)
+- **Annual-Style Volumetric Match**: 110.4% [tepco_retail_desk_demo.cfe_allocation_hourly, tepco_retail_desk_demo.grid_mix_hourly, tepco_retail_desk_demo.customers]
+- **Contracted Hourly-Matched Share**: 62% [tepco_retail_desk_demo.cfe_allocation_hourly, tepco_retail_desk_demo.grid_mix_hourly, tepco_retail_desk_demo.customers]
+- **Grid Carbon-Free Contribution**: 4% [tepco_retail_desk_demo.cfe_allocation_hourly, tepco_retail_desk_demo.grid_mix_hourly, tepco_retail_desk_demo.customers]
+- **24/7 CFE Score**: 66% [tepco_retail_desk_demo.cfe_allocation_hourly, tepco_retail_desk_demo.grid_mix_hourly, tepco_retail_desk_demo.customers]
+
+### Explanation of Difference
+- Total contracted clean energy is 11,930.9 MWh [tepco_retail_desk_demo.cfe_allocation_hourly, tepco_retail_desk_demo.grid_mix_hourly, tepco_retail_desk_demo.customers] against total load of 10,803.7 MWh [tepco_retail_desk_demo.cfe_allocation_hourly, tepco_retail_desk_demo.grid_mix_hourly, tepco_retail_desk_demo.customers], creating a net volumetric surplus of 110.4%.
+- Under 24/7 hourly matching rules, clean generation exceeding demand in any single hour cannot offset deficits in other hours. A total of 5,233.4 MWh of excess clean generation was uncounted [tepco_retail_desk_demo.cfe_allocation_hourly, tepco_retail_desk_demo.grid_mix_hourly, tepco_retail_desk_demo.customers].
+
+### Weakest Hours & Certificate Audit Status
+- A total of 215 out of 447 hours fell below 50% hourly matched coverage [tepco_retail_desk_demo.cfe_allocation_hourly, tepco_retail_desk_demo.grid_mix_hourly, tepco_retail_desk_demo.customers].
+- The weakest performance occurs during late evening hours:
+  - Hour 20: 22.6% matched [tepco_retail_desk_demo.cfe_allocation_hourly, tepco_retail_desk_demo.grid_mix_hourly, tepco_retail_desk_demo.customers]
+  - Hour 21: 22.8% matched [tepco_retail_desk_demo.cfe_allocation_hourly, tepco_retail_desk_demo.grid_mix_hourly, tepco_retail_desk_demo.customers]
+  - Hour 22: 23.2% matched [tepco_retail_desk_demo.cfe_allocation_hourly, tepco_retail_desk_demo.grid_mix_hourly, tepco_retail_desk_demo.customers]
+- No certificate ledger findings or provenance issues affect this customer for August 2026 [tepco_retail_desk_demo.cfe_allocation_hourly, tepco_retail_desk_demo.grid_mix_hourly, tepco_retail_desk_demo.customers].","id=None args={'customer_id': 'C-0001', 'month': '2026-08'} name='get_cfe_score' partial_args=None will_continue=None","id='call_4625196' args={'customer_id': 'C-0001', 'month': '2026-08'} name='get_cfe_score' partial_args=None will_continue=None"
+specialist_cfe,C1_ledger_audit,tool_trajectory_avg_score,1.0,1.0,PASSED,Run the August non-fossil certificate ledger audit. Any problems?,See rubric.,"The August 2026 non-fossil certificate ledger audit identified 3 problems across 27,747 entries checked (covering 27,746 certificates and 136,533.7 MWh claimed across 8 customers) [tepco_retail_desk_demo.nfc_ledger, tepco_retail_desk_demo.clean_supply_hourly, tepco_retail_desk_demo.customers]. Four customers are affected: C-0005 (Kashiwa Cloud Hall), C-0008 (Narashino Data Park), C-0010 (Yachiyo Cloud Campus), and C-0014 (Tsukuba Micro Devices) [tepco_retail_desk_demo.nfc_ledger, tepco_retail_desk_demo.clean_supply_hourly, tepco_retail_desk_demo.customers].
+
+Note: The 30-minute non-fossil certificate ledger is a private provenance pilot; Japan currently has no government-issued hourly certificate system.
+
+---
+
+### Audit Findings
+
+1. **Double-Claimed Certificate**
+   - **Certificate ID:** NFC260807-WND-ON-19-08343 [tepco_retail_desk_demo.nfc_ledger, tepco_retail_desk_demo.clean_supply_hourly, tepco_retail_desk_demo.customers]
+   - **Entry IDs:** LE-0009488 and LE-0009489 [tepco_retail_desk_demo.nfc_ledger, tepco_retail_desk_demo.clean_supply_hourly, tepco_retail_desk_demo.customers]
+   - **Volume:** 0.8581 MWh [tepco_retail_desk_demo.nfc_ledger, tepco_retail_desk_demo.clean_supply_hourly, tepco_retail_desk_demo.customers]
+   - **Resource:** CR-WND-ON (generation start 2026-08-07T09:00) [tepco_retail_desk_demo.nfc_ledger, tepco_retail_desk_demo.clean_supply_hourly, tepco_retail_desk_demo.customers]
+   - **Claimed by:** C-0005 (Kashiwa Cloud Hall on 2026-08-12) and C-0008 (Narashino Data Park on 2026-08-14) [tepco_retail_desk_demo.nfc_ledger, tepco_retail_desk_demo.clean_supply_hourly, tepco_retail_desk_demo.customers]
+
+2. **Claim Without Generation**
+   - **Certificate ID:** NFC260812-SOL-KANTO-05-G0001 [tepco_retail_desk_demo.nfc_ledger, tepco_retail_desk_demo.clean_supply_hourly, tepco_retail_desk_demo.customers]
+   - **Entry ID:** LE-0016483 [tepco_retail_desk_demo.nfc_ledger, tepco_retail_desk_demo.clean_supply_hourly, tepco_retail_desk_demo.customers]
+   - **Volume:** 3.2 MWh claimed vs. 0 MWh metered generation [tepco_retail_desk_demo.nfc_ledger, tepco_retail_desk_demo.clean_supply_hourly, tepco_retail_desk_demo.customers]
+   - **Resource & Time:** CR-SOL-KANTO, 2026-08-12 slot 5 (02:00-02:30 JST) [tepco_retail_desk_demo.nfc_ledger, tepco_retail_desk_demo.clean_supply_hourly, tepco_retail_desk_demo.customers]
+   - **Claimed by:** C-0010 (Yachiyo Cloud Campus) [tepco_retail_desk_demo.nfc_ledger, tepco_retail_desk_demo.clean_supply_hourly, tepco_retail_desk_demo.customers]
+
+3. **Expired / Wrong-Vintage Claim**
+   - **Certificate ID:** NFC260314-HYD-ROR-23-V0001 [tepco_retail_desk_demo.nfc_ledger, tepco_retail_desk_demo.clean_supply_hourly, tepco_retail_desk_demo.customers]
+   - **Entry ID:** LE-0000001 [tepco_retail_desk_demo.nfc_ledger, tepco_retail_desk_demo.clean_supply_hourly, tepco_retail_desk_demo.customers]
+   - **Volume:** 4.5 MWh [tepco_retail_desk_demo.nfc_ledger, tepco_retail_desk_demo.clean_supply_hourly, tepco_retail_desk_demo.customers]
+   - **Vintage & Expiry:** FY2025 vintage, expired on 2026-06-30; claimed on 2026-08-10 [tepco_retail_desk_demo.nfc_ledger, tepco_retail_desk_demo.clean_supply_hourly, tepco_retail_desk_demo.customers]
+   - **Claimed by:** C-0014 (Tsukuba Micro Devices) [tepco_retail_desk_demo.nfc_ledger, tepco_retail_desk_demo.clean_supply_hourly, tepco_retail_desk_demo.customers]
+
+---
+
+### Required Actions
+
+- **Double-claim:** Suspend both claims for certificate NFC260807-WND-ON-19-08343 until the ledger owner restates one [desk_policy_guide.md Section 8].
+- **Missing generation:** Void entry LE-0016483 for certificate NFC260812-SOL-KANTO-05-G0001 [desk_policy_guide.md Section 8].
+- **Expired vintage:** Void entry LE-0000001 for certificate NFC260314-HYD-ROR-23-V0001 and replace it with a current FY2026 vintage certificate [desk_policy_guide.md Section 8].",id=None args={'month': '2026-08'} name='audit_nfc_ledger' partial_args=None will_continue=None,id='call_5369845' args={'month': '2026-08'} name='audit_nfc_ledger' partial_args=None will_continue=None
+specialist_cfe,C1_ledger_audit,rubric_based_final_response_quality_v1,0.8,1.0,PASSED,Run the August non-fossil certificate ledger audit. Any problems?,See rubric.,"The August 2026 non-fossil certificate ledger audit identified 3 problems across 27,747 entries checked (covering 27,746 certificates and 136,533.7 MWh claimed across 8 customers) [tepco_retail_desk_demo.nfc_ledger, tepco_retail_desk_demo.clean_supply_hourly, tepco_retail_desk_demo.customers]. Four customers are affected: C-0005 (Kashiwa Cloud Hall), C-0008 (Narashino Data Park), C-0010 (Yachiyo Cloud Campus), and C-0014 (Tsukuba Micro Devices) [tepco_retail_desk_demo.nfc_ledger, tepco_retail_desk_demo.clean_supply_hourly, tepco_retail_desk_demo.customers].
+
+Note: The 30-minute non-fossil certificate ledger is a private provenance pilot; Japan currently has no government-issued hourly certificate system.
+
+---
+
+### Audit Findings
+
+1. **Double-Claimed Certificate**
+   - **Certificate ID:** NFC260807-WND-ON-19-08343 [tepco_retail_desk_demo.nfc_ledger, tepco_retail_desk_demo.clean_supply_hourly, tepco_retail_desk_demo.customers]
+   - **Entry IDs:** LE-0009488 and LE-0009489 [tepco_retail_desk_demo.nfc_ledger, tepco_retail_desk_demo.clean_supply_hourly, tepco_retail_desk_demo.customers]
+   - **Volume:** 0.8581 MWh [tepco_retail_desk_demo.nfc_ledger, tepco_retail_desk_demo.clean_supply_hourly, tepco_retail_desk_demo.customers]
+   - **Resource:** CR-WND-ON (generation start 2026-08-07T09:00) [tepco_retail_desk_demo.nfc_ledger, tepco_retail_desk_demo.clean_supply_hourly, tepco_retail_desk_demo.customers]
+   - **Claimed by:** C-0005 (Kashiwa Cloud Hall on 2026-08-12) and C-0008 (Narashino Data Park on 2026-08-14) [tepco_retail_desk_demo.nfc_ledger, tepco_retail_desk_demo.clean_supply_hourly, tepco_retail_desk_demo.customers]
+
+2. **Claim Without Generation**
+   - **Certificate ID:** NFC260812-SOL-KANTO-05-G0001 [tepco_retail_desk_demo.nfc_ledger, tepco_retail_desk_demo.clean_supply_hourly, tepco_retail_desk_demo.customers]
+   - **Entry ID:** LE-0016483 [tepco_retail_desk_demo.nfc_ledger, tepco_retail_desk_demo.clean_supply_hourly, tepco_retail_desk_demo.customers]
+   - **Volume:** 3.2 MWh claimed vs. 0 MWh metered generation [tepco_retail_desk_demo.nfc_ledger, tepco_retail_desk_demo.clean_supply_hourly, tepco_retail_desk_demo.customers]
+   - **Resource & Time:** CR-SOL-KANTO, 2026-08-12 slot 5 (02:00-02:30 JST) [tepco_retail_desk_demo.nfc_ledger, tepco_retail_desk_demo.clean_supply_hourly, tepco_retail_desk_demo.customers]
+   - **Claimed by:** C-0010 (Yachiyo Cloud Campus) [tepco_retail_desk_demo.nfc_ledger, tepco_retail_desk_demo.clean_supply_hourly, tepco_retail_desk_demo.customers]
+
+3. **Expired / Wrong-Vintage Claim**
+   - **Certificate ID:** NFC260314-HYD-ROR-23-V0001 [tepco_retail_desk_demo.nfc_ledger, tepco_retail_desk_demo.clean_supply_hourly, tepco_retail_desk_demo.customers]
+   - **Entry ID:** LE-0000001 [tepco_retail_desk_demo.nfc_ledger, tepco_retail_desk_demo.clean_supply_hourly, tepco_retail_desk_demo.customers]
+   - **Volume:** 4.5 MWh [tepco_retail_desk_demo.nfc_ledger, tepco_retail_desk_demo.clean_supply_hourly, tepco_retail_desk_demo.customers]
+   - **Vintage & Expiry:** FY2025 vintage, expired on 2026-06-30; claimed on 2026-08-10 [tepco_retail_desk_demo.nfc_ledger, tepco_retail_desk_demo.clean_supply_hourly, tepco_retail_desk_demo.customers]
+   - **Claimed by:** C-0014 (Tsukuba Micro Devices) [tepco_retail_desk_demo.nfc_ledger, tepco_retail_desk_demo.clean_supply_hourly, tepco_retail_desk_demo.customers]
+
+---
+
+### Required Actions
+
+- **Double-claim:** Suspend both claims for certificate NFC260807-WND-ON-19-08343 until the ledger owner restates one [desk_policy_guide.md Section 8].
+- **Missing generation:** Void entry LE-0016483 for certificate NFC260812-SOL-KANTO-05-G0001 [desk_policy_guide.md Section 8].
+- **Expired vintage:** Void entry LE-0000001 for certificate NFC260314-HYD-ROR-23-V0001 and replace it with a current FY2026 vintage certificate [desk_policy_guide.md Section 8].",id=None args={'month': '2026-08'} name='audit_nfc_ledger' partial_args=None will_continue=None,id='call_5369845' args={'month': '2026-08'} name='audit_nfc_ledger' partial_args=None will_continue=None
+specialist_cfe,C1_ledger_audit,hallucinations_v1,0.8,1.0,PASSED,Run the August non-fossil certificate ledger audit. Any problems?,See rubric.,"The August 2026 non-fossil certificate ledger audit identified 3 problems across 27,747 entries checked (covering 27,746 certificates and 136,533.7 MWh claimed across 8 customers) [tepco_retail_desk_demo.nfc_ledger, tepco_retail_desk_demo.clean_supply_hourly, tepco_retail_desk_demo.customers]. Four customers are affected: C-0005 (Kashiwa Cloud Hall), C-0008 (Narashino Data Park), C-0010 (Yachiyo Cloud Campus), and C-0014 (Tsukuba Micro Devices) [tepco_retail_desk_demo.nfc_ledger, tepco_retail_desk_demo.clean_supply_hourly, tepco_retail_desk_demo.customers].
+
+Note: The 30-minute non-fossil certificate ledger is a private provenance pilot; Japan currently has no government-issued hourly certificate system.
+
+---
+
+### Audit Findings
+
+1. **Double-Claimed Certificate**
+   - **Certificate ID:** NFC260807-WND-ON-19-08343 [tepco_retail_desk_demo.nfc_ledger, tepco_retail_desk_demo.clean_supply_hourly, tepco_retail_desk_demo.customers]
+   - **Entry IDs:** LE-0009488 and LE-0009489 [tepco_retail_desk_demo.nfc_ledger, tepco_retail_desk_demo.clean_supply_hourly, tepco_retail_desk_demo.customers]
+   - **Volume:** 0.8581 MWh [tepco_retail_desk_demo.nfc_ledger, tepco_retail_desk_demo.clean_supply_hourly, tepco_retail_desk_demo.customers]
+   - **Resource:** CR-WND-ON (generation start 2026-08-07T09:00) [tepco_retail_desk_demo.nfc_ledger, tepco_retail_desk_demo.clean_supply_hourly, tepco_retail_desk_demo.customers]
+   - **Claimed by:** C-0005 (Kashiwa Cloud Hall on 2026-08-12) and C-0008 (Narashino Data Park on 2026-08-14) [tepco_retail_desk_demo.nfc_ledger, tepco_retail_desk_demo.clean_supply_hourly, tepco_retail_desk_demo.customers]
+
+2. **Claim Without Generation**
+   - **Certificate ID:** NFC260812-SOL-KANTO-05-G0001 [tepco_retail_desk_demo.nfc_ledger, tepco_retail_desk_demo.clean_supply_hourly, tepco_retail_desk_demo.customers]
+   - **Entry ID:** LE-0016483 [tepco_retail_desk_demo.nfc_ledger, tepco_retail_desk_demo.clean_supply_hourly, tepco_retail_desk_demo.customers]
+   - **Volume:** 3.2 MWh claimed vs. 0 MWh metered generation [tepco_retail_desk_demo.nfc_ledger, tepco_retail_desk_demo.clean_supply_hourly, tepco_retail_desk_demo.customers]
+   - **Resource & Time:** CR-SOL-KANTO, 2026-08-12 slot 5 (02:00-02:30 JST) [tepco_retail_desk_demo.nfc_ledger, tepco_retail_desk_demo.clean_supply_hourly, tepco_retail_desk_demo.customers]
+   - **Claimed by:** C-0010 (Yachiyo Cloud Campus) [tepco_retail_desk_demo.nfc_ledger, tepco_retail_desk_demo.clean_supply_hourly, tepco_retail_desk_demo.customers]
+
+3. **Expired / Wrong-Vintage Claim**
+   - **Certificate ID:** NFC260314-HYD-ROR-23-V0001 [tepco_retail_desk_demo.nfc_ledger, tepco_retail_desk_demo.clean_supply_hourly, tepco_retail_desk_demo.customers]
+   - **Entry ID:** LE-0000001 [tepco_retail_desk_demo.nfc_ledger, tepco_retail_desk_demo.clean_supply_hourly, tepco_retail_desk_demo.customers]
+   - **Volume:** 4.5 MWh [tepco_retail_desk_demo.nfc_ledger, tepco_retail_desk_demo.clean_supply_hourly, tepco_retail_desk_demo.customers]
+   - **Vintage & Expiry:** FY2025 vintage, expired on 2026-06-30; claimed on 2026-08-10 [tepco_retail_desk_demo.nfc_ledger, tepco_retail_desk_demo.clean_supply_hourly, tepco_retail_desk_demo.customers]
+   - **Claimed by:** C-0014 (Tsukuba Micro Devices) [tepco_retail_desk_demo.nfc_ledger, tepco_retail_desk_demo.clean_supply_hourly, tepco_retail_desk_demo.customers]
+
+---
+
+### Required Actions
+
+- **Double-claim:** Suspend both claims for certificate NFC260807-WND-ON-19-08343 until the ledger owner restates one [desk_policy_guide.md Section 8].
+- **Missing generation:** Void entry LE-0016483 for certificate NFC260812-SOL-KANTO-05-G0001 [desk_policy_guide.md Section 8].
+- **Expired vintage:** Void entry LE-0000001 for certificate NFC260314-HYD-ROR-23-V0001 and replace it with a current FY2026 vintage certificate [desk_policy_guide.md Section 8].",id=None args={'month': '2026-08'} name='audit_nfc_ledger' partial_args=None will_continue=None,id='call_5369845' args={'month': '2026-08'} name='audit_nfc_ledger' partial_args=None will_continue=None
+specialist_cfe,C1_ledger_audit,tool_call_count_v1,,1.0,INFORMATIONAL,Run the August non-fossil certificate ledger audit. Any problems?,See rubric.,"The August 2026 non-fossil certificate ledger audit identified 3 problems across 27,747 entries checked (covering 27,746 certificates and 136,533.7 MWh claimed across 8 customers) [tepco_retail_desk_demo.nfc_ledger, tepco_retail_desk_demo.clean_supply_hourly, tepco_retail_desk_demo.customers]. Four customers are affected: C-0005 (Kashiwa Cloud Hall), C-0008 (Narashino Data Park), C-0010 (Yachiyo Cloud Campus), and C-0014 (Tsukuba Micro Devices) [tepco_retail_desk_demo.nfc_ledger, tepco_retail_desk_demo.clean_supply_hourly, tepco_retail_desk_demo.customers].
+
+Note: The 30-minute non-fossil certificate ledger is a private provenance pilot; Japan currently has no government-issued hourly certificate system.
+
+---
+
+### Audit Findings
+
+1. **Double-Claimed Certificate**
+   - **Certificate ID:** NFC260807-WND-ON-19-08343 [tepco_retail_desk_demo.nfc_ledger, tepco_retail_desk_demo.clean_supply_hourly, tepco_retail_desk_demo.customers]
+   - **Entry IDs:** LE-0009488 and LE-0009489 [tepco_retail_desk_demo.nfc_ledger, tepco_retail_desk_demo.clean_supply_hourly, tepco_retail_desk_demo.customers]
+   - **Volume:** 0.8581 MWh [tepco_retail_desk_demo.nfc_ledger, tepco_retail_desk_demo.clean_supply_hourly, tepco_retail_desk_demo.customers]
+   - **Resource:** CR-WND-ON (generation start 2026-08-07T09:00) [tepco_retail_desk_demo.nfc_ledger, tepco_retail_desk_demo.clean_supply_hourly, tepco_retail_desk_demo.customers]
+   - **Claimed by:** C-0005 (Kashiwa Cloud Hall on 2026-08-12) and C-0008 (Narashino Data Park on 2026-08-14) [tepco_retail_desk_demo.nfc_ledger, tepco_retail_desk_demo.clean_supply_hourly, tepco_retail_desk_demo.customers]
+
+2. **Claim Without Generation**
+   - **Certificate ID:** NFC260812-SOL-KANTO-05-G0001 [tepco_retail_desk_demo.nfc_ledger, tepco_retail_desk_demo.clean_supply_hourly, tepco_retail_desk_demo.customers]
+   - **Entry ID:** LE-0016483 [tepco_retail_desk_demo.nfc_ledger, tepco_retail_desk_demo.clean_supply_hourly, tepco_retail_desk_demo.customers]
+   - **Volume:** 3.2 MWh claimed vs. 0 MWh metered generation [tepco_retail_desk_demo.nfc_ledger, tepco_retail_desk_demo.clean_supply_hourly, tepco_retail_desk_demo.customers]
+   - **Resource & Time:** CR-SOL-KANTO, 2026-08-12 slot 5 (02:00-02:30 JST) [tepco_retail_desk_demo.nfc_ledger, tepco_retail_desk_demo.clean_supply_hourly, tepco_retail_desk_demo.customers]
+   - **Claimed by:** C-0010 (Yachiyo Cloud Campus) [tepco_retail_desk_demo.nfc_ledger, tepco_retail_desk_demo.clean_supply_hourly, tepco_retail_desk_demo.customers]
+
+3. **Expired / Wrong-Vintage Claim**
+   - **Certificate ID:** NFC260314-HYD-ROR-23-V0001 [tepco_retail_desk_demo.nfc_ledger, tepco_retail_desk_demo.clean_supply_hourly, tepco_retail_desk_demo.customers]
+   - **Entry ID:** LE-0000001 [tepco_retail_desk_demo.nfc_ledger, tepco_retail_desk_demo.clean_supply_hourly, tepco_retail_desk_demo.customers]
+   - **Volume:** 4.5 MWh [tepco_retail_desk_demo.nfc_ledger, tepco_retail_desk_demo.clean_supply_hourly, tepco_retail_desk_demo.customers]
+   - **Vintage & Expiry:** FY2025 vintage, expired on 2026-06-30; claimed on 2026-08-10 [tepco_retail_desk_demo.nfc_ledger, tepco_retail_desk_demo.clean_supply_hourly, tepco_retail_desk_demo.customers]
+   - **Claimed by:** C-0014 (Tsukuba Micro Devices) [tepco_retail_desk_demo.nfc_ledger, tepco_retail_desk_demo.clean_supply_hourly, tepco_retail_desk_demo.customers]
+
+---
+
+### Required Actions
+
+- **Double-claim:** Suspend both claims for certificate NFC260807-WND-ON-19-08343 until the ledger owner restates one [desk_policy_guide.md Section 8].
+- **Missing generation:** Void entry LE-0016483 for certificate NFC260812-SOL-KANTO-05-G0001 [desk_policy_guide.md Section 8].
+- **Expired vintage:** Void entry LE-0000001 for certificate NFC260314-HYD-ROR-23-V0001 and replace it with a current FY2026 vintage certificate [desk_policy_guide.md Section 8].",id=None args={'month': '2026-08'} name='audit_nfc_ledger' partial_args=None will_continue=None,id='call_5369845' args={'month': '2026-08'} name='audit_nfc_ledger' partial_args=None will_continue=None
+specialist_cfe,C1_ledger_audit,inference_call_count_v1,,2.0,INFORMATIONAL,Run the August non-fossil certificate ledger audit. Any problems?,See rubric.,"The August 2026 non-fossil certificate ledger audit identified 3 problems across 27,747 entries checked (covering 27,746 certificates and 136,533.7 MWh claimed across 8 customers) [tepco_retail_desk_demo.nfc_ledger, tepco_retail_desk_demo.clean_supply_hourly, tepco_retail_desk_demo.customers]. Four customers are affected: C-0005 (Kashiwa Cloud Hall), C-0008 (Narashino Data Park), C-0010 (Yachiyo Cloud Campus), and C-0014 (Tsukuba Micro Devices) [tepco_retail_desk_demo.nfc_ledger, tepco_retail_desk_demo.clean_supply_hourly, tepco_retail_desk_demo.customers].
+
+Note: The 30-minute non-fossil certificate ledger is a private provenance pilot; Japan currently has no government-issued hourly certificate system.
+
+---
+
+### Audit Findings
+
+1. **Double-Claimed Certificate**
+   - **Certificate ID:** NFC260807-WND-ON-19-08343 [tepco_retail_desk_demo.nfc_ledger, tepco_retail_desk_demo.clean_supply_hourly, tepco_retail_desk_demo.customers]
+   - **Entry IDs:** LE-0009488 and LE-0009489 [tepco_retail_desk_demo.nfc_ledger, tepco_retail_desk_demo.clean_supply_hourly, tepco_retail_desk_demo.customers]
+   - **Volume:** 0.8581 MWh [tepco_retail_desk_demo.nfc_ledger, tepco_retail_desk_demo.clean_supply_hourly, tepco_retail_desk_demo.customers]
+   - **Resource:** CR-WND-ON (generation start 2026-08-07T09:00) [tepco_retail_desk_demo.nfc_ledger, tepco_retail_desk_demo.clean_supply_hourly, tepco_retail_desk_demo.customers]
+   - **Claimed by:** C-0005 (Kashiwa Cloud Hall on 2026-08-12) and C-0008 (Narashino Data Park on 2026-08-14) [tepco_retail_desk_demo.nfc_ledger, tepco_retail_desk_demo.clean_supply_hourly, tepco_retail_desk_demo.customers]
+
+2. **Claim Without Generation**
+   - **Certificate ID:** NFC260812-SOL-KANTO-05-G0001 [tepco_retail_desk_demo.nfc_ledger, tepco_retail_desk_demo.clean_supply_hourly, tepco_retail_desk_demo.customers]
+   - **Entry ID:** LE-0016483 [tepco_retail_desk_demo.nfc_ledger, tepco_retail_desk_demo.clean_supply_hourly, tepco_retail_desk_demo.customers]
+   - **Volume:** 3.2 MWh claimed vs. 0 MWh metered generation [tepco_retail_desk_demo.nfc_ledger, tepco_retail_desk_demo.clean_supply_hourly, tepco_retail_desk_demo.customers]
+   - **Resource & Time:** CR-SOL-KANTO, 2026-08-12 slot 5 (02:00-02:30 JST) [tepco_retail_desk_demo.nfc_ledger, tepco_retail_desk_demo.clean_supply_hourly, tepco_retail_desk_demo.customers]
+   - **Claimed by:** C-0010 (Yachiyo Cloud Campus) [tepco_retail_desk_demo.nfc_ledger, tepco_retail_desk_demo.clean_supply_hourly, tepco_retail_desk_demo.customers]
+
+3. **Expired / Wrong-Vintage Claim**
+   - **Certificate ID:** NFC260314-HYD-ROR-23-V0001 [tepco_retail_desk_demo.nfc_ledger, tepco_retail_desk_demo.clean_supply_hourly, tepco_retail_desk_demo.customers]
+   - **Entry ID:** LE-0000001 [tepco_retail_desk_demo.nfc_ledger, tepco_retail_desk_demo.clean_supply_hourly, tepco_retail_desk_demo.customers]
+   - **Volume:** 4.5 MWh [tepco_retail_desk_demo.nfc_ledger, tepco_retail_desk_demo.clean_supply_hourly, tepco_retail_desk_demo.customers]
+   - **Vintage & Expiry:** FY2025 vintage, expired on 2026-06-30; claimed on 2026-08-10 [tepco_retail_desk_demo.nfc_ledger, tepco_retail_desk_demo.clean_supply_hourly, tepco_retail_desk_demo.customers]
+   - **Claimed by:** C-0014 (Tsukuba Micro Devices) [tepco_retail_desk_demo.nfc_ledger, tepco_retail_desk_demo.clean_supply_hourly, tepco_retail_desk_demo.customers]
+
+---
+
+### Required Actions
+
+- **Double-claim:** Suspend both claims for certificate NFC260807-WND-ON-19-08343 until the ledger owner restates one [desk_policy_guide.md Section 8].
+- **Missing generation:** Void entry LE-0016483 for certificate NFC260812-SOL-KANTO-05-G0001 [desk_policy_guide.md Section 8].
+- **Expired vintage:** Void entry LE-0000001 for certificate NFC260314-HYD-ROR-23-V0001 and replace it with a current FY2026 vintage certificate [desk_policy_guide.md Section 8].",id=None args={'month': '2026-08'} name='audit_nfc_ledger' partial_args=None will_continue=None,id='call_5369845' args={'month': '2026-08'} name='audit_nfc_ledger' partial_args=None will_continue=None
+specialist_cfe,C1_ledger_audit,token_usage_v1,,6882.0,INFORMATIONAL,Run the August non-fossil certificate ledger audit. Any problems?,See rubric.,"The August 2026 non-fossil certificate ledger audit identified 3 problems across 27,747 entries checked (covering 27,746 certificates and 136,533.7 MWh claimed across 8 customers) [tepco_retail_desk_demo.nfc_ledger, tepco_retail_desk_demo.clean_supply_hourly, tepco_retail_desk_demo.customers]. Four customers are affected: C-0005 (Kashiwa Cloud Hall), C-0008 (Narashino Data Park), C-0010 (Yachiyo Cloud Campus), and C-0014 (Tsukuba Micro Devices) [tepco_retail_desk_demo.nfc_ledger, tepco_retail_desk_demo.clean_supply_hourly, tepco_retail_desk_demo.customers].
+
+Note: The 30-minute non-fossil certificate ledger is a private provenance pilot; Japan currently has no government-issued hourly certificate system.
+
+---
+
+### Audit Findings
+
+1. **Double-Claimed Certificate**
+   - **Certificate ID:** NFC260807-WND-ON-19-08343 [tepco_retail_desk_demo.nfc_ledger, tepco_retail_desk_demo.clean_supply_hourly, tepco_retail_desk_demo.customers]
+   - **Entry IDs:** LE-0009488 and LE-0009489 [tepco_retail_desk_demo.nfc_ledger, tepco_retail_desk_demo.clean_supply_hourly, tepco_retail_desk_demo.customers]
+   - **Volume:** 0.8581 MWh [tepco_retail_desk_demo.nfc_ledger, tepco_retail_desk_demo.clean_supply_hourly, tepco_retail_desk_demo.customers]
+   - **Resource:** CR-WND-ON (generation start 2026-08-07T09:00) [tepco_retail_desk_demo.nfc_ledger, tepco_retail_desk_demo.clean_supply_hourly, tepco_retail_desk_demo.customers]
+   - **Claimed by:** C-0005 (Kashiwa Cloud Hall on 2026-08-12) and C-0008 (Narashino Data Park on 2026-08-14) [tepco_retail_desk_demo.nfc_ledger, tepco_retail_desk_demo.clean_supply_hourly, tepco_retail_desk_demo.customers]
+
+2. **Claim Without Generation**
+   - **Certificate ID:** NFC260812-SOL-KANTO-05-G0001 [tepco_retail_desk_demo.nfc_ledger, tepco_retail_desk_demo.clean_supply_hourly, tepco_retail_desk_demo.customers]
+   - **Entry ID:** LE-0016483 [tepco_retail_desk_demo.nfc_ledger, tepco_retail_desk_demo.clean_supply_hourly, tepco_retail_desk_demo.customers]
+   - **Volume:** 3.2 MWh claimed vs. 0 MWh metered generation [tepco_retail_desk_demo.nfc_ledger, tepco_retail_desk_demo.clean_supply_hourly, tepco_retail_desk_demo.customers]
+   - **Resource & Time:** CR-SOL-KANTO, 2026-08-12 slot 5 (02:00-02:30 JST) [tepco_retail_desk_demo.nfc_ledger, tepco_retail_desk_demo.clean_supply_hourly, tepco_retail_desk_demo.customers]
+   - **Claimed by:** C-0010 (Yachiyo Cloud Campus) [tepco_retail_desk_demo.nfc_ledger, tepco_retail_desk_demo.clean_supply_hourly, tepco_retail_desk_demo.customers]
+
+3. **Expired / Wrong-Vintage Claim**
+   - **Certificate ID:** NFC260314-HYD-ROR-23-V0001 [tepco_retail_desk_demo.nfc_ledger, tepco_retail_desk_demo.clean_supply_hourly, tepco_retail_desk_demo.customers]
+   - **Entry ID:** LE-0000001 [tepco_retail_desk_demo.nfc_ledger, tepco_retail_desk_demo.clean_supply_hourly, tepco_retail_desk_demo.customers]
+   - **Volume:** 4.5 MWh [tepco_retail_desk_demo.nfc_ledger, tepco_retail_desk_demo.clean_supply_hourly, tepco_retail_desk_demo.customers]
+   - **Vintage & Expiry:** FY2025 vintage, expired on 2026-06-30; claimed on 2026-08-10 [tepco_retail_desk_demo.nfc_ledger, tepco_retail_desk_demo.clean_supply_hourly, tepco_retail_desk_demo.customers]
+   - **Claimed by:** C-0014 (Tsukuba Micro Devices) [tepco_retail_desk_demo.nfc_ledger, tepco_retail_desk_demo.clean_supply_hourly, tepco_retail_desk_demo.customers]
+
+---
+
+### Required Actions
+
+- **Double-claim:** Suspend both claims for certificate NFC260807-WND-ON-19-08343 until the ledger owner restates one [desk_policy_guide.md Section 8].
+- **Missing generation:** Void entry LE-0016483 for certificate NFC260812-SOL-KANTO-05-G0001 [desk_policy_guide.md Section 8].
+- **Expired vintage:** Void entry LE-0000001 for certificate NFC260314-HYD-ROR-23-V0001 and replace it with a current FY2026 vintage certificate [desk_policy_guide.md Section 8].",id=None args={'month': '2026-08'} name='audit_nfc_ledger' partial_args=None will_continue=None,id='call_5369845' args={'month': '2026-08'} name='audit_nfc_ledger' partial_args=None will_continue=None
+specialist_cfe,C1_ledger_audit,invocation_duration_v1,,15.914,INFORMATIONAL,Run the August non-fossil certificate ledger audit. Any problems?,See rubric.,"The August 2026 non-fossil certificate ledger audit identified 3 problems across 27,747 entries checked (covering 27,746 certificates and 136,533.7 MWh claimed across 8 customers) [tepco_retail_desk_demo.nfc_ledger, tepco_retail_desk_demo.clean_supply_hourly, tepco_retail_desk_demo.customers]. Four customers are affected: C-0005 (Kashiwa Cloud Hall), C-0008 (Narashino Data Park), C-0010 (Yachiyo Cloud Campus), and C-0014 (Tsukuba Micro Devices) [tepco_retail_desk_demo.nfc_ledger, tepco_retail_desk_demo.clean_supply_hourly, tepco_retail_desk_demo.customers].
+
+Note: The 30-minute non-fossil certificate ledger is a private provenance pilot; Japan currently has no government-issued hourly certificate system.
+
+---
+
+### Audit Findings
+
+1. **Double-Claimed Certificate**
+   - **Certificate ID:** NFC260807-WND-ON-19-08343 [tepco_retail_desk_demo.nfc_ledger, tepco_retail_desk_demo.clean_supply_hourly, tepco_retail_desk_demo.customers]
+   - **Entry IDs:** LE-0009488 and LE-0009489 [tepco_retail_desk_demo.nfc_ledger, tepco_retail_desk_demo.clean_supply_hourly, tepco_retail_desk_demo.customers]
+   - **Volume:** 0.8581 MWh [tepco_retail_desk_demo.nfc_ledger, tepco_retail_desk_demo.clean_supply_hourly, tepco_retail_desk_demo.customers]
+   - **Resource:** CR-WND-ON (generation start 2026-08-07T09:00) [tepco_retail_desk_demo.nfc_ledger, tepco_retail_desk_demo.clean_supply_hourly, tepco_retail_desk_demo.customers]
+   - **Claimed by:** C-0005 (Kashiwa Cloud Hall on 2026-08-12) and C-0008 (Narashino Data Park on 2026-08-14) [tepco_retail_desk_demo.nfc_ledger, tepco_retail_desk_demo.clean_supply_hourly, tepco_retail_desk_demo.customers]
+
+2. **Claim Without Generation**
+   - **Certificate ID:** NFC260812-SOL-KANTO-05-G0001 [tepco_retail_desk_demo.nfc_ledger, tepco_retail_desk_demo.clean_supply_hourly, tepco_retail_desk_demo.customers]
+   - **Entry ID:** LE-0016483 [tepco_retail_desk_demo.nfc_ledger, tepco_retail_desk_demo.clean_supply_hourly, tepco_retail_desk_demo.customers]
+   - **Volume:** 3.2 MWh claimed vs. 0 MWh metered generation [tepco_retail_desk_demo.nfc_ledger, tepco_retail_desk_demo.clean_supply_hourly, tepco_retail_desk_demo.customers]
+   - **Resource & Time:** CR-SOL-KANTO, 2026-08-12 slot 5 (02:00-02:30 JST) [tepco_retail_desk_demo.nfc_ledger, tepco_retail_desk_demo.clean_supply_hourly, tepco_retail_desk_demo.customers]
+   - **Claimed by:** C-0010 (Yachiyo Cloud Campus) [tepco_retail_desk_demo.nfc_ledger, tepco_retail_desk_demo.clean_supply_hourly, tepco_retail_desk_demo.customers]
+
+3. **Expired / Wrong-Vintage Claim**
+   - **Certificate ID:** NFC260314-HYD-ROR-23-V0001 [tepco_retail_desk_demo.nfc_ledger, tepco_retail_desk_demo.clean_supply_hourly, tepco_retail_desk_demo.customers]
+   - **Entry ID:** LE-0000001 [tepco_retail_desk_demo.nfc_ledger, tepco_retail_desk_demo.clean_supply_hourly, tepco_retail_desk_demo.customers]
+   - **Volume:** 4.5 MWh [tepco_retail_desk_demo.nfc_ledger, tepco_retail_desk_demo.clean_supply_hourly, tepco_retail_desk_demo.customers]
+   - **Vintage & Expiry:** FY2025 vintage, expired on 2026-06-30; claimed on 2026-08-10 [tepco_retail_desk_demo.nfc_ledger, tepco_retail_desk_demo.clean_supply_hourly, tepco_retail_desk_demo.customers]
+   - **Claimed by:** C-0014 (Tsukuba Micro Devices) [tepco_retail_desk_demo.nfc_ledger, tepco_retail_desk_demo.clean_supply_hourly, tepco_retail_desk_demo.customers]
+
+---
+
+### Required Actions
+
+- **Double-claim:** Suspend both claims for certificate NFC260807-WND-ON-19-08343 until the ledger owner restates one [desk_policy_guide.md Section 8].
+- **Missing generation:** Void entry LE-0016483 for certificate NFC260812-SOL-KANTO-05-G0001 [desk_policy_guide.md Section 8].
+- **Expired vintage:** Void entry LE-0000001 for certificate NFC260314-HYD-ROR-23-V0001 and replace it with a current FY2026 vintage certificate [desk_policy_guide.md Section 8].",id=None args={'month': '2026-08'} name='audit_nfc_ledger' partial_args=None will_continue=None,id='call_5369845' args={'month': '2026-08'} name='audit_nfc_ledger' partial_args=None will_continue=None

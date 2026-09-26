@@ -1,0 +1,17 @@
+# Exact pins from the shared build venv (Python 3.12). Agent Runtime needs the aiplatform extras.
+google-cloud-aiplatform[agent_engines,adk]==1.165.1
+google-adk==2.10.0
+google-genai==2.25.0
+google-cloud-bigquery==3.45.2
+db-dtypes==1.7.1
+pyarrow==25.0.1
+duckdb==1.5.5
+pandas==3.0.6
+numpy==2.5.3
+fastapi==0.141.1
+uvicorn==0.54.0
+cloudpickle==3.1.2
+pydantic==2.13.5
+pyyaml==6.0.3
+httpx==0.28.1
+pytest==9.1.1  # tests only

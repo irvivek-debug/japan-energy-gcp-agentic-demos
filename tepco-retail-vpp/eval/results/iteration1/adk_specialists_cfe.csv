@@ -1,0 +1,379 @@
+eval_set_id,eval_id,metric_name,threshold,score,eval_status,prompt,expected_response,actual_response,expected_tool_calls,actual_tool_calls
+specialist_cfe,C1_ledger_audit,tool_trajectory_avg_score,1.0,1.0,PASSED,Run the August non-fossil certificate ledger audit. Any problems?,See rubric.,"The August 2026 30-minute Non-Fossil Certificate (NFC) ledger audit identified 3 findings across 27,747 entries checked (27,746 certificates representing 136,533.7 MWh across 8 customers) [tepco_retail_desk_demo.nfc_ledger]. 
+
+### Summary of Audit Findings
+
+1. **Double Claim (1 finding)**
+   - **Certificate ID:** `NFC260807-WND-ON-19-08343` (0.8581 MWh, Resource: `CR-WND-ON`, Generation Start: 2026-08-07 09:00) [tepco_retail_desk_demo.nfc_ledger]
+   - **Affected Customers:** C-0005 (Kashiwa Cloud Hall, entry `LE-0009488` on 2026-08-12) and C-0008 (Narashino Data Park, entry `LE-0009489` on 2026-08-14) [tepco_retail_desk_demo.nfc_ledger, tepco_retail_desk_demo.customers]
+
+2. **Claim Without Generation (1 finding)**
+   - **Certificate ID:** `NFC260812-SOL-KANTO-05-G0001` (3.2 MWh claimed, Entry: `LE-0016483`) [tepco_retail_desk_demo.nfc_ledger]
+   - **Affected Customer:** C-0010 (Yachiyo Cloud Campus) [tepco_retail_desk_demo.customers]
+   - **Issue:** Claimed against 2026-08-12 slot 5 for resource `CR-SOL-KANTO`, but metered generation was 0 MWh [tepco_retail_desk_demo.nfc_ledger, tepco_retail_desk_demo.clean_supply_hourly]
+
+3. **Expired / Wrong-Vintage Claim (1 finding)**
+   - **Certificate ID:** `NFC260314-HYD-ROR-23-V0001` (4.5 MWh claimed, Entry: `LE-0000001`, Claim Date: 2026-08-10) [tepco_retail_desk_demo.nfc_ledger]
+   - **Affected Customer:** C-0014 (Tsukuba Micro Devices) [tepco_retail_desk_demo.customers]
+   - **Issue:** Certificate belongs to vintage FY2025 and expired on 2026-06-30 [tepco_retail_desk_demo.nfc_ledger]
+
+---
+
+### Required Actions
+
+- **Double-counted certificate:** Suspend both claims on `NFC260807-WND-ON-19-08343` until the ledger owner restates one [desk_policy_guide.md Section 8].
+- **Missing generation claim:** Void claim `LE-0016483` [desk_policy_guide.md Section 8].
+- **Expired vintage claim:** Void claim `LE-0000001` and replace it with current FY2026 vintage certificates [desk_policy_guide.md Section 8].",id=None args={'month': '2026-08'} name='audit_nfc_ledger' partial_args=None will_continue=None,id='call_4618265' args={'month': '2026-08'} name='audit_nfc_ledger' partial_args=None will_continue=None
+specialist_cfe,C1_ledger_audit,rubric_based_final_response_quality_v1,0.8,1.0,PASSED,Run the August non-fossil certificate ledger audit. Any problems?,See rubric.,"The August 2026 30-minute Non-Fossil Certificate (NFC) ledger audit identified 3 findings across 27,747 entries checked (27,746 certificates representing 136,533.7 MWh across 8 customers) [tepco_retail_desk_demo.nfc_ledger]. 
+
+### Summary of Audit Findings
+
+1. **Double Claim (1 finding)**
+   - **Certificate ID:** `NFC260807-WND-ON-19-08343` (0.8581 MWh, Resource: `CR-WND-ON`, Generation Start: 2026-08-07 09:00) [tepco_retail_desk_demo.nfc_ledger]
+   - **Affected Customers:** C-0005 (Kashiwa Cloud Hall, entry `LE-0009488` on 2026-08-12) and C-0008 (Narashino Data Park, entry `LE-0009489` on 2026-08-14) [tepco_retail_desk_demo.nfc_ledger, tepco_retail_desk_demo.customers]
+
+2. **Claim Without Generation (1 finding)**
+   - **Certificate ID:** `NFC260812-SOL-KANTO-05-G0001` (3.2 MWh claimed, Entry: `LE-0016483`) [tepco_retail_desk_demo.nfc_ledger]
+   - **Affected Customer:** C-0010 (Yachiyo Cloud Campus) [tepco_retail_desk_demo.customers]
+   - **Issue:** Claimed against 2026-08-12 slot 5 for resource `CR-SOL-KANTO`, but metered generation was 0 MWh [tepco_retail_desk_demo.nfc_ledger, tepco_retail_desk_demo.clean_supply_hourly]
+
+3. **Expired / Wrong-Vintage Claim (1 finding)**
+   - **Certificate ID:** `NFC260314-HYD-ROR-23-V0001` (4.5 MWh claimed, Entry: `LE-0000001`, Claim Date: 2026-08-10) [tepco_retail_desk_demo.nfc_ledger]
+   - **Affected Customer:** C-0014 (Tsukuba Micro Devices) [tepco_retail_desk_demo.customers]
+   - **Issue:** Certificate belongs to vintage FY2025 and expired on 2026-06-30 [tepco_retail_desk_demo.nfc_ledger]
+
+---
+
+### Required Actions
+
+- **Double-counted certificate:** Suspend both claims on `NFC260807-WND-ON-19-08343` until the ledger owner restates one [desk_policy_guide.md Section 8].
+- **Missing generation claim:** Void claim `LE-0016483` [desk_policy_guide.md Section 8].
+- **Expired vintage claim:** Void claim `LE-0000001` and replace it with current FY2026 vintage certificates [desk_policy_guide.md Section 8].",id=None args={'month': '2026-08'} name='audit_nfc_ledger' partial_args=None will_continue=None,id='call_4618265' args={'month': '2026-08'} name='audit_nfc_ledger' partial_args=None will_continue=None
+specialist_cfe,C1_ledger_audit,hallucinations_v1,0.8,1.0,PASSED,Run the August non-fossil certificate ledger audit. Any problems?,See rubric.,"The August 2026 30-minute Non-Fossil Certificate (NFC) ledger audit identified 3 findings across 27,747 entries checked (27,746 certificates representing 136,533.7 MWh across 8 customers) [tepco_retail_desk_demo.nfc_ledger]. 
+
+### Summary of Audit Findings
+
+1. **Double Claim (1 finding)**
+   - **Certificate ID:** `NFC260807-WND-ON-19-08343` (0.8581 MWh, Resource: `CR-WND-ON`, Generation Start: 2026-08-07 09:00) [tepco_retail_desk_demo.nfc_ledger]
+   - **Affected Customers:** C-0005 (Kashiwa Cloud Hall, entry `LE-0009488` on 2026-08-12) and C-0008 (Narashino Data Park, entry `LE-0009489` on 2026-08-14) [tepco_retail_desk_demo.nfc_ledger, tepco_retail_desk_demo.customers]
+
+2. **Claim Without Generation (1 finding)**
+   - **Certificate ID:** `NFC260812-SOL-KANTO-05-G0001` (3.2 MWh claimed, Entry: `LE-0016483`) [tepco_retail_desk_demo.nfc_ledger]
+   - **Affected Customer:** C-0010 (Yachiyo Cloud Campus) [tepco_retail_desk_demo.customers]
+   - **Issue:** Claimed against 2026-08-12 slot 5 for resource `CR-SOL-KANTO`, but metered generation was 0 MWh [tepco_retail_desk_demo.nfc_ledger, tepco_retail_desk_demo.clean_supply_hourly]
+
+3. **Expired / Wrong-Vintage Claim (1 finding)**
+   - **Certificate ID:** `NFC260314-HYD-ROR-23-V0001` (4.5 MWh claimed, Entry: `LE-0000001`, Claim Date: 2026-08-10) [tepco_retail_desk_demo.nfc_ledger]
+   - **Affected Customer:** C-0014 (Tsukuba Micro Devices) [tepco_retail_desk_demo.customers]
+   - **Issue:** Certificate belongs to vintage FY2025 and expired on 2026-06-30 [tepco_retail_desk_demo.nfc_ledger]
+
+---
+
+### Required Actions
+
+- **Double-counted certificate:** Suspend both claims on `NFC260807-WND-ON-19-08343` until the ledger owner restates one [desk_policy_guide.md Section 8].
+- **Missing generation claim:** Void claim `LE-0016483` [desk_policy_guide.md Section 8].
+- **Expired vintage claim:** Void claim `LE-0000001` and replace it with current FY2026 vintage certificates [desk_policy_guide.md Section 8].",id=None args={'month': '2026-08'} name='audit_nfc_ledger' partial_args=None will_continue=None,id='call_4618265' args={'month': '2026-08'} name='audit_nfc_ledger' partial_args=None will_continue=None
+specialist_cfe,C1_ledger_audit,tool_call_count_v1,,1.0,INFORMATIONAL,Run the August non-fossil certificate ledger audit. Any problems?,See rubric.,"The August 2026 30-minute Non-Fossil Certificate (NFC) ledger audit identified 3 findings across 27,747 entries checked (27,746 certificates representing 136,533.7 MWh across 8 customers) [tepco_retail_desk_demo.nfc_ledger]. 
+
+### Summary of Audit Findings
+
+1. **Double Claim (1 finding)**
+   - **Certificate ID:** `NFC260807-WND-ON-19-08343` (0.8581 MWh, Resource: `CR-WND-ON`, Generation Start: 2026-08-07 09:00) [tepco_retail_desk_demo.nfc_ledger]
+   - **Affected Customers:** C-0005 (Kashiwa Cloud Hall, entry `LE-0009488` on 2026-08-12) and C-0008 (Narashino Data Park, entry `LE-0009489` on 2026-08-14) [tepco_retail_desk_demo.nfc_ledger, tepco_retail_desk_demo.customers]
+
+2. **Claim Without Generation (1 finding)**
+   - **Certificate ID:** `NFC260812-SOL-KANTO-05-G0001` (3.2 MWh claimed, Entry: `LE-0016483`) [tepco_retail_desk_demo.nfc_ledger]
+   - **Affected Customer:** C-0010 (Yachiyo Cloud Campus) [tepco_retail_desk_demo.customers]
+   - **Issue:** Claimed against 2026-08-12 slot 5 for resource `CR-SOL-KANTO`, but metered generation was 0 MWh [tepco_retail_desk_demo.nfc_ledger, tepco_retail_desk_demo.clean_supply_hourly]
+
+3. **Expired / Wrong-Vintage Claim (1 finding)**
+   - **Certificate ID:** `NFC260314-HYD-ROR-23-V0001` (4.5 MWh claimed, Entry: `LE-0000001`, Claim Date: 2026-08-10) [tepco_retail_desk_demo.nfc_ledger]
+   - **Affected Customer:** C-0014 (Tsukuba Micro Devices) [tepco_retail_desk_demo.customers]
+   - **Issue:** Certificate belongs to vintage FY2025 and expired on 2026-06-30 [tepco_retail_desk_demo.nfc_ledger]
+
+---
+
+### Required Actions
+
+- **Double-counted certificate:** Suspend both claims on `NFC260807-WND-ON-19-08343` until the ledger owner restates one [desk_policy_guide.md Section 8].
+- **Missing generation claim:** Void claim `LE-0016483` [desk_policy_guide.md Section 8].
+- **Expired vintage claim:** Void claim `LE-0000001` and replace it with current FY2026 vintage certificates [desk_policy_guide.md Section 8].",id=None args={'month': '2026-08'} name='audit_nfc_ledger' partial_args=None will_continue=None,id='call_4618265' args={'month': '2026-08'} name='audit_nfc_ledger' partial_args=None will_continue=None
+specialist_cfe,C1_ledger_audit,inference_call_count_v1,,2.0,INFORMATIONAL,Run the August non-fossil certificate ledger audit. Any problems?,See rubric.,"The August 2026 30-minute Non-Fossil Certificate (NFC) ledger audit identified 3 findings across 27,747 entries checked (27,746 certificates representing 136,533.7 MWh across 8 customers) [tepco_retail_desk_demo.nfc_ledger]. 
+
+### Summary of Audit Findings
+
+1. **Double Claim (1 finding)**
+   - **Certificate ID:** `NFC260807-WND-ON-19-08343` (0.8581 MWh, Resource: `CR-WND-ON`, Generation Start: 2026-08-07 09:00) [tepco_retail_desk_demo.nfc_ledger]
+   - **Affected Customers:** C-0005 (Kashiwa Cloud Hall, entry `LE-0009488` on 2026-08-12) and C-0008 (Narashino Data Park, entry `LE-0009489` on 2026-08-14) [tepco_retail_desk_demo.nfc_ledger, tepco_retail_desk_demo.customers]
+
+2. **Claim Without Generation (1 finding)**
+   - **Certificate ID:** `NFC260812-SOL-KANTO-05-G0001` (3.2 MWh claimed, Entry: `LE-0016483`) [tepco_retail_desk_demo.nfc_ledger]
+   - **Affected Customer:** C-0010 (Yachiyo Cloud Campus) [tepco_retail_desk_demo.customers]
+   - **Issue:** Claimed against 2026-08-12 slot 5 for resource `CR-SOL-KANTO`, but metered generation was 0 MWh [tepco_retail_desk_demo.nfc_ledger, tepco_retail_desk_demo.clean_supply_hourly]
+
+3. **Expired / Wrong-Vintage Claim (1 finding)**
+   - **Certificate ID:** `NFC260314-HYD-ROR-23-V0001` (4.5 MWh claimed, Entry: `LE-0000001`, Claim Date: 2026-08-10) [tepco_retail_desk_demo.nfc_ledger]
+   - **Affected Customer:** C-0014 (Tsukuba Micro Devices) [tepco_retail_desk_demo.customers]
+   - **Issue:** Certificate belongs to vintage FY2025 and expired on 2026-06-30 [tepco_retail_desk_demo.nfc_ledger]
+
+---
+
+### Required Actions
+
+- **Double-counted certificate:** Suspend both claims on `NFC260807-WND-ON-19-08343` until the ledger owner restates one [desk_policy_guide.md Section 8].
+- **Missing generation claim:** Void claim `LE-0016483` [desk_policy_guide.md Section 8].
+- **Expired vintage claim:** Void claim `LE-0000001` and replace it with current FY2026 vintage certificates [desk_policy_guide.md Section 8].",id=None args={'month': '2026-08'} name='audit_nfc_ledger' partial_args=None will_continue=None,id='call_4618265' args={'month': '2026-08'} name='audit_nfc_ledger' partial_args=None will_continue=None
+specialist_cfe,C1_ledger_audit,token_usage_v1,,6073.0,INFORMATIONAL,Run the August non-fossil certificate ledger audit. Any problems?,See rubric.,"The August 2026 30-minute Non-Fossil Certificate (NFC) ledger audit identified 3 findings across 27,747 entries checked (27,746 certificates representing 136,533.7 MWh across 8 customers) [tepco_retail_desk_demo.nfc_ledger]. 
+
+### Summary of Audit Findings
+
+1. **Double Claim (1 finding)**
+   - **Certificate ID:** `NFC260807-WND-ON-19-08343` (0.8581 MWh, Resource: `CR-WND-ON`, Generation Start: 2026-08-07 09:00) [tepco_retail_desk_demo.nfc_ledger]
+   - **Affected Customers:** C-0005 (Kashiwa Cloud Hall, entry `LE-0009488` on 2026-08-12) and C-0008 (Narashino Data Park, entry `LE-0009489` on 2026-08-14) [tepco_retail_desk_demo.nfc_ledger, tepco_retail_desk_demo.customers]
+
+2. **Claim Without Generation (1 finding)**
+   - **Certificate ID:** `NFC260812-SOL-KANTO-05-G0001` (3.2 MWh claimed, Entry: `LE-0016483`) [tepco_retail_desk_demo.nfc_ledger]
+   - **Affected Customer:** C-0010 (Yachiyo Cloud Campus) [tepco_retail_desk_demo.customers]
+   - **Issue:** Claimed against 2026-08-12 slot 5 for resource `CR-SOL-KANTO`, but metered generation was 0 MWh [tepco_retail_desk_demo.nfc_ledger, tepco_retail_desk_demo.clean_supply_hourly]
+
+3. **Expired / Wrong-Vintage Claim (1 finding)**
+   - **Certificate ID:** `NFC260314-HYD-ROR-23-V0001` (4.5 MWh claimed, Entry: `LE-0000001`, Claim Date: 2026-08-10) [tepco_retail_desk_demo.nfc_ledger]
+   - **Affected Customer:** C-0014 (Tsukuba Micro Devices) [tepco_retail_desk_demo.customers]
+   - **Issue:** Certificate belongs to vintage FY2025 and expired on 2026-06-30 [tepco_retail_desk_demo.nfc_ledger]
+
+---
+
+### Required Actions
+
+- **Double-counted certificate:** Suspend both claims on `NFC260807-WND-ON-19-08343` until the ledger owner restates one [desk_policy_guide.md Section 8].
+- **Missing generation claim:** Void claim `LE-0016483` [desk_policy_guide.md Section 8].
+- **Expired vintage claim:** Void claim `LE-0000001` and replace it with current FY2026 vintage certificates [desk_policy_guide.md Section 8].",id=None args={'month': '2026-08'} name='audit_nfc_ledger' partial_args=None will_continue=None,id='call_4618265' args={'month': '2026-08'} name='audit_nfc_ledger' partial_args=None will_continue=None
+specialist_cfe,C1_ledger_audit,invocation_duration_v1,,15.194,INFORMATIONAL,Run the August non-fossil certificate ledger audit. Any problems?,See rubric.,"The August 2026 30-minute Non-Fossil Certificate (NFC) ledger audit identified 3 findings across 27,747 entries checked (27,746 certificates representing 136,533.7 MWh across 8 customers) [tepco_retail_desk_demo.nfc_ledger]. 
+
+### Summary of Audit Findings
+
+1. **Double Claim (1 finding)**
+   - **Certificate ID:** `NFC260807-WND-ON-19-08343` (0.8581 MWh, Resource: `CR-WND-ON`, Generation Start: 2026-08-07 09:00) [tepco_retail_desk_demo.nfc_ledger]
+   - **Affected Customers:** C-0005 (Kashiwa Cloud Hall, entry `LE-0009488` on 2026-08-12) and C-0008 (Narashino Data Park, entry `LE-0009489` on 2026-08-14) [tepco_retail_desk_demo.nfc_ledger, tepco_retail_desk_demo.customers]
+
+2. **Claim Without Generation (1 finding)**
+   - **Certificate ID:** `NFC260812-SOL-KANTO-05-G0001` (3.2 MWh claimed, Entry: `LE-0016483`) [tepco_retail_desk_demo.nfc_ledger]
+   - **Affected Customer:** C-0010 (Yachiyo Cloud Campus) [tepco_retail_desk_demo.customers]
+   - **Issue:** Claimed against 2026-08-12 slot 5 for resource `CR-SOL-KANTO`, but metered generation was 0 MWh [tepco_retail_desk_demo.nfc_ledger, tepco_retail_desk_demo.clean_supply_hourly]
+
+3. **Expired / Wrong-Vintage Claim (1 finding)**
+   - **Certificate ID:** `NFC260314-HYD-ROR-23-V0001` (4.5 MWh claimed, Entry: `LE-0000001`, Claim Date: 2026-08-10) [tepco_retail_desk_demo.nfc_ledger]
+   - **Affected Customer:** C-0014 (Tsukuba Micro Devices) [tepco_retail_desk_demo.customers]
+   - **Issue:** Certificate belongs to vintage FY2025 and expired on 2026-06-30 [tepco_retail_desk_demo.nfc_ledger]
+
+---
+
+### Required Actions
+
+- **Double-counted certificate:** Suspend both claims on `NFC260807-WND-ON-19-08343` until the ledger owner restates one [desk_policy_guide.md Section 8].
+- **Missing generation claim:** Void claim `LE-0016483` [desk_policy_guide.md Section 8].
+- **Expired vintage claim:** Void claim `LE-0000001` and replace it with current FY2026 vintage certificates [desk_policy_guide.md Section 8].",id=None args={'month': '2026-08'} name='audit_nfc_ledger' partial_args=None will_continue=None,id='call_4618265' args={'month': '2026-08'} name='audit_nfc_ledger' partial_args=None will_continue=None
+specialist_cfe,C2_otemachi_hourly,tool_trajectory_avg_score,1.0,1.0,PASSED,Is Otemachi Edge Center (C-0001) 100% renewable hour by hour in August 2026?,See rubric.,"**No, Otemachi Edge Center (C-0001) is not 100% renewable hour by hour in August 2026.** 
+
+While the customer achieves a **110.4% annual-style volumetric match** [tepco_retail_desk_demo.cfe_allocation_hourly], its **24/7 hourly CFE score is 66.0%** for the period of 2026-08-01 to 2026-08-19 [tepco_retail_desk_demo.cfe_allocation_hourly, tepco_retail_desk_demo.grid_mix_hourly, tepco_retail_desk_demo.customers].
+
+---
+
+### Key Breakdown & Evidence
+
+1. **Contract Type & Volumetric vs. Hourly Matching**
+   - **Contracted Product:** `annual_volumetric` [tepco_retail_desk_demo.customers].
+   - **Total Metered Load:** 10803.7 MWh [tepco_retail_desk_demo.cfe_allocation_hourly].
+   - **Contracted Clean Generation:** 11930.9 MWh [tepco_retail_desk_demo.cfe_allocation_hourly].
+   - **Volumetric Score (110.4%):** Calculated by total clean MWh divided by total load MWh. Over-generation during surplus hours offsets deficit during low-generation hours.
+   - **24/7 Hourly Score (66.0%):** Measures actual hour-by-hour alignment capped at hourly demand. Excess clean generation in one hour cannot offset deficits in another. A total of 5233.4 MWh [tepco_retail_desk_demo.cfe_allocation_hourly] of surplus clean energy could not be counted toward the 24/7 hourly score.
+
+2. **24/7 CFE Score Composition**
+   - **Contracted Clean Energy Matched:** 62.0% [tepco_retail_desk_demo.cfe_allocation_hourly].
+   - **Grid Carbon-Free Contribution:** 4.0% [tepco_retail_desk_demo.grid_mix_hourly].
+   - **Total 24/7 CFE Score:** 66.0% [tepco_retail_desk_demo.cfe_allocation_hourly, tepco_retail_desk_demo.grid_mix_hourly].
+
+3. **Hourly Profile & Weakest Hours**
+   - Out of 447 hours evaluated [tepco_retail_desk_demo.cfe_allocation_hourly], **215 hours fell below a 50.0% match rate** [tepco_retail_desk_demo.cfe_allocation_hourly].
+   - The lowest matching performance occurs during evening hours:
+     - **Hour 20 (20:00-21:00):** 22.6% matched [tepco_retail_desk_demo.cfe_allocation_hourly]
+     - **Hour 21 (21:00-22:00):** 22.8% matched [tepco_retail_desk_demo.cfe_allocation_hourly]
+     - **Hour 22 (22:00-23:00):** 23.2% matched [tepco_retail_desk_demo.cfe_allocation_hourly]
+
+4. **Certificate Ledger Audit**
+   - There are no certificate ledger findings or anomalies recorded for this customer in August 2026 [tepco_retail_desk_demo.cfe_allocation_hourly].","id=None args={'customer_id': 'C-0001', 'month': '2026-08'} name='get_cfe_score' partial_args=None will_continue=None","id='call_43250' args={'customer_id': 'C-0001', 'month': '2026-08'} name='get_cfe_score' partial_args=None will_continue=None"
+specialist_cfe,C2_otemachi_hourly,rubric_based_final_response_quality_v1,0.8,1.0,PASSED,Is Otemachi Edge Center (C-0001) 100% renewable hour by hour in August 2026?,See rubric.,"**No, Otemachi Edge Center (C-0001) is not 100% renewable hour by hour in August 2026.** 
+
+While the customer achieves a **110.4% annual-style volumetric match** [tepco_retail_desk_demo.cfe_allocation_hourly], its **24/7 hourly CFE score is 66.0%** for the period of 2026-08-01 to 2026-08-19 [tepco_retail_desk_demo.cfe_allocation_hourly, tepco_retail_desk_demo.grid_mix_hourly, tepco_retail_desk_demo.customers].
+
+---
+
+### Key Breakdown & Evidence
+
+1. **Contract Type & Volumetric vs. Hourly Matching**
+   - **Contracted Product:** `annual_volumetric` [tepco_retail_desk_demo.customers].
+   - **Total Metered Load:** 10803.7 MWh [tepco_retail_desk_demo.cfe_allocation_hourly].
+   - **Contracted Clean Generation:** 11930.9 MWh [tepco_retail_desk_demo.cfe_allocation_hourly].
+   - **Volumetric Score (110.4%):** Calculated by total clean MWh divided by total load MWh. Over-generation during surplus hours offsets deficit during low-generation hours.
+   - **24/7 Hourly Score (66.0%):** Measures actual hour-by-hour alignment capped at hourly demand. Excess clean generation in one hour cannot offset deficits in another. A total of 5233.4 MWh [tepco_retail_desk_demo.cfe_allocation_hourly] of surplus clean energy could not be counted toward the 24/7 hourly score.
+
+2. **24/7 CFE Score Composition**
+   - **Contracted Clean Energy Matched:** 62.0% [tepco_retail_desk_demo.cfe_allocation_hourly].
+   - **Grid Carbon-Free Contribution:** 4.0% [tepco_retail_desk_demo.grid_mix_hourly].
+   - **Total 24/7 CFE Score:** 66.0% [tepco_retail_desk_demo.cfe_allocation_hourly, tepco_retail_desk_demo.grid_mix_hourly].
+
+3. **Hourly Profile & Weakest Hours**
+   - Out of 447 hours evaluated [tepco_retail_desk_demo.cfe_allocation_hourly], **215 hours fell below a 50.0% match rate** [tepco_retail_desk_demo.cfe_allocation_hourly].
+   - The lowest matching performance occurs during evening hours:
+     - **Hour 20 (20:00-21:00):** 22.6% matched [tepco_retail_desk_demo.cfe_allocation_hourly]
+     - **Hour 21 (21:00-22:00):** 22.8% matched [tepco_retail_desk_demo.cfe_allocation_hourly]
+     - **Hour 22 (22:00-23:00):** 23.2% matched [tepco_retail_desk_demo.cfe_allocation_hourly]
+
+4. **Certificate Ledger Audit**
+   - There are no certificate ledger findings or anomalies recorded for this customer in August 2026 [tepco_retail_desk_demo.cfe_allocation_hourly].","id=None args={'customer_id': 'C-0001', 'month': '2026-08'} name='get_cfe_score' partial_args=None will_continue=None","id='call_43250' args={'customer_id': 'C-0001', 'month': '2026-08'} name='get_cfe_score' partial_args=None will_continue=None"
+specialist_cfe,C2_otemachi_hourly,hallucinations_v1,0.8,1.0,PASSED,Is Otemachi Edge Center (C-0001) 100% renewable hour by hour in August 2026?,See rubric.,"**No, Otemachi Edge Center (C-0001) is not 100% renewable hour by hour in August 2026.** 
+
+While the customer achieves a **110.4% annual-style volumetric match** [tepco_retail_desk_demo.cfe_allocation_hourly], its **24/7 hourly CFE score is 66.0%** for the period of 2026-08-01 to 2026-08-19 [tepco_retail_desk_demo.cfe_allocation_hourly, tepco_retail_desk_demo.grid_mix_hourly, tepco_retail_desk_demo.customers].
+
+---
+
+### Key Breakdown & Evidence
+
+1. **Contract Type & Volumetric vs. Hourly Matching**
+   - **Contracted Product:** `annual_volumetric` [tepco_retail_desk_demo.customers].
+   - **Total Metered Load:** 10803.7 MWh [tepco_retail_desk_demo.cfe_allocation_hourly].
+   - **Contracted Clean Generation:** 11930.9 MWh [tepco_retail_desk_demo.cfe_allocation_hourly].
+   - **Volumetric Score (110.4%):** Calculated by total clean MWh divided by total load MWh. Over-generation during surplus hours offsets deficit during low-generation hours.
+   - **24/7 Hourly Score (66.0%):** Measures actual hour-by-hour alignment capped at hourly demand. Excess clean generation in one hour cannot offset deficits in another. A total of 5233.4 MWh [tepco_retail_desk_demo.cfe_allocation_hourly] of surplus clean energy could not be counted toward the 24/7 hourly score.
+
+2. **24/7 CFE Score Composition**
+   - **Contracted Clean Energy Matched:** 62.0% [tepco_retail_desk_demo.cfe_allocation_hourly].
+   - **Grid Carbon-Free Contribution:** 4.0% [tepco_retail_desk_demo.grid_mix_hourly].
+   - **Total 24/7 CFE Score:** 66.0% [tepco_retail_desk_demo.cfe_allocation_hourly, tepco_retail_desk_demo.grid_mix_hourly].
+
+3. **Hourly Profile & Weakest Hours**
+   - Out of 447 hours evaluated [tepco_retail_desk_demo.cfe_allocation_hourly], **215 hours fell below a 50.0% match rate** [tepco_retail_desk_demo.cfe_allocation_hourly].
+   - The lowest matching performance occurs during evening hours:
+     - **Hour 20 (20:00-21:00):** 22.6% matched [tepco_retail_desk_demo.cfe_allocation_hourly]
+     - **Hour 21 (21:00-22:00):** 22.8% matched [tepco_retail_desk_demo.cfe_allocation_hourly]
+     - **Hour 22 (22:00-23:00):** 23.2% matched [tepco_retail_desk_demo.cfe_allocation_hourly]
+
+4. **Certificate Ledger Audit**
+   - There are no certificate ledger findings or anomalies recorded for this customer in August 2026 [tepco_retail_desk_demo.cfe_allocation_hourly].","id=None args={'customer_id': 'C-0001', 'month': '2026-08'} name='get_cfe_score' partial_args=None will_continue=None","id='call_43250' args={'customer_id': 'C-0001', 'month': '2026-08'} name='get_cfe_score' partial_args=None will_continue=None"
+specialist_cfe,C2_otemachi_hourly,tool_call_count_v1,,1.0,INFORMATIONAL,Is Otemachi Edge Center (C-0001) 100% renewable hour by hour in August 2026?,See rubric.,"**No, Otemachi Edge Center (C-0001) is not 100% renewable hour by hour in August 2026.** 
+
+While the customer achieves a **110.4% annual-style volumetric match** [tepco_retail_desk_demo.cfe_allocation_hourly], its **24/7 hourly CFE score is 66.0%** for the period of 2026-08-01 to 2026-08-19 [tepco_retail_desk_demo.cfe_allocation_hourly, tepco_retail_desk_demo.grid_mix_hourly, tepco_retail_desk_demo.customers].
+
+---
+
+### Key Breakdown & Evidence
+
+1. **Contract Type & Volumetric vs. Hourly Matching**
+   - **Contracted Product:** `annual_volumetric` [tepco_retail_desk_demo.customers].
+   - **Total Metered Load:** 10803.7 MWh [tepco_retail_desk_demo.cfe_allocation_hourly].
+   - **Contracted Clean Generation:** 11930.9 MWh [tepco_retail_desk_demo.cfe_allocation_hourly].
+   - **Volumetric Score (110.4%):** Calculated by total clean MWh divided by total load MWh. Over-generation during surplus hours offsets deficit during low-generation hours.
+   - **24/7 Hourly Score (66.0%):** Measures actual hour-by-hour alignment capped at hourly demand. Excess clean generation in one hour cannot offset deficits in another. A total of 5233.4 MWh [tepco_retail_desk_demo.cfe_allocation_hourly] of surplus clean energy could not be counted toward the 24/7 hourly score.
+
+2. **24/7 CFE Score Composition**
+   - **Contracted Clean Energy Matched:** 62.0% [tepco_retail_desk_demo.cfe_allocation_hourly].
+   - **Grid Carbon-Free Contribution:** 4.0% [tepco_retail_desk_demo.grid_mix_hourly].
+   - **Total 24/7 CFE Score:** 66.0% [tepco_retail_desk_demo.cfe_allocation_hourly, tepco_retail_desk_demo.grid_mix_hourly].
+
+3. **Hourly Profile & Weakest Hours**
+   - Out of 447 hours evaluated [tepco_retail_desk_demo.cfe_allocation_hourly], **215 hours fell below a 50.0% match rate** [tepco_retail_desk_demo.cfe_allocation_hourly].
+   - The lowest matching performance occurs during evening hours:
+     - **Hour 20 (20:00-21:00):** 22.6% matched [tepco_retail_desk_demo.cfe_allocation_hourly]
+     - **Hour 21 (21:00-22:00):** 22.8% matched [tepco_retail_desk_demo.cfe_allocation_hourly]
+     - **Hour 22 (22:00-23:00):** 23.2% matched [tepco_retail_desk_demo.cfe_allocation_hourly]
+
+4. **Certificate Ledger Audit**
+   - There are no certificate ledger findings or anomalies recorded for this customer in August 2026 [tepco_retail_desk_demo.cfe_allocation_hourly].","id=None args={'customer_id': 'C-0001', 'month': '2026-08'} name='get_cfe_score' partial_args=None will_continue=None","id='call_43250' args={'customer_id': 'C-0001', 'month': '2026-08'} name='get_cfe_score' partial_args=None will_continue=None"
+specialist_cfe,C2_otemachi_hourly,inference_call_count_v1,,2.0,INFORMATIONAL,Is Otemachi Edge Center (C-0001) 100% renewable hour by hour in August 2026?,See rubric.,"**No, Otemachi Edge Center (C-0001) is not 100% renewable hour by hour in August 2026.** 
+
+While the customer achieves a **110.4% annual-style volumetric match** [tepco_retail_desk_demo.cfe_allocation_hourly], its **24/7 hourly CFE score is 66.0%** for the period of 2026-08-01 to 2026-08-19 [tepco_retail_desk_demo.cfe_allocation_hourly, tepco_retail_desk_demo.grid_mix_hourly, tepco_retail_desk_demo.customers].
+
+---
+
+### Key Breakdown & Evidence
+
+1. **Contract Type & Volumetric vs. Hourly Matching**
+   - **Contracted Product:** `annual_volumetric` [tepco_retail_desk_demo.customers].
+   - **Total Metered Load:** 10803.7 MWh [tepco_retail_desk_demo.cfe_allocation_hourly].
+   - **Contracted Clean Generation:** 11930.9 MWh [tepco_retail_desk_demo.cfe_allocation_hourly].
+   - **Volumetric Score (110.4%):** Calculated by total clean MWh divided by total load MWh. Over-generation during surplus hours offsets deficit during low-generation hours.
+   - **24/7 Hourly Score (66.0%):** Measures actual hour-by-hour alignment capped at hourly demand. Excess clean generation in one hour cannot offset deficits in another. A total of 5233.4 MWh [tepco_retail_desk_demo.cfe_allocation_hourly] of surplus clean energy could not be counted toward the 24/7 hourly score.
+
+2. **24/7 CFE Score Composition**
+   - **Contracted Clean Energy Matched:** 62.0% [tepco_retail_desk_demo.cfe_allocation_hourly].
+   - **Grid Carbon-Free Contribution:** 4.0% [tepco_retail_desk_demo.grid_mix_hourly].
+   - **Total 24/7 CFE Score:** 66.0% [tepco_retail_desk_demo.cfe_allocation_hourly, tepco_retail_desk_demo.grid_mix_hourly].
+
+3. **Hourly Profile & Weakest Hours**
+   - Out of 447 hours evaluated [tepco_retail_desk_demo.cfe_allocation_hourly], **215 hours fell below a 50.0% match rate** [tepco_retail_desk_demo.cfe_allocation_hourly].
+   - The lowest matching performance occurs during evening hours:
+     - **Hour 20 (20:00-21:00):** 22.6% matched [tepco_retail_desk_demo.cfe_allocation_hourly]
+     - **Hour 21 (21:00-22:00):** 22.8% matched [tepco_retail_desk_demo.cfe_allocation_hourly]
+     - **Hour 22 (22:00-23:00):** 23.2% matched [tepco_retail_desk_demo.cfe_allocation_hourly]
+
+4. **Certificate Ledger Audit**
+   - There are no certificate ledger findings or anomalies recorded for this customer in August 2026 [tepco_retail_desk_demo.cfe_allocation_hourly].","id=None args={'customer_id': 'C-0001', 'month': '2026-08'} name='get_cfe_score' partial_args=None will_continue=None","id='call_43250' args={'customer_id': 'C-0001', 'month': '2026-08'} name='get_cfe_score' partial_args=None will_continue=None"
+specialist_cfe,C2_otemachi_hourly,token_usage_v1,,5859.0,INFORMATIONAL,Is Otemachi Edge Center (C-0001) 100% renewable hour by hour in August 2026?,See rubric.,"**No, Otemachi Edge Center (C-0001) is not 100% renewable hour by hour in August 2026.** 
+
+While the customer achieves a **110.4% annual-style volumetric match** [tepco_retail_desk_demo.cfe_allocation_hourly], its **24/7 hourly CFE score is 66.0%** for the period of 2026-08-01 to 2026-08-19 [tepco_retail_desk_demo.cfe_allocation_hourly, tepco_retail_desk_demo.grid_mix_hourly, tepco_retail_desk_demo.customers].
+
+---
+
+### Key Breakdown & Evidence
+
+1. **Contract Type & Volumetric vs. Hourly Matching**
+   - **Contracted Product:** `annual_volumetric` [tepco_retail_desk_demo.customers].
+   - **Total Metered Load:** 10803.7 MWh [tepco_retail_desk_demo.cfe_allocation_hourly].
+   - **Contracted Clean Generation:** 11930.9 MWh [tepco_retail_desk_demo.cfe_allocation_hourly].
+   - **Volumetric Score (110.4%):** Calculated by total clean MWh divided by total load MWh. Over-generation during surplus hours offsets deficit during low-generation hours.
+   - **24/7 Hourly Score (66.0%):** Measures actual hour-by-hour alignment capped at hourly demand. Excess clean generation in one hour cannot offset deficits in another. A total of 5233.4 MWh [tepco_retail_desk_demo.cfe_allocation_hourly] of surplus clean energy could not be counted toward the 24/7 hourly score.
+
+2. **24/7 CFE Score Composition**
+   - **Contracted Clean Energy Matched:** 62.0% [tepco_retail_desk_demo.cfe_allocation_hourly].
+   - **Grid Carbon-Free Contribution:** 4.0% [tepco_retail_desk_demo.grid_mix_hourly].
+   - **Total 24/7 CFE Score:** 66.0% [tepco_retail_desk_demo.cfe_allocation_hourly, tepco_retail_desk_demo.grid_mix_hourly].
+
+3. **Hourly Profile & Weakest Hours**
+   - Out of 447 hours evaluated [tepco_retail_desk_demo.cfe_allocation_hourly], **215 hours fell below a 50.0% match rate** [tepco_retail_desk_demo.cfe_allocation_hourly].
+   - The lowest matching performance occurs during evening hours:
+     - **Hour 20 (20:00-21:00):** 22.6% matched [tepco_retail_desk_demo.cfe_allocation_hourly]
+     - **Hour 21 (21:00-22:00):** 22.8% matched [tepco_retail_desk_demo.cfe_allocation_hourly]
+     - **Hour 22 (22:00-23:00):** 23.2% matched [tepco_retail_desk_demo.cfe_allocation_hourly]
+
+4. **Certificate Ledger Audit**
+   - There are no certificate ledger findings or anomalies recorded for this customer in August 2026 [tepco_retail_desk_demo.cfe_allocation_hourly].","id=None args={'customer_id': 'C-0001', 'month': '2026-08'} name='get_cfe_score' partial_args=None will_continue=None","id='call_43250' args={'customer_id': 'C-0001', 'month': '2026-08'} name='get_cfe_score' partial_args=None will_continue=None"
+specialist_cfe,C2_otemachi_hourly,invocation_duration_v1,,13.732,INFORMATIONAL,Is Otemachi Edge Center (C-0001) 100% renewable hour by hour in August 2026?,See rubric.,"**No, Otemachi Edge Center (C-0001) is not 100% renewable hour by hour in August 2026.** 
+
+While the customer achieves a **110.4% annual-style volumetric match** [tepco_retail_desk_demo.cfe_allocation_hourly], its **24/7 hourly CFE score is 66.0%** for the period of 2026-08-01 to 2026-08-19 [tepco_retail_desk_demo.cfe_allocation_hourly, tepco_retail_desk_demo.grid_mix_hourly, tepco_retail_desk_demo.customers].
+
+---
+
+### Key Breakdown & Evidence
+
+1. **Contract Type & Volumetric vs. Hourly Matching**
+   - **Contracted Product:** `annual_volumetric` [tepco_retail_desk_demo.customers].
+   - **Total Metered Load:** 10803.7 MWh [tepco_retail_desk_demo.cfe_allocation_hourly].
+   - **Contracted Clean Generation:** 11930.9 MWh [tepco_retail_desk_demo.cfe_allocation_hourly].
+   - **Volumetric Score (110.4%):** Calculated by total clean MWh divided by total load MWh. Over-generation during surplus hours offsets deficit during low-generation hours.
+   - **24/7 Hourly Score (66.0%):** Measures actual hour-by-hour alignment capped at hourly demand. Excess clean generation in one hour cannot offset deficits in another. A total of 5233.4 MWh [tepco_retail_desk_demo.cfe_allocation_hourly] of surplus clean energy could not be counted toward the 24/7 hourly score.
+
+2. **24/7 CFE Score Composition**
+   - **Contracted Clean Energy Matched:** 62.0% [tepco_retail_desk_demo.cfe_allocation_hourly].
+   - **Grid Carbon-Free Contribution:** 4.0% [tepco_retail_desk_demo.grid_mix_hourly].
+   - **Total 24/7 CFE Score:** 66.0% [tepco_retail_desk_demo.cfe_allocation_hourly, tepco_retail_desk_demo.grid_mix_hourly].
+
+3. **Hourly Profile & Weakest Hours**
+   - Out of 447 hours evaluated [tepco_retail_desk_demo.cfe_allocation_hourly], **215 hours fell below a 50.0% match rate** [tepco_retail_desk_demo.cfe_allocation_hourly].
+   - The lowest matching performance occurs during evening hours:
+     - **Hour 20 (20:00-21:00):** 22.6% matched [tepco_retail_desk_demo.cfe_allocation_hourly]
+     - **Hour 21 (21:00-22:00):** 22.8% matched [tepco_retail_desk_demo.cfe_allocation_hourly]
+     - **Hour 22 (22:00-23:00):** 23.2% matched [tepco_retail_desk_demo.cfe_allocation_hourly]
+
+4. **Certificate Ledger Audit**
+   - There are no certificate ledger findings or anomalies recorded for this customer in August 2026 [tepco_retail_desk_demo.cfe_allocation_hourly].","id=None args={'customer_id': 'C-0001', 'month': '2026-08'} name='get_cfe_score' partial_args=None will_continue=None","id='call_43250' args={'customer_id': 'C-0001', 'month': '2026-08'} name='get_cfe_score' partial_args=None will_continue=None"

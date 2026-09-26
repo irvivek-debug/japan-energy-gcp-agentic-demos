@@ -1,0 +1,99 @@
+eval_set_id,eval_id,metric_name,threshold,score,eval_status,prompt,expected_response,actual_response,expected_tool_calls,actual_tool_calls
+runs_summary_trading,summary_trading,tool_trajectory_avg_score,1.0,1.0,PASSED,"Give me the headline of trading run jepx_trading.20260926T075644Z: seed versus best on train, and the holdout outcome.","Trading run jepx_trading.20260926T075644Z headline with seed, best train and holdout delta [energy_alphaevolve_lab.lab_runs].","Note: All market, customer, and run data in this lab is calibrated synthetic data regarding a fictional balance group. The run source is local-gemini-controller (an AlphaEvolve-compatible run on a local controller), so evolved remains false.
+
+Here is the headline for trading run jepx_trading.20260926T075644Z [energy_alphaevolve_lab.lab_runs]:
+
+Train Search Progress
+* Seed train score: -85419.431 JPY M [energy_alphaevolve_lab.lab_runs]
+* Best train score: -85369.862 JPY M [energy_alphaevolve_lab.lab_runs] (champion candidate p039-1d886ecb)
+* Train search progress: 49.569 JPY M [energy_alphaevolve_lab.lab_runs]
+
+Holdout Outcome (Validated Uplift)
+* Seed holdout score: -208944.601 JPY M [energy_alphaevolve_lab.lab_runs]
+* Best holdout score: -208621.392 JPY M [energy_alphaevolve_lab.lab_runs]
+* Holdout delta (validated uplift): 323.208 JPY M [energy_alphaevolve_lab.lab_runs]",id=None args={'run_id': 'jepx_trading.20260926T075644Z'} name='get_run_summary' partial_args=None will_continue=None,"id='call_49804' args={'run_id': 'jepx_trading.20260926T075644Z'} name='get_run_summary' partial_args=None will_continue=None
+id='call_49805' args={'run_id': 'jepx_trading.20260926T075644Z'} name='get_holdout_result' partial_args=None will_continue=None"
+runs_summary_trading,summary_trading,rubric_based_final_response_quality_v1,0.8,1.0,PASSED,"Give me the headline of trading run jepx_trading.20260926T075644Z: seed versus best on train, and the holdout outcome.","Trading run jepx_trading.20260926T075644Z headline with seed, best train and holdout delta [energy_alphaevolve_lab.lab_runs].","Note: All market, customer, and run data in this lab is calibrated synthetic data regarding a fictional balance group. The run source is local-gemini-controller (an AlphaEvolve-compatible run on a local controller), so evolved remains false.
+
+Here is the headline for trading run jepx_trading.20260926T075644Z [energy_alphaevolve_lab.lab_runs]:
+
+Train Search Progress
+* Seed train score: -85419.431 JPY M [energy_alphaevolve_lab.lab_runs]
+* Best train score: -85369.862 JPY M [energy_alphaevolve_lab.lab_runs] (champion candidate p039-1d886ecb)
+* Train search progress: 49.569 JPY M [energy_alphaevolve_lab.lab_runs]
+
+Holdout Outcome (Validated Uplift)
+* Seed holdout score: -208944.601 JPY M [energy_alphaevolve_lab.lab_runs]
+* Best holdout score: -208621.392 JPY M [energy_alphaevolve_lab.lab_runs]
+* Holdout delta (validated uplift): 323.208 JPY M [energy_alphaevolve_lab.lab_runs]",id=None args={'run_id': 'jepx_trading.20260926T075644Z'} name='get_run_summary' partial_args=None will_continue=None,"id='call_49804' args={'run_id': 'jepx_trading.20260926T075644Z'} name='get_run_summary' partial_args=None will_continue=None
+id='call_49805' args={'run_id': 'jepx_trading.20260926T075644Z'} name='get_holdout_result' partial_args=None will_continue=None"
+runs_summary_trading,summary_trading,hallucinations_v1,0.8,1.0,PASSED,"Give me the headline of trading run jepx_trading.20260926T075644Z: seed versus best on train, and the holdout outcome.","Trading run jepx_trading.20260926T075644Z headline with seed, best train and holdout delta [energy_alphaevolve_lab.lab_runs].","Note: All market, customer, and run data in this lab is calibrated synthetic data regarding a fictional balance group. The run source is local-gemini-controller (an AlphaEvolve-compatible run on a local controller), so evolved remains false.
+
+Here is the headline for trading run jepx_trading.20260926T075644Z [energy_alphaevolve_lab.lab_runs]:
+
+Train Search Progress
+* Seed train score: -85419.431 JPY M [energy_alphaevolve_lab.lab_runs]
+* Best train score: -85369.862 JPY M [energy_alphaevolve_lab.lab_runs] (champion candidate p039-1d886ecb)
+* Train search progress: 49.569 JPY M [energy_alphaevolve_lab.lab_runs]
+
+Holdout Outcome (Validated Uplift)
+* Seed holdout score: -208944.601 JPY M [energy_alphaevolve_lab.lab_runs]
+* Best holdout score: -208621.392 JPY M [energy_alphaevolve_lab.lab_runs]
+* Holdout delta (validated uplift): 323.208 JPY M [energy_alphaevolve_lab.lab_runs]",id=None args={'run_id': 'jepx_trading.20260926T075644Z'} name='get_run_summary' partial_args=None will_continue=None,"id='call_49804' args={'run_id': 'jepx_trading.20260926T075644Z'} name='get_run_summary' partial_args=None will_continue=None
+id='call_49805' args={'run_id': 'jepx_trading.20260926T075644Z'} name='get_holdout_result' partial_args=None will_continue=None"
+runs_summary_trading,summary_trading,tool_call_count_v1,,2.0,INFORMATIONAL,"Give me the headline of trading run jepx_trading.20260926T075644Z: seed versus best on train, and the holdout outcome.","Trading run jepx_trading.20260926T075644Z headline with seed, best train and holdout delta [energy_alphaevolve_lab.lab_runs].","Note: All market, customer, and run data in this lab is calibrated synthetic data regarding a fictional balance group. The run source is local-gemini-controller (an AlphaEvolve-compatible run on a local controller), so evolved remains false.
+
+Here is the headline for trading run jepx_trading.20260926T075644Z [energy_alphaevolve_lab.lab_runs]:
+
+Train Search Progress
+* Seed train score: -85419.431 JPY M [energy_alphaevolve_lab.lab_runs]
+* Best train score: -85369.862 JPY M [energy_alphaevolve_lab.lab_runs] (champion candidate p039-1d886ecb)
+* Train search progress: 49.569 JPY M [energy_alphaevolve_lab.lab_runs]
+
+Holdout Outcome (Validated Uplift)
+* Seed holdout score: -208944.601 JPY M [energy_alphaevolve_lab.lab_runs]
+* Best holdout score: -208621.392 JPY M [energy_alphaevolve_lab.lab_runs]
+* Holdout delta (validated uplift): 323.208 JPY M [energy_alphaevolve_lab.lab_runs]",id=None args={'run_id': 'jepx_trading.20260926T075644Z'} name='get_run_summary' partial_args=None will_continue=None,"id='call_49804' args={'run_id': 'jepx_trading.20260926T075644Z'} name='get_run_summary' partial_args=None will_continue=None
+id='call_49805' args={'run_id': 'jepx_trading.20260926T075644Z'} name='get_holdout_result' partial_args=None will_continue=None"
+runs_summary_trading,summary_trading,inference_call_count_v1,,2.0,INFORMATIONAL,"Give me the headline of trading run jepx_trading.20260926T075644Z: seed versus best on train, and the holdout outcome.","Trading run jepx_trading.20260926T075644Z headline with seed, best train and holdout delta [energy_alphaevolve_lab.lab_runs].","Note: All market, customer, and run data in this lab is calibrated synthetic data regarding a fictional balance group. The run source is local-gemini-controller (an AlphaEvolve-compatible run on a local controller), so evolved remains false.
+
+Here is the headline for trading run jepx_trading.20260926T075644Z [energy_alphaevolve_lab.lab_runs]:
+
+Train Search Progress
+* Seed train score: -85419.431 JPY M [energy_alphaevolve_lab.lab_runs]
+* Best train score: -85369.862 JPY M [energy_alphaevolve_lab.lab_runs] (champion candidate p039-1d886ecb)
+* Train search progress: 49.569 JPY M [energy_alphaevolve_lab.lab_runs]
+
+Holdout Outcome (Validated Uplift)
+* Seed holdout score: -208944.601 JPY M [energy_alphaevolve_lab.lab_runs]
+* Best holdout score: -208621.392 JPY M [energy_alphaevolve_lab.lab_runs]
+* Holdout delta (validated uplift): 323.208 JPY M [energy_alphaevolve_lab.lab_runs]",id=None args={'run_id': 'jepx_trading.20260926T075644Z'} name='get_run_summary' partial_args=None will_continue=None,"id='call_49804' args={'run_id': 'jepx_trading.20260926T075644Z'} name='get_run_summary' partial_args=None will_continue=None
+id='call_49805' args={'run_id': 'jepx_trading.20260926T075644Z'} name='get_holdout_result' partial_args=None will_continue=None"
+runs_summary_trading,summary_trading,token_usage_v1,,6240.0,INFORMATIONAL,"Give me the headline of trading run jepx_trading.20260926T075644Z: seed versus best on train, and the holdout outcome.","Trading run jepx_trading.20260926T075644Z headline with seed, best train and holdout delta [energy_alphaevolve_lab.lab_runs].","Note: All market, customer, and run data in this lab is calibrated synthetic data regarding a fictional balance group. The run source is local-gemini-controller (an AlphaEvolve-compatible run on a local controller), so evolved remains false.
+
+Here is the headline for trading run jepx_trading.20260926T075644Z [energy_alphaevolve_lab.lab_runs]:
+
+Train Search Progress
+* Seed train score: -85419.431 JPY M [energy_alphaevolve_lab.lab_runs]
+* Best train score: -85369.862 JPY M [energy_alphaevolve_lab.lab_runs] (champion candidate p039-1d886ecb)
+* Train search progress: 49.569 JPY M [energy_alphaevolve_lab.lab_runs]
+
+Holdout Outcome (Validated Uplift)
+* Seed holdout score: -208944.601 JPY M [energy_alphaevolve_lab.lab_runs]
+* Best holdout score: -208621.392 JPY M [energy_alphaevolve_lab.lab_runs]
+* Holdout delta (validated uplift): 323.208 JPY M [energy_alphaevolve_lab.lab_runs]",id=None args={'run_id': 'jepx_trading.20260926T075644Z'} name='get_run_summary' partial_args=None will_continue=None,"id='call_49804' args={'run_id': 'jepx_trading.20260926T075644Z'} name='get_run_summary' partial_args=None will_continue=None
+id='call_49805' args={'run_id': 'jepx_trading.20260926T075644Z'} name='get_holdout_result' partial_args=None will_continue=None"
+runs_summary_trading,summary_trading,invocation_duration_v1,,8.761,INFORMATIONAL,"Give me the headline of trading run jepx_trading.20260926T075644Z: seed versus best on train, and the holdout outcome.","Trading run jepx_trading.20260926T075644Z headline with seed, best train and holdout delta [energy_alphaevolve_lab.lab_runs].","Note: All market, customer, and run data in this lab is calibrated synthetic data regarding a fictional balance group. The run source is local-gemini-controller (an AlphaEvolve-compatible run on a local controller), so evolved remains false.
+
+Here is the headline for trading run jepx_trading.20260926T075644Z [energy_alphaevolve_lab.lab_runs]:
+
+Train Search Progress
+* Seed train score: -85419.431 JPY M [energy_alphaevolve_lab.lab_runs]
+* Best train score: -85369.862 JPY M [energy_alphaevolve_lab.lab_runs] (champion candidate p039-1d886ecb)
+* Train search progress: 49.569 JPY M [energy_alphaevolve_lab.lab_runs]
+
+Holdout Outcome (Validated Uplift)
+* Seed holdout score: -208944.601 JPY M [energy_alphaevolve_lab.lab_runs]
+* Best holdout score: -208621.392 JPY M [energy_alphaevolve_lab.lab_runs]
+* Holdout delta (validated uplift): 323.208 JPY M [energy_alphaevolve_lab.lab_runs]",id=None args={'run_id': 'jepx_trading.20260926T075644Z'} name='get_run_summary' partial_args=None will_continue=None,"id='call_49804' args={'run_id': 'jepx_trading.20260926T075644Z'} name='get_run_summary' partial_args=None will_continue=None
+id='call_49805' args={'run_id': 'jepx_trading.20260926T075644Z'} name='get_holdout_result' partial_args=None will_continue=None"

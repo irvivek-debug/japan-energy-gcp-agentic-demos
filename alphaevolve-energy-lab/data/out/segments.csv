@@ -1,0 +1,12 @@
+segment,train_customers,kw_median,cooling_sens_per_c,heating_sens_per_c,sigma_slot,sigma_month,flex_share,flex_hours,dr_share,dr_cost_median_jpy_kw_month,green_prob,essential,clv_jpy_m_per_mw_year,tender_share
+data_center,36,3500,0.004,0,0.025,0.015,0.03,2,0.05,800,0.8,false,1.5,0.6
+semiconductor_fab,14,6000,0.003,0,0.03,0.02,0.02,1,0.02,1500,0.7,false,2,0.5
+auto_parts,170,700,0.01,0.003,0.08,0.04,0.08,3,0.15,500,0.25,false,1,0.3
+cold_storage,90,450,0.015,0,0.06,0.035,0.22,4,0.3,250,0.15,false,1.2,0.2
+office,300,450,0.03,0.015,0.07,0.035,0.06,2,0.1,450,0.35,false,0.6,0.3
+retail_chain,190,400,0.025,0.01,0.06,0.03,0.05,2,0.08,500,0.3,false,0.8,0.4
+hospital,80,800,0.02,0.012,0.05,0.025,0.03,1,0,5000,0.1,true,1,0.3
+water_utility,45,1200,0.008,0,0.05,0.03,0.25,6,0.3,300,0.2,true,1,0.9
+university,50,1100,0.025,0.012,0.09,0.05,0.06,2,0.1,400,0.5,false,0.8,0.8
+logistics,150,500,0.012,0.006,0.09,0.05,0.12,4,0.15,350,0.3,false,1.2,0.3
+hotel,75,700,0.02,0.012,0.07,0.04,0.05,2,0.05,700,0.2,false,0.6,0.2

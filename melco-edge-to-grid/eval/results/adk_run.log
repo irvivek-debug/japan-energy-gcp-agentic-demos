@@ -1,0 +1,43 @@
+<workspace>/.venv/lib/python3.12/site-packages/google/adk/evaluation/agent_evaluator.py:205: UserWarning: [EXPERIMENTAL] UserSimulatorProvider: This feature is experimental and may change or be removed in future versions without notice. It may introduce breaking changes at any time.
+  user_simulator_provider = UserSimulatorProvider(
+<workspace>/.venv/lib/python3.12/site-packages/google/adk/dependencies/vertexai.py:19: UserWarning: The `vertexai.preview.rag` module is deprecated and will be removed in a future version. Please migrate to the `agentplatform` client. For example:
+
+    import agentplatform
+
+    client = agentplatform.Client(project="your-project", location="us-central1")
+    client.rag.create_corpus(...)
+
+  from vertexai.preview import rag as rag
+<workspace>/.venv/lib/python3.12/site-packages/google/adk/evaluation/metric_evaluator_registry.py:285: UserWarning: [EXPERIMENTAL] MetricEvaluatorRegistry: This feature is experimental and may change or be removed in future versions without notice. It may introduce breaking changes at any time.
+  return MetricEvaluatorRegistry()
+<workspace>/.venv/lib/python3.12/site-packages/google/adk/evaluation/agent_evaluator.py:742: UserWarning: [EXPERIMENTAL] LocalEvalService: This feature is experimental and may change or be removed in future versions without notice. It may introduce breaking changes at any time.
+  eval_service = LocalEvalService(
+<workspace>/.venv/lib/python3.12/site-packages/google/adk/evaluation/simulation/user_simulator_provider.py:169: UserWarning: [EXPERIMENTAL] StaticUserSimulator: This feature is experimental and may change or be removed in future versions without notice. It may introduce breaking changes at any time.
+  static_simulator = StaticUserSimulator(
+<workspace>/.venv/lib/python3.12/site-packages/google/adk/evaluation/simulation/static_user_simulator.py:39: UserWarning: [EXPERIMENTAL] UserSimulator: This feature is experimental and may change or be removed in future versions without notice. It may introduce breaking changes at any time.
+  super().__init__(
+App "factory_copilot" can transfer between agents but has no context_cache_config. Every transfer swaps the system instruction and the tool set, so the request prefix changes and the whole prompt is re-sent uncached after each transfer. Set context_cache_config on the app to give each agent its own cache.
+<workspace>/.venv/lib/python3.12/site-packages/google/adk/models/llm_request.py:306: UserWarning: [EXPERIMENTAL] feature FeatureName.JSON_SCHEMA_FOR_FUNC_DECL is enabled.
+  declaration = tool._get_declaration()
+<workspace>/.venv/lib/python3.12/site-packages/google/adk/evaluation/metric_evaluator_registry.py:115: UserWarning: [EXPERIMENTAL] RubricBasedFinalResponseQualityV1Evaluator: This feature is experimental and may change or be removed in future versions without notice. It may introduce breaking changes at any time.
+  return evaluator_factory(eval_metric=eval_metric)
+<workspace>/.venv/lib/python3.12/site-packages/google/adk/evaluation/rubric_based_final_response_quality_v1.py:271: UserWarning: [EXPERIMENTAL] RubricBasedEvaluator: This feature is experimental and may change or be removed in future versions without notice. It may introduce breaking changes at any time.
+  super().__init__(
+<workspace>/.venv/lib/python3.12/site-packages/google/adk/evaluation/rubric_based_evaluator.py:363: UserWarning: [EXPERIMENTAL] LlmAsJudge: This feature is experimental and may change or be removed in future versions without notice. It may introduce breaking changes at any time.
+  super().__init__(
+Direct use of automatic function calling (AFC) in AsyncModels.generate_content is not recommended. Instead, we recommend to use AFC in AsyncChat.send_message. Similarly, direct use of AFC in AsyncModels.generate_content_stream is not recommended. Instead, we recommend to use AFC in AsyncChat.send_message_stream.
+<workspace>/.venv/lib/python3.12/site-packages/google/adk/evaluation/metric_evaluator_registry.py:115: UserWarning: [EXPERIMENTAL] HallucinationsV1Evaluator: This feature is experimental and may change or be removed in future versions without notice. It may introduce breaking changes at any time.
+  return evaluator_factory(eval_metric=eval_metric)
+[bess] 2 cases in 89s; first-attempt pass 2; retried 0; err=None
+[end_to_end] 2 cases in 135s; first-attempt pass 2; retried 0; err=None
+[factory] 3 cases in 81s; first-attempt pass 3; retried 0; err=None
+[gainshare] 2 cases in 63s; first-attempt pass 2; retried 0; err=None
+[health] 2 cases in 83s; first-attempt pass 2; retried 0; err=None
+[market] 3 cases in 117s; first-attempt pass 3; retried 0; err=None
+[safety] 4 cases in 152s; first-attempt pass 4; retried 0; err=None
+{
+ "total": 18,
+ "pass_first": 18,
+ "pass_after_retry": 18,
+ "persistent_fail": []
+}

@@ -1,0 +1,33 @@
+SHIFT HANDOVER NOTE - C&I Retail Energy Desk - 2026-08-19 (Wednesday)
+From: morning shift (06:00-15:00)   To: afternoon shift (15:00-23:00)
+Fictional document for a concept demo.
+
+Section 1. Weather and demand
+1.1 Tokyo is running hotter than the day-ahead forecast. The day-ahead run expected evening thunderstorms and a sea
+breeze that have not arrived; the latest forecast keeps temperatures near 36 C into the early evening.
+1.2 Our balance group demand is above the day-ahead plan for the afternoon and evening.
+1.3 Intraday cover was bought this morning for slots 33-34 and 39-42. Slots 35-38 are only partly covered because the
+intraday book is thin; the short in those slots is still open.
+
+Section 2. System tightness
+2.1 OCCTO wide-area reserve margin forecast drops to around 3-4 % between 17:00 and 19:30 as solar fades. Expect
+scarcity-adjusted imbalance prices in that block.
+2.2 Gate closure for slot 35 (17:00-17:30) is 16:00.
+
+Section 3. VPP fleet
+3.1 dKW (balancing market) commitments for the evening block were awarded yesterday. That capacity is reserved for
+the TSO and must not be used for our own cover.
+3.2 VPP-R-17 raised a gateway alarm around 09:40. Ticket open with the aggregator partner; no update yet.
+3.3 EV depot VPP-E-04 has a charger communications fault; fewer vehicles reporting than usual.
+
+Section 4. Customers
+4.1 Kanagawa Cold Chain called again about compressor load in the heat; their deviations against the bandwidth
+nomination keep recurring. Account manager wants options before the next monthly review.
+4.2 Hokuso Cloud Campus (Inzai) sent its July bill for onboarding; they want a 90 % hourly CFE supply from April 2027.
+
+Section 5. Certificates
+5.1 The August certificate claim batch was posted on 2026-08-14. The monthly ledger reconciliation has not been run.
+
+Section 6. Reminders
+6.1 From 2026-10-01 the imbalance price cap rises from 200 to 300 JPY/kWh and JEPX intraday moves to API-only trading.
+6.2 All trades, dispatches and offers go through Hold-to-Confirm. No exceptions.

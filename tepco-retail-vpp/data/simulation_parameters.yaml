@@ -1,0 +1,151 @@
+# Simulation parameters for the Retail Energy Desk synthetic data.
+# Market-calibrated values carry `# src: MF <section>` = docs/research/MARKET_FACTS.md (as of 2026-09-26).
+# Values marked SYNTHETIC are design choices for the scenario, not market facts.
+# The generator reads only this file plus its seed, so changing a value here and re-running
+# `python data/generate.py` rebuilds every table deterministically.
+
+seed: 20260819
+
+scenario:
+  date: "2026-08-19"          # Wednesday, Tokyo heatwave (SYNTHETIC scenario)
+  now: "2026-08-19T15:40"     # desk clock (JST)
+  now_slot: 32                # 15:30-16:00 in progress
+  gate_closure_minutes: 60    # src: MF 2 (intraday gate closure 1 h before delivery; JEPX rules Art. 63)
+  short_slots: [35, 36, 37, 38]
+  scarcity_slots: [35, 36, 37, 38, 39]
+
+calendar:
+  spot_start: "2026-06-01"
+  spot_end: "2026-08-20"
+  load_start: "2026-08-01"      # month-to-date for deviation-band analysis
+  intraday_start: "2026-08-06"  # scenario fortnight
+  telemetry_start: "2026-08-18"
+  forward_end: "2026-09-30"
+
+spot:
+  # src: MF 1.3 Tokyo monthly means FY2026: Jun 20.0, Jul 19.9, Aug 21.2 JPY/kWh (Middle East fuel-shock regime)
+  tokyo_monthly_mean: {6: 20.0, 7: 19.9, 8: 21.2}
+  # src: MF 1.3 system price FY2026: Jun 15.1, Jul 17.9, Aug 19.1 -> ratio to Tokyo
+  system_ratio: {6: 0.755, 7: 0.90, 8: 0.90}
+  # src: MF 1.4 Tokyo summer hour-of-day shape FY2025 (normalised; FY2026 summer peak/mean ratio is similar)
+  hourly_shape: [11.7, 11.3, 11.2, 11.2, 11.2, 11.1, 10.8, 10.7, 10.7, 11.7, 11.5, 11.9, 11.3, 13.7, 14.9, 16.0, 18.3, 18.5, 18.3, 17.1, 15.6, 13.9, 13.4, 12.2]
+  weekend_factor: 0.85          # src: MF 1.3 FY2025 weekday 13.03 vs weekend 11.00
+  daily_log_sd: 0.12            # src: MF 1.5 day-over-day log-return SD 0.145-0.169 (smoothed)
+  slot_noise_sd: 0.05           # SYNTHETIC
+  heat_sensitivity_per_c: 0.035 # SYNTHETIC: +3.5 % per degC of Tokyo daily max above 32 C
+  # Scenario evening (cleared D-1 at 10:00 on a heat forecast). SYNTHETIC, bounded by MF 1.6: FY2026 Tokyo max 64.28.
+  scenario_evening_tokyo: {33: 33.0, 34: 39.0, 35: 47.5, 36: 53.8, 37: 61.2, 38: 58.4, 39: 45.9, 40: 36.2}
+  price_floor: 0.01             # src: MF 1.1
+  price_cap: 999.99             # src: MF simulation_parameters price_cap_for_sim (ESTIMATE technical limit)
+
+imbalance:
+  # src: MF 3 scarcity-adjusted imbalance price: 0 uplift at 10 % wide-area reserve margin, D = 45 JPY/kWh at 8 %,
+  # C = 200 JPY/kWh at 3 % and below, valid until 2026-09-30 (C = 300 / D = 50 from 2026-10-01).
+  scarcity_curve: [[3.0, 200.0], [8.0, 45.0], [10.0, 0.0]]
+  cap_jpy_kwh: 200.0
+  cap_from_2026_10_01_jpy_kwh: 300.0
+  # src: MF 3 observed FY2026 imbalance minus spot SD 9.42 JPY/kWh -> base price = spot x U(ratio_low, ratio_high)
+  normal_ratio_low: 0.85
+  normal_ratio_high: 1.18
+  scenario_reserve_margin: {30: 11.8, 31: 10.9, 32: 9.8, 33: 7.9, 34: 5.6, 35: 3.9, 36: 3.7, 37: 3.3, 38: 3.1, 39: 3.8, 40: 5.2, 41: 6.9, 42: 8.6, 43: 9.9, 44: 11.2}
+  forecast_band_pp: 1.2          # SYNTHETIC p10/p90 margin band (percentage points)
+
+intraday:
+  # src: MF 2 FY2026 intraday premium +1.07 JPY/kWh (SD 4.63), in-slot range ~20 JPY/kWh, ~579 MWh/slot traded
+  premium_mean: 1.07
+  premium_sd: 4.63
+  spread_normal: [0.3, 2.5]
+  depth_normal_mwh: [8, 40]
+  traded_mwh: [250, 900]
+  lot_mwh: 0.05                  # src: MF 2 lot 50 kWh, tick 0.01 JPY/kWh
+  # Scenario-day open book for the scarcity block (SYNTHETIC; asks sit below the p50 imbalance forecast, thin depth)
+  scenario_book:
+    35: {ask: 96.0, depth: 15.0, ask2: 112.0, depth2: 10.0, bid: 78.0}
+    36: {ask: 104.0, depth: 14.0, ask2: 121.0, depth2: 10.0, bid: 84.0}
+    37: {ask: 118.0, depth: 12.0, ask2: 139.0, depth2: 9.0, bid: 95.0}
+    38: {ask: 112.0, depth: 13.0, ask2: 131.0, depth2: 9.0, bid: 90.0}
+    39: {ask: 78.0, depth: 18.0, ask2: 92.0, depth2: 14.0, bid: 63.0}
+
+portfolio:
+  n_customers: 300
+  segments:
+    # name: [count, contracted_kw_min, contracted_kw_max, load_factor, temp_sens_per_c]  (SYNTHETIC)
+    data_center:        [12, 15000, 80000, 0.82, 0.012]
+    semiconductor_fab:  [8, 20000, 90000, 0.86, 0.006]
+    auto_parts:         [30, 2000, 15000, 0.55, 0.012]
+    cold_storage:       [25, 1000, 6000, 0.62, 0.030]
+    office:             [70, 500, 5000, 0.42, 0.030]
+    retail_chain:       [40, 500, 4000, 0.50, 0.022]
+    hospital:           [30, 1000, 6000, 0.58, 0.016]
+    university:         [20, 2000, 10000, 0.38, 0.014]
+    logistics:          [40, 500, 5000, 0.48, 0.012]
+    hotel:              [25, 500, 4000, 0.52, 0.018]
+  tariff_mix: {fixed: 0.50, market_linked: 0.25, bandwidth: 0.25}
+  fixed_energy_price_jpy_kwh: [21.5, 26.5]  # SYNTHETIC, anchored on MF 5.4 FY2026 plan energy rates + FY2026 spot regime
+  market_adder_jpy_kwh: [1.0, 3.0]          # src: MF 5.4 generic market-linked C&I service fee 1-3 JPY/kWh (ESTIMATE)
+  margin_jpy_kwh: [0.6, 2.4]                # SYNTHETIC retail margin range
+  bilateral_share: 0.62                     # SYNTHETIC share of DA plan covered by bilateral baseload
+  scenario_heat_uplift_c: {33: 2.8, 34: 3.3, 35: 4.2, 36: 4.6, 37: 4.9, 38: 4.7, 39: 3.8, 40: 3.1, 41: 2.5, 42: 2.1}  # SYNTHETIC day-ahead temperature miss (degC)
+  intraday_prebought_share: {33: 1.0, 34: 1.0, 35: 0.15, 36: 0.12, 37: 0.10, 38: 0.12, 39: 1.0, 40: 1.0, 41: 1.0, 42: 1.0}
+  hedge_ratio_august: 0.70                  # SYNTHETIC share of price-exposed volume hedged with baseload
+  forward: {aug_base: 21.8, sep_base: 22.6, peak_ratio: 1.24}  # SYNTHETIC marks anchored on MF 1.3 (Aug 21.2, Sep 23.4 to date)
+  hedge_prices: {bilateral: 19.8, futures: 20.6, heatwave_week: 24.5, september: 21.9}  # SYNTHETIC
+
+vpp:
+  classes:
+    # class: [count, kw_min, kw_max, hours, min_soc_pct, cost_min, cost_max, response_s]
+    # Costs: src MF 12 degradation ~8 (grid-scale) / ~20 (residential) JPY per kWh discharged (ESTIMATE)
+    #        + MF 8 incentive ~20 JPY/kWh in tight events (ESTIMATE); sizes SYNTHETIC; 10 kWh per home (MF 8 JEMA)
+    residential_battery:    [24, 800, 1600, 2.1, 20, 25.0, 31.0, 120]
+    heat_pump_water_heater: [10, 600, 1600, 1.5, 0, 19.0, 24.0, 300]
+    cni_bess:               [10, 1800, 4200, 2.4, 10, 14.0, 20.0, 2]
+    ev_depot:               [8, 400, 1800, 2.0, 55, 30.0, 42.0, 60]
+    dr_load:                [8, 1000, 3000, 2.0, 0, 42.0, 60.0, 1200]
+  frozen_cluster: "VPP-R-17"
+  frozen_from_slot: 20
+  degraded_cluster: "VPP-E-04"
+  stale_after_minutes: 30        # desk policy (SYNTHETIC); MF 8 DR-ready devices take commands at <=30 min intervals
+
+ancillary:
+  # product: [response_minutes, duration_hours]  src: MF 4.2 EPRX product requirements v6 (2026-03-13)
+  products:
+    secondary_2: [5, 0.5]        # FRR (niji-2)
+    tertiary_1: [15, 0.5]        # RR (sanji-1)
+    tertiary_2: [60, 0.5]        # RR-FIT (sanji-2); low-voltage aggregated lists allowed from FY2026 (MF 8)
+  activation_buffer: 2           # desk policy: hold energy for 2 activations of the product duration (SYNTHETIC)
+  # src: MF 4.2 Tokyo 2026 average cleared prices JPY/dKW per 30 min: combined 2.39-2.68, tertiary_2 3.80-12.20
+  price_jpy_per_dkw_30min: {secondary_2: [2.3, 2.8], tertiary_1: [2.3, 2.8], tertiary_2: [3.8, 12.2]}
+
+nfc:
+  # src: MF 6.2 FY2026 R1 clearing (2026-08-28/31): FIT 0.40, non-FIT renewable-designated 1.21, non-FIT unspecified 1.20
+  price_fit_jpy_kwh: 0.40
+  price_non_fit_renewable_jpy_kwh: 1.21
+  price_non_fit_nonrenewable_jpy_kwh: 1.20
+
+ppa:
+  # Resource cost to the desk (JPY/kWh delivered). SYNTHETIC assumptions (no public PPA price series in MF).
+  resource_cost_jpy_kwh:
+    solar: 11.5
+    onshore_wind: 15.5
+    offshore_wind: 22.0
+    hydro_run_of_river: 12.5
+    hydro_reservoir: 15.0
+    nuclear_generic: 12.0
+    biomass: 23.0
+  # src: MF 12 grid-scale capex ~68,000 JPY/kWh, 15-year life, fixed O&M 2.5 % of capex, RTE 0.85 (NREL ATB);
+  # annualised at an assumed 5 % WACC -> ~8,250 JPY per kWh of storage per year
+  storage_cost_jpy_per_kwh_year: 8250
+  storage_duration_h: 4
+  storage_rte: 0.85
+  surplus_resale_ratio: 0.55        # SYNTHETIC surplus clean energy resold at 55 % of its cost
+  residual_grid_price_jpy_kwh: 18.0 # SYNTHETIC 2027 residual-energy assumption (below the FY2026 mean of 20.36, MF 1.2)
+  balancing_jpy_kwh: 0.45           # SYNTHETIC balancing and plan-management allowance
+  margin_default_jpy_kwh: 1.10      # SYNTHETIC
+  margin_floor_jpy_kwh: 0.50        # desk policy (policy guide section 9)
+  term_discount_per_year: 0.006     # SYNTHETIC price discount per contract year beyond 10
+
+bills:
+  renewable_surcharge_jpy_kwh: 4.18 # src: MF 5.3 FY2026 rate (bills May 2026 - Apr 2027)
+  fuel_adjustment_jpy_kwh: 1.36     # SYNTHETIC illustrative (one-month average basis per MF 5.4)
+  market_adjustment_base_spot: 11.60 # src: MF 5.4 FY2026 base spot price used in market-price adjustment
+  wheeling_extra_high: {basic_jpy_kw_month: 423.39, energy_jpy_kwh: 0.91}  # src: MF 5.1

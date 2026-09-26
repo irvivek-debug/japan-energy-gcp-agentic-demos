@@ -1,0 +1,106 @@
+eval_set_id,eval_id,metric_name,threshold,score,eval_status,prompt,expected_response,actual_response,expected_tool_calls,actual_tool_calls
+e2e_desk_orchestrator_retry,S2_deviation_breaches,tool_trajectory_avg_score,1.0,1.0,PASSED,"Which customers breached their deviation band this month, and what did it cost?",See rubric.,"This month (August 1 to August 19, 15:30), 65 customers breached their bandwidth tariff deviation limits. These breaches cost a total of 786,366 JPY across 706 breach slots and resulted in 28.36 MWh of excess energy [tepco_retail_desk_demo.customer_load_30min, tepco_retail_desk_demo.customers, tepco_retail_desk_demo.imbalance_30min].
+
+The vast majority of the deviation cost is concentrated in one customer:
+* **Kanagawa Cold Chain (C-0051)** accounted for 647,479 JPY, which is 82.3% of the total portfolio deviation cost [tepco_retail_desk_demo.customer_load_30min, tepco_retail_desk_demo.imbalance_30min]. They had 21.81 MWh in excess volume and a breach rate of 35.8% (320 breach slots) against their 5% contract band. Their breaches peaked heavily during the afternoon between 13:00-18:00 [tepco_retail_desk_demo.customer_load_30min, tepco_retail_desk_demo.customers].
+
+The other top customers by deviation cost are [tepco_retail_desk_demo.customer_load_30min, tepco_retail_desk_demo.customers, tepco_retail_desk_demo.imbalance_30min]:
+* **Mito Sensor Fab (C-0019):** 19,060 JPY (1.04 MWh over 5 slots)
+* **Honjo Power Chips (C-0016):** 10,414 JPY (0.60 MWh over 6 slots)
+* **Fuchu Cold Chain (C-0055):** 8,463 JPY (0.37 MWh over 8 slots)
+* **Iruma Office Park (C-0099):** 6,478 JPY (0.27 MWh over 9 slots)
+* **Tsuchiura General Hospital (C-0212):** 6,210 JPY (0.25 MWh over 8 slots)
+* **Misato Office Park (C-0108):** 5,357 JPY (0.24 MWh over 9 slots)
+* **Hanno College of Science (C-0218):** 4,925 JPY (0.22 MWh over 10 slots)","id=None args={} name='contract_risk_agent' partial_args=None will_continue=None
+id=None args={} name='get_deviation_breaches' partial_args=None will_continue=None","id='call_400022' args={'request': 'Which customers breached their deviation band this month (2026-08-01 to 2026-08-19 15:30), and what is the cost of these breaches?'} name='contract_risk_agent' partial_args=None will_continue=None
+id='call_119805' args={'to_date': '2026-08-19', 'from_date': '2026-08-01'} name='get_deviation_breaches' partial_args=None will_continue=None"
+e2e_desk_orchestrator_retry,S2_deviation_breaches,rubric_based_final_response_quality_v1,0.8,1.0,PASSED,"Which customers breached their deviation band this month, and what did it cost?",See rubric.,"This month (August 1 to August 19, 15:30), 65 customers breached their bandwidth tariff deviation limits. These breaches cost a total of 786,366 JPY across 706 breach slots and resulted in 28.36 MWh of excess energy [tepco_retail_desk_demo.customer_load_30min, tepco_retail_desk_demo.customers, tepco_retail_desk_demo.imbalance_30min].
+
+The vast majority of the deviation cost is concentrated in one customer:
+* **Kanagawa Cold Chain (C-0051)** accounted for 647,479 JPY, which is 82.3% of the total portfolio deviation cost [tepco_retail_desk_demo.customer_load_30min, tepco_retail_desk_demo.imbalance_30min]. They had 21.81 MWh in excess volume and a breach rate of 35.8% (320 breach slots) against their 5% contract band. Their breaches peaked heavily during the afternoon between 13:00-18:00 [tepco_retail_desk_demo.customer_load_30min, tepco_retail_desk_demo.customers].
+
+The other top customers by deviation cost are [tepco_retail_desk_demo.customer_load_30min, tepco_retail_desk_demo.customers, tepco_retail_desk_demo.imbalance_30min]:
+* **Mito Sensor Fab (C-0019):** 19,060 JPY (1.04 MWh over 5 slots)
+* **Honjo Power Chips (C-0016):** 10,414 JPY (0.60 MWh over 6 slots)
+* **Fuchu Cold Chain (C-0055):** 8,463 JPY (0.37 MWh over 8 slots)
+* **Iruma Office Park (C-0099):** 6,478 JPY (0.27 MWh over 9 slots)
+* **Tsuchiura General Hospital (C-0212):** 6,210 JPY (0.25 MWh over 8 slots)
+* **Misato Office Park (C-0108):** 5,357 JPY (0.24 MWh over 9 slots)
+* **Hanno College of Science (C-0218):** 4,925 JPY (0.22 MWh over 10 slots)","id=None args={} name='contract_risk_agent' partial_args=None will_continue=None
+id=None args={} name='get_deviation_breaches' partial_args=None will_continue=None","id='call_400022' args={'request': 'Which customers breached their deviation band this month (2026-08-01 to 2026-08-19 15:30), and what is the cost of these breaches?'} name='contract_risk_agent' partial_args=None will_continue=None
+id='call_119805' args={'to_date': '2026-08-19', 'from_date': '2026-08-01'} name='get_deviation_breaches' partial_args=None will_continue=None"
+e2e_desk_orchestrator_retry,S2_deviation_breaches,hallucinations_v1,0.8,1.0,PASSED,"Which customers breached their deviation band this month, and what did it cost?",See rubric.,"This month (August 1 to August 19, 15:30), 65 customers breached their bandwidth tariff deviation limits. These breaches cost a total of 786,366 JPY across 706 breach slots and resulted in 28.36 MWh of excess energy [tepco_retail_desk_demo.customer_load_30min, tepco_retail_desk_demo.customers, tepco_retail_desk_demo.imbalance_30min].
+
+The vast majority of the deviation cost is concentrated in one customer:
+* **Kanagawa Cold Chain (C-0051)** accounted for 647,479 JPY, which is 82.3% of the total portfolio deviation cost [tepco_retail_desk_demo.customer_load_30min, tepco_retail_desk_demo.imbalance_30min]. They had 21.81 MWh in excess volume and a breach rate of 35.8% (320 breach slots) against their 5% contract band. Their breaches peaked heavily during the afternoon between 13:00-18:00 [tepco_retail_desk_demo.customer_load_30min, tepco_retail_desk_demo.customers].
+
+The other top customers by deviation cost are [tepco_retail_desk_demo.customer_load_30min, tepco_retail_desk_demo.customers, tepco_retail_desk_demo.imbalance_30min]:
+* **Mito Sensor Fab (C-0019):** 19,060 JPY (1.04 MWh over 5 slots)
+* **Honjo Power Chips (C-0016):** 10,414 JPY (0.60 MWh over 6 slots)
+* **Fuchu Cold Chain (C-0055):** 8,463 JPY (0.37 MWh over 8 slots)
+* **Iruma Office Park (C-0099):** 6,478 JPY (0.27 MWh over 9 slots)
+* **Tsuchiura General Hospital (C-0212):** 6,210 JPY (0.25 MWh over 8 slots)
+* **Misato Office Park (C-0108):** 5,357 JPY (0.24 MWh over 9 slots)
+* **Hanno College of Science (C-0218):** 4,925 JPY (0.22 MWh over 10 slots)","id=None args={} name='contract_risk_agent' partial_args=None will_continue=None
+id=None args={} name='get_deviation_breaches' partial_args=None will_continue=None","id='call_400022' args={'request': 'Which customers breached their deviation band this month (2026-08-01 to 2026-08-19 15:30), and what is the cost of these breaches?'} name='contract_risk_agent' partial_args=None will_continue=None
+id='call_119805' args={'to_date': '2026-08-19', 'from_date': '2026-08-01'} name='get_deviation_breaches' partial_args=None will_continue=None"
+e2e_desk_orchestrator_retry,S2_deviation_breaches,tool_call_count_v1,,2.0,INFORMATIONAL,"Which customers breached their deviation band this month, and what did it cost?",See rubric.,"This month (August 1 to August 19, 15:30), 65 customers breached their bandwidth tariff deviation limits. These breaches cost a total of 786,366 JPY across 706 breach slots and resulted in 28.36 MWh of excess energy [tepco_retail_desk_demo.customer_load_30min, tepco_retail_desk_demo.customers, tepco_retail_desk_demo.imbalance_30min].
+
+The vast majority of the deviation cost is concentrated in one customer:
+* **Kanagawa Cold Chain (C-0051)** accounted for 647,479 JPY, which is 82.3% of the total portfolio deviation cost [tepco_retail_desk_demo.customer_load_30min, tepco_retail_desk_demo.imbalance_30min]. They had 21.81 MWh in excess volume and a breach rate of 35.8% (320 breach slots) against their 5% contract band. Their breaches peaked heavily during the afternoon between 13:00-18:00 [tepco_retail_desk_demo.customer_load_30min, tepco_retail_desk_demo.customers].
+
+The other top customers by deviation cost are [tepco_retail_desk_demo.customer_load_30min, tepco_retail_desk_demo.customers, tepco_retail_desk_demo.imbalance_30min]:
+* **Mito Sensor Fab (C-0019):** 19,060 JPY (1.04 MWh over 5 slots)
+* **Honjo Power Chips (C-0016):** 10,414 JPY (0.60 MWh over 6 slots)
+* **Fuchu Cold Chain (C-0055):** 8,463 JPY (0.37 MWh over 8 slots)
+* **Iruma Office Park (C-0099):** 6,478 JPY (0.27 MWh over 9 slots)
+* **Tsuchiura General Hospital (C-0212):** 6,210 JPY (0.25 MWh over 8 slots)
+* **Misato Office Park (C-0108):** 5,357 JPY (0.24 MWh over 9 slots)
+* **Hanno College of Science (C-0218):** 4,925 JPY (0.22 MWh over 10 slots)","id=None args={} name='contract_risk_agent' partial_args=None will_continue=None
+id=None args={} name='get_deviation_breaches' partial_args=None will_continue=None","id='call_400022' args={'request': 'Which customers breached their deviation band this month (2026-08-01 to 2026-08-19 15:30), and what is the cost of these breaches?'} name='contract_risk_agent' partial_args=None will_continue=None
+id='call_119805' args={'to_date': '2026-08-19', 'from_date': '2026-08-01'} name='get_deviation_breaches' partial_args=None will_continue=None"
+e2e_desk_orchestrator_retry,S2_deviation_breaches,inference_call_count_v1,,4.0,INFORMATIONAL,"Which customers breached their deviation band this month, and what did it cost?",See rubric.,"This month (August 1 to August 19, 15:30), 65 customers breached their bandwidth tariff deviation limits. These breaches cost a total of 786,366 JPY across 706 breach slots and resulted in 28.36 MWh of excess energy [tepco_retail_desk_demo.customer_load_30min, tepco_retail_desk_demo.customers, tepco_retail_desk_demo.imbalance_30min].
+
+The vast majority of the deviation cost is concentrated in one customer:
+* **Kanagawa Cold Chain (C-0051)** accounted for 647,479 JPY, which is 82.3% of the total portfolio deviation cost [tepco_retail_desk_demo.customer_load_30min, tepco_retail_desk_demo.imbalance_30min]. They had 21.81 MWh in excess volume and a breach rate of 35.8% (320 breach slots) against their 5% contract band. Their breaches peaked heavily during the afternoon between 13:00-18:00 [tepco_retail_desk_demo.customer_load_30min, tepco_retail_desk_demo.customers].
+
+The other top customers by deviation cost are [tepco_retail_desk_demo.customer_load_30min, tepco_retail_desk_demo.customers, tepco_retail_desk_demo.imbalance_30min]:
+* **Mito Sensor Fab (C-0019):** 19,060 JPY (1.04 MWh over 5 slots)
+* **Honjo Power Chips (C-0016):** 10,414 JPY (0.60 MWh over 6 slots)
+* **Fuchu Cold Chain (C-0055):** 8,463 JPY (0.37 MWh over 8 slots)
+* **Iruma Office Park (C-0099):** 6,478 JPY (0.27 MWh over 9 slots)
+* **Tsuchiura General Hospital (C-0212):** 6,210 JPY (0.25 MWh over 8 slots)
+* **Misato Office Park (C-0108):** 5,357 JPY (0.24 MWh over 9 slots)
+* **Hanno College of Science (C-0218):** 4,925 JPY (0.22 MWh over 10 slots)","id=None args={} name='contract_risk_agent' partial_args=None will_continue=None
+id=None args={} name='get_deviation_breaches' partial_args=None will_continue=None","id='call_400022' args={'request': 'Which customers breached their deviation band this month (2026-08-01 to 2026-08-19 15:30), and what is the cost of these breaches?'} name='contract_risk_agent' partial_args=None will_continue=None
+id='call_119805' args={'to_date': '2026-08-19', 'from_date': '2026-08-01'} name='get_deviation_breaches' partial_args=None will_continue=None"
+e2e_desk_orchestrator_retry,S2_deviation_breaches,token_usage_v1,,13679.0,INFORMATIONAL,"Which customers breached their deviation band this month, and what did it cost?",See rubric.,"This month (August 1 to August 19, 15:30), 65 customers breached their bandwidth tariff deviation limits. These breaches cost a total of 786,366 JPY across 706 breach slots and resulted in 28.36 MWh of excess energy [tepco_retail_desk_demo.customer_load_30min, tepco_retail_desk_demo.customers, tepco_retail_desk_demo.imbalance_30min].
+
+The vast majority of the deviation cost is concentrated in one customer:
+* **Kanagawa Cold Chain (C-0051)** accounted for 647,479 JPY, which is 82.3% of the total portfolio deviation cost [tepco_retail_desk_demo.customer_load_30min, tepco_retail_desk_demo.imbalance_30min]. They had 21.81 MWh in excess volume and a breach rate of 35.8% (320 breach slots) against their 5% contract band. Their breaches peaked heavily during the afternoon between 13:00-18:00 [tepco_retail_desk_demo.customer_load_30min, tepco_retail_desk_demo.customers].
+
+The other top customers by deviation cost are [tepco_retail_desk_demo.customer_load_30min, tepco_retail_desk_demo.customers, tepco_retail_desk_demo.imbalance_30min]:
+* **Mito Sensor Fab (C-0019):** 19,060 JPY (1.04 MWh over 5 slots)
+* **Honjo Power Chips (C-0016):** 10,414 JPY (0.60 MWh over 6 slots)
+* **Fuchu Cold Chain (C-0055):** 8,463 JPY (0.37 MWh over 8 slots)
+* **Iruma Office Park (C-0099):** 6,478 JPY (0.27 MWh over 9 slots)
+* **Tsuchiura General Hospital (C-0212):** 6,210 JPY (0.25 MWh over 8 slots)
+* **Misato Office Park (C-0108):** 5,357 JPY (0.24 MWh over 9 slots)
+* **Hanno College of Science (C-0218):** 4,925 JPY (0.22 MWh over 10 slots)","id=None args={} name='contract_risk_agent' partial_args=None will_continue=None
+id=None args={} name='get_deviation_breaches' partial_args=None will_continue=None","id='call_400022' args={'request': 'Which customers breached their deviation band this month (2026-08-01 to 2026-08-19 15:30), and what is the cost of these breaches?'} name='contract_risk_agent' partial_args=None will_continue=None
+id='call_119805' args={'to_date': '2026-08-19', 'from_date': '2026-08-01'} name='get_deviation_breaches' partial_args=None will_continue=None"
+e2e_desk_orchestrator_retry,S2_deviation_breaches,invocation_duration_v1,,25.055,INFORMATIONAL,"Which customers breached their deviation band this month, and what did it cost?",See rubric.,"This month (August 1 to August 19, 15:30), 65 customers breached their bandwidth tariff deviation limits. These breaches cost a total of 786,366 JPY across 706 breach slots and resulted in 28.36 MWh of excess energy [tepco_retail_desk_demo.customer_load_30min, tepco_retail_desk_demo.customers, tepco_retail_desk_demo.imbalance_30min].
+
+The vast majority of the deviation cost is concentrated in one customer:
+* **Kanagawa Cold Chain (C-0051)** accounted for 647,479 JPY, which is 82.3% of the total portfolio deviation cost [tepco_retail_desk_demo.customer_load_30min, tepco_retail_desk_demo.imbalance_30min]. They had 21.81 MWh in excess volume and a breach rate of 35.8% (320 breach slots) against their 5% contract band. Their breaches peaked heavily during the afternoon between 13:00-18:00 [tepco_retail_desk_demo.customer_load_30min, tepco_retail_desk_demo.customers].
+
+The other top customers by deviation cost are [tepco_retail_desk_demo.customer_load_30min, tepco_retail_desk_demo.customers, tepco_retail_desk_demo.imbalance_30min]:
+* **Mito Sensor Fab (C-0019):** 19,060 JPY (1.04 MWh over 5 slots)
+* **Honjo Power Chips (C-0016):** 10,414 JPY (0.60 MWh over 6 slots)
+* **Fuchu Cold Chain (C-0055):** 8,463 JPY (0.37 MWh over 8 slots)
+* **Iruma Office Park (C-0099):** 6,478 JPY (0.27 MWh over 9 slots)
+* **Tsuchiura General Hospital (C-0212):** 6,210 JPY (0.25 MWh over 8 slots)
+* **Misato Office Park (C-0108):** 5,357 JPY (0.24 MWh over 9 slots)
+* **Hanno College of Science (C-0218):** 4,925 JPY (0.22 MWh over 10 slots)","id=None args={} name='contract_risk_agent' partial_args=None will_continue=None
+id=None args={} name='get_deviation_breaches' partial_args=None will_continue=None","id='call_400022' args={'request': 'Which customers breached their deviation band this month (2026-08-01 to 2026-08-19 15:30), and what is the cost of these breaches?'} name='contract_risk_agent' partial_args=None will_continue=None
+id='call_119805' args={'to_date': '2026-08-19', 'from_date': '2026-08-01'} name='get_deviation_breaches' partial_args=None will_continue=None"

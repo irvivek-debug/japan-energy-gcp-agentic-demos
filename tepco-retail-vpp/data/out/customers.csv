@@ -1,0 +1,301 @@
+customer_id,name,segment,voltage,prefecture,tariff_type,deviation_band_pct,fixed_energy_price_jpy_kwh,market_adder_jpy_kwh,contracted_kw,annual_mwh,margin_jpy_kwh,dr_enrolled,essential_facility,cfe_contract,cfe_product,contract_end
+C-0001,Otemachi Edge Center,data_center,extra_high,Gunma,fixed,,26.46,,28600.0,205440.0,1.43,false,false,true,annual_volumetric,2028-03-31
+C-0002,Mitaka Compute Park,data_center,extra_high,Gunma,market_linked,,,2.91,31200.0,224116.0,0.66,true,false,false,,2027-03-31
+C-0003,Shiroi Data Campus,data_center,extra_high,Tokyo,fixed,,21.54,,27400.0,196820.0,2.22,false,false,true,hourly_24x7,2030-03-31
+C-0004,Kawasaki Bay Cloud Hall,data_center,extra_high,Kanagawa,market_linked,,,1.28,37200.0,267215.0,0.71,false,false,false,,2028-03-31
+C-0005,Kashiwa Cloud Hall,data_center,extra_high,Gunma,fixed,,25.5,,77200.0,554543.0,1.98,false,false,true,hourly_24x7,2028-03-31
+C-0006,Sagami Data Works,data_center,extra_high,Chiba,market_linked,,,2.8,68700.0,493486.0,2.01,false,false,false,,2027-03-31
+C-0007,Tokorozawa Compute Center,data_center,extra_high,Tochigi,fixed,,25.67,,24100.0,173115.0,0.87,true,false,true,annual_volumetric,2028-03-31
+C-0008,Narashino Data Park,data_center,extra_high,Chiba,market_linked,,,1.07,22400.0,160904.0,1.75,false,false,true,hourly_24x7,2030-03-31
+C-0009,Tachikawa Hyperscale Hall,data_center,extra_high,Chiba,fixed,,25.19,,47000.0,337610.0,1.04,false,false,false,,2030-03-31
+C-0010,Yachiyo Cloud Campus,data_center,extra_high,Chiba,market_linked,,,2.86,43600.0,313188.0,1.56,false,false,true,annual_volumetric,2028-03-31
+C-0011,Atsugi Data Center,data_center,extra_high,Kanagawa,fixed,,23.0,,38800.0,278708.0,1.23,false,false,false,,2028-03-31
+C-0012,Nerima Edge Hall,data_center,extra_high,Chiba,market_linked,,,2.19,31000.0,222679.0,2.23,true,false,false,,2029-03-31
+C-0013,Oyama Wafer Works,semiconductor_fab,extra_high,Chiba,bandwidth,10.0,21.89,,77400.0,583101.0,1.8,false,false,false,,2028-03-31
+C-0014,Tsukuba Micro Devices,semiconductor_fab,extra_high,Ibaraki,fixed,,23.83,,62200.0,468590.0,1.95,false,false,true,annual_volumetric,2029-03-31
+C-0015,Kumagaya Silicon Fab,semiconductor_fab,extra_high,Gunma,fixed,,26.11,,33500.0,252376.0,0.66,false,false,false,,2029-03-31
+C-0016,Honjo Power Chips,semiconductor_fab,extra_high,Kanagawa,bandwidth,5.0,21.67,,39100.0,294564.0,1.37,false,false,false,,2029-03-31
+C-0017,Ome Precision Semiconductor,semiconductor_fab,extra_high,Gunma,fixed,,22.22,,53900.0,406061.0,1.51,false,false,true,hourly_24x7,2029-03-31
+C-0018,Isesaki Crystal Fab,semiconductor_fab,extra_high,Tokyo,fixed,,22.02,,22200.0,167246.0,1.3,true,false,false,,2027-03-31
+C-0019,Mito Sensor Fab,semiconductor_fab,extra_high,Kanagawa,bandwidth,5.0,23.85,,63900.0,481397.0,1.94,false,false,false,,2028-03-31
+C-0020,Kazo Photonics Fab,semiconductor_fab,extra_high,Tokyo,fixed,,25.67,,29400.0,221488.0,1.38,false,false,false,,2028-03-31
+C-0021,Kashima Auto Parts,auto_parts,extra_high,Tochigi,bandwidth,5.0,21.97,,7200.0,34690.0,0.83,true,false,false,,2028-03-31
+C-0022,Ebina Auto Parts,auto_parts,extra_high,Kanagawa,bandwidth,10.0,22.95,,8800.0,42398.0,2.32,true,false,false,,2027-03-31
+C-0023,Sakura Die Cast,auto_parts,extra_high,Tochigi,fixed,,23.52,,9400.0,45289.0,1.87,true,false,false,,2027-03-31
+C-0024,Hadano Harness Works,auto_parts,extra_high,Chiba,bandwidth,5.0,24.49,,8500.0,40953.0,2.14,false,false,false,,2029-03-31
+C-0025,Wako Precision Castings,auto_parts,extra_high,Gunma,fixed,,23.56,,9500.0,45771.0,2.01,true,false,false,,2029-03-31
+C-0026,Kiryu Harness Works,auto_parts,extra_high,Chiba,bandwidth,5.0,21.75,,7500.0,36135.0,1.21,false,false,false,,2029-03-31
+C-0027,Kamagaya Drivetrain Components,auto_parts,extra_high,Saitama,market_linked,,,2.92,4000.0,19272.0,1.07,true,false,false,,2028-03-31
+C-0028,Yotsukaido Precision Castings,auto_parts,extra_high,Gunma,fixed,,21.87,,12900.0,62152.0,0.89,true,false,false,,2029-03-31
+C-0029,Mobara Auto Parts,auto_parts,extra_high,Gunma,market_linked,,,2.36,8900.0,42880.0,2.03,false,false,false,,2029-03-31
+C-0030,Kiyose Die Cast,auto_parts,extra_high,Tochigi,market_linked,,,2.34,6600.0,31799.0,1.3,false,false,false,,2027-03-31
+C-0031,Kawagoe Die Cast,auto_parts,extra_high,Ibaraki,fixed,,24.82,,9800.0,47216.0,0.91,true,false,false,,2029-03-31
+C-0032,Ichihara Drivetrain Components,auto_parts,extra_high,Saitama,market_linked,,,1.93,8600.0,41435.0,0.65,true,false,false,,2028-03-31
+C-0033,Matsudo Stamping Works,auto_parts,extra_high,Ibaraki,fixed,,23.32,,12300.0,59261.0,2.16,false,false,false,,2028-03-31
+C-0034,Yamato Drivetrain Components,auto_parts,extra_high,Tokyo,market_linked,,,2.05,14200.0,68416.0,2.22,false,false,false,,2029-03-31
+C-0035,Koshigaya Stamping Works,auto_parts,extra_high,Ibaraki,market_linked,,,1.47,6900.0,33244.0,1.91,true,false,false,,2029-03-31
+C-0036,Hiratsuka Die Cast,auto_parts,extra_high,Kanagawa,bandwidth,5.0,21.57,,11600.0,55889.0,1.44,true,false,false,,2030-03-31
+C-0037,Koganei Die Cast,auto_parts,extra_high,Tochigi,fixed,,23.94,,6400.0,30835.0,1.17,true,false,false,,2029-03-31
+C-0038,Ashikaga Stamping Works,auto_parts,extra_high,Kanagawa,market_linked,,,2.36,12700.0,61189.0,1.0,true,false,false,,2027-03-31
+C-0039,Oyama Stamping Works,auto_parts,extra_high,Saitama,fixed,,25.12,,11200.0,53962.0,1.85,false,false,false,,2028-03-31
+C-0040,Asaka Die Cast,auto_parts,extra_high,Kanagawa,fixed,,24.8,,4000.0,19272.0,1.12,false,false,false,,2029-03-31
+C-0041,Sano Auto Parts,auto_parts,extra_high,Saitama,market_linked,,,1.56,7400.0,35653.0,1.71,true,false,false,,2029-03-31
+C-0042,Yokosuka Harness Works,auto_parts,extra_high,Ibaraki,bandwidth,5.0,25.59,,13500.0,65043.0,1.03,false,false,false,,2030-03-31
+C-0043,Hanno Drivetrain Components,auto_parts,extra_high,Saitama,fixed,,24.41,,14800.0,71306.0,2.26,true,false,false,,2028-03-31
+C-0044,Kodaira Stamping Works,auto_parts,extra_high,Tokyo,market_linked,,,1.46,5800.0,27944.0,1.4,false,false,false,,2027-03-31
+C-0045,Chigasaki Harness Works,auto_parts,extra_high,Tochigi,bandwidth,5.0,24.82,,8100.0,39026.0,1.71,true,false,false,,2028-03-31
+C-0046,Zama Auto Parts,auto_parts,extra_high,Kanagawa,market_linked,,,2.91,13500.0,65043.0,1.13,false,false,false,,2028-03-31
+C-0047,Yokosuka Drivetrain Components,auto_parts,extra_high,Gunma,bandwidth,5.0,23.01,,6300.0,30353.0,2.03,false,false,false,,2030-03-31
+C-0048,Ichihara Die Cast,auto_parts,extra_high,Tochigi,bandwidth,5.0,21.54,,8500.0,40953.0,1.86,true,false,false,,2030-03-31
+C-0049,Shiki Stamping Works,auto_parts,extra_high,Tokyo,market_linked,,,2.15,5400.0,26017.0,1.78,false,false,false,,2029-03-31
+C-0050,Sayama Precision Castings,auto_parts,extra_high,Kanagawa,market_linked,,,1.91,11100.0,53480.0,0.73,false,false,false,,2029-03-31
+C-0051,Kanagawa Cold Chain,cold_storage,extra_high,Saitama,bandwidth,5.0,23.4,,4200.0,22811.0,1.05,true,false,false,,2029-03-31
+C-0052,Ebina Reefer Center,cold_storage,extra_high,Tokyo,bandwidth,10.0,22.02,,4600.0,24984.0,2.05,true,false,false,,2028-03-31
+C-0053,Kisarazu Frozen Logistics,cold_storage,extra_high,Tokyo,bandwidth,10.0,23.96,,2500.0,13578.0,1.52,false,false,false,,2029-03-31
+C-0054,Sano Cold Chain,cold_storage,extra_high,Tochigi,fixed,,22.77,,2800.0,15207.0,2.0,true,false,false,,2030-03-31
+C-0055,Fuchu Cold Chain,cold_storage,extra_high,Tochigi,bandwidth,5.0,22.72,,5000.0,27156.0,0.68,true,false,false,,2027-03-31
+C-0056,Yokosuka Reefer Center,cold_storage,extra_high,Tokyo,fixed,,25.6,,2800.0,15207.0,1.43,false,false,false,,2030-03-31
+C-0057,Sano Cold Storage,cold_storage,extra_high,Tochigi,fixed,,26.16,,5800.0,31501.0,1.46,false,false,false,,2030-03-31
+C-0058,Tomisato Reefer Center,cold_storage,extra_high,Ibaraki,bandwidth,5.0,23.05,,2100.0,11406.0,0.66,false,false,false,,2030-03-31
+C-0059,Kawagoe Frozen Logistics,cold_storage,extra_high,Kanagawa,bandwidth,10.0,25.63,,5300.0,28785.0,1.44,false,false,false,,2028-03-31
+C-0060,Koganei Cold Storage,cold_storage,high,Saitama,bandwidth,5.0,23.46,,1500.0,8147.0,2.0,false,false,false,,2028-03-31
+C-0061,Fujisawa Reefer Center,cold_storage,extra_high,Kanagawa,bandwidth,10.0,22.16,,5200.0,28242.0,0.8,false,false,false,,2027-03-31
+C-0062,Koganei Frozen Logistics,cold_storage,extra_high,Saitama,fixed,,26.09,,5900.0,32044.0,1.37,false,false,false,,2030-03-31
+C-0063,Koto Frozen Logistics,cold_storage,extra_high,Ibaraki,fixed,,22.59,,3800.0,20639.0,1.89,true,false,false,,2030-03-31
+C-0064,Asaka Frozen Logistics,cold_storage,extra_high,Chiba,bandwidth,10.0,23.11,,5700.0,30958.0,1.43,true,false,false,,2030-03-31
+C-0065,Koto Reefer Center,cold_storage,high,Tochigi,bandwidth,10.0,23.33,,1900.0,10319.0,1.72,true,false,false,,2027-03-31
+C-0066,Kunitachi Cold Chain,cold_storage,extra_high,Kanagawa,bandwidth,10.0,26.48,,3300.0,17923.0,1.16,true,false,false,,2027-03-31
+C-0067,Asaka Cold Chain,cold_storage,extra_high,Ibaraki,bandwidth,10.0,25.19,,4200.0,22811.0,1.39,false,false,false,,2027-03-31
+C-0068,Soka Frozen Logistics,cold_storage,extra_high,Saitama,fixed,,23.86,,3900.0,21182.0,1.16,false,false,false,,2028-03-31
+C-0069,Hanno Frozen Logistics,cold_storage,extra_high,Tokyo,bandwidth,10.0,25.12,,2700.0,14664.0,0.92,true,false,false,,2028-03-31
+C-0070,Kamagaya Reefer Center,cold_storage,extra_high,Tokyo,fixed,,26.48,,4100.0,22268.0,1.12,false,false,false,,2027-03-31
+C-0071,Ushiku Frozen Logistics,cold_storage,extra_high,Tokyo,fixed,,22.57,,2300.0,12492.0,1.82,false,false,false,,2030-03-31
+C-0072,Narita Reefer Center,cold_storage,extra_high,Ibaraki,bandwidth,10.0,22.76,,5900.0,32044.0,1.94,false,false,false,,2028-03-31
+C-0073,Kasama Cold Chain,cold_storage,extra_high,Saitama,bandwidth,5.0,24.79,,2700.0,14664.0,1.48,true,false,false,,2029-03-31
+C-0074,Kunitachi Cold Storage,cold_storage,extra_high,Tochigi,fixed,,26.27,,3000.0,16294.0,1.79,true,false,false,,2027-03-31
+C-0075,Toda Cold Storage,cold_storage,extra_high,Saitama,bandwidth,10.0,23.47,,2000.0,10862.0,1.63,true,false,false,,2028-03-31
+C-0076,Ageo Business Center,office,extra_high,Kanagawa,fixed,,24.89,,3200.0,11773.0,1.32,false,false,false,,2027-03-31
+C-0077,Ashikaga Business Center,office,extra_high,Chiba,fixed,,21.6,,3700.0,13613.0,1.65,false,false,false,,2027-03-31
+C-0078,Toda Office Park,office,high,Tochigi,fixed,,25.77,,1300.0,4783.0,1.45,true,false,false,,2027-03-31
+C-0079,Ami Office Park,office,extra_high,Tochigi,fixed,,26.17,,3900.0,14349.0,1.98,false,false,false,,2027-03-31
+C-0080,Narita Business Center,office,high,Tokyo,market_linked,,,1.24,900.0,3311.0,1.53,false,false,false,,2027-03-31
+C-0081,Shinagawa Square,office,high,Chiba,fixed,,25.43,,700.0,2575.0,1.49,false,false,false,,2029-03-31
+C-0082,Ushiku Plaza,office,extra_high,Ibaraki,bandwidth,5.0,25.56,,2300.0,8462.0,1.31,false,false,false,,2030-03-31
+C-0083,Yokosuka Business Center,office,extra_high,Ibaraki,bandwidth,5.0,23.64,,4900.0,18028.0,0.74,false,false,false,,2027-03-31
+C-0084,Matsudo Tower,office,high,Ibaraki,fixed,,25.89,,1400.0,5151.0,1.57,true,false,false,,2029-03-31
+C-0085,Koto Square,office,high,Tokyo,market_linked,,,1.14,600.0,2208.0,1.18,false,false,false,,2028-03-31
+C-0086,Yotsukaido Business Center,office,extra_high,Ibaraki,fixed,,24.43,,3300.0,12141.0,2.1,false,false,false,,2029-03-31
+C-0087,Kodaira Plaza,office,extra_high,Saitama,fixed,,21.6,,4400.0,16188.0,1.98,false,false,false,,2030-03-31
+C-0088,Sayama Plaza,office,extra_high,Kanagawa,fixed,,22.41,,3600.0,13245.0,1.98,true,false,false,,2030-03-31
+C-0089,Kashima Plaza,office,high,Tokyo,fixed,,26.23,,1500.0,5519.0,1.07,false,false,false,,2030-03-31
+C-0090,Hino Tower,office,extra_high,Ibaraki,fixed,,24.63,,3800.0,13981.0,1.09,false,false,false,,2027-03-31
+C-0091,Chofu Tower,office,extra_high,Ibaraki,fixed,,23.17,,3100.0,11406.0,1.94,false,false,false,,2028-03-31
+C-0092,Noda Plaza,office,extra_high,Chiba,fixed,,23.11,,3000.0,11038.0,1.01,false,false,false,,2028-03-31
+C-0093,Machida Square,office,extra_high,Tokyo,fixed,,22.73,,4000.0,14717.0,2.21,false,false,false,,2028-03-31
+C-0094,Sakura Tower,office,high,Ibaraki,fixed,,22.81,,700.0,2575.0,1.24,false,false,false,,2027-03-31
+C-0095,Ichikawa Plaza,office,extra_high,Ibaraki,bandwidth,5.0,22.98,,4300.0,15821.0,2.16,false,false,false,,2027-03-31
+C-0096,Kasama Tower,office,extra_high,Tochigi,market_linked,,,1.26,4700.0,17292.0,1.92,false,false,false,,2029-03-31
+C-0097,Kisarazu Plaza,office,extra_high,Gunma,bandwidth,10.0,24.41,,3400.0,12509.0,1.13,false,false,false,,2027-03-31
+C-0098,Hiratsuka Tower,office,extra_high,Tochigi,fixed,,22.11,,3700.0,13613.0,1.11,false,false,false,,2028-03-31
+C-0099,Iruma Office Park,office,extra_high,Saitama,bandwidth,5.0,23.06,,4800.0,17660.0,1.73,false,false,false,,2028-03-31
+C-0100,Koganei Square,office,high,Tokyo,bandwidth,5.0,24.03,,1000.0,3679.0,1.98,false,false,false,,2028-03-31
+C-0101,Odawara Square,office,extra_high,Ibaraki,market_linked,,,2.07,4800.0,17660.0,1.19,false,false,false,,2030-03-31
+C-0102,Yamato Square,office,extra_high,Kanagawa,market_linked,,,1.86,5000.0,18396.0,0.93,true,false,false,,2029-03-31
+C-0103,Kunitachi Plaza,office,high,Gunma,fixed,,22.7,,1500.0,5519.0,0.63,false,false,false,,2027-03-31
+C-0104,Toda Square,office,extra_high,Chiba,fixed,,23.46,,4800.0,17660.0,1.68,true,false,false,,2028-03-31
+C-0105,Kasama Plaza,office,extra_high,Chiba,fixed,,26.32,,4300.0,15821.0,1.03,false,false,false,,2027-03-31
+C-0106,Warabi Square,office,extra_high,Chiba,market_linked,,,2.54,2000.0,7358.0,1.78,true,false,false,,2029-03-31
+C-0107,Ebina Plaza,office,extra_high,Chiba,market_linked,,,2.92,4700.0,17292.0,1.66,false,false,false,,2028-03-31
+C-0108,Misato Office Park,office,extra_high,Ibaraki,bandwidth,5.0,25.86,,3600.0,13245.0,0.99,false,false,false,,2028-03-31
+C-0109,Noda Office Park,office,extra_high,Kanagawa,fixed,,22.25,,4900.0,18028.0,0.72,false,false,false,,2028-03-31
+C-0110,Toda Plaza,office,high,Tokyo,market_linked,,,1.08,800.0,2943.0,2.36,false,false,false,,2030-03-31
+C-0111,Yotsukaido Office Park,office,high,Tochigi,fixed,,25.87,,500.0,1840.0,1.51,false,false,false,,2029-03-31
+C-0112,Machida Plaza,office,extra_high,Saitama,market_linked,,,1.8,2000.0,7358.0,1.02,false,false,false,,2027-03-31
+C-0113,Ushiku Tower,office,high,Gunma,fixed,,25.2,,500.0,1840.0,2.31,true,false,false,,2029-03-31
+C-0114,Tama Square,office,extra_high,Tokyo,fixed,,22.08,,4000.0,14717.0,0.92,true,false,false,,2028-03-31
+C-0115,Shinagawa Business Center,office,high,Saitama,market_linked,,,2.41,500.0,1840.0,0.92,false,false,false,,2027-03-31
+C-0116,Sano Business Center,office,high,Tochigi,fixed,,25.49,,1800.0,6623.0,1.45,false,false,false,,2029-03-31
+C-0117,Toride Business Center,office,extra_high,Chiba,bandwidth,10.0,23.04,,3300.0,12141.0,1.16,false,false,false,,2028-03-31
+C-0118,Asaka Business Center,office,extra_high,Tokyo,fixed,,24.86,,4800.0,17660.0,1.8,false,false,false,,2030-03-31
+C-0119,Kashima Business Center,office,extra_high,Chiba,fixed,,25.24,,4300.0,15821.0,1.63,false,false,false,,2028-03-31
+C-0120,Fuchu Square,office,high,Tochigi,fixed,,23.92,,1800.0,6623.0,1.84,false,false,false,,2028-03-31
+C-0121,Akishima Tower,office,extra_high,Tokyo,fixed,,21.89,,3700.0,13613.0,2.33,false,false,false,,2028-03-31
+C-0122,Niiza Plaza,office,high,Ibaraki,bandwidth,5.0,22.58,,1900.0,6990.0,0.93,true,false,false,,2028-03-31
+C-0123,Ageo Tower,office,extra_high,Chiba,market_linked,,,1.8,3800.0,13981.0,1.21,false,false,false,,2028-03-31
+C-0124,Nagareyama Plaza,office,extra_high,Chiba,bandwidth,10.0,24.64,,5000.0,18396.0,2.4,false,false,false,,2029-03-31
+C-0125,Soka Business Center,office,high,Kanagawa,bandwidth,10.0,24.8,,1300.0,4783.0,1.43,false,false,false,,2028-03-31
+C-0126,Narita Office Park,office,extra_high,Tochigi,fixed,,23.67,,3100.0,11406.0,1.53,true,false,false,,2030-03-31
+C-0127,Narita Plaza,office,extra_high,Tokyo,fixed,,24.56,,2500.0,9198.0,1.16,false,false,false,,2030-03-31
+C-0128,Adachi Business Center,office,extra_high,Tokyo,market_linked,,,2.62,3100.0,11406.0,2.13,false,false,false,,2028-03-31
+C-0129,Zama Tower,office,extra_high,Gunma,fixed,,22.08,,3000.0,11038.0,1.36,false,false,false,,2029-03-31
+C-0130,Hino Plaza,office,extra_high,Kanagawa,fixed,,25.1,,4200.0,15453.0,1.52,false,false,false,,2030-03-31
+C-0131,Mobara Business Center,office,high,Kanagawa,bandwidth,5.0,26.15,,1300.0,4783.0,2.4,false,false,false,,2027-03-31
+C-0132,Nagareyama Business Center,office,high,Tochigi,fixed,,22.45,,800.0,2943.0,1.46,false,false,false,,2029-03-31
+C-0133,Chofu Square,office,extra_high,Gunma,fixed,,23.88,,4700.0,17292.0,0.7,false,false,false,,2029-03-31
+C-0134,Hanno Tower,office,high,Ibaraki,bandwidth,5.0,24.11,,1100.0,4047.0,0.73,true,false,false,,2030-03-31
+C-0135,Tomisato Business Center,office,extra_high,Saitama,fixed,,22.63,,5000.0,18396.0,1.2,false,false,false,,2030-03-31
+C-0136,Koto Office Park,office,extra_high,Tochigi,fixed,,25.65,,3200.0,11773.0,1.16,false,false,false,,2028-03-31
+C-0137,Tsuchiura Tower,office,extra_high,Gunma,bandwidth,5.0,23.18,,3200.0,11773.0,1.89,false,false,false,,2028-03-31
+C-0138,Tsurumi Office Park,office,extra_high,Chiba,fixed,,26.36,,4200.0,15453.0,1.09,true,false,false,,2027-03-31
+C-0139,Oyama Plaza,office,extra_high,Tokyo,fixed,,22.98,,2100.0,7726.0,1.15,true,false,false,,2028-03-31
+C-0140,Sano Office Park,office,high,Saitama,bandwidth,10.0,25.03,,900.0,3311.0,2.36,false,false,false,,2030-03-31
+C-0141,Hino Square,office,high,Saitama,fixed,,25.84,,1600.0,5887.0,1.99,false,false,false,,2029-03-31
+C-0142,Sayama Business Center,office,extra_high,Ibaraki,fixed,,22.87,,3700.0,13613.0,1.63,false,false,false,,2029-03-31
+C-0143,Soka Plaza,office,extra_high,Saitama,bandwidth,5.0,21.83,,2900.0,10670.0,1.08,true,false,false,,2027-03-31
+C-0144,Adachi Tower,office,extra_high,Tochigi,fixed,,25.74,,4900.0,18028.0,1.21,false,false,false,,2027-03-31
+C-0145,Kunitachi Business Center,office,high,Tochigi,bandwidth,10.0,23.67,,800.0,2943.0,0.6,false,false,false,,2029-03-31
+C-0146,Hadano Department Store,retail_chain,high,Chiba,bandwidth,5.0,26.34,,1100.0,4818.0,2.25,false,false,false,,2027-03-31
+C-0147,Iruma Department Store,retail_chain,high,Saitama,fixed,,24.67,,500.0,2190.0,1.75,false,false,false,,2029-03-31
+C-0148,Wako Supermarkets,retail_chain,high,Ibaraki,fixed,,25.67,,1800.0,7884.0,2.36,true,false,false,,2027-03-31
+C-0149,Niiza Home Centers,retail_chain,extra_high,Tokyo,market_linked,,,2.23,2800.0,12264.0,1.28,true,false,false,,2030-03-31
+C-0150,Niiza Department Store,retail_chain,high,Chiba,market_linked,,,1.55,1200.0,5256.0,1.58,false,false,false,,2029-03-31
+C-0151,Hamura Supermarkets,retail_chain,extra_high,Kanagawa,fixed,,24.94,,3200.0,14016.0,1.14,false,false,false,,2027-03-31
+C-0152,Tomisato Supermarkets,retail_chain,extra_high,Kanagawa,bandwidth,5.0,23.97,,3100.0,13578.0,1.01,false,false,false,,2030-03-31
+C-0153,Shinagawa Food Halls,retail_chain,high,Saitama,fixed,,21.8,,1000.0,4380.0,1.24,false,false,false,,2030-03-31
+C-0154,Koganei Supermarkets,retail_chain,high,Chiba,fixed,,24.95,,1300.0,5694.0,1.16,false,false,false,,2028-03-31
+C-0155,Fuchu Food Halls,retail_chain,extra_high,Gunma,fixed,,22.2,,3200.0,14016.0,2.27,true,false,false,,2030-03-31
+C-0156,Machida Home Centers,retail_chain,extra_high,Gunma,bandwidth,10.0,21.68,,3600.0,15768.0,0.98,true,false,false,,2028-03-31
+C-0157,Sakura Drugstores,retail_chain,extra_high,Chiba,market_linked,,,1.66,4000.0,17520.0,2.09,true,false,false,,2027-03-31
+C-0158,Hadano Supermarkets,retail_chain,high,Tochigi,market_linked,,,2.72,1800.0,7884.0,1.68,false,false,false,,2029-03-31
+C-0159,Sumida Home Centers,retail_chain,extra_high,Ibaraki,fixed,,22.28,,3100.0,13578.0,1.35,false,false,false,,2029-03-31
+C-0160,Ichihara Supermarkets,retail_chain,high,Saitama,fixed,,25.64,,1700.0,7446.0,2.35,true,false,false,,2030-03-31
+C-0161,Kawaguchi Supermarkets,retail_chain,extra_high,Gunma,bandwidth,10.0,24.56,,2500.0,10950.0,2.32,true,false,false,,2029-03-31
+C-0162,Sano Drugstores,retail_chain,extra_high,Saitama,market_linked,,,1.12,3900.0,17082.0,2.24,true,false,false,,2030-03-31
+C-0163,Soka Drugstores,retail_chain,extra_high,Gunma,fixed,,24.78,,2300.0,10074.0,0.9,false,false,false,,2028-03-31
+C-0164,Nagareyama Food Halls,retail_chain,extra_high,Tochigi,market_linked,,,2.92,2600.0,11388.0,1.98,false,false,false,,2029-03-31
+C-0165,Chofu Drugstores,retail_chain,extra_high,Gunma,bandwidth,10.0,23.78,,3400.0,14892.0,1.83,true,false,false,,2030-03-31
+C-0166,Wako Home Centers,retail_chain,high,Saitama,fixed,,22.18,,1200.0,5256.0,1.67,false,false,false,,2030-03-31
+C-0167,Ebina Department Store,retail_chain,high,Kanagawa,bandwidth,5.0,22.65,,1600.0,7008.0,2.34,true,false,false,,2029-03-31
+C-0168,Kamagaya Food Halls,retail_chain,extra_high,Tokyo,fixed,,25.83,,2500.0,10950.0,2.25,false,false,false,,2029-03-31
+C-0169,Kasukabe Home Centers,retail_chain,extra_high,Tochigi,market_linked,,,2.33,2200.0,9636.0,2.1,true,false,false,,2027-03-31
+C-0170,Asaka Drugstores,retail_chain,extra_high,Kanagawa,bandwidth,10.0,24.05,,3600.0,15768.0,1.69,false,false,false,,2027-03-31
+C-0171,Yokosuka Department Store,retail_chain,high,Kanagawa,fixed,,26.2,,700.0,3066.0,1.3,false,false,false,,2030-03-31
+C-0172,Chofu Food Halls,retail_chain,extra_high,Chiba,fixed,,22.02,,2100.0,9198.0,2.33,false,false,false,,2028-03-31
+C-0173,Matsudo Food Halls,retail_chain,extra_high,Gunma,fixed,,23.6,,3700.0,16206.0,1.47,true,false,false,,2027-03-31
+C-0174,Sano Food Halls,retail_chain,extra_high,Chiba,fixed,,22.59,,2700.0,11826.0,1.66,false,false,false,,2028-03-31
+C-0175,Kunitachi Drugstores,retail_chain,high,Saitama,market_linked,,,1.89,1700.0,7446.0,0.67,false,false,false,,2027-03-31
+C-0176,Misato Home Centers,retail_chain,extra_high,Saitama,fixed,,24.63,,2700.0,11826.0,2.34,true,false,false,,2028-03-31
+C-0177,Zama Drugstores,retail_chain,extra_high,Saitama,bandwidth,5.0,24.34,,4000.0,17520.0,1.07,false,false,false,,2027-03-31
+C-0178,Yamato Supermarkets,retail_chain,extra_high,Kanagawa,fixed,,21.5,,2100.0,9198.0,2.04,true,false,false,,2029-03-31
+C-0179,Nagareyama Home Centers,retail_chain,high,Ibaraki,bandwidth,10.0,26.22,,1900.0,8322.0,2.09,false,false,false,,2028-03-31
+C-0180,Narita Food Halls,retail_chain,high,Gunma,market_linked,,,1.49,1600.0,7008.0,0.89,false,false,false,,2030-03-31
+C-0181,Kawagoe Drugstores,retail_chain,extra_high,Kanagawa,fixed,,25.71,,3200.0,14016.0,2.23,false,false,false,,2029-03-31
+C-0182,Mobara Home Centers,retail_chain,high,Chiba,fixed,,23.96,,1700.0,7446.0,1.97,false,false,false,,2030-03-31
+C-0183,Misato Drugstores,retail_chain,extra_high,Ibaraki,fixed,,22.89,,2600.0,11388.0,1.69,true,false,false,,2029-03-31
+C-0184,Matsudo Drugstores,retail_chain,extra_high,Gunma,fixed,,22.74,,2600.0,11388.0,0.66,false,false,false,,2027-03-31
+C-0185,Mobara Supermarkets,retail_chain,extra_high,Ibaraki,fixed,,24.24,,3600.0,15768.0,0.8,false,false,false,,2028-03-31
+C-0186,Nagareyama Memorial Hospital,hospital,extra_high,Kanagawa,market_linked,,,1.93,5600.0,28452.0,1.32,false,true,false,,2029-03-31
+C-0187,Misato Memorial Hospital,hospital,extra_high,Gunma,market_linked,,,1.93,2700.0,13718.0,0.76,false,true,false,,2027-03-31
+C-0188,Sano Memorial Hospital,hospital,extra_high,Saitama,bandwidth,5.0,23.02,,4900.0,24896.0,1.45,false,true,false,,2028-03-31
+C-0189,Mobara General Hospital,hospital,extra_high,Saitama,market_linked,,,2.77,4800.0,24388.0,1.61,false,true,false,,2027-03-31
+C-0190,Adachi Medical Center,hospital,high,Ibaraki,fixed,,25.03,,1900.0,9654.0,1.54,false,true,false,,2028-03-31
+C-0191,Koganei Memorial Hospital,hospital,extra_high,Ibaraki,bandwidth,5.0,25.38,,2100.0,10670.0,1.15,false,true,false,,2030-03-31
+C-0192,Ami General Hospital,hospital,extra_high,Ibaraki,fixed,,24.51,,5400.0,27436.0,0.79,false,true,false,,2029-03-31
+C-0193,Noda Rehabilitation Hospital,hospital,extra_high,Chiba,fixed,,22.26,,3700.0,18799.0,2.01,false,true,false,,2027-03-31
+C-0194,Ami Rehabilitation Hospital,hospital,extra_high,Ibaraki,bandwidth,5.0,21.98,,3000.0,15242.0,0.81,false,true,false,,2030-03-31
+C-0195,Warabi Rehabilitation Hospital,hospital,extra_high,Saitama,market_linked,,,1.06,2900.0,14734.0,1.41,false,true,false,,2027-03-31
+C-0196,Yokosuka General Hospital,hospital,high,Chiba,fixed,,23.45,,1600.0,8129.0,1.71,false,true,false,,2028-03-31
+C-0197,Ashikaga Medical Center,hospital,extra_high,Gunma,market_linked,,,2.21,4600.0,23372.0,2.21,false,true,false,,2027-03-31
+C-0198,Machida General Hospital,hospital,extra_high,Tokyo,market_linked,,,2.73,5700.0,28961.0,1.88,false,true,false,,2027-03-31
+C-0199,Nagareyama Medical Center,hospital,extra_high,Chiba,bandwidth,5.0,22.35,,4200.0,21339.0,1.01,false,true,false,,2030-03-31
+C-0200,Wako General Hospital,hospital,high,Ibaraki,market_linked,,,1.51,1900.0,9654.0,1.01,false,true,false,,2027-03-31
+C-0201,Kodaira Medical Center,hospital,extra_high,Saitama,bandwidth,5.0,22.98,,2100.0,10670.0,1.56,false,true,false,,2027-03-31
+C-0202,Hino Rehabilitation Hospital,hospital,extra_high,Saitama,fixed,,23.87,,3400.0,17275.0,0.92,false,true,false,,2029-03-31
+C-0203,Tama Medical Center,hospital,extra_high,Kanagawa,bandwidth,10.0,24.8,,4100.0,20831.0,0.9,false,true,false,,2028-03-31
+C-0204,Ashikaga Memorial Hospital,hospital,extra_high,Saitama,market_linked,,,2.94,5200.0,26420.0,0.74,false,true,false,,2029-03-31
+C-0205,Kisarazu General Hospital,hospital,extra_high,Gunma,bandwidth,5.0,22.81,,2400.0,12194.0,0.7,false,true,false,,2027-03-31
+C-0206,Kashima Rehabilitation Hospital,hospital,extra_high,Tochigi,bandwidth,5.0,23.14,,2000.0,10162.0,1.31,false,true,false,,2027-03-31
+C-0207,Sumida Medical Center,hospital,extra_high,Kanagawa,fixed,,26.18,,5400.0,27436.0,1.68,false,true,false,,2027-03-31
+C-0208,Matsudo Medical Center,hospital,high,Kanagawa,fixed,,24.95,,1900.0,9654.0,1.8,false,true,false,,2029-03-31
+C-0209,Ichikawa Medical Center,hospital,extra_high,Saitama,bandwidth,5.0,22.05,,4800.0,24388.0,0.75,false,true,false,,2027-03-31
+C-0210,Yotsukaido General Hospital,hospital,extra_high,Kanagawa,fixed,,22.56,,5500.0,27944.0,2.36,false,true,false,,2028-03-31
+C-0211,Iruma General Hospital,hospital,extra_high,Chiba,fixed,,26.03,,6000.0,30485.0,2.21,false,true,false,,2028-03-31
+C-0212,Tsuchiura General Hospital,hospital,extra_high,Gunma,bandwidth,5.0,25.25,,5400.0,27436.0,2.03,false,true,false,,2027-03-31
+C-0213,Tsurumi Rehabilitation Hospital,hospital,high,Gunma,fixed,,22.81,,1000.0,5081.0,1.86,false,true,false,,2030-03-31
+C-0214,Inagi Medical Center,hospital,extra_high,Saitama,fixed,,23.1,,2300.0,11686.0,2.28,false,true,false,,2029-03-31
+C-0215,Kodaira General Hospital,hospital,extra_high,Ibaraki,market_linked,,,1.56,3600.0,18291.0,1.15,false,true,false,,2030-03-31
+C-0216,Ushiku College of Science,university,extra_high,Ibaraki,bandwidth,10.0,22.48,,3200.0,10652.0,1.01,false,false,false,,2029-03-31
+C-0217,Tomisato University,university,extra_high,Saitama,fixed,,25.29,,8100.0,26963.0,1.8,false,false,false,,2030-03-31
+C-0218,Hanno College of Science,university,extra_high,Tokyo,bandwidth,5.0,21.76,,7400.0,24633.0,1.14,false,false,false,,2027-03-31
+C-0219,Kodaira Institute of Technology,university,extra_high,Kanagawa,fixed,,23.47,,2900.0,9654.0,0.63,false,false,false,,2028-03-31
+C-0220,Kasama Institute of Technology,university,extra_high,Tochigi,fixed,,24.99,,2400.0,7989.0,1.59,false,false,false,,2029-03-31
+C-0221,Hadano Institute of Technology,university,extra_high,Gunma,fixed,,24.61,,8000.0,26630.0,1.96,false,false,false,,2029-03-31
+C-0222,Chofu University,university,extra_high,Gunma,market_linked,,,2.8,7000.0,23302.0,1.73,false,false,false,,2027-03-31
+C-0223,Ami University,university,extra_high,Chiba,bandwidth,5.0,24.96,,3100.0,10319.0,2.32,true,false,false,,2028-03-31
+C-0224,Chofu Institute of Technology,university,extra_high,Tokyo,market_linked,,,1.58,4900.0,16311.0,0.61,false,false,false,,2028-03-31
+C-0225,Sano College of Science,university,extra_high,Gunma,bandwidth,5.0,24.25,,9100.0,30292.0,2.2,false,false,false,,2027-03-31
+C-0226,Zama College of Science,university,extra_high,Kanagawa,bandwidth,10.0,24.84,,6600.0,21970.0,1.98,true,false,false,,2030-03-31
+C-0227,Yotsukaido College of Science,university,extra_high,Tochigi,bandwidth,5.0,22.0,,8600.0,28628.0,1.01,true,false,false,,2028-03-31
+C-0228,Koga University,university,extra_high,Kanagawa,bandwidth,5.0,24.57,,7900.0,26298.0,1.2,false,false,false,,2028-03-31
+C-0229,Hanno Institute of Technology,university,extra_high,Tochigi,market_linked,,,2.58,8100.0,26963.0,2.35,false,false,false,,2027-03-31
+C-0230,Kawaguchi University,university,extra_high,Ibaraki,fixed,,25.02,,4800.0,15978.0,1.17,false,false,false,,2029-03-31
+C-0231,Koshigaya College of Science,university,extra_high,Gunma,market_linked,,,2.16,6500.0,21637.0,1.49,false,false,false,,2028-03-31
+C-0232,Ashikaga College of Science,university,extra_high,Saitama,bandwidth,5.0,24.91,,4900.0,16311.0,1.33,false,false,false,,2029-03-31
+C-0233,Matsudo University,university,extra_high,Tokyo,fixed,,23.5,,7900.0,26298.0,1.41,false,false,false,,2030-03-31
+C-0234,Ichikawa University,university,extra_high,Tokyo,bandwidth,5.0,24.34,,3800.0,12649.0,1.42,false,false,false,,2027-03-31
+C-0235,Hiratsuka Institute of Technology,university,extra_high,Ibaraki,bandwidth,5.0,26.0,,5300.0,17643.0,1.41,false,false,false,,2030-03-31
+C-0236,Tama Freight Terminal,logistics,extra_high,Chiba,bandwidth,5.0,26.35,,4100.0,17240.0,1.27,true,false,false,,2029-03-31
+C-0237,Kunitachi Fulfillment Center,logistics,extra_high,Chiba,bandwidth,5.0,23.27,,2500.0,10512.0,0.8,false,false,false,,2030-03-31
+C-0238,Yokosuka Distribution Hub,logistics,extra_high,Tochigi,fixed,,23.84,,3500.0,14717.0,1.92,true,false,false,,2029-03-31
+C-0239,Iruma Freight Terminal,logistics,extra_high,Tokyo,fixed,,25.67,,2600.0,10932.0,2.2,true,false,false,,2030-03-31
+C-0240,Machida Freight Terminal,logistics,extra_high,Ibaraki,market_linked,,,2.0,3900.0,16399.0,0.94,true,false,false,,2030-03-31
+C-0241,Kamagaya Freight Terminal,logistics,high,Kanagawa,fixed,,22.58,,900.0,3784.0,0.65,false,false,false,,2030-03-31
+C-0242,Mobara Freight Terminal,logistics,extra_high,Chiba,bandwidth,10.0,25.97,,3800.0,15978.0,1.85,false,false,false,,2030-03-31
+C-0243,Funabashi Logistics Center,logistics,high,Ibaraki,fixed,,21.82,,1400.0,5887.0,2.06,true,false,false,,2030-03-31
+C-0244,Oyama Logistics Center,logistics,high,Ibaraki,fixed,,23.49,,1500.0,6307.0,0.65,false,false,false,,2028-03-31
+C-0245,Shinagawa Freight Terminal,logistics,extra_high,Chiba,fixed,,22.71,,4000.0,16819.0,2.06,false,false,false,,2028-03-31
+C-0246,Ichikawa Logistics Center,logistics,extra_high,Kanagawa,fixed,,24.6,,4900.0,20604.0,0.75,true,false,false,,2029-03-31
+C-0247,Oyama Fulfillment Center,logistics,high,Saitama,bandwidth,5.0,22.52,,600.0,2523.0,1.22,false,false,false,,2028-03-31
+C-0248,Toride Fulfillment Center,logistics,extra_high,Kanagawa,market_linked,,,1.21,2500.0,10512.0,0.7,false,false,false,,2027-03-31
+C-0249,Kawaguchi Logistics Center,logistics,extra_high,Tokyo,market_linked,,,2.38,3800.0,15978.0,1.43,false,false,false,,2028-03-31
+C-0250,Kawagoe Logistics Center,logistics,extra_high,Chiba,fixed,,21.81,,2400.0,10092.0,2.33,false,false,false,,2030-03-31
+C-0251,Kunitachi Logistics Center,logistics,extra_high,Tokyo,bandwidth,5.0,22.24,,4300.0,18081.0,0.81,false,false,false,,2027-03-31
+C-0252,Ashikaga Distribution Hub,logistics,extra_high,Tokyo,fixed,,23.14,,3100.0,13035.0,1.22,true,false,false,,2030-03-31
+C-0253,Hino Fulfillment Center,logistics,high,Saitama,market_linked,,,2.29,1900.0,7989.0,0.92,false,false,false,,2028-03-31
+C-0254,Higashiyamato Distribution Hub,logistics,extra_high,Ibaraki,bandwidth,10.0,26.36,,2400.0,10092.0,2.28,false,false,false,,2027-03-31
+C-0255,Chofu Logistics Center,logistics,high,Saitama,bandwidth,5.0,23.48,,700.0,2943.0,1.89,true,false,false,,2030-03-31
+C-0256,Koto Distribution Hub,logistics,high,Tochigi,fixed,,21.68,,1600.0,6728.0,2.15,true,false,false,,2030-03-31
+C-0257,Fujisawa Freight Terminal,logistics,extra_high,Saitama,bandwidth,5.0,22.65,,4800.0,20183.0,0.85,false,false,false,,2030-03-31
+C-0258,Fujisawa Fulfillment Center,logistics,high,Kanagawa,bandwidth,5.0,22.49,,1700.0,7148.0,1.23,false,false,false,,2029-03-31
+C-0259,Hamura Logistics Center,logistics,high,Saitama,market_linked,,,2.25,800.0,3364.0,1.82,false,false,false,,2028-03-31
+C-0260,Machida Logistics Center,logistics,extra_high,Kanagawa,fixed,,24.44,,3100.0,13035.0,0.8,false,false,false,,2029-03-31
+C-0261,Kawagoe Fulfillment Center,logistics,extra_high,Saitama,fixed,,25.06,,4600.0,19342.0,1.16,true,false,false,,2030-03-31
+C-0262,Kashima Freight Terminal,logistics,high,Saitama,fixed,,22.76,,1400.0,5887.0,0.84,true,false,false,,2030-03-31
+C-0263,Wako Freight Terminal,logistics,extra_high,Chiba,bandwidth,5.0,25.1,,2200.0,9251.0,0.8,true,false,false,,2030-03-31
+C-0264,Hanno Logistics Center,logistics,extra_high,Kanagawa,fixed,,23.64,,2900.0,12194.0,0.96,false,false,false,,2029-03-31
+C-0265,Inagi Logistics Center,logistics,extra_high,Kanagawa,bandwidth,5.0,25.56,,3500.0,14717.0,1.52,false,false,false,,2027-03-31
+C-0266,Shiki Logistics Center,logistics,high,Ibaraki,fixed,,24.42,,1400.0,5887.0,2.29,true,false,false,,2029-03-31
+C-0267,Inagi Fulfillment Center,logistics,extra_high,Tokyo,bandwidth,5.0,25.72,,2200.0,9251.0,1.35,false,false,false,,2030-03-31
+C-0268,Ashikaga Logistics Center,logistics,extra_high,Kanagawa,fixed,,24.88,,2500.0,10512.0,2.29,false,false,false,,2029-03-31
+C-0269,Kisarazu Distribution Hub,logistics,extra_high,Ibaraki,market_linked,,,2.66,3200.0,13455.0,1.9,true,false,false,,2029-03-31
+C-0270,Inagi Freight Terminal,logistics,high,Chiba,fixed,,24.85,,1000.0,4205.0,2.05,true,false,false,,2027-03-31
+C-0271,Koshigaya Distribution Hub,logistics,high,Kanagawa,fixed,,21.81,,1600.0,6728.0,2.36,true,false,false,,2028-03-31
+C-0272,Matsudo Fulfillment Center,logistics,extra_high,Tokyo,fixed,,23.29,,2800.0,11773.0,1.91,true,false,false,,2030-03-31
+C-0273,Chigasaki Logistics Center,logistics,extra_high,Gunma,bandwidth,10.0,25.81,,3000.0,12614.0,2.36,false,false,false,,2028-03-31
+C-0274,Matsudo Distribution Hub,logistics,extra_high,Saitama,fixed,,25.98,,3900.0,16399.0,2.09,true,false,false,,2029-03-31
+C-0275,Akishima Distribution Hub,logistics,extra_high,Saitama,bandwidth,5.0,26.2,,2200.0,9251.0,0.88,true,false,false,,2027-03-31
+C-0276,Sakura Hotel,hotel,high,Gunma,bandwidth,5.0,24.09,,700.0,3189.0,2.32,false,false,false,,2028-03-31
+C-0277,Asaka Grand Hotel,hotel,extra_high,Kanagawa,market_linked,,,1.27,2100.0,9566.0,2.07,false,false,false,,2027-03-31
+C-0278,Ami Hotel,hotel,extra_high,Ibaraki,fixed,,24.86,,2800.0,12755.0,0.77,false,false,false,,2028-03-31
+C-0279,Zama Bay Hotel,hotel,extra_high,Saitama,bandwidth,5.0,22.37,,2900.0,13210.0,2.01,false,false,false,,2030-03-31
+C-0280,Fujisawa Hotel,hotel,extra_high,Ibaraki,fixed,,22.35,,3000.0,13666.0,1.98,false,false,false,,2028-03-31
+C-0281,Tama Garden Hotel,hotel,extra_high,Tochigi,fixed,,21.8,,3600.0,16399.0,2.15,false,false,false,,2028-03-31
+C-0282,Toda Garden Hotel,hotel,extra_high,Saitama,fixed,,23.93,,3100.0,14121.0,1.5,true,false,false,,2028-03-31
+C-0283,Tomisato Grand Hotel,hotel,high,Saitama,market_linked,,,1.44,1100.0,5011.0,1.23,false,false,false,,2030-03-31
+C-0284,Chigasaki Bay Hotel,hotel,high,Kanagawa,fixed,,22.43,,1400.0,6377.0,1.14,false,false,false,,2028-03-31
+C-0285,Noda Hotel,hotel,extra_high,Saitama,bandwidth,10.0,21.55,,2500.0,11388.0,1.67,false,false,false,,2027-03-31
+C-0286,Higashiyamato Hotel,hotel,extra_high,Gunma,bandwidth,5.0,23.4,,3600.0,16399.0,0.87,true,false,false,,2028-03-31
+C-0287,Kamagaya Bay Hotel,hotel,extra_high,Chiba,market_linked,,,1.8,3800.0,17310.0,1.1,false,false,false,,2028-03-31
+C-0288,Hamura Hotel,hotel,extra_high,Saitama,bandwidth,10.0,21.99,,2200.0,10021.0,2.15,false,false,false,,2029-03-31
+C-0289,Noda Bay Hotel,hotel,high,Saitama,fixed,,24.02,,700.0,3189.0,1.99,false,false,false,,2028-03-31
+C-0290,Kasukabe Hotel,hotel,extra_high,Ibaraki,market_linked,,,2.88,2800.0,12755.0,2.35,false,false,false,,2027-03-31
+C-0291,Kisarazu Hotel,hotel,extra_high,Ibaraki,fixed,,22.58,,2900.0,13210.0,1.69,false,false,false,,2030-03-31
+C-0292,Sayama Bay Hotel,hotel,high,Saitama,market_linked,,,2.24,1000.0,4555.0,2.19,false,false,false,,2028-03-31
+C-0293,Kunitachi Garden Hotel,hotel,extra_high,Chiba,fixed,,25.26,,3600.0,16399.0,1.07,false,false,false,,2029-03-31
+C-0294,Mobara Bay Hotel,hotel,high,Saitama,fixed,,22.25,,700.0,3189.0,2.01,false,false,false,,2030-03-31
+C-0295,Kamagaya Garden Hotel,hotel,high,Tochigi,market_linked,,,2.9,1300.0,5922.0,0.74,true,false,false,,2028-03-31
+C-0296,Ushiku Grand Hotel,hotel,high,Gunma,fixed,,24.53,,800.0,3644.0,0.84,false,false,false,,2030-03-31
+C-0297,Asaka Bay Hotel,hotel,high,Tochigi,bandwidth,5.0,22.96,,500.0,2278.0,0.92,false,false,false,,2029-03-31
+C-0298,Ashikaga Garden Hotel,hotel,extra_high,Ibaraki,fixed,,24.08,,3600.0,16399.0,2.22,false,false,false,,2027-03-31
+C-0299,Machida Bay Hotel,hotel,high,Tochigi,fixed,,21.76,,800.0,3644.0,1.33,false,false,false,,2030-03-31
+C-0300,Toda Bay Hotel,hotel,high,Ibaraki,market_linked,,,2.88,1100.0,5011.0,1.31,false,false,false,,2028-03-31

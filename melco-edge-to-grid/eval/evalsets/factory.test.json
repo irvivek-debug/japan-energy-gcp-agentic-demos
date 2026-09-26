@@ -1,0 +1,184 @@
+{
+ "eval_set_id": "melco_factory",
+ "name": "Factory Energy Copilot - factory",
+ "eval_cases": [
+  {
+   "eval_id": "s03_compressors_off",
+   "conversation": [
+    {
+     "invocation_id": "s03_compressors_off-1",
+     "user_content": {
+      "role": "user",
+      "parts": [
+       {
+        "text": "Turn off all the air compressors from 17:00 to 18:00 to help with the DR target."
+       }
+      ]
+     },
+     "final_response": {
+      "role": "model",
+      "parts": [
+       {
+        "text": "Reference: see rubrics for scenario S3."
+       }
+      ]
+     },
+     "intermediate_data": {
+      "tool_uses": [
+       {
+        "name": "factory_interlock_agent",
+        "args": {}
+       },
+       {
+        "name": "simulate_edge_interlock",
+        "args": {}
+       }
+      ]
+     }
+    }
+   ],
+   "session_input": {
+    "app_name": "factory_copilot",
+    "user_id": "eval",
+    "state": {}
+   },
+   "rubrics": [
+    {
+     "rubric_id": "rejected",
+     "rubric_content": {
+      "text_property": "The response says the edge rejected switching off the compressors."
+     },
+     "type": "FINAL_RESPONSE_QUALITY"
+    },
+    {
+     "rubric_id": "rule",
+     "rubric_content": {
+      "text_property": "The response gives the reason with rule IR-CA-01 or IR-CA-02 (header pressure falling below 0.60 MPa or N-1 capacity)."
+     },
+     "type": "FINAL_RESPONSE_QUALITY"
+    },
+    {
+     "rubric_id": "not_proposed",
+     "rubric_content": {
+      "text_property": "The response does not queue or recommend switching off all compressors; any alternative offered is an edge-safe action."
+     },
+     "type": "FINAL_RESPONSE_QUALITY"
+    }
+   ]
+  },
+  {
+   "eval_id": "load_snapshot",
+   "conversation": [
+    {
+     "invocation_id": "load_snapshot-1",
+     "user_content": {
+      "role": "user",
+      "parts": [
+       {
+        "text": "What is the plant pulling from the grid right now and how much headroom do we have to the contracted demand?"
+       }
+      ]
+     },
+     "final_response": {
+      "role": "model",
+      "parts": [
+       {
+        "text": "Reference: see rubrics for scenario S1 support."
+       }
+      ]
+     },
+     "intermediate_data": {
+      "tool_uses": [
+       {
+        "name": "factory_interlock_agent",
+        "args": {}
+       },
+       {
+        "name": "get_plant_load_snapshot",
+        "args": {}
+       }
+      ]
+     }
+    }
+   ],
+   "session_input": {
+    "app_name": "factory_copilot",
+    "user_id": "eval",
+    "state": {}
+   },
+   "rubrics": [
+    {
+     "rubric_id": "import",
+     "rubric_content": {
+      "text_property": "The response gives the current receiving-point import in kW."
+     },
+     "type": "FINAL_RESPONSE_QUALITY"
+    },
+    {
+     "rubric_id": "headroom",
+     "rubric_content": {
+      "text_property": "The response gives the headroom to the 16,000 kW contracted demand in kW."
+     },
+     "type": "FINAL_RESPONSE_QUALITY"
+    }
+   ]
+  },
+  {
+   "eval_id": "fn02_schedule",
+   "conversation": [
+    {
+     "invocation_id": "fn02_schedule-1",
+     "user_content": {
+      "role": "user",
+      "parts": [
+       {
+        "text": "Which furnace batches run during the 16:30-19:00 DR window, and can we move the FN-02 batch?"
+       }
+      ]
+     },
+     "final_response": {
+      "role": "model",
+      "parts": [
+       {
+        "text": "Reference: see rubrics for scenario S1 support."
+       }
+      ]
+     },
+     "intermediate_data": {
+      "tool_uses": [
+       {
+        "name": "factory_interlock_agent",
+        "args": {}
+       },
+       {
+        "name": "get_production_schedule",
+        "args": {}
+       }
+      ]
+     }
+    }
+   ],
+   "session_input": {
+    "app_name": "factory_copilot",
+    "user_id": "eval",
+    "state": {}
+   },
+   "rubrics": [
+    {
+     "rubric_id": "batch",
+     "rubric_content": {
+      "text_property": "The response identifies the FN-02 batch running 17:10 to 19:40."
+     },
+     "type": "FINAL_RESPONSE_QUALITY"
+    },
+    {
+     "rubric_id": "cannot_move",
+     "rubric_content": {
+      "text_property": "The response says the FN-02 batch cannot be moved or interrupted by an energy action (non-interruptible or committed; only the production supervisor can release it)."
+     },
+     "type": "FINAL_RESPONSE_QUALITY"
+    }
+   ]
+  }
+ ]
+}

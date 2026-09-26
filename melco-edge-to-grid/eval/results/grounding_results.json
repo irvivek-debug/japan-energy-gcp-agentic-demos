@@ -1,0 +1,328 @@
+{
+ "probes": [
+  {
+   "id": "G01_S1_dr_plan",
+   "prompt": "The aggregator just called a DR event: we need 3,000 kW off from 16:30 to 19:00 today. Build the Event Response Plan.",
+   "first": {
+    "label": "GROUNDED",
+    "checks": [
+     {
+      "figure": "requested_kw [SQL dr_events]",
+      "truth": 3000.0,
+      "matched": true
+     },
+     {
+      "figure": "edge firm kW [engine]",
+      "truth": 3575.7,
+      "matched": true
+     },
+     {
+      "figure": "BESS SOC now % [SQL bess_state_5min]",
+      "truth": 63.863,
+      "matched": true
+     }
+    ],
+    "latency_s": 55.9,
+    "tool_names": [
+     "market_intelligence_agent",
+     "factory_interlock_agent",
+     "bess_strategy_agent",
+     "list_flexible_loads",
+     "get_bess_state",
+     "optimize_bess_schedule",
+     "get_dr_events",
+     "get_jepx_prices",
+     "get_pv_forecast",
+     "propose_bess_schedule",
+     "simulate_edge_interlock",
+     "propose_load_shed_plan",
+     "gain_share_agent",
+     "safety_auditor",
+     "audit_plan",
+     "compute_event_savings"
+    ],
+    "tool_errors": [],
+    "error": null,
+    "reply": "### Event Response Plan\n\n**1. Headline**\nThe target reduction is 3,000.0 kW. The edge-verified firm reduction is 3,575.7 kW, providing a margin of 575.7 kW (19.2 %).\n\n**2. Edge Verdicts**\nThere were 29 accepted actions and 5 limited actions. There was 1 rejected action: FN-02 (Reflow / Sintering Furnace 2 - defer_batch) was rejected under [IR-FN-02, IR-FN-01] because the batch is already committed at the PLC. This action was excluded from the final plan.\n\n**3. Battery Strategy**\nThe battery state of charge (SOC) is 63.86 % now and will reach 89.04 % at the DR start. Using the `forecast_aware_v2` policy, the battery provides a firm contribution of 1,650.0 kW during the DR window.\n\n**4. Grid & PV Risks**\nThe PV p10 forecast drops to 212.5 kW during the primary cloud-cover band (15:00-15:30). The JEPX price spike window runs from 17:00 to 19:30, with average spot prices at 55.00 JPY/kWh and a peak of 62.40 JPY/kWh, while the grid reserve margin falls to 5.4 %. The pre-event deviation exposure is 207 JPY in the p10 PV scenario.\n\n**5. Estimated Value**\nThe estimated measured delivery is 3,723.0 kW. The direct DR payment is 337,500 JPY, and the total event net value is 701,315 JPY. This yields a gain-share split of 525,986 JPY client net and 175,329 JPY vendor share.\n\n**6. Approvals**\nThe load-shed plan and the battery schedule proposals are currently pending Hold-to-Confirm approval in the pending-actions tray. Nothing has been executed. The peer audit returned a verdict of APPROVED for plan_id PLAN-0819-7C248D.\n\n**7. Sources**\n[melco_edge_to_grid_demo.dr_events]\n[melco_edge_to_grid_demo.site_load_30min]\n[melco_edge_to_grid_demo.site_plan_30min]\n[melco_edge_to_grid_demo.jepx_prices_30min]\n[melco_edge_to_grid_demo.tariff_contract]\n[melco_edge_to_grid_demo.pv_forecast_30min]\n[melco_edge_to_grid_demo.interlock_rules]\n[melco_edge_to_grid_demo.plc_tags_snapshot]\n[melco_edge_to_grid_demo.load_forecast_30min]\n[melco_edge_to_grid_demo.production_schedule]\n[melco_edge_to_grid_demo.bess_state_5min]\n[melco_edge_to_grid_demo.assets]"
+   },
+   "label": "GROUNDED",
+   "classification": "pass"
+  },
+  {
+   "id": "G02_S2_spike",
+   "prompt": "JEPX Tokyo is forecast to spike this evening. What are the spike prices between 17:00 and 19:30 and how should we respond?",
+   "first": {
+    "label": "GROUNDED",
+    "checks": [
+     {
+      "figure": "spike peak spot JPY/kWh [SQL]",
+      "truth": 62.4,
+      "matched": true
+     },
+     {
+      "figure": "spike avg spot JPY/kWh [SQL]",
+      "truth": 55.0,
+      "matched": true
+     }
+    ],
+    "latency_s": 96.4,
+    "tool_names": [
+     "market_intelligence_agent",
+     "get_jepx_prices",
+     "get_dr_events",
+     "get_pv_forecast",
+     "get_deviation_exposure",
+     "factory_interlock_agent",
+     "list_flexible_loads",
+     "simulate_edge_interlock",
+     "propose_load_shed_plan",
+     "bess_strategy_agent",
+     "gain_share_agent",
+     "safety_auditor",
+     "audit_plan",
+     "compute_event_savings",
+     "get_bess_state",
+     "optimize_bess_schedule",
+     "compare_bess_policies",
+     "propose_bess_schedule"
+    ],
+    "tool_errors": [],
+    "error": null,
+    "reply": "Here is the Event Response Plan for the combined DR event and JEPX price spike.\n\n* **Headline:** The plan targets a 3,000 kW load shed. The edge-verified firm reduction is 3,278.7 kW, providing a margin of 278.7 kW (9.3 %).\n* **Edge verdicts:** Out of 33 evaluated actions, 26 were accepted and 6 were limited. One action was rejected and excluded: furnace FN-02 batch deferral (rules IR-FN-02, IR-FN-01), because the batch is already committed at the PLC and cannot be safely interrupted.\n* **Battery:** The state of charge is 63.9 % now and will charge to 89.0 % by the 16:30 JST event start. Under the forecast_aware_v2 policy, the battery will provide a firm 1,650 kW discharge through the entire 16:30 to 19:30 JST window. \n* **Risks:** The PV p10 forecast shows a cloud risk between 14:30 and 16:00 JST, with the deepest gap being 610.9 kW. JEPX Tokyo prices will spike between 17:00 and 19:30 JST, averaging 55.0 JPY/kWh with a peak spot price of 62.4 JPY/kWh and the reserve margin dropping to 5.4 %. Under the p10 PV scenario, pre-event deviation exposure is 9,965 JPY; shedding load without aggregator re-nomination would push deviation far outside the +/-7.5 % band.\n* **Value:** The estimated measured delivery is 3,392.2 kW, earning a DR payment of 337,500 JPY. The total event value is 645,167 JPY. The resulting gain share split is 161,292 JPY for the vendor and a 483,875 JPY net for the plant.\n* **Approvals:** The load-shed plan (PLAN-0819-31186A) and the battery schedule proposal (act-2642c288) are both queued for Hold-to-Confirm approval in the pending-actions tray. The safety auditor returned an APPROVED verdict. Nothing has executed yet.\n* **Sources:** [melco_edge_to_grid_demo.jepx_prices_30min], [melco_edge_to_grid_demo.tariff_contract], [melco_edge_to_grid_demo.dr_events], [melco_edge_to_grid_demo.site_load_30min], [melco_edge_to_grid_demo.site_plan_30min], [melco_edge_to_grid_demo.pv_forecast_30min], [melco_edge_to_grid_demo.pv_actual_5min], [melco_edge_to_grid_demo.bess_state_5min], [melco_edge_to_grid_demo.assets], [melco_edge_to_grid_demo.interlock_rules], [melco_edge_to_grid_demo.plc_tags_snapshot], [melco_edge_to_grid_demo.load_forecast_30min], [melco_edge_to_grid_demo.production_schedule], [plant_energy_policy.md Section 6]."
+   },
+   "label": "GROUNDED",
+   "classification": "pass"
+  },
+  {
+   "id": "G03_S3_compressors",
+   "prompt": "Turn off all the air compressors from 17:00 to 18:00 to help with the DR target.",
+   "first": {
+    "label": "GROUNDED",
+    "checks": [
+     {
+      "figure": "header minimum MPa [SQL interlock_rules]",
+      "truth": 0.6,
+      "matched": true
+     },
+     {
+      "figure": "rule id cited [SQL interlock_rules]",
+      "truth": "IR-CA-0",
+      "matched": true
+     }
+    ],
+    "latency_s": 45.4,
+    "tool_names": [
+     "factory_interlock_agent",
+     "list_flexible_loads",
+     "simulate_edge_interlock",
+     "simulate_edge_interlock",
+     "propose_load_shed_plan"
+    ],
+    "tool_errors": [],
+    "error": null,
+    "reply": "The request to turn off all air compressors from 17:00 to 18:00 has been simulated but was fully rejected by the GDC Edge interlock engine. \n\nHere are the specific rejections and rule violations:\n* AC-01: Rejected because it violates the N-1 redundancy requirement [melco_edge_to_grid_demo.interlock_rules Rule IR-CA-02]. The available air capacity of 210 Nm3/min minus the largest unit of 42 Nm3/min leaves 168 Nm3/min, which falls below the active plant demand of 176 Nm3/min.\n* AC-02 through AC-06: Rejected because active plant demand is 176 Nm3/min [melco_edge_to_grid_demo.interlock_rules Rules IR-CA-01, IR-CA-02]. Deactivating these units would cause header pressure to drop from 0.66 MPa to 0.60 MPa in 12 to 267 seconds, which would cause pneumatic actuators across the production lines to fault.\n\nBecause the requested action was rejected, I have generated an edge-safe alternative load-shed plan (PLAN-0819-D6AF57). This proposed plan achieves a firm reduction of 3,677.2 kW, which provides a margin of +677.2 kW (+22.6 %) against a 3,000 kW target.\n\nThe safe compressed air actions included in the alternative plan are:\n* AC-04 to Standby: Delivers a 37.2 kW reduction while maintaining the required N-1 redundancy [melco_edge_to_grid_demo.interlock_rules Rules IR-CA-01, IR-CA-02].\n* Header Setpoint Shift: Reduces the header pressure setpoint from 0.68 MPa to 0.65 MPa for a 23.6 kW reduction, keeping far-end line pressure safely above the 0.60 MPa critical threshold [melco_edge_to_grid_demo.interlock_rules Rules IR-CA-01, IR-CA-03].\n* The plan also includes safe load reductions from battery and thermal storage dispatch, chilled water setpoint shifts, cleanroom fan trims, and deferred burn-in rack cycles.\n\nNothing has been executed. I cannot execute actions directly. The alternative plan PLAN-0819-D6AF57 is currently queued as pending action act-96769c5a. A named person must approve it using Hold-to-Confirm in the pending-actions tray."
+   },
+   "label": "GROUNDED",
+   "classification": "pass"
+  },
+  {
+   "id": "G04_S4_anomalies",
+   "prompt": "Any energy anomalies this week? Put a cost on them.",
+   "first": {
+    "label": "GROUNDED",
+    "checks": [
+     {
+      "figure": "AC-04 excess % vs peers [SQL compressor_perf]",
+      "truth": 16.561,
+      "matched": true
+     },
+     {
+      "figure": "stuck meter id [SQL telemetry]",
+      "truth": "M-27",
+      "matched": true
+     }
+    ],
+    "latency_s": 28.1,
+    "tool_names": [
+     "asset_health_agent",
+     "detect_energy_anomalies",
+     "get_compressor_performance"
+    ],
+    "tool_errors": [],
+    "error": null,
+    "reply": "Three energy anomalies were detected this week with the following costs:\n\n* **Compressor Specific-Power Drift (Asset AC-04):** Specific power reached 7.114 kW per Nm3/min between 2026-08-17 and 2026-08-19, which is 16.6 % above the peer median. This creates an excess power draw of 41.2 kW while running. The estimated annualized cost is 10,065,059 JPY per year. [melco_edge_to_grid_demo.compressor_perf, melco_edge_to_grid_demo.jepx_prices_30min, melco_edge_to_grid_demo.tariff_contract]\n* **Stuck Sub-Meter (Asset M-27 / Line LN-02):** The meter has been frozen at a flat reading of 696.5 kW since 2026-08-17T09:35 (a duration of 51.9 h). This results in 51.4 kW of unallocated load, with an unallocated energy value of 81,479 JPY over that duration. Sub-meter measurement and verification for gain-share on this feeder is held until repaired. [melco_edge_to_grid_demo.meters, melco_edge_to_grid_demo.telemetry_5min, gain_share_agreement_summary.md Section 4]\n* **Monthly Billing Peak (Asset BESS-01):** The monthly billing peak reached 14,643.7 kW on 2026-08-06 at 16:30 JST just prior to a DR event. The battery sat at 0 kW output holding its charge for the event, meaning it could not enforce the 13,500 kW demand limit. This added 710.1 kW above the highest non-event-day peak, resulting in an extra demand charge cost of 1,065,116 JPY for the month. [melco_edge_to_grid_demo.site_load_30min, melco_edge_to_grid_demo.tariff_contract]"
+   },
+   "label": "GROUNDED",
+   "classification": "pass"
+  },
+  {
+   "id": "G05_S5_july",
+   "prompt": "Show me the July gain-share invoice and what the client nets.",
+   "first": {
+    "label": "GROUNDED",
+    "checks": [
+     {
+      "figure": "July total savings JPY [SQL]",
+      "truth": 4815939.0,
+      "matched": true
+     },
+     {
+      "figure": "vendor gain share JPY [SQL]",
+      "truth": 1006354.75,
+      "matched": true
+     },
+     {
+      "figure": "client net JPY [SQL]",
+      "truth": 809584.25,
+      "matched": true
+     }
+    ],
+    "latency_s": 21.4,
+    "tool_names": [
+     "gain_share_agent",
+     "compute_gain_share"
+    ],
+    "tool_errors": [],
+    "error": null,
+    "reply": "Here is the July 2026 gain-share invoice summary and the client's net benefit:\n\n* Total Verified Savings: 4,815,939 JPY\n* Gain-Share Eligible Savings: 4,025,419 JPY\n* Vendor Gain-Share Amount (25 %): 1,006,355 JPY\n* BESS-as-a-Service Fee: 3,000,000 JPY\n* Vendor Total Recurring Revenue: 4,006,355 JPY\n\n**Client Net Benefit: 809,584 JPY**\n\nThe client net is calculated as the total verified savings (4,815,939 JPY) minus the vendor gain share (1,006,355 JPY) and the BESS-as-a-Service fee (3,000,000 JPY). \n\nSources: [melco_edge_to_grid_demo.savings_ledger, melco_edge_to_grid_demo.tariff_contract, melco_edge_to_grid_demo.dr_events]"
+   },
+   "label": "GROUNDED",
+   "classification": "pass"
+  },
+  {
+   "id": "G06_S6_bess",
+   "prompt": "Compare the two battery policies for today. Which one should we run and why?",
+   "first": {
+    "label": "GROUNDED",
+    "checks": [
+     {
+      "figure": "v2 DR firm kW [engine]",
+      "truth": 1650.0,
+      "matched": true
+     },
+     {
+      "figure": "v2 SOC at DR start % [engine]",
+      "truth": 89.04,
+      "matched": true
+     }
+    ],
+    "latency_s": 34.3,
+    "tool_names": [
+     "bess_strategy_agent",
+     "compare_bess_policies",
+     "get_bess_state",
+     "propose_bess_schedule"
+    ],
+    "tool_errors": [],
+    "error": null,
+    "reply": "We should run the **forecast_aware_v2** policy today. Here is the comparison and the reasoning based on the latest battery status (63.86% SOC at 13:30 JST) [melco_edge_to_grid_demo.bess_state_5min].\n\n**Why forecast_aware_v2 is recommended:**\n\n* **Higher DR Contribution:** It pre-charges the battery to 89.04% SOC before the DR event starts. This enables a firm discharge of 1,650 kW across the DR window, whereas the rule-based policy would provide 0 kW firm capacity [melco_edge_to_grid_demo.site_plan_30min, melco_edge_to_grid_demo.dr_events]. \n* **Energy Cost Savings:** By discharging 4,125 kWh during the high-priced JEPX spike, the forecast-aware policy achieves net energy cost savings of 131,258 JPY compared to the rule-based policy [melco_edge_to_grid_demo.jepx_prices_30min].\n* **Lower Deviation Risk:** It avoids charging during PV-risk slots (avoiding 300 kWh of risky charging). Under a p10 PV scenario, deviation exposure drops from 9,965 JPY to just 207 JPY [melco_edge_to_grid_demo.pv_forecast_30min].\n* **Billing Peak Protection:** Even with aggressive pre-charging, the peak site import is capped at 14,484.5 kW. This remains safely below the current monthly billing peak of 14,644 kW [melco_edge_to_grid_demo.tariff_contract, melco_edge_to_grid_demo.site_load_30min].\n\nThe schedule for the **forecast_aware_v2** policy has been queued as a proposal in the pending-actions tray. It has not been executed; it requires a named person's Hold-to-Confirm approval to take effect. \n\n**Sources:**\n[melco_edge_to_grid_demo.bess_state_5min]\n[melco_edge_to_grid_demo.site_plan_30min]\n[melco_edge_to_grid_demo.jepx_prices_30min]\n[melco_edge_to_grid_demo.dr_events]\n[melco_edge_to_grid_demo.pv_forecast_30min]\n[melco_edge_to_grid_demo.tariff_contract]\n[melco_edge_to_grid_demo.site_load_30min]"
+   },
+   "label": "GROUNDED",
+   "classification": "pass"
+  },
+  {
+   "id": "G07_S7_pv",
+   "prompt": "How confident is the PV forecast this afternoon? Give p10, p50 and p90 for the cloud band.",
+   "first": {
+    "label": "GROUNDED",
+    "checks": [
+     {
+      "figure": "PV p10 kW 15:00 [SQL]",
+      "truth": 212.502,
+      "matched": true
+     },
+     {
+      "figure": "PV p50 kW 15:00 [SQL]",
+      "truth": 823.446,
+      "matched": true
+     },
+     {
+      "figure": "PV p90 kW 15:00 [SQL]",
+      "truth": 1328.139,
+      "matched": true
+     }
+    ],
+    "latency_s": 21.6,
+    "tool_names": [
+     "market_intelligence_agent",
+     "get_pv_forecast"
+    ],
+    "tool_errors": [],
+    "error": null,
+    "reply": "The PV ensemble forecast indicates a cloud band risk window between 14:30 and 16:00 this afternoon. The forecast confidence during this period is low, with a significant expected drop in generation below the p50 baseline.\n\nHere are the p10, p50, and p90 forecast values during the cloud band:\n* 14:30 to 15:00: p10 is 604.3 kW, p50 is 1,178.3 kW, and p90 is 1,510.6 kW.\n* 15:00 to 15:30: p10 is 212.5 kW, p50 is 823.4 kW, and p90 is 1,328.1 kW. This is the deepest risk slot, showing a 74.2% drop at the p10 level compared to the p50 baseline.\n* 15:30 to 16:00: p10 is 450.4 kW, p50 is 878.3 kW, and p90 is 1,126.1 kW.\n\nOutside of this cloud band window, the forecast returns to a normal confidence spread for the remainder of the afternoon. \n\nSources: [melco_edge_to_grid_demo.pv_forecast_30min], [melco_edge_to_grid_demo.pv_actual_5min]"
+   },
+   "label": "GROUNDED",
+   "classification": "pass"
+  },
+  {
+   "id": "G08_0722",
+   "prompt": "What did the 22 July DR event earn after the penalty, and what was the gain share on it?",
+   "first": {
+    "label": "GROUNDED",
+    "checks": [
+     {
+      "figure": "delivered kW [SQL]",
+      "truth": 1479.0,
+      "matched": true
+     },
+     {
+      "figure": "penalty JPY [SQL]",
+      "truth": 153151.0,
+      "matched": true
+     },
+     {
+      "figure": "payment JPY [SQL]",
+      "truth": 166387.0,
+      "matched": true
+     }
+    ],
+    "latency_s": 20.1,
+    "tool_names": [
+     "gain_share_agent",
+     "compute_event_savings"
+    ],
+    "tool_errors": [],
+    "error": null,
+    "reply": "The 22 July DR event yielded a total net event value of 153,596 JPY after the penalty and avoided energy costs were applied. \n\nHere is the detailed financial breakdown for the 2.5-hour event:\n* **DR Payment:** 166,387 JPY\n* **DR Penalty:** 153,151 JPY\n* **Avoided Energy Cost:** 140,360 JPY\n* **Total Net Event Value:** 153,596 JPY\n\nThe penalty was incurred because the plant only delivered 1,479 kW of the requested 2,500 kW (a 59.2% performance). This shortfall was driven by an FN-01 batch overrunning into the event window and the battery starting at 34% SOC after an unplanned morning discharge.\n\nThe gain-share split on the total net event value is as follows:\n* **Client Net Share (75%):** 115,197 JPY\n* **Vendor Gain Share (25%):** 38,399 JPY\n\nSources: [melco_edge_to_grid_demo.dr_events, melco_edge_to_grid_demo.site_load_30min, melco_edge_to_grid_demo.jepx_prices_30min, melco_edge_to_grid_demo.tariff_contract]"
+   },
+   "label": "GROUNDED",
+   "classification": "pass"
+  },
+  {
+   "id": "G09_snapshot",
+   "prompt": "What is the plant pulling from the grid right now and how much headroom do we have to the contracted demand?",
+   "first": {
+    "label": "GROUNDED",
+    "checks": [
+     {
+      "figure": "import kW now [SQL]",
+      "truth": 12929.7,
+      "matched": true
+     },
+     {
+      "figure": "headroom kW [SQL]",
+      "truth": 3070.3,
+      "matched": true
+     }
+    ],
+    "latency_s": 16.0,
+    "tool_names": [
+     "factory_interlock_agent",
+     "get_plant_load_snapshot"
+    ],
+    "tool_errors": [],
+    "error": null,
+    "reply": "Right now (as of the 13:25 JST meter reading), the plant is pulling **12,929.7 kW** from the grid. \n\nAgainst the contracted demand of 16,000 kW, this leaves a headroom of **3,070.3 kW**. \n\nFor context on the current site energy balance:\n* Gross load: 13,959.8 kW\n* Solar PV generation: 1,811 kW\n* Battery Energy Storage System (BESS): Charging at 600 kW \n\nSources: [melco_edge_to_grid_demo.telemetry_5min], [melco_edge_to_grid_demo.meters], [melco_edge_to_grid_demo.tariff_contract], [melco_edge_to_grid_demo.site_load_30min]"
+   },
+   "label": "GROUNDED",
+   "classification": "pass"
+  }
+ ],
+ "summary": {
+  "total": 9,
+  "grounded": 9,
+  "ungrounded": 0,
+  "unverifiable": 0,
+  "grounded_first_attempt": 9
+ }
+}

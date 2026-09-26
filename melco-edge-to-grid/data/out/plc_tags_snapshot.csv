@@ -1,0 +1,83 @@
+ts,asset_id,plc_tag,tag_name,value,unit,note
+2026-08-19T13:30,COMP-HDR,iQR-UTIL2/D5100,header_pressure_mpa,0.66,MPa,Measured at the header
+2026-08-19T13:30,COMP-HDR,iQR-UTIL2/D5102,header_setpoint_mpa,0.68,MPa,Cascade controller setpoint
+2026-08-19T13:30,COMP-HDR,iQR-UTIL2/D5104,air_demand_nm3min,176.0,Nm3/min,Plant air demand
+2026-08-19T13:30,COMP-HDR,iQR-UTIL2/D5106,system_volume_m3,60.0,m3,Receivers plus header
+2026-08-19T13:30,COMP-HDR,iQR-UTIL2/D5108,far_end_drop_mpa,0.03,MPa,Pressure drop to the far end of the header
+2026-08-19T13:30,AC-01,iQR-UTIL2/D5010,flow_nm3min,40.74,Nm3/min,running
+2026-08-19T13:30,AC-01,iQR-UTIL2/D5011,capacity_nm3min,42.0,Nm3/min,
+2026-08-19T13:30,AC-01,iQR-UTIL2/D5012,specific_power,5.99,kW/(Nm3/min),
+2026-08-19T13:30,AC-02,iQR-UTIL2/D5020,flow_nm3min,40.74,Nm3/min,running
+2026-08-19T13:30,AC-02,iQR-UTIL2/D5021,capacity_nm3min,42.0,Nm3/min,
+2026-08-19T13:30,AC-02,iQR-UTIL2/D5022,specific_power,6.09,kW/(Nm3/min),
+2026-08-19T13:30,AC-03,iQR-UTIL2/D5030,flow_nm3min,40.74,Nm3/min,running
+2026-08-19T13:30,AC-03,iQR-UTIL2/D5031,capacity_nm3min,42.0,Nm3/min,
+2026-08-19T13:30,AC-03,iQR-UTIL2/D5032,specific_power,6.143,kW/(Nm3/min),
+2026-08-19T13:30,AC-04,iQR-UTIL2/D5040,flow_nm3min,40.74,Nm3/min,running
+2026-08-19T13:30,AC-04,iQR-UTIL2/D5041,capacity_nm3min,42.0,Nm3/min,
+2026-08-19T13:30,AC-04,iQR-UTIL2/D5042,specific_power,7.161,kW/(Nm3/min),
+2026-08-19T13:30,AC-05,iQR-UTIL2/D5050,flow_nm3min,13.04,Nm3/min,running
+2026-08-19T13:30,AC-05,iQR-UTIL2/D5051,capacity_nm3min,42.0,Nm3/min,
+2026-08-19T13:30,AC-05,iQR-UTIL2/D5052,specific_power,6.769,kW/(Nm3/min),
+2026-08-19T13:30,AC-06,iQR-UTIL2/D5060,flow_nm3min,0.0,Nm3/min,standby (auto-start ready)
+2026-08-19T13:30,AC-06,iQR-UTIL2/D5061,capacity_nm3min,42.0,Nm3/min,
+2026-08-19T13:30,AC-06,iQR-UTIL2/D5062,specific_power,0.0,kW/(Nm3/min),
+2026-08-19T13:30,CR-AHU-01,iQR-HVAC1/D2011,airflow_pct,100.0,% of design,
+2026-08-19T13:30,CR-AHU-01,iQR-HVAC1/D2012,min_airflow_pct,100.0,% of design,Production zone: product exposed
+2026-08-19T13:30,CR-AHU-02,iQR-HVAC1/D2021,airflow_pct,100.0,% of design,
+2026-08-19T13:30,CR-AHU-02,iQR-HVAC1/D2022,min_airflow_pct,100.0,% of design,Production zone: product exposed
+2026-08-19T13:30,CR-AHU-03,iQR-HVAC1/D2031,airflow_pct,100.0,% of design,
+2026-08-19T13:30,CR-AHU-03,iQR-HVAC1/D2032,min_airflow_pct,100.0,% of design,Production zone: product exposed
+2026-08-19T13:30,CR-AHU-04,iQR-HVAC1/D2041,airflow_pct,100.0,% of design,
+2026-08-19T13:30,CR-AHU-04,iQR-HVAC1/D2042,min_airflow_pct,100.0,% of design,Production zone: product exposed
+2026-08-19T13:30,CR-AHU-05,iQR-HVAC1/D2051,airflow_pct,96.0,% of design,
+2026-08-19T13:30,CR-AHU-05,iQR-HVAC1/D2052,min_airflow_pct,85.0,% of design,Support zone
+2026-08-19T13:30,CR-AHU-06,iQR-HVAC1/D2061,airflow_pct,96.0,% of design,
+2026-08-19T13:30,CR-AHU-06,iQR-HVAC1/D2062,min_airflow_pct,85.0,% of design,Support zone
+2026-08-19T13:30,TES-01,iQR-UTIL1/D4101,tes_soc_pct,85.0,%,Stratified tank charge
+2026-08-19T13:30,TES-01,iQR-UTIL1/D4102,tes_capacity_kwh_th,14000.0,kWh-th,
+2026-08-19T13:30,CHW-PLANT,iQR-UTIL1/D4001,chw_supply_temp_c,7.0,C,
+2026-08-19T13:30,CHW-PLANT,iQR-UTIL1/D4003,chillers_running,4.0,count,
+2026-08-19T13:30,CHW-PLANT,iQR-UTIL1/D4005,cop,5.192,,Plant COP at current wet-bulb
+2026-08-19T13:30,FN-01,iQR-FN1/D6011,batch_active,1.0,bool,Batch 13:40-16:10
+2026-08-19T13:30,FN-01,iQR-FN1/D6013,batch_committed,0.0,bool,Next batch 19:20 not yet committed
+2026-08-19T13:30,FN-01,iQR-FN1/D6015,next_batch_start_min,1160.0,min of day,19:20
+2026-08-19T13:30,FN-01,iQR-FN1/D6017,reheat_lead_min,90.0,min,Standby to process temperature
+2026-08-19T13:30,FN-02,iQR-FN2/D6021,batch_active,0.0,bool,Holding between batches
+2026-08-19T13:30,FN-02,iQR-FN2/D6023,batch_committed,1.0,bool,Sinter paste printed 13:05 for the 17:10 batch; recipe loaded
+2026-08-19T13:30,FN-02,iQR-FN2/D6025,committed_batch_start_min,1030.0,min of day,17:10
+2026-08-19T13:30,FN-02,iQR-FN2/D6027,committed_batch_end_min,1180.0,min of day,19:40
+2026-08-19T13:30,FN-03,iQR-FN3/D6031,batch_active,0.0,bool,"Idle, awaiting substrates"
+2026-08-19T13:30,FN-03,iQR-FN3/D6033,next_batch_start_min,1230.0,min of day,20:30
+2026-08-19T13:30,FN-03,iQR-FN3/D6035,reheat_lead_min,90.0,min,Standby to process temperature
+2026-08-19T13:30,WW-PIT,iQR-WWT1/D9001,pit_level_pct,42.0,%,
+2026-08-19T13:30,WW-PIT,iQR-WWT1/D9003,minutes_to_high_alarm_no_pumping,75.0,min,At the current inflow
+2026-08-19T13:30,OF-ZONE,iQR-BMS1/D3001,zone_setpoint_c,26.0,C,Office zones
+2026-08-19T13:30,LT-ZONE,iQR-BMS1/D3101,dim_level_pct,100.0,%,
+2026-08-19T13:30,BESS-01,iQR-BESS1/D9501,soc_pct,63.863,%,
+2026-08-19T13:30,BESS-01,iQR-BESS1/D9503,cell_temp_c,30.8,C,
+2026-08-19T13:30,PLANT,iQR-PLANT/D100,max_step_kw_per_min,2500.0,kW/min,Sequencing limit for aggregate load steps
+2026-08-19T13:30,BI-01,iQR-TEST1/D8011,cycle_running,0.0,bool,
+2026-08-19T13:30,BI-01,iQR-TEST1/D8013,next_cycle_start_min,840.0,min of day,
+2026-08-19T13:30,BI-02,iQR-TEST1/D8021,cycle_running,0.0,bool,
+2026-08-19T13:30,BI-02,iQR-TEST1/D8023,next_cycle_start_min,870.0,min of day,
+2026-08-19T13:30,BI-03,iQR-TEST1/D8031,cycle_running,1.0,bool,
+2026-08-19T13:30,BI-03,iQR-TEST1/D8033,next_cycle_start_min,960.0,min of day,
+2026-08-19T13:30,BI-04,iQR-TEST1/D8041,cycle_running,1.0,bool,
+2026-08-19T13:30,BI-04,iQR-TEST1/D8043,next_cycle_start_min,975.0,min of day,
+2026-08-19T13:30,BI-05,iQR-TEST1/D8051,cycle_running,1.0,bool,
+2026-08-19T13:30,BI-05,iQR-TEST1/D8053,next_cycle_start_min,990.0,min of day,
+2026-08-19T13:30,BI-06,iQR-TEST1/D8061,cycle_running,1.0,bool,
+2026-08-19T13:30,BI-06,iQR-TEST1/D8063,next_cycle_start_min,1020.0,min of day,
+2026-08-19T13:30,BI-07,iQR-TEST1/D8071,cycle_running,0.0,bool,
+2026-08-19T13:30,BI-07,iQR-TEST1/D8073,next_cycle_start_min,1170.0,min of day,
+2026-08-19T13:30,BI-08,iQR-TEST1/D8081,cycle_running,1.0,bool,
+2026-08-19T13:30,BI-08,iQR-TEST1/D8083,next_cycle_start_min,-1.0,min of day,
+2026-08-19T13:30,EV-07,iQR-LOG1/D8271,arrival_soc_pct,38.0,%,Forecast at 16:30 return
+2026-08-19T13:30,EV-07,iQR-LOG1/D8273,required_soc_pct,80.0,%,By 07:00
+2026-08-19T13:30,EV-08,iQR-LOG1/D8281,arrival_soc_pct,41.0,%,Forecast at 16:30 return
+2026-08-19T13:30,EV-08,iQR-LOG1/D8283,required_soc_pct,80.0,%,By 07:00
+2026-08-19T13:30,EV-09,iQR-LOG1/D8291,arrival_soc_pct,44.0,%,Forecast at 16:30 return
+2026-08-19T13:30,EV-09,iQR-LOG1/D8293,required_soc_pct,80.0,%,By 07:00
+2026-08-19T13:30,EV-10,iQR-LOG1/D8301,arrival_soc_pct,47.0,%,Forecast at 16:30 return
+2026-08-19T13:30,EV-10,iQR-LOG1/D8303,required_soc_pct,80.0,%,By 07:00

@@ -1,0 +1,263 @@
+{
+ "total": 7,
+ "grounded": 7,
+ "ungrounded": 0,
+ "unverifiable": [],
+ "probes": [
+  {
+   "id": "fy2025_tokyo_mean",
+   "truth": [
+    [
+     12.47,
+     0.02
+    ]
+   ],
+   "first_attempt": {
+    "question": "What was the average Tokyo area spot price in FY2025?",
+    "tool_calls": [
+     {
+      "name": "get_market_stats",
+      "args": {
+       "month": 0,
+       "fiscal_year": 2025
+      }
+     }
+    ],
+    "tool_results": [
+     {
+      "name": "get_market_stats",
+      "status": "ok"
+     }
+    ],
+    "tool_errors": [],
+    "reply": "The average Tokyo area spot price in FY2025 was 12.47 JPY/kWh [energy_alphaevolve_lab.market_history].\n\nPlease note that all market and portfolio data in this lab is calibrated synthetic data for a fictional balance group. The calibrated synthetic figure of 12.47 JPY/kWh aligns closely with the actual market target of 12.45 JPY/kWh [energy_alphaevolve_lab.calibration].",
+    "latency_s": 5.7,
+    "label": "GROUNDED",
+    "missing": []
+   },
+   "classification": "clean",
+   "final": "GROUNDED"
+  },
+  {
+   "id": "fy2024_imb_ge45",
+   "truth": [
+    [
+     56.0,
+     0.0
+    ]
+   ],
+   "first_attempt": {
+    "question": "In FY2024, how many half-hour slots had imbalance prices at or above 45 JPY/kWh?",
+    "tool_calls": [
+     {
+      "name": "get_market_stats",
+      "args": {
+       "fiscal_year": 2024,
+       "month": 0
+      }
+     }
+    ],
+    "tool_results": [
+     {
+      "name": "get_market_stats",
+      "status": "ok"
+     }
+    ],
+    "tool_errors": [],
+    "reply": "In Japanese fiscal year 2024 (FY2024), there were 56 half-hour slots with imbalance prices at or above 45 JPY/kWh [energy_alphaevolve_lab.market_history, energy_alphaevolve_lab.calibration].\n\nPlease note that all market, customer, and run data in this lab is calibrated synthetic data for a fictional balance group (Kanto Balance Group).",
+    "latency_s": 4.2,
+    "label": "GROUNDED",
+    "missing": []
+   },
+   "classification": "clean",
+   "final": "GROUNDED"
+  },
+  {
+   "id": "dc_segment_twh",
+   "truth": [
+    [
+     36.0,
+     0.0
+    ],
+    [
+     1.274,
+     0.011
+    ]
+   ],
+   "first_attempt": {
+    "question": "How many data center customers does KBG have and what is their annual energy in TWh?",
+    "tool_calls": [
+     {
+      "name": "get_portfolio_stats",
+      "args": {
+       "segment": "data_center"
+      }
+     }
+    ],
+    "tool_results": [
+     {
+      "name": "get_portfolio_stats",
+      "status": "ok"
+     }
+    ],
+    "tool_errors": [],
+    "reply": "Kanto Balance Group (KBG) has 36 data center customers in its portfolio [energy_alphaevolve_lab.customers_train]. Their total annual energy consumption is 1.274 TWh [energy_alphaevolve_lab.customers_train].\n\nPlease note that all customer and portfolio data in this lab is calibrated synthetic data for a fictional balance group.",
+    "latency_s": 5.0,
+    "label": "GROUNDED",
+    "missing": []
+   },
+   "classification": "clean",
+   "final": "GROUNDED"
+  },
+  {
+   "id": "hv_wheeling_nov26",
+   "truth": [
+    [
+     762.44,
+     0.005
+    ]
+   ],
+   "first_attempt": {
+    "question": "What is the high-voltage wheeling basic charge from November 2026?",
+    "tool_calls": [
+     {
+      "name": "explain_cost_stack",
+      "args": {
+       "voltage": "HV"
+      }
+     }
+    ],
+    "tool_results": [
+     {
+      "name": "explain_cost_stack",
+      "status": "ok"
+     }
+    ],
+    "tool_errors": [],
+    "reply": "The high-voltage (HV) wheeling basic charge from November 2026 is 762.44 JPY/kW-month [energy_alphaevolve_lab.cost_stack]. \n\nFor comparison, the prior rate effective from April 2024 through October 2026 is 653.87 JPY/kW-month [energy_alphaevolve_lab.cost_stack].",
+    "latency_s": 5.2,
+    "label": "GROUNDED",
+    "missing": []
+   },
+   "classification": "clean",
+   "final": "GROUNDED"
+  },
+  {
+   "id": "tariff_first_seed_best",
+   "truth": [
+    [
+     -8800.4,
+     0.6
+    ],
+    [
+     -3289.7,
+     0.6
+    ]
+   ],
+   "first_attempt": {
+    "question": "What were the seed and best train scores of run tariff_pricing.20260926T073839Z?",
+    "tool_calls": [
+     {
+      "name": "get_run_summary",
+      "args": {
+       "run_id": "tariff_pricing.20260926T073839Z"
+      }
+     }
+    ],
+    "tool_results": [
+     {
+      "name": "get_run_summary",
+      "status": "ok"
+     }
+    ],
+    "tool_errors": [],
+    "reply": "For run `tariff_pricing.20260926T073839Z`, the scores were:\n\n* **Seed train score:** -8800.354 JPY M [energy_alphaevolve_lab.lab_runs]\n* **Best train score:** -3289.666 JPY M [energy_alphaevolve_lab.lab_runs]\n\n*(Note: All market, customer, and run data in this lab is calibrated synthetic data about a fictional balance group.)*",
+    "latency_s": 4.9,
+    "label": "GROUNDED",
+    "missing": []
+   },
+   "classification": "clean",
+   "final": "GROUNDED"
+  },
+  {
+   "id": "tariff_latest_holdout_delta",
+   "truth": [],
+   "first_attempt": {
+    "question": "What is the holdout delta of run tariff_pricing.20260926T080035Z?",
+    "tool_calls": [
+     {
+      "name": "get_run_summary",
+      "args": {
+       "run_id": "tariff_pricing.20260926T080035Z"
+      }
+     },
+     {
+      "name": "get_holdout_result",
+      "args": {
+       "run_id": "tariff_pricing.20260926T080035Z"
+      }
+     }
+    ],
+    "tool_results": [
+     {
+      "name": "get_run_summary",
+      "status": "ok"
+     },
+     {
+      "name": "get_holdout_result",
+      "status": "error"
+     }
+    ],
+    "tool_errors": [
+     {
+      "name": "get_holdout_result",
+      "error": "ParserException: Parser Error: syntax error at or near \"FROM\"\n\nLINE 1: SELECT run_id, program_id, reviewer, note, at FROM lab_reviews WHERE run_id = $r\n                                                      ^"
+     }
+    ],
+    "reply": "Run `tariff_pricing.20260926T080035Z` has **no validated holdout delta** (`holdout_delta` is `null`) [energy_alphaevolve_lab.lab_runs]. \n\nThere is no validated uplift because the champion candidate violated the policy invariant on holdout due to excessive customer churn [energy_alphaevolve_lab.lab_runs].\n\n### Run Performance Summary\n* **Seed Train Score:** -8,800.354 JPY M [energy_alphaevolve_lab.lab_runs]\n* **Best Train Score:** -2,033.209 JPY M [energy_alphaevolve_lab.lab_runs]\n* **Train Delta vs. Seed:** +6,767.146 JPY M [energy_alphaevolve_lab.lab_runs]\n* **Seed Holdout Score:** -10,873.953 JPY M [energy_alphaevolve_lab.lab_runs]\n* **Validated Holdout Delta:** `null` (0.0 JPY M validated uplift) [energy_alphaevolve_lab.lab_runs]\n\n### Policy Invariant Violation\nWhile search progress on the training set achieved a train delta of +6,767.146 JPY M, the top program was invalidated during holdout evaluation by the `churn` policy gate [energy_alphaevolve_lab.lab_runs]. Specifically:\n* Segment churn rose by more than 5% above the incumbent book in key segments: semiconductor fab churn increased from 18.9% to 25.0%, and university churn increased from 17.0% to 22.8% [energy_alphaevolve_lab.lab_runs].\n* Without the policy gate enforcement, the candidate would have yielded a unvalidated raw holdout score of -4,647.6 JPY M [energy_alphaevolve_lab.lab_runs].\n\n### Run Context\n* **Source:** `local-gemini-controller` (an AlphaEvolve-compatible run executed on a local controller; `evolved` remains `false`) [energy_alphaevolve_lab.lab_runs].\n* **Data Disclaimer:** All market, customer, and run figures in this lab are calibrated synthetic data for a fictional balance group.",
+    "latency_s": 9.7,
+    "label": "GROUNDED",
+    "missing": []
+   },
+   "classification": "clean",
+   "final": "GROUNDED"
+  },
+  {
+   "id": "trading_programs_invalid",
+   "truth": [
+    [
+     40.0,
+     0.0
+    ],
+    [
+     3.0,
+     0.0
+    ]
+   ],
+   "first_attempt": {
+    "question": "How many programs did run jepx_trading.20260926T075644Z evaluate and how many were invalid?",
+    "tool_calls": [
+     {
+      "name": "get_run_summary",
+      "args": {
+       "run_id": "jepx_trading.20260926T075644Z"
+      }
+     }
+    ],
+    "tool_results": [
+     {
+      "name": "get_run_summary",
+      "status": "ok"
+     }
+    ],
+    "tool_errors": [],
+    "reply": "Run `jepx_trading.20260926T075644Z` evaluated 40 programs [energy_alphaevolve_lab.lab_runs].\n\nOut of those 40 programs, 3 were invalid [energy_alphaevolve_lab.lab_runs]. The breakdown of candidates by kind is:\n- 37 valid programs (kind: ok) [energy_alphaevolve_lab.lab_runs]\n- 2 policy rejections (caught by the intentional_imbalance invariant) [energy_alphaevolve_lab.lab_runs]\n- 1 diff error [energy_alphaevolve_lab.lab_runs]\n\nNote: All market, customer, and run data in this lab is calibrated synthetic data about a fictional balance group.",
+    "latency_s": 6.2,
+    "label": "GROUNDED",
+    "missing": []
+   },
+   "classification": "clean",
+   "final": "GROUNDED"
+  }
+ ]
+}

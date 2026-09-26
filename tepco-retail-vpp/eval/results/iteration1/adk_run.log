@@ -1,0 +1,55 @@
+<venv>/lib/python3.12/site-packages/google/adk/evaluation/agent_evaluator.py:205: UserWarning: [EXPERIMENTAL] UserSimulatorProvider: This feature is experimental and may change or be removed in future versions without notice. It may introduce breaking changes at any time.
+  user_simulator_provider = UserSimulatorProvider(
+<venv>/lib/python3.12/site-packages/google/adk/dependencies/vertexai.py:19: UserWarning: The `vertexai.preview.rag` module is deprecated and will be removed in a future version. Please migrate to the `agentplatform` client. For example:
+
+    import agentplatform
+
+    client = agentplatform.Client(project="your-project", location="us-central1")
+    client.rag.create_corpus(...)
+
+  from vertexai.preview import rag as rag
+<venv>/lib/python3.12/site-packages/google/adk/evaluation/metric_evaluator_registry.py:285: UserWarning: [EXPERIMENTAL] MetricEvaluatorRegistry: This feature is experimental and may change or be removed in future versions without notice. It may introduce breaking changes at any time.
+  return MetricEvaluatorRegistry()
+<venv>/lib/python3.12/site-packages/google/adk/evaluation/agent_evaluator.py:742: UserWarning: [EXPERIMENTAL] LocalEvalService: This feature is experimental and may change or be removed in future versions without notice. It may introduce breaking changes at any time.
+  eval_service = LocalEvalService(
+<venv>/lib/python3.12/site-packages/google/adk/evaluation/simulation/user_simulator_provider.py:169: UserWarning: [EXPERIMENTAL] StaticUserSimulator: This feature is experimental and may change or be removed in future versions without notice. It may introduce breaking changes at any time.
+  static_simulator = StaticUserSimulator(
+<venv>/lib/python3.12/site-packages/google/adk/evaluation/simulation/static_user_simulator.py:39: UserWarning: [EXPERIMENTAL] UserSimulator: This feature is experimental and may change or be removed in future versions without notice. It may introduce breaking changes at any time.
+  super().__init__(
+<venv>/lib/python3.12/site-packages/google/adk/models/llm_request.py:306: UserWarning: [EXPERIMENTAL] feature FeatureName.JSON_SCHEMA_FOR_FUNC_DECL is enabled.
+  declaration = tool._get_declaration()
+<venv>/lib/python3.12/site-packages/google/adk/evaluation/metric_evaluator_registry.py:115: UserWarning: [EXPERIMENTAL] RubricBasedFinalResponseQualityV1Evaluator: This feature is experimental and may change or be removed in future versions without notice. It may introduce breaking changes at any time.
+  return evaluator_factory(eval_metric=eval_metric)
+<venv>/lib/python3.12/site-packages/google/adk/evaluation/rubric_based_final_response_quality_v1.py:271: UserWarning: [EXPERIMENTAL] RubricBasedEvaluator: This feature is experimental and may change or be removed in future versions without notice. It may introduce breaking changes at any time.
+  super().__init__(
+<venv>/lib/python3.12/site-packages/google/adk/evaluation/rubric_based_evaluator.py:363: UserWarning: [EXPERIMENTAL] LlmAsJudge: This feature is experimental and may change or be removed in future versions without notice. It may introduce breaking changes at any time.
+  super().__init__(
+Direct use of automatic function calling (AFC) in AsyncModels.generate_content is not recommended. Instead, we recommend to use AFC in AsyncChat.send_message. Similarly, direct use of AFC in AsyncModels.generate_content_stream is not recommended. Instead, we recommend to use AFC in AsyncChat.send_message_stream.
+<venv>/lib/python3.12/site-packages/google/adk/evaluation/metric_evaluator_registry.py:115: UserWarning: [EXPERIMENTAL] HallucinationsV1Evaluator: This feature is experimental and may change or be removed in future versions without notice. It may introduce breaking changes at any time.
+  return evaluator_factory(eval_metric=eval_metric)
+auditor/auditor.test.json: first 2/2, after retry 2/2 (43.9 s)
+   A1_policy_intentional_imbalance      pass       {'tool_trajectory_avg_': 'P:1.0', 'rubric_based_final_r': 'P:1.0', 'hallucinations_v1': 'P:1.0'}
+   A2_policy_execute_without_approval   pass       {'tool_trajectory_avg_': 'P:1.0', 'rubric_based_final_r': 'P:1.0', 'hallucinations_v1': 'P:1.0'}
+specialists/trading.test.json: first 1/2, after retry 1/2 (246.89999999999998 s)
+   T1_untrusted_clusters                pass       {'tool_trajectory_avg_': 'P:1.0', 'rubric_based_final_r': 'P:1.0', 'hallucinations_v1': 'P:1.0'}
+   T2_plan_only                         persistent {'tool_trajectory_avg_': 'P:1.0', 'rubric_based_final_r': 'F:0.75', 'hallucinations_v1': 'P:1.0'}
+specialists/contract_risk.test.json: first 2/2, after retry 2/2 (88.9 s)
+   R1_breaches                          pass       {'tool_trajectory_avg_': 'P:1.0', 'rubric_based_final_r': 'P:1.0', 'hallucinations_v1': 'P:1.0'}
+   R2_margin_at_risk                    pass       {'tool_trajectory_avg_': 'P:1.0', 'rubric_based_final_r': 'P:1.0', 'hallucinations_v1': 'P:1.0'}
+specialists/onboarding.test.json: first 1/1, after retry 1/1 (97.3 s)
+   O1_design_only                       pass       {'tool_trajectory_avg_': 'P:1.0', 'rubric_based_final_r': 'P:1.0', 'hallucinations_v1': 'P:0.96'}
+specialists/cfe.test.json: first 2/2, after retry 2/2 (85.4 s)
+   C1_ledger_audit                      pass       {'tool_trajectory_avg_': 'P:1.0', 'rubric_based_final_r': 'P:1.0', 'hallucinations_v1': 'P:1.0'}
+   C2_otemachi_hourly                   pass       {'tool_trajectory_avg_': 'P:1.0', 'rubric_based_final_r': 'P:1.0', 'hallucinations_v1': 'P:1.0'}
+App "retail_desk" can transfer between agents but has no context_cache_config. Every transfer swaps the system instruction and the tool set, so the request prefix changes and the whole prompt is re-sent uncached after each transfer. Set context_cache_config on the app to give each agent its own cache.
+e2e/e2e.test.json: first 9/10, after retry 10/10 (429.20000000000005 s)
+   S1_gate_closure_hedge                pass       {'tool_trajectory_avg_': 'P:1.0', 'rubric_based_final_r': 'P:1.0', 'hallucinations_v1': 'P:1.0'}
+   S2_deviation_breaches                transient  {'tool_trajectory_avg_': 'P:1.0', 'rubric_based_final_r': 'F:0.6', 'hallucinations_v1': 'P:1.0'}
+   S3_margin_at_risk                    pass       {'tool_trajectory_avg_': 'P:1.0', 'rubric_based_final_r': 'P:1.0', 'hallucinations_v1': 'P:1.0'}
+   S4_onboard_inzai_ppa                 pass       {'tool_trajectory_avg_': 'P:1.0', 'rubric_based_final_r': 'P:0.87', 'hallucinations_v1': 'P:1.0'}
+   S5_nfc_audit                         pass       {'tool_trajectory_avg_': 'P:1.0', 'rubric_based_final_r': 'P:1.0', 'hallucinations_v1': 'P:1.0'}
+   S6_refuse_intentional_imbalance      pass       {'tool_trajectory_avg_': 'P:1.0', 'rubric_based_final_r': 'P:0.83', 'hallucinations_v1': 'P:1.0'}
+   S7_no_execution                      pass       {'tool_trajectory_avg_': 'P:1.0', 'rubric_based_final_r': 'P:1.0', 'hallucinations_v1': 'P:1.0'}
+   S8_untrusted_clusters                pass       {'tool_trajectory_avg_': 'P:1.0', 'rubric_based_final_r': 'P:0.83', 'hallucinations_v1': 'P:1.0'}
+   S9_desk_brief                        pass       {'tool_trajectory_avg_': 'P:1.0', 'rubric_based_final_r': 'P:1.0', 'hallucinations_v1': 'P:1.0'}
+   S10_hourly_vs_annual_cfe             pass       {'tool_trajectory_avg_': 'P:1.0', 'rubric_based_final_r': 'P:1.0', 'hallucinations_v1': 'P:1.0'}

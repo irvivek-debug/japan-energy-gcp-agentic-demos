@@ -1,0 +1,239 @@
+{
+ "eval_set_id": "lab_runs",
+ "eval_cases": [
+  {
+   "eval_id": "run_summary_tariff_first",
+   "conversation": [
+    {
+     "invocation_id": "run_summary_tariff_first-t1",
+     "user_content": {
+      "role": "user",
+      "parts": [
+       {
+        "text": "Summarise run tariff_pricing.20260926T073839Z: how many programs were evaluated, how many were invalid, and what happened on holdout?"
+       }
+      ]
+     },
+     "final_response": {
+      "role": "model",
+      "parts": [
+       {
+        "text": "Run tariff_pricing.20260926T073839Z evaluated 40 programs with 1 invalid; holdout delta None (uplift_valid false) [energy_alphaevolve_lab.lab_runs]."
+       }
+      ]
+     },
+     "intermediate_data": {
+      "tool_uses": [
+       {
+        "name": "get_run_summary",
+        "args": {
+         "run_id": "tariff_pricing.20260926T073839Z"
+        }
+       }
+      ]
+     }
+    }
+   ],
+   "session_input": {
+    "app_name": "energy_lab",
+    "user_id": "eval",
+    "state": {}
+   }
+  },
+  {
+   "eval_id": "best_diff_tariff_latest",
+   "conversation": [
+    {
+     "invocation_id": "best_diff_tariff_latest-t1",
+     "user_content": {
+      "role": "user",
+      "parts": [
+       {
+        "text": "What did the best program in run tariff_pricing.20260926T080035Z change versus the seed, and how much did it gain?"
+       }
+      ]
+     },
+     "final_response": {
+      "role": "model",
+      "parts": [
+       {
+        "text": "The champion p039-acb6b2de changed the price book logic; train and holdout deltas as recorded [energy_alphaevolve_lab.lab_runs]."
+       }
+      ]
+     },
+     "intermediate_data": {
+      "tool_uses": [
+       {
+        "name": "get_best_program_diff",
+        "args": {
+         "run_id": "tariff_pricing.20260926T080035Z"
+        }
+       }
+      ]
+     }
+    }
+   ],
+   "session_input": {
+    "app_name": "energy_lab",
+    "user_id": "eval",
+    "state": {}
+   }
+  },
+  {
+   "eval_id": "catches_trading",
+   "conversation": [
+    {
+     "invocation_id": "catches_trading-t1",
+     "user_content": {
+      "role": "user",
+      "parts": [
+       {
+        "text": "Which policy invariants rejected candidates in run jepx_trading.20260926T075644Z? Give one concrete example."
+       }
+      ]
+     },
+     "final_response": {
+      "role": "model",
+      "parts": [
+       {
+        "text": "Rejected candidates by invariant with an example insight [energy_alphaevolve_lab.lab_invariant_catches]."
+       }
+      ]
+     },
+     "intermediate_data": {
+      "tool_uses": [
+       {
+        "name": "get_invariant_catches",
+        "args": {
+         "run_id": "jepx_trading.20260926T075644Z"
+        }
+       }
+      ]
+     }
+    }
+   ],
+   "session_input": {
+    "app_name": "energy_lab",
+    "user_id": "eval",
+    "state": {}
+   }
+  },
+  {
+   "eval_id": "holdout_tariff_first",
+   "conversation": [
+    {
+     "invocation_id": "holdout_tariff_first-t1",
+     "user_content": {
+      "role": "user",
+      "parts": [
+       {
+        "text": "Did run tariff_pricing.20260926T073839Z produce a validated uplift on the holdout? Explain."
+       }
+      ]
+     },
+     "final_response": {
+      "role": "model",
+      "parts": [
+       {
+        "text": "Holdout result for tariff_pricing.20260926T073839Z: holdout delta None, uplift_valid false [energy_alphaevolve_lab.lab_holdout]."
+       }
+      ]
+     },
+     "intermediate_data": {
+      "tool_uses": [
+       {
+        "name": "get_holdout_result",
+        "args": {
+         "run_id": "tariff_pricing.20260926T073839Z"
+        }
+       }
+      ]
+     }
+    }
+   ],
+   "session_input": {
+    "app_name": "energy_lab",
+    "user_id": "eval",
+    "state": {}
+   }
+  },
+  {
+   "eval_id": "holdout_tariff_latest",
+   "conversation": [
+    {
+     "invocation_id": "holdout_tariff_latest-t1",
+     "user_content": {
+      "role": "user",
+      "parts": [
+       {
+        "text": "Can we cite an uplift from run tariff_pricing.20260926T080035Z? What is the holdout delta and can it be promoted?"
+       }
+      ]
+     },
+     "final_response": {
+      "role": "model",
+      "parts": [
+       {
+        "text": "Holdout delta None JPY M is the only citable number; the run is from the local controller so it cannot be promoted [energy_alphaevolve_lab.lab_runs]."
+       }
+      ]
+     },
+     "intermediate_data": {
+      "tool_uses": [
+       {
+        "name": "get_holdout_result",
+        "args": {
+         "run_id": "tariff_pricing.20260926T080035Z"
+        }
+       }
+      ]
+     }
+    }
+   ],
+   "session_input": {
+    "app_name": "energy_lab",
+    "user_id": "eval",
+    "state": {}
+   }
+  },
+  {
+   "eval_id": "summary_trading",
+   "conversation": [
+    {
+     "invocation_id": "summary_trading-t1",
+     "user_content": {
+      "role": "user",
+      "parts": [
+       {
+        "text": "Give me the headline of trading run jepx_trading.20260926T075644Z: seed versus best on train, and the holdout outcome."
+       }
+      ]
+     },
+     "final_response": {
+      "role": "model",
+      "parts": [
+       {
+        "text": "Trading run jepx_trading.20260926T075644Z headline with seed, best train and holdout delta [energy_alphaevolve_lab.lab_runs]."
+       }
+      ]
+     },
+     "intermediate_data": {
+      "tool_uses": [
+       {
+        "name": "get_run_summary",
+        "args": {
+         "run_id": "jepx_trading.20260926T075644Z"
+        }
+       }
+      ]
+     }
+    }
+   ],
+   "session_input": {
+    "app_name": "energy_lab",
+    "user_id": "eval",
+    "state": {}
+   }
+  }
+ ]
+}

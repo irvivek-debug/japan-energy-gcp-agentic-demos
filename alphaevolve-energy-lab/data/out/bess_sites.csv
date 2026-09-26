@@ -1,0 +1,9 @@
+site_id,name,prefecture,power_mw,energy_mwh,duration_h,commissioned,voltage,rte,soc_min_pct,soc_max_pct,operator_model
+B01,Inzai North,Chiba,10,20,2,2024-10,EHV,0.85,10,95,BESS-as-a-Service
+B02,Sagamihara Depot,Kanagawa,7.5,15,2,2025-03,EHV,0.85,10,95,BESS-as-a-Service
+B03,Kawagoe Logistics Park,Saitama,7.5,15,2,2025-06,HV,0.85,10,95,BESS-as-a-Service
+B04,Oyama Works,Tochigi,5,10,2,2025-09,HV,0.85,10,95,BESS-as-a-Service
+B05,Kashima Coast,Ibaraki,10,40,4,2025-12,EHV,0.85,10,95,BESS-as-a-Service
+B06,Tama Data Campus,Tokyo,7.5,30,4,2026-02,EHV,0.85,10,95,BESS-as-a-Service
+B07,Mooka Cold Chain,Tochigi,7.5,30,4,2026-04,HV,0.85,10,95,BESS-as-a-Service
+B08,Kisarazu Port,Chiba,5,20,4,2026-06,HV,0.85,10,95,BESS-as-a-Service

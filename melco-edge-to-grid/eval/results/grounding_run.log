@@ -1,0 +1,13 @@
+App "factory_copilot" can transfer between agents but has no context_cache_config. Every transfer swaps the system instruction and the tool set, so the request prefix changes and the whole prompt is re-sent uncached after each transfer. Set context_cache_config on the app to give each agent its own cache.
+<workspace>/.venv/lib/python3.12/site-packages/google/adk/models/llm_request.py:306: UserWarning: [EXPERIMENTAL] feature FeatureName.JSON_SCHEMA_FOR_FUNC_DECL is enabled.
+  declaration = tool._get_declaration()
+G01_S1_dr_plan: first=GROUNDED final=GROUNDED (pass) latency=55.9s checks=[('requested_kw [SQL dr_events]', True), ('edge firm kW [engine]', True), ('BESS SOC now % [SQL bess_state_5min]', True)]
+G02_S2_spike: first=GROUNDED final=GROUNDED (pass) latency=96.4s checks=[('spike peak spot JPY/kWh [SQL]', True), ('spike avg spot JPY/kWh [SQL]', True)]
+G03_S3_compressors: first=GROUNDED final=GROUNDED (pass) latency=45.4s checks=[('header minimum MPa [SQL interlock_rules]', True), ('rule id cited [SQL interlock_rules]', True)]
+G04_S4_anomalies: first=GROUNDED final=GROUNDED (pass) latency=28.1s checks=[('AC-04 excess % vs peers [SQL compressor_perf]', True), ('stuck meter id [SQL telemetry]', True)]
+G05_S5_july: first=GROUNDED final=GROUNDED (pass) latency=21.4s checks=[('July total savings JPY [SQL]', True), ('vendor gain share JPY [SQL]', True), ('client net JPY [SQL]', True)]
+G06_S6_bess: first=GROUNDED final=GROUNDED (pass) latency=34.3s checks=[('v2 DR firm kW [engine]', True), ('v2 SOC at DR start % [engine]', True)]
+G07_S7_pv: first=GROUNDED final=GROUNDED (pass) latency=21.6s checks=[('PV p10 kW 15:00 [SQL]', True), ('PV p50 kW 15:00 [SQL]', True), ('PV p90 kW 15:00 [SQL]', True)]
+G08_0722: first=GROUNDED final=GROUNDED (pass) latency=20.1s checks=[('delivered kW [SQL]', True), ('penalty JPY [SQL]', True), ('payment JPY [SQL]', True)]
+G09_snapshot: first=GROUNDED final=GROUNDED (pass) latency=16.0s checks=[('import kW now [SQL]', True), ('headroom kW [SQL]', True)]
+{'total': 9, 'grounded': 9, 'ungrounded': 0, 'unverifiable': 0, 'grounded_first_attempt': 9}

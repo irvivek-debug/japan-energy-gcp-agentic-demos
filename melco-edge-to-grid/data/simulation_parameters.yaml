@@ -1,0 +1,173 @@
+# Simulation parameters for the Edge-to-Grid Factory Energy Copilot demo.
+# Every number the generator uses lives here. Market-facing values cite docs/research/MARKET_FACTS.md
+# (see the `market` block); plant-physics values are engineering assumptions stated in docs/PRD.md.
+seed: 20260819
+demo_now: "2026-08-19T13:30"
+
+plant:
+  name: "Sagami Precision Components, Atsugi Plant"
+  location: "Atsugi, Kanagawa (TEPCO Power Grid service area)"
+  products: "SiC power modules and automotive ECUs"
+  contracted_demand_kw: 16000
+  voltage_class: "extra-high voltage (66 kV receiving)"
+  transformer_loss_pct: 1.0
+
+periods:
+  site_history_start: "2026-06-01"   # receiving-point 30-min history (DR baselines)
+  telemetry_start: "2026-08-05"      # per-meter 5-min telemetry
+  jepx_start: "2026-08-01"
+  jepx_end: "2026-08-20"
+  ledger_months: ["2026-01", "2026-02", "2026-03", "2026-04", "2026-05", "2026-06", "2026-07"]
+
+calendar:
+  public_holidays: ["2026-07-20", "2026-08-11"]         # Marine Day, Mountain Day
+  plant_reduced_days: ["2026-08-13", "2026-08-14"]      # Obon reduced operation (not baseline-eligible)
+  intensity: {weekday: 1.0, saturday: 0.78, sunday: 0.68, holiday: 0.72, reduced: 0.58}
+
+weather:
+  # daily max temperature (C) by period; the generator adds seeded noise; min = max - diurnal_range
+  tmax_ranges:
+    - {from: "2026-06-01", to: "2026-06-30", lo: 24.5, hi: 29.0, cloud_lo: 0.45, cloud_hi: 0.85}
+    - {from: "2026-07-01", to: "2026-07-17", lo: 27.0, hi: 31.5, cloud_lo: 0.35, cloud_hi: 0.75}
+    - {from: "2026-07-18", to: "2026-07-31", lo: 31.0, hi: 34.5, cloud_lo: 0.10, cloud_hi: 0.40}
+    - {from: "2026-08-01", to: "2026-08-16", lo: 32.0, hi: 35.0, cloud_lo: 0.08, cloud_hi: 0.35}
+  fixed_days:
+    "2026-07-08": {tmax: 30.8, cloud: 0.35}
+    "2026-07-22": {tmax: 35.1, cloud: 0.15}
+    "2026-08-06": {tmax: 34.6, cloud: 0.12}
+    "2026-08-17": {tmax: 36.2, cloud: 0.08}
+    "2026-08-18": {tmax: 36.8, cloud: 0.06}
+    "2026-08-19": {tmax: 37.4, cloud: 0.05}
+    "2026-08-20": {tmax: 36.9, cloud: 0.10}
+  diurnal_range_c: 9.0
+
+pv:
+  arrays: {PV-01: 1200, PV-02: 1000, PV-03: 800}   # kWp: rooftop A, rooftop B, carport
+  sunrise: "05:05"
+  sunset: "18:25"
+  peak_yield: 0.80          # AC output / kWp at clear-sky noon before temperature derate
+  temp_coeff_per_c: -0.0038
+  cloud_band_today: {start_slot: 30, end_slot: 32, deepest_slot: 31, p50_factor: 0.62, p10_factor: 0.16}
+
+bess:
+  asset_id: BESS-01
+  power_kw: 4000
+  energy_kwh: 8000
+  soc_min_pct: 10
+  soc_max_pct: 95
+  eff_charge: 0.922            # sqrt(0.85): 85 % AC round trip [MARKET_FACTS s.12, NREL ATB 2024]
+  eff_discharge: 0.922
+  degradation_jpy_per_kwh: 8.0  # per kWh discharged [MARKET_FACTS s.12, ESTIMATE]
+  capex_ci_jpy_per_kwh: 106000  # C&I incl. construction [MARKET_FACTS s.12, MRI for METI 2025-03-07]
+  soc_end_of_2026_08_18_pct: 12.0     # yesterday's heatwave evening drained the unit
+  service: "BESS-as-a-Service (managed by the equipment vendor's energy-services unit)"
+
+policies:
+  v1_night_kw: 900
+  v1_midday_kw: 600
+  v1_demand_limit_kw: 13500
+  v2_target_soc_pct: 95
+  v2_reserve_soc_pct: 20
+  v2_import_ceiling_kw: 14000
+  v2_night_recharge_kw: 1500
+  pv_risk_ratio: 0.40        # slot is a PV-risk slot when (p50 - p10) / p50 >= this and p50 >= 300 kW
+
+tes:
+  capacity_kwh_th: 14000
+  soc_now_pct: 85
+  soc_floor_pct: 15
+  chw_supply_now_c: 7.0
+  chw_supply_max_c: 8.5
+
+compressed_air:
+  unit_capacity_nm3min: 42.0
+  peer_specific_power: 6.10       # kW per (Nm3/min)
+  ac04_drift_start: 0.06          # AC-04 specific power excess vs peers on telemetry_start
+  ac04_drift_end: 0.18            # ... on the demo day (air leak on the discharge / dryer purge line)
+  demand_nm3min_weekday: 176.0
+  header_pressure_mpa: 0.66
+  header_setpoint_mpa: 0.68
+  header_min_mpa: 0.60
+  system_volume_m3: 60.0
+  energy_per_0p01mpa_pct: 0.7
+  annual_run_hours: 8000
+
+stuck_meter:
+  meter_id: M-27
+  start: "2026-08-17T09:40"
+
+dr_events:
+  today:
+    event_id: DR-20260819
+    date: "2026-08-19"
+    start: "16:30"
+    end: "19:00"
+    requested_kw: 3000
+    notified_at: "2026-08-19T13:00"
+  history:
+    - {event_id: DR-20260708, date: "2026-07-08", start: "17:00", end: "19:00", requested_kw: 2500, notified_at: "2026-07-08T12:30",
+       actions: {BESS-01: 1500, TES-01: 600, BI: 330, EV: 200, OF: 150, LT: 60}}
+    - {event_id: DR-20260722, date: "2026-07-22", start: "16:00", end: "18:30", requested_kw: 2500, notified_at: "2026-07-22T12:00",
+       bess_soc_start_pct: 34, bess_kw: 1400, actions: {TES-01: 450, BI: 220, EV: 150}, furnace_overrun: {asset: FN-01, kw: 850},
+       note: "FN-01 batch overran into the window and the BESS started at 34% SOC after an unplanned morning discharge; the plant under-delivered."}
+    - {event_id: DR-20260806, date: "2026-08-06", start: "17:00", end: "19:00", requested_kw: 3000, notified_at: "2026-08-06T12:00",
+       actions: {BESS-01: 2000, TES-01: 700, BI: 440, EV: 200, OF: 170, LT: 60, AC: 45}}
+
+# ---------------------------------------------------------------------------------------------
+# Market and contract values. Where a value is a real-world market fact it must match
+# docs/research/MARKET_FACTS.md; everything else is a stated demo assumption.
+# ---------------------------------------------------------------------------------------------
+market:
+  jepx_area: "Tokyo"
+  jepx_start: "2026-06-01"      # extended back so July savings can be computed from prices
+  # Tokyo-area FY2026 summer regime [MARKET_FACTS s.1.3-1.4]: Aug 2026 mean 21.2 JPY/kWh, summer trough
+  # ~17.2 (06-07h) and peak ~27.9 (18-19h). Shape = a + b * FY2025 summer hourly shape (mapped trough/peak).
+  fy2025_summer_hourly: [11.7,11.3,11.2,11.2,11.2,11.1,10.8,10.7,10.7,11.7,11.5,11.9,11.3,13.7,14.9,16.0,18.3,18.5,18.3,17.1,15.6,13.9,13.4,12.2]
+  fy2026_summer_trough: 17.2
+  fy2026_summer_peak: 27.9
+  june_level_factor: 0.93       # Jun 2026 Tokyo mean 20.0 vs Aug 21.2
+  july_level_factor: 0.99       # Jul 2026 Tokyo mean 19.9
+  daily_log_sd: 0.169           # FY2026 day-over-day log-return SD
+  weekend_discount: 2.5         # JPY/kWh (FY2025 -2.03, scaled to the FY2026 level)
+  heatwave_evening_peaks: {"2026-08-17": 36.0, "2026-08-18": 44.5, "2026-08-20": 51.0}
+  # Synthetic scenario spike on the demo day. FY2026 real Tokyo max to date is 64.28 JPY/kWh (2026-04-28);
+  # the scenario stays below it on purpose [MARKET_FACTS s.1.6].
+  spike_today_slots: {32: 29.6, 33: 31.4, 34: 34.2, 35: 44.8, 36: 55.6, 37: 62.4, 38: 60.9, 39: 51.3, 40: 33.5}
+  intraday_premium_mean: 1.07   # FY2026 intraday premium over system price [MARKET_FACTS s.2]
+  intraday_premium_sd: 4.63
+  intraday_spike_premium_today: 0.10
+  imbalance_minus_spot_mean: -2.5
+  imbalance_minus_spot_sd: 9.42 # FY2026 [MARKET_FACTS s.3]
+  # Scarcity-adjusted imbalance price vs wide-area reserve margin [MARKET_FACTS s.3]:
+  # 0 at B=10 %, D=45 JPY/kWh at B'=8 %, C=200 JPY/kWh at A=3 % (C=200 until 2026-09-30; 300 from 2026-10-01).
+  scarcity_B_pct: 10.0
+  scarcity_Bp_pct: 8.0
+  scarcity_A_pct: 3.0
+  scarcity_D: 45.0
+  scarcity_C: 200.0
+  scarcity_C_from_2026_10_01: 300.0
+  reserve_margin_today: {33: 9.1, 34: 8.4, 35: 7.2, 36: 6.1, 37: 5.4, 38: 5.6, 39: 6.6, 40: 8.3}
+  spike_threshold_jpy_kwh: 35.0
+
+tariff:
+  contract_id: "SPC-ATSUGI-MKT-2026"
+  # Market-linked energy price per slot = spot * loss_factor + service_fee + wheeling_energy + capacity + renewable levy
+  loss_factor: 1.04                     # ESTIMATE [MARKET_FACTS s.5.4]
+  service_fee_jpy_kwh: 2.0              # ESTIMATE, range 1-3 [MARKET_FACTS s.5.4]
+  wheeling_energy_jpy_kwh: 0.91         # TEPCO PG EHV standard until 2026-10-31 [MARKET_FACTS s.5.1]
+  wheeling_basic_jpy_kw_month: 423.39   # TEPCO PG EHV standard until 2026-10-31 [MARKET_FACTS s.5.1]
+  capacity_contribution_jpy_kwh: 0.94   # FY2026 Tokyo ESTIMATE [MARKET_FACTS s.5.2]
+  renewable_levy_jpy_kwh: 4.18          # FY2026 [MARKET_FACTS s.5.3]
+  demand_charge_jpy_kw_month: 1500      # retailer basic charge; TEPCO EP market-linked plan FY2026 level [MARKET_FACTS s.5.4]
+  demand_charge_basis: "monthly maximum 30-min demand (demo assumption)"
+  deviation_band_pct: 7.5
+  gate_closure_min: 60                  # plan revisions until 1 h before delivery [MARKET_FACTS s.3]
+  dr_program: "Aggregator summer DR program (July-September), day-of dispatch"
+  dr_energy_rate_jpy_kwh: 45.0          # demo assumption
+  dr_penalty_rate_jpy_kwh: 60.0         # demo assumption
+  dr_availability_jpy_kw_month: 650     # demo assumption (paid July-September)
+  dr_contracted_capacity_kw: 3000
+  dr_payment_cap_ratio: 1.0
+  gain_share_pct: 25.0
+  gain_share_pct_range: [20.0, 30.0]
+  baas_fee_jpy_month: 3000000           # 8 MWh x 60k JPY/kWh competitive C&I procurement, 1/3 subsidy, 15 y at 3 %, O&M 1.5 %/yr (PRD assumption ledger)

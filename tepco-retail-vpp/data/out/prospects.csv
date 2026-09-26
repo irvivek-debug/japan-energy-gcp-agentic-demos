@@ -1,0 +1,4 @@
+prospect_id,name,legal_entity,site,segment,projected_peak_mw,projected_annual_mwh,load_factor,cfe_ambition_pct,current_supplier,bill_document,stage,desired_start
+PR-01,Hokuso Cloud Campus,Hokuso Digital Infrastructure KK (fictional),"Inzai, Chiba",hyperscale_data_center,59.0,454517.0,0.88,90.0,incumbent retailer (anonymised),bill_PR-01_hokuso_cloud_campus_2026-07.txt,qualification,2027-04-01
+PR-02,Minuma Power Devices,Minuma Power Devices KK (fictional),"Saitama, Saitama",power_semiconductor_fab,33.0,262450.0,0.909,80.0,incumbent retailer (anonymised),bill_PR-02_minuma_power_devices_2026-07.txt,qualification,2027-04-01
+PR-03,Sagamihara Logistics Hub,Sagami Gateway Logistics KK (fictional),"Sagamihara, Kanagawa",logistics_hub,7.2,36344.0,0.573,60.0,incumbent retailer (anonymised),bill_PR-03_sagamihara_logistics_hub_2026-07.txt,qualification,2027-04-01

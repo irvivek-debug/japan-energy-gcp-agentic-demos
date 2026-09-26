@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="360" viewBox="0 0 760 360" font-family="Inter, sans-serif">
+<rect width="760" height="360" fill="#131313"/>
+<text x="64" y="24" fill="#e4e2e1" font-size="15" font-weight="600">jepx_trading.20260926T081714Z: train score by program (JPY M)</text>
+<line x1="64" y1="40.0" x2="590" y2="40.0" stroke="#2a2f38"/>
+<text x="56" y="44.0" fill="#a0a3a8" font-size="11" text-anchor="end">-85398.3</text>
+<line x1="64" y1="94.4" x2="590" y2="94.4" stroke="#2a2f38"/>
+<text x="56" y="98.4" fill="#a0a3a8" font-size="11" text-anchor="end">-85453.7</text>
+<line x1="64" y1="148.8" x2="590" y2="148.8" stroke="#2a2f38"/>
+<text x="56" y="152.8" fill="#a0a3a8" font-size="11" text-anchor="end">-85509.0</text>
+<line x1="64" y1="203.2" x2="590" y2="203.2" stroke="#2a2f38"/>
+<text x="56" y="207.2" fill="#a0a3a8" font-size="11" text-anchor="end">-85564.4</text>
+<line x1="64" y1="257.6" x2="590" y2="257.6" stroke="#2a2f38"/>
+<text x="56" y="261.6" fill="#a0a3a8" font-size="11" text-anchor="end">-85619.8</text>
+<line x1="64" y1="312.0" x2="590" y2="312.0" stroke="#2a2f38"/>
+<text x="56" y="316.0" fill="#a0a3a8" font-size="11" text-anchor="end">-85675.2</text>
+<text x="64.0" y="330" fill="#a0a3a8" font-size="11" text-anchor="middle">0</text>
+<text x="169.2" y="330" fill="#a0a3a8" font-size="11" text-anchor="middle">8</text>
+<text x="274.4" y="330" fill="#a0a3a8" font-size="11" text-anchor="middle">16</text>
+<text x="379.6" y="330" fill="#a0a3a8" font-size="11" text-anchor="middle">24</text>
+<text x="484.8" y="330" fill="#a0a3a8" font-size="11" text-anchor="middle">32</text>
+<text x="590.0" y="330" fill="#a0a3a8" font-size="11" text-anchor="middle">40</text>
+<text x="327.0" y="352" fill="#a0a3a8" font-size="12" text-anchor="middle">program index</text>
+<text x="14" y="176.0" fill="#a0a3a8" font-size="12" transform="rotate(-90 14 176.0)" text-anchor="middle">score (JPY M)</text>
+<circle cx="64.0" cy="63.2" r="2.2" fill="#7fd1c7" fill-opacity="0.6"/>
+<circle cx="77.2" cy="126.4" r="2.2" fill="#7fd1c7" fill-opacity="0.6"/>
+<circle cx="90.3" cy="111.6" r="2.2" fill="#7fd1c7" fill-opacity="0.6"/>
+<circle cx="103.4" cy="312.0" r="2.2" fill="#7fd1c7" fill-opacity="0.6"/>
+<circle cx="129.8" cy="256.1" r="2.2" fill="#7fd1c7" fill-opacity="0.6"/>
+<circle cx="142.9" cy="63.2" r="2.2" fill="#7fd1c7" fill-opacity="0.6"/>
+<circle cx="156.1" cy="52.8" r="2.2" fill="#7fd1c7" fill-opacity="0.6"/>
+<circle cx="169.2" cy="52.8" r="2.2" fill="#7fd1c7" fill-opacity="0.6"/>
+<circle cx="182.4" cy="270.3" r="2.2" fill="#7fd1c7" fill-opacity="0.6"/>
+<circle cx="195.5" cy="255.9" r="2.2" fill="#7fd1c7" fill-opacity="0.6"/>
+<circle cx="208.7" cy="47.7" r="2.2" fill="#7fd1c7" fill-opacity="0.6"/>
+<circle cx="221.8" cy="47.7" r="2.2" fill="#7fd1c7" fill-opacity="0.6"/>
+<circle cx="235.0" cy="121.6" r="2.2" fill="#7fd1c7" fill-opacity="0.6"/>
+<circle cx="248.1" cy="51.1" r="2.2" fill="#7fd1c7" fill-opacity="0.6"/>
+<circle cx="261.2" cy="71.0" r="2.2" fill="#7fd1c7" fill-opacity="0.6"/>
+<circle cx="274.4" cy="80.8" r="2.2" fill="#7fd1c7" fill-opacity="0.6"/>
+<circle cx="287.5" cy="74.4" r="2.2" fill="#7fd1c7" fill-opacity="0.6"/>
+<circle cx="300.7" cy="50.0" r="2.2" fill="#7fd1c7" fill-opacity="0.6"/>
+<circle cx="313.9" cy="47.7" r="2.2" fill="#7fd1c7" fill-opacity="0.6"/>
+<circle cx="327.0" cy="48.2" r="2.2" fill="#7fd1c7" fill-opacity="0.6"/>
+<circle cx="340.2" cy="47.7" r="2.2" fill="#7fd1c7" fill-opacity="0.6"/>
+<circle cx="353.3" cy="60.2" r="2.2" fill="#7fd1c7" fill-opacity="0.6"/>
+<circle cx="366.4" cy="45.0" r="2.2" fill="#7fd1c7" fill-opacity="0.6"/>
+<circle cx="379.6" cy="47.7" r="2.2" fill="#7fd1c7" fill-opacity="0.6"/>
+<circle cx="392.8" cy="44.5" r="2.2" fill="#7fd1c7" fill-opacity="0.6"/>
+<circle cx="405.9" cy="47.7" r="2.2" fill="#7fd1c7" fill-opacity="0.6"/>
+<circle cx="419.1" cy="44.3" r="2.2" fill="#7fd1c7" fill-opacity="0.6"/>
+<circle cx="432.2" cy="46.0" r="2.2" fill="#7fd1c7" fill-opacity="0.6"/>
+<circle cx="445.3" cy="44.3" r="2.2" fill="#7fd1c7" fill-opacity="0.6"/>
+<circle cx="458.5" cy="48.5" r="2.2" fill="#7fd1c7" fill-opacity="0.6"/>
+<circle cx="471.7" cy="44.3" r="2.2" fill="#7fd1c7" fill-opacity="0.6"/>
+<circle cx="484.8" cy="44.3" r="2.2" fill="#7fd1c7" fill-opacity="0.6"/>
+<circle cx="497.9" cy="44.6" r="2.2" fill="#7fd1c7" fill-opacity="0.6"/>
+<circle cx="511.1" cy="44.3" r="2.2" fill="#7fd1c7" fill-opacity="0.6"/>
+<circle cx="524.2" cy="40.5" r="2.2" fill="#7fd1c7" fill-opacity="0.6"/>
+<circle cx="537.4" cy="86.2" r="2.2" fill="#7fd1c7" fill-opacity="0.6"/>
+<circle cx="550.5" cy="45.5" r="2.2" fill="#7fd1c7" fill-opacity="0.6"/>
+<circle cx="563.7" cy="40.0" r="2.2" fill="#7fd1c7" fill-opacity="0.6"/>
+<circle cx="576.9" cy="45.5" r="2.2" fill="#7fd1c7" fill-opacity="0.6"/>
+<circle cx="590.0" cy="40.0" r="2.2" fill="#7fd1c7" fill-opacity="0.6"/>
+<line x1="602" y1="52" x2="624" y2="52" stroke="#7fd1c7" stroke-width="2"/>
+<text x="630" y="56" fill="#e4e2e1" font-size="11">feasible candidates</text>
+<polyline points="64.0,63.2 77.2,63.2 90.3,63.2 103.4,63.2 116.6,63.2 129.8,63.2 142.9,63.2 156.1,52.8 169.2,52.8 182.4,52.8 195.5,52.8 208.7,47.7 221.8,47.7 235.0,47.7 248.1,47.7 261.2,47.7 274.4,47.7 287.5,47.7 300.7,47.7 313.9,47.7 327.0,47.7 340.2,47.7 353.3,47.7 366.4,45.0 379.6,45.0 392.8,44.5 405.9,44.5 419.1,44.3 432.2,44.3 445.3,44.3 458.5,44.3 471.7,44.3 484.8,44.3 497.9,44.3 511.1,44.3 524.2,40.5 537.4,40.5 550.5,40.5 563.7,40.0 576.9,40.0 590.0,40.0" fill="none" stroke="#e0a458" stroke-width="2"/>
+<line x1="602" y1="72" x2="624" y2="72" stroke="#e0a458" stroke-width="2"/>
+<text x="630" y="76" fill="#e4e2e1" font-size="11">best so far</text>
+<polyline points="64.0,63.2 590.0,63.2" fill="none" stroke="#a7caed" stroke-width="2" stroke-dasharray="5 4"/>
+<line x1="602" y1="92" x2="624" y2="92" stroke="#a7caed" stroke-width="2" stroke-dasharray="5 4"/>
+<text x="630" y="96" fill="#e4e2e1" font-size="11">seed</text>
+</svg>

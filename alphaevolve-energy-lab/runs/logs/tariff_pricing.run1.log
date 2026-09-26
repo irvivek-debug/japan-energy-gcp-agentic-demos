@@ -1,0 +1,80 @@
+[tariff_pricing.20260926T073839Z] baseline locked: seed=-8800.354 null_raw=-10827.924156700457 ; budget {'day': '2026-09-26', 'runs': 0, 'programs': 0, 'remaining_programs_today': 120}
+[tariff_pricing.20260926T073839Z] #01 island 1 gemini-3.1-pro-preview   INVALID score=None kind=policy best=-8800.354 plateau=0/15 :: portfolio churn 15.8% > 15%; energy-weighted churn 19.5% > 15%; segment churn > 25%: semiconductor_fab 36.7%, water_utility 30.4%, universit
+[tariff_pricing.20260926T073839Z] #02 island 0 gemini-3.6-flash         VALID  score=-8977.025 kind=ok best=-8800.354 plateau=1/15
+[tariff_pricing.20260926T073839Z] #03 island 2 gemini-3.6-flash         VALID  score=-10873.23 kind=ok best=-8800.354 plateau=2/15
+[tariff_pricing.20260926T073839Z] #04 island 0 gemini-3.1-pro-preview   VALID  score=-8353.915 kind=ok best=-8353.915 plateau=0/15
+[tariff_pricing.20260926T073839Z] #05 island 1 gemini-3.6-flash         VALID  score=-9247.563 kind=ok best=-8353.915 plateau=1/15
+[tariff_pricing.20260926T073839Z] #06 island 2 gemini-3.6-flash         VALID  score=-6553.194 kind=ok best=-6553.194 plateau=0/15
+[tariff_pricing.20260926T073839Z] #07 island 1 gemini-3.6-flash         VALID  score=-6484.702 kind=ok best=-6484.702 plateau=0/15
+[tariff_pricing.20260926T073839Z] #08 island 0 gemini-3.6-flash         VALID  score=-7094.169 kind=ok best=-6484.702 plateau=1/15
+[tariff_pricing.20260926T073839Z] #09 island 2 gemini-3.6-flash         VALID  score=-6559.653 kind=ok best=-6484.702 plateau=2/15
+[tariff_pricing.20260926T073839Z] #10 island 0 gemini-3.6-flash         VALID  score=-6484.702 kind=ok best=-6484.702 plateau=3/15
+[tariff_pricing.20260926T073839Z] #11 island 1 gemini-3.1-pro-preview   VALID  score=-7590.263 kind=ok best=-6484.702 plateau=4/15
+[tariff_pricing.20260926T073839Z] #12 island 2 gemini-3.6-flash         VALID  score=-8504.878 kind=ok best=-6484.702 plateau=5/15
+[tariff_pricing.20260926T073839Z] #13 island 0 gemini-3.6-flash         VALID  score=-6425.421 kind=ok best=-6425.421 plateau=0/15
+[tariff_pricing.20260926T073839Z] #14 island 1 gemini-3.1-pro-preview   VALID  score=-7103.664 kind=ok best=-6425.421 plateau=1/15
+[tariff_pricing.20260926T073839Z] #15 island 2 gemini-3.6-flash         VALID  score=-6163.792 kind=ok best=-6163.792 plateau=0/15
+[tariff_pricing.20260926T073839Z] #16 island 0 gemini-3.6-flash         VALID  score=-6706.633 kind=ok best=-6163.792 plateau=1/15
+[tariff_pricing.20260926T073839Z] #17 island 1 gemini-3.6-flash         VALID  score=-6425.421 kind=ok best=-6163.792 plateau=2/15
+[tariff_pricing.20260926T073839Z] #18 island 2 gemini-3.6-flash         VALID  score=-6271.834 kind=ok best=-6163.792 plateau=3/15
+[tariff_pricing.20260926T073839Z] #19 island 0 gemini-3.6-flash         VALID  score=-5994.354 kind=ok best=-5994.354 plateau=0/15
+[tariff_pricing.20260926T073839Z] #20 island 1 gemini-3.1-pro-preview   VALID  score=-6268.53 kind=ok best=-5994.354 plateau=1/15
+[tariff_pricing.20260926T073839Z] #21 island 2 gemini-3.1-pro-preview   VALID  score=-8632.35 kind=ok best=-5994.354 plateau=2/15
+[tariff_pricing.20260926T073839Z] #22 island 0 gemini-3.6-flash         VALID  score=-6093.271 kind=ok best=-5994.354 plateau=3/15
+[tariff_pricing.20260926T073839Z] #23 island 1 gemini-3.6-flash         VALID  score=-7027.473 kind=ok best=-5994.354 plateau=4/15
+[tariff_pricing.20260926T073839Z] #24 island 0 gemini-3.1-pro-preview   VALID  score=-5616.105 kind=ok best=-5616.105 plateau=0/15
+[tariff_pricing.20260926T073839Z] #25 island 2 gemini-3.6-flash         VALID  score=-5783.304 kind=ok best=-5616.105 plateau=1/15
+[tariff_pricing.20260926T073839Z] #26 island 2 gemini-3.6-flash         VALID  score=-5783.304 kind=ok best=-5616.105 plateau=2/15
+[tariff_pricing.20260926T073839Z] #27 island 1 gemini-3.6-flash         VALID  score=-6036.042 kind=ok best=-5616.105 plateau=3/15
+[tariff_pricing.20260926T073839Z] #28 island 0 gemini-3.6-flash         VALID  score=-5228.157 kind=ok best=-5228.157 plateau=0/15
+[tariff_pricing.20260926T073839Z] #29 island 1 gemini-3.6-flash         VALID  score=-5591.653 kind=ok best=-5228.157 plateau=1/15
+[tariff_pricing.20260926T073839Z] #30 island 2 gemini-3.6-flash         VALID  score=-5006.707 kind=ok best=-5006.707 plateau=0/15
+[tariff_pricing.20260926T073839Z] #31 island 1 gemini-3.6-flash         VALID  score=-4716.373 kind=ok best=-4716.373 plateau=0/15
+[tariff_pricing.20260926T073839Z] #32 island 2 gemini-3.6-flash         VALID  score=-5007.047 kind=ok best=-4716.373 plateau=1/15
+[tariff_pricing.20260926T073839Z] #33 island 0 gemini-3.6-flash         VALID  score=-4370.403 kind=ok best=-4370.403 plateau=0/15
+[tariff_pricing.20260926T073839Z] #34 island 1 gemini-3.6-flash         VALID  score=-4651.435 kind=ok best=-4370.403 plateau=1/15
+[tariff_pricing.20260926T073839Z] #35 island 0 gemini-3.1-pro-preview   VALID  score=-5616.105 kind=ok best=-4370.403 plateau=2/15
+[tariff_pricing.20260926T073839Z] #36 island 2 gemini-3.6-flash         VALID  score=-4370.403 kind=ok best=-4370.403 plateau=3/15
+[tariff_pricing.20260926T073839Z] #37 island 0 gemini-3.6-flash         VALID  score=-3764.936 kind=ok best=-3764.936 plateau=0/15
+[tariff_pricing.20260926T073839Z] #38 island 2 gemini-3.6-flash         VALID  score=-3550.8 kind=ok best=-3550.800 plateau=0/15
+[tariff_pricing.20260926T073839Z] #39 island 1 gemini-3.6-flash         VALID  score=-4152.851 kind=ok best=-3550.800 plateau=1/15
+[tariff_pricing.20260926T073839Z] #40 island 0 gemini-3.1-pro-preview   VALID  score=-3289.666 kind=ok best=-3289.666 plateau=0/15
+[tariff_pricing.20260926T073839Z] search stopped (max_programs) after 40 programs, 511 s; holdout rescoring...
+[tariff_pricing.20260926T073839Z] evidence -> <repo>/alphaevolve-energy-lab/runs/tariff_pricing.20260926T073839Z.json
+{
+ "run_id": "tariff_pricing.20260926T073839Z",
+ "source": "local-gemini-controller",
+ "seed_train": -8800.354397563551,
+ "best_train": -3289.666066440678,
+ "holdout_seed": -11922.885324032786,
+ "best_holdout": null,
+ "holdout_delta": null,
+ "uplift_valid": false,
+ "invalid_by_kind": {
+  "policy:churn": 1
+ },
+ "tokens": {
+  "prompt": 224673,
+  "output": 55971,
+  "thinking": 144068,
+  "calls": 40,
+  "errors": 0,
+  "cost_usd": 1.05164,
+  "by_model": {
+   "gemini-3.1-pro-preview": {
+    "calls": 9,
+    "prompt": 49563,
+    "output": 9418,
+    "thinking": 20009,
+    "cost_usd": 0.45225
+   },
+   "gemini-3.6-flash": {
+    "calls": 31,
+    "prompt": 175110,
+    "output": 46553,
+    "thinking": 124059,
+    "cost_usd": 0.59939
+   }
+  }
+ }
+}

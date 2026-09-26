@@ -1,0 +1,47 @@
+{
+ "generator": "data/generate.py",
+ "seeds": {
+  "history": 20260926,
+  "train_cohort": 11,
+  "holdout_cohort": 29,
+  "train_bank": 101,
+  "holdout_bank": 202,
+  "kbg_noise": 303,
+  "stress_path": 404,
+  "holdout2_cohort": 31,
+  "holdout2_bank": 505
+ },
+ "hash": "sha256 over sorted (name, dtype, shape, bytes)",
+ "instances": {
+  "tariff_pricing_train": {
+   "file": "tariff_pricing_train.npz",
+   "sha256": "8f3d1516cef35cbf9f272b2bf7c8f2778639079f6691e5d640877d64678fe016",
+   "arrays": 44,
+   "bytes": 708152
+  },
+  "tariff_pricing_holdout": {
+   "file": "tariff_pricing_holdout.npz",
+   "sha256": "fed7d7994384e84e9e56878eb055df664f1cf9e5999b96b0aa6650e1b5468e4a",
+   "arrays": 44,
+   "bytes": 566118
+  },
+  "tariff_pricing_holdout2": {
+   "file": "tariff_pricing_holdout2.npz",
+   "sha256": "82e114a31fb302031ddf1fa59c95e439cc7fb75bf9744bfd84002661c6209e26",
+   "arrays": 44,
+   "bytes": 566414
+  },
+  "jepx_trading_train": {
+   "file": "jepx_trading_train.npz",
+   "sha256": "e742fc255460e97b08147b57655b4e39cf31af0eb1a1b3ff7d686b18026dd7fe",
+   "arrays": 31,
+   "bytes": 291522
+  },
+  "jepx_trading_holdout": {
+   "file": "jepx_trading_holdout.npz",
+   "sha256": "f843d5f5f6308b80ff910dbb3aae2e19ff6c5816dfec42728c7d32adba704c52",
+   "arrays": 31,
+   "bytes": 341109
+  }
+ }
+}

@@ -1,0 +1,6 @@
+.snap/
+eval/results/
+**/__pycache__/
+tests/
+docs/
+.env

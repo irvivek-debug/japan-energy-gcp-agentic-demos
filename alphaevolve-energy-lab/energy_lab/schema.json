@@ -1,0 +1,1860 @@
+{
+ "dataset_default": "energy_alphaevolve_lab",
+ "tables": {
+  "market_history": {
+   "description": "30-minute TEPCO PG (Tokyo) area market history FY2023-FY2025 plus KBG balance-group series. Calibrated synthetic data (targets: MARKET_FACTS 1-3, 7).",
+   "columns": [
+    {
+     "name": "ts",
+     "type": "STRING",
+     "description": "slot start, ISO local JST (YYYY-MM-DDTHH:MM)"
+    },
+    {
+     "name": "date",
+     "type": "STRING",
+     "description": "delivery date YYYY-MM-DD"
+    },
+    {
+     "name": "fiscal_year",
+     "type": "INT64",
+     "description": "Japanese fiscal year (April-March)"
+    },
+    {
+     "name": "month",
+     "type": "INT64",
+     "description": "calendar month 1-12"
+    },
+    {
+     "name": "slot",
+     "type": "INT64",
+     "description": "30-min product 1-48 (1 = 00:00-00:30)"
+    },
+    {
+     "name": "hour",
+     "type": "INT64",
+     "description": "hour of day 0-23"
+    },
+    {
+     "name": "day_of_week",
+     "type": "INT64",
+     "description": "0=Monday"
+    },
+    {
+     "name": "is_holiday",
+     "type": "BOOL",
+     "description": "national holiday"
+    },
+    {
+     "name": "is_working_day",
+     "type": "BOOL",
+     "description": "weekday, not holiday/New Year/Obon"
+    },
+    {
+     "name": "observance",
+     "type": "STRING",
+     "description": "new_year / obon / golden_week or empty"
+    },
+    {
+     "name": "temp_c",
+     "type": "FLOAT64",
+     "description": "Tokyo temperature, deg C"
+    },
+    {
+     "name": "area_demand_gw",
+     "type": "FLOAT64",
+     "description": "TEPCO area demand, GW"
+    },
+    {
+     "name": "area_demand_da_fcst_gw",
+     "type": "FLOAT64",
+     "description": "D-1 area demand forecast, GW"
+    },
+    {
+     "name": "area_pv_gw",
+     "type": "FLOAT64",
+     "description": "TEPCO area solar output, GW"
+    },
+    {
+     "name": "net_load_gw",
+     "type": "FLOAT64",
+     "description": "demand minus solar, GW"
+    },
+    {
+     "name": "reserve_margin_pct",
+     "type": "FLOAT64",
+     "description": "wide-area reserve margin proxy, %"
+    },
+    {
+     "name": "tokyo_price_jpy_kwh",
+     "type": "FLOAT64",
+     "description": "JEPX day-ahead Tokyo area price, JPY/kWh"
+    },
+    {
+     "name": "system_price_jpy_kwh",
+     "type": "FLOAT64",
+     "description": "JEPX day-ahead system price, JPY/kWh"
+    },
+    {
+     "name": "intraday_bid_jpy_kwh",
+     "type": "FLOAT64",
+     "description": "intraday best bid at H-1 (Tokyo delivery), JPY/kWh"
+    },
+    {
+     "name": "intraday_ask_jpy_kwh",
+     "type": "FLOAT64",
+     "description": "intraday best ask at H-1 (Tokyo delivery), JPY/kWh"
+    },
+    {
+     "name": "imbalance_price_jpy_kwh",
+     "type": "FLOAT64",
+     "description": "single imbalance price (surplus = shortage), JPY/kWh"
+    },
+    {
+     "name": "scarcity_price_jpy_kwh",
+     "type": "FLOAT64",
+     "description": "scarcity-curve component vs reserve margin at gate closure, JPY/kWh"
+    },
+    {
+     "name": "fuel_index",
+     "type": "FLOAT64",
+     "description": "monthly price-level index (LNG-like factor), FY2025 mean = 1"
+    },
+    {
+     "name": "kbg_demand_mw",
+     "type": "FLOAT64",
+     "description": "KBG balance-group demand, MW"
+    },
+    {
+     "name": "kbg_demand_da_fcst_mw",
+     "type": "FLOAT64",
+     "description": "KBG D-1 demand forecast p50, MW"
+    },
+    {
+     "name": "kbg_pv_mw",
+     "type": "FLOAT64",
+     "description": "KBG 40 MW solar PPA output, MW"
+    },
+    {
+     "name": "tokyo_price_da_fcst_jpy_kwh",
+     "type": "FLOAT64",
+     "description": "desk D-1 price forecast p50, JPY/kWh"
+    }
+   ]
+  },
+  "calendar": {
+   "description": "Calendar FY2023-FY2026 with Japanese national holidays and observance periods.",
+   "columns": [
+    {
+     "name": "date",
+     "type": "STRING",
+     "description": "YYYY-MM-DD"
+    },
+    {
+     "name": "fiscal_year",
+     "type": "INT64",
+     "description": "fiscal year"
+    },
+    {
+     "name": "month",
+     "type": "INT64",
+     "description": "month"
+    },
+    {
+     "name": "day_of_week",
+     "type": "INT64",
+     "description": "0=Monday"
+    },
+    {
+     "name": "is_holiday",
+     "type": "BOOL",
+     "description": "national holiday incl. substitute and citizens' holidays"
+    },
+    {
+     "name": "is_working_day",
+     "type": "BOOL",
+     "description": "working day"
+    },
+    {
+     "name": "observance",
+     "type": "STRING",
+     "description": "new_year / obon / golden_week or empty"
+    }
+   ]
+  },
+  "scenario_monthly": {
+   "description": "FY2026 Monte Carlo scenario banks (train = desk view at pricing time; holdout = unseen, harsher), summarised per scenario and month.",
+   "columns": [
+    {
+     "name": "bank",
+     "type": "STRING",
+     "description": "train or holdout"
+    },
+    {
+     "name": "scenario",
+     "type": "INT64",
+     "description": "scenario index"
+    },
+    {
+     "name": "regime",
+     "type": "STRING",
+     "description": "baseline / moderate_shock / severe_shock / realised_like"
+    },
+    {
+     "name": "stress",
+     "type": "STRING",
+     "description": "injected stress events (cold_snap_lng, heat_dome) or none"
+    },
+    {
+     "name": "month",
+     "type": "INT64",
+     "description": "calendar month"
+    },
+    {
+     "name": "mean_price_jpy_kwh",
+     "type": "FLOAT64",
+     "description": "monthly mean Tokyo price"
+    },
+    {
+     "name": "max_price_jpy_kwh",
+     "type": "FLOAT64",
+     "description": "monthly max slot price"
+    },
+    {
+     "name": "p95_price_jpy_kwh",
+     "type": "FLOAT64",
+     "description": "monthly 95th percentile slot price"
+    },
+    {
+     "name": "mean_imbalance_jpy_kwh",
+     "type": "FLOAT64",
+     "description": "monthly mean imbalance price"
+    },
+    {
+     "name": "max_imbalance_jpy_kwh",
+     "type": "FLOAT64",
+     "description": "monthly max imbalance price"
+    },
+    {
+     "name": "min_reserve_margin_pct",
+     "type": "FLOAT64",
+     "description": "monthly min reserve margin %"
+    },
+    {
+     "name": "slots_ge_100",
+     "type": "INT64",
+     "description": "slots with Tokyo price >= 100 JPY/kWh"
+    },
+    {
+     "name": "annual_mean_price_jpy_kwh",
+     "type": "FLOAT64",
+     "description": "scenario FY2026 annual mean"
+    }
+   ]
+  },
+  "customers_train": {
+   "description": "KBG train cohort: features visible to price_book (fictional customers).",
+   "columns": [
+    {
+     "name": "customer_id",
+     "type": "STRING",
+     "description": "fictional id"
+    },
+    {
+     "name": "cohort",
+     "type": "STRING",
+     "description": "train / holdout"
+    },
+    {
+     "name": "segment",
+     "type": "STRING",
+     "description": "segment"
+    },
+    {
+     "name": "voltage",
+     "type": "STRING",
+     "description": "HV / EHV"
+    },
+    {
+     "name": "contract_kw",
+     "type": "FLOAT64",
+     "description": "contract kW"
+    },
+    {
+     "name": "annual_mwh",
+     "type": "FLOAT64",
+     "description": "expected annual MWh at the forward"
+    },
+    {
+     "name": "load_factor",
+     "type": "FLOAT64",
+     "description": "annual load factor"
+    },
+    {
+     "name": "lf_band",
+     "type": "STRING",
+     "description": "low / mid / high"
+    },
+    {
+     "name": "expected_energy_cost_jpy_kwh",
+     "type": "FLOAT64",
+     "description": "shape-weighted forward price"
+    },
+    {
+     "name": "shape_premium",
+     "type": "FLOAT64",
+     "description": "shape cost vs baseload forward"
+    },
+    {
+     "name": "wheeling_jpy_kwh_equiv",
+     "type": "FLOAT64",
+     "description": "wheeling per kWh"
+    },
+    {
+     "name": "capacity_cost_jpy_kwh",
+     "type": "FLOAT64",
+     "description": "capacity contribution per kWh"
+    },
+    {
+     "name": "coincident_peak_kw",
+     "type": "FLOAT64",
+     "description": "kW at the system peak"
+    },
+    {
+     "name": "flex_share",
+     "type": "FLOAT64",
+     "description": "shiftable share"
+    },
+    {
+     "name": "flex_hours",
+     "type": "FLOAT64",
+     "description": "shift window h"
+    },
+    {
+     "name": "forecast_mape_pct",
+     "type": "FLOAT64",
+     "description": "30-min deviation %"
+    },
+    {
+     "name": "monthly_deviation_pct",
+     "type": "FLOAT64",
+     "description": "monthly deviation %"
+    },
+    {
+     "name": "credit_rating",
+     "type": "STRING",
+     "description": "A-D"
+    },
+    {
+     "name": "essential",
+     "type": "BOOL",
+     "description": "essential facility"
+    },
+    {
+     "name": "green_required",
+     "type": "BOOL",
+     "description": "green product"
+    },
+    {
+     "name": "tenure_years",
+     "type": "INT64",
+     "description": "years with KBG"
+    },
+    {
+     "name": "switched_last_5y",
+     "type": "BOOL",
+     "description": "switched supplier recently"
+    },
+    {
+     "name": "procurement_style",
+     "type": "STRING",
+     "description": "tender / negotiated / auto_renew"
+    },
+    {
+     "name": "risk_appetite",
+     "type": "STRING",
+     "description": "survey proxy"
+    },
+    {
+     "name": "dr_interest",
+     "type": "STRING",
+     "description": "survey proxy"
+    },
+    {
+     "name": "dr_potential_kw",
+     "type": "FLOAT64",
+     "description": "DR potential kW"
+    },
+    {
+     "name": "preferred_term_hint",
+     "type": "INT64",
+     "description": "stated term preference"
+    },
+    {
+     "name": "competitor_quote_est_jpy_kwh",
+     "type": "FLOAT64",
+     "description": "noisy competitor estimate"
+    },
+    {
+     "name": "current_rate_jpy_kwh",
+     "type": "FLOAT64",
+     "description": "FY2025 effective rate"
+    }
+   ]
+  },
+  "customers_holdout": {
+   "description": "KBG holdout cohort: features visible to price_book (fictional customers).",
+   "columns": [
+    {
+     "name": "customer_id",
+     "type": "STRING",
+     "description": "fictional id"
+    },
+    {
+     "name": "cohort",
+     "type": "STRING",
+     "description": "train / holdout"
+    },
+    {
+     "name": "segment",
+     "type": "STRING",
+     "description": "segment"
+    },
+    {
+     "name": "voltage",
+     "type": "STRING",
+     "description": "HV / EHV"
+    },
+    {
+     "name": "contract_kw",
+     "type": "FLOAT64",
+     "description": "contract kW"
+    },
+    {
+     "name": "annual_mwh",
+     "type": "FLOAT64",
+     "description": "expected annual MWh at the forward"
+    },
+    {
+     "name": "load_factor",
+     "type": "FLOAT64",
+     "description": "annual load factor"
+    },
+    {
+     "name": "lf_band",
+     "type": "STRING",
+     "description": "low / mid / high"
+    },
+    {
+     "name": "expected_energy_cost_jpy_kwh",
+     "type": "FLOAT64",
+     "description": "shape-weighted forward price"
+    },
+    {
+     "name": "shape_premium",
+     "type": "FLOAT64",
+     "description": "shape cost vs baseload forward"
+    },
+    {
+     "name": "wheeling_jpy_kwh_equiv",
+     "type": "FLOAT64",
+     "description": "wheeling per kWh"
+    },
+    {
+     "name": "capacity_cost_jpy_kwh",
+     "type": "FLOAT64",
+     "description": "capacity contribution per kWh"
+    },
+    {
+     "name": "coincident_peak_kw",
+     "type": "FLOAT64",
+     "description": "kW at the system peak"
+    },
+    {
+     "name": "flex_share",
+     "type": "FLOAT64",
+     "description": "shiftable share"
+    },
+    {
+     "name": "flex_hours",
+     "type": "FLOAT64",
+     "description": "shift window h"
+    },
+    {
+     "name": "forecast_mape_pct",
+     "type": "FLOAT64",
+     "description": "30-min deviation %"
+    },
+    {
+     "name": "monthly_deviation_pct",
+     "type": "FLOAT64",
+     "description": "monthly deviation %"
+    },
+    {
+     "name": "credit_rating",
+     "type": "STRING",
+     "description": "A-D"
+    },
+    {
+     "name": "essential",
+     "type": "BOOL",
+     "description": "essential facility"
+    },
+    {
+     "name": "green_required",
+     "type": "BOOL",
+     "description": "green product"
+    },
+    {
+     "name": "tenure_years",
+     "type": "INT64",
+     "description": "years with KBG"
+    },
+    {
+     "name": "switched_last_5y",
+     "type": "BOOL",
+     "description": "switched supplier recently"
+    },
+    {
+     "name": "procurement_style",
+     "type": "STRING",
+     "description": "tender / negotiated / auto_renew"
+    },
+    {
+     "name": "risk_appetite",
+     "type": "STRING",
+     "description": "survey proxy"
+    },
+    {
+     "name": "dr_interest",
+     "type": "STRING",
+     "description": "survey proxy"
+    },
+    {
+     "name": "dr_potential_kw",
+     "type": "FLOAT64",
+     "description": "DR potential kW"
+    },
+    {
+     "name": "preferred_term_hint",
+     "type": "INT64",
+     "description": "stated term preference"
+    },
+    {
+     "name": "competitor_quote_est_jpy_kwh",
+     "type": "FLOAT64",
+     "description": "noisy competitor estimate"
+    },
+    {
+     "name": "current_rate_jpy_kwh",
+     "type": "FLOAT64",
+     "description": "FY2025 effective rate"
+    }
+   ]
+  },
+  "customers_holdout2": {
+   "description": "KBG holdout2 cohort: features visible to price_book (fictional customers).",
+   "columns": [
+    {
+     "name": "customer_id",
+     "type": "STRING",
+     "description": "fictional id"
+    },
+    {
+     "name": "cohort",
+     "type": "STRING",
+     "description": "train / holdout"
+    },
+    {
+     "name": "segment",
+     "type": "STRING",
+     "description": "segment"
+    },
+    {
+     "name": "voltage",
+     "type": "STRING",
+     "description": "HV / EHV"
+    },
+    {
+     "name": "contract_kw",
+     "type": "FLOAT64",
+     "description": "contract kW"
+    },
+    {
+     "name": "annual_mwh",
+     "type": "FLOAT64",
+     "description": "expected annual MWh at the forward"
+    },
+    {
+     "name": "load_factor",
+     "type": "FLOAT64",
+     "description": "annual load factor"
+    },
+    {
+     "name": "lf_band",
+     "type": "STRING",
+     "description": "low / mid / high"
+    },
+    {
+     "name": "expected_energy_cost_jpy_kwh",
+     "type": "FLOAT64",
+     "description": "shape-weighted forward price"
+    },
+    {
+     "name": "shape_premium",
+     "type": "FLOAT64",
+     "description": "shape cost vs baseload forward"
+    },
+    {
+     "name": "wheeling_jpy_kwh_equiv",
+     "type": "FLOAT64",
+     "description": "wheeling per kWh"
+    },
+    {
+     "name": "capacity_cost_jpy_kwh",
+     "type": "FLOAT64",
+     "description": "capacity contribution per kWh"
+    },
+    {
+     "name": "coincident_peak_kw",
+     "type": "FLOAT64",
+     "description": "kW at the system peak"
+    },
+    {
+     "name": "flex_share",
+     "type": "FLOAT64",
+     "description": "shiftable share"
+    },
+    {
+     "name": "flex_hours",
+     "type": "FLOAT64",
+     "description": "shift window h"
+    },
+    {
+     "name": "forecast_mape_pct",
+     "type": "FLOAT64",
+     "description": "30-min deviation %"
+    },
+    {
+     "name": "monthly_deviation_pct",
+     "type": "FLOAT64",
+     "description": "monthly deviation %"
+    },
+    {
+     "name": "credit_rating",
+     "type": "STRING",
+     "description": "A-D"
+    },
+    {
+     "name": "essential",
+     "type": "BOOL",
+     "description": "essential facility"
+    },
+    {
+     "name": "green_required",
+     "type": "BOOL",
+     "description": "green product"
+    },
+    {
+     "name": "tenure_years",
+     "type": "INT64",
+     "description": "years with KBG"
+    },
+    {
+     "name": "switched_last_5y",
+     "type": "BOOL",
+     "description": "switched supplier recently"
+    },
+    {
+     "name": "procurement_style",
+     "type": "STRING",
+     "description": "tender / negotiated / auto_renew"
+    },
+    {
+     "name": "risk_appetite",
+     "type": "STRING",
+     "description": "survey proxy"
+    },
+    {
+     "name": "dr_interest",
+     "type": "STRING",
+     "description": "survey proxy"
+    },
+    {
+     "name": "dr_potential_kw",
+     "type": "FLOAT64",
+     "description": "DR potential kW"
+    },
+    {
+     "name": "preferred_term_hint",
+     "type": "INT64",
+     "description": "stated term preference"
+    },
+    {
+     "name": "competitor_quote_est_jpy_kwh",
+     "type": "FLOAT64",
+     "description": "noisy competitor estimate"
+    },
+    {
+     "name": "current_rate_jpy_kwh",
+     "type": "FLOAT64",
+     "description": "FY2025 effective rate"
+    }
+   ]
+  },
+  "customer_behaviour_train": {
+   "description": "KBG train cohort: hidden evaluator behaviour (never shown to candidates).",
+   "columns": [
+    {
+     "name": "customer_id",
+     "type": "STRING",
+     "description": "id"
+    },
+    {
+     "name": "cohort",
+     "type": "STRING",
+     "description": "cohort"
+    },
+    {
+     "name": "segment",
+     "type": "STRING",
+     "description": "segment"
+    },
+    {
+     "name": "shape_amp",
+     "type": "FLOAT64",
+     "description": "diurnal amplitude"
+    },
+    {
+     "name": "shape_shift",
+     "type": "INT64",
+     "description": "slot shift"
+    },
+    {
+     "name": "level_mult",
+     "type": "FLOAT64",
+     "description": "level multiplier"
+    },
+    {
+     "name": "h_risk_aversion",
+     "type": "FLOAT64",
+     "description": "hidden: risk aversion"
+    },
+    {
+     "name": "h_elasticity",
+     "type": "FLOAT64",
+     "description": "hidden: logit units per 1% price gap"
+    },
+    {
+     "name": "h_inertia",
+     "type": "FLOAT64",
+     "description": "hidden: logit utility at parity"
+    },
+    {
+     "name": "h_term_pref",
+     "type": "INT64",
+     "description": "hidden: preferred term"
+    },
+    {
+     "name": "h_dr_cost",
+     "type": "FLOAT64",
+     "description": "hidden: DR enrolment cost JPY/kW-month"
+    },
+    {
+     "name": "h_dr_share",
+     "type": "FLOAT64",
+     "description": "hidden: DR share"
+    },
+    {
+     "name": "h_flex_response",
+     "type": "FLOAT64",
+     "description": "hidden: flex response"
+    },
+    {
+     "name": "h_flex_share",
+     "type": "FLOAT64",
+     "description": "hidden: flex share"
+    },
+    {
+     "name": "h_sigma_slot",
+     "type": "FLOAT64",
+     "description": "hidden: 30-min deviation"
+    },
+    {
+     "name": "h_sigma_month",
+     "type": "FLOAT64",
+     "description": "hidden: monthly deviation"
+    },
+    {
+     "name": "h_discipline",
+     "type": "FLOAT64",
+     "description": "hidden: achievable deviation reduction"
+    },
+    {
+     "name": "h_weather_corr",
+     "type": "FLOAT64",
+     "description": "hidden: weather correlation"
+    },
+    {
+     "name": "h_pd",
+     "type": "FLOAT64",
+     "description": "hidden: probability of default"
+    },
+    {
+     "name": "h_clv_jpy_m",
+     "type": "FLOAT64",
+     "description": "hidden: relationship value JPY M/yr"
+    },
+    {
+     "name": "h_comp_margin",
+     "type": "FLOAT64",
+     "description": "hidden: competitor margin JPY/kWh"
+    },
+    {
+     "name": "h_comp_noise",
+     "type": "FLOAT64",
+     "description": "hidden: competitor noise"
+    },
+    {
+     "name": "h_quote_noise",
+     "type": "FLOAT64",
+     "description": "hidden: quote-estimate noise"
+    }
+   ]
+  },
+  "customer_behaviour_holdout": {
+   "description": "KBG holdout cohort: hidden evaluator behaviour (never shown to candidates).",
+   "columns": [
+    {
+     "name": "customer_id",
+     "type": "STRING",
+     "description": "id"
+    },
+    {
+     "name": "cohort",
+     "type": "STRING",
+     "description": "cohort"
+    },
+    {
+     "name": "segment",
+     "type": "STRING",
+     "description": "segment"
+    },
+    {
+     "name": "shape_amp",
+     "type": "FLOAT64",
+     "description": "diurnal amplitude"
+    },
+    {
+     "name": "shape_shift",
+     "type": "INT64",
+     "description": "slot shift"
+    },
+    {
+     "name": "level_mult",
+     "type": "FLOAT64",
+     "description": "level multiplier"
+    },
+    {
+     "name": "h_risk_aversion",
+     "type": "FLOAT64",
+     "description": "hidden: risk aversion"
+    },
+    {
+     "name": "h_elasticity",
+     "type": "FLOAT64",
+     "description": "hidden: logit units per 1% price gap"
+    },
+    {
+     "name": "h_inertia",
+     "type": "FLOAT64",
+     "description": "hidden: logit utility at parity"
+    },
+    {
+     "name": "h_term_pref",
+     "type": "INT64",
+     "description": "hidden: preferred term"
+    },
+    {
+     "name": "h_dr_cost",
+     "type": "FLOAT64",
+     "description": "hidden: DR enrolment cost JPY/kW-month"
+    },
+    {
+     "name": "h_dr_share",
+     "type": "FLOAT64",
+     "description": "hidden: DR share"
+    },
+    {
+     "name": "h_flex_response",
+     "type": "FLOAT64",
+     "description": "hidden: flex response"
+    },
+    {
+     "name": "h_flex_share",
+     "type": "FLOAT64",
+     "description": "hidden: flex share"
+    },
+    {
+     "name": "h_sigma_slot",
+     "type": "FLOAT64",
+     "description": "hidden: 30-min deviation"
+    },
+    {
+     "name": "h_sigma_month",
+     "type": "FLOAT64",
+     "description": "hidden: monthly deviation"
+    },
+    {
+     "name": "h_discipline",
+     "type": "FLOAT64",
+     "description": "hidden: achievable deviation reduction"
+    },
+    {
+     "name": "h_weather_corr",
+     "type": "FLOAT64",
+     "description": "hidden: weather correlation"
+    },
+    {
+     "name": "h_pd",
+     "type": "FLOAT64",
+     "description": "hidden: probability of default"
+    },
+    {
+     "name": "h_clv_jpy_m",
+     "type": "FLOAT64",
+     "description": "hidden: relationship value JPY M/yr"
+    },
+    {
+     "name": "h_comp_margin",
+     "type": "FLOAT64",
+     "description": "hidden: competitor margin JPY/kWh"
+    },
+    {
+     "name": "h_comp_noise",
+     "type": "FLOAT64",
+     "description": "hidden: competitor noise"
+    },
+    {
+     "name": "h_quote_noise",
+     "type": "FLOAT64",
+     "description": "hidden: quote-estimate noise"
+    }
+   ]
+  },
+  "customer_behaviour_holdout2": {
+   "description": "KBG holdout2 cohort: hidden evaluator behaviour (never shown to candidates).",
+   "columns": [
+    {
+     "name": "customer_id",
+     "type": "STRING",
+     "description": "id"
+    },
+    {
+     "name": "cohort",
+     "type": "STRING",
+     "description": "cohort"
+    },
+    {
+     "name": "segment",
+     "type": "STRING",
+     "description": "segment"
+    },
+    {
+     "name": "shape_amp",
+     "type": "FLOAT64",
+     "description": "diurnal amplitude"
+    },
+    {
+     "name": "shape_shift",
+     "type": "INT64",
+     "description": "slot shift"
+    },
+    {
+     "name": "level_mult",
+     "type": "FLOAT64",
+     "description": "level multiplier"
+    },
+    {
+     "name": "h_risk_aversion",
+     "type": "FLOAT64",
+     "description": "hidden: risk aversion"
+    },
+    {
+     "name": "h_elasticity",
+     "type": "FLOAT64",
+     "description": "hidden: logit units per 1% price gap"
+    },
+    {
+     "name": "h_inertia",
+     "type": "FLOAT64",
+     "description": "hidden: logit utility at parity"
+    },
+    {
+     "name": "h_term_pref",
+     "type": "INT64",
+     "description": "hidden: preferred term"
+    },
+    {
+     "name": "h_dr_cost",
+     "type": "FLOAT64",
+     "description": "hidden: DR enrolment cost JPY/kW-month"
+    },
+    {
+     "name": "h_dr_share",
+     "type": "FLOAT64",
+     "description": "hidden: DR share"
+    },
+    {
+     "name": "h_flex_response",
+     "type": "FLOAT64",
+     "description": "hidden: flex response"
+    },
+    {
+     "name": "h_flex_share",
+     "type": "FLOAT64",
+     "description": "hidden: flex share"
+    },
+    {
+     "name": "h_sigma_slot",
+     "type": "FLOAT64",
+     "description": "hidden: 30-min deviation"
+    },
+    {
+     "name": "h_sigma_month",
+     "type": "FLOAT64",
+     "description": "hidden: monthly deviation"
+    },
+    {
+     "name": "h_discipline",
+     "type": "FLOAT64",
+     "description": "hidden: achievable deviation reduction"
+    },
+    {
+     "name": "h_weather_corr",
+     "type": "FLOAT64",
+     "description": "hidden: weather correlation"
+    },
+    {
+     "name": "h_pd",
+     "type": "FLOAT64",
+     "description": "hidden: probability of default"
+    },
+    {
+     "name": "h_clv_jpy_m",
+     "type": "FLOAT64",
+     "description": "hidden: relationship value JPY M/yr"
+    },
+    {
+     "name": "h_comp_margin",
+     "type": "FLOAT64",
+     "description": "hidden: competitor margin JPY/kWh"
+    },
+    {
+     "name": "h_comp_noise",
+     "type": "FLOAT64",
+     "description": "hidden: competitor noise"
+    },
+    {
+     "name": "h_quote_noise",
+     "type": "FLOAT64",
+     "description": "hidden: quote-estimate noise"
+    }
+   ]
+  },
+  "segment_archetypes": {
+   "description": "Segment archetype 30-min relative load shapes per representative day type (38 types).",
+   "columns": [
+    {
+     "name": "segment",
+     "type": "STRING",
+     "description": "customer segment"
+    },
+    {
+     "name": "day_type",
+     "type": "STRING",
+     "description": "MM-working / MM-nonworking / MM-shutdown / heat-working / cold-working"
+    },
+    {
+     "name": "slot",
+     "type": "INT64",
+     "description": "1-48"
+    },
+    {
+     "name": "hour",
+     "type": "INT64",
+     "description": "0-23"
+    },
+    {
+     "name": "relative_load",
+     "type": "FLOAT64",
+     "description": "load relative to the segment weekday peak (~1)"
+    }
+   ]
+  },
+  "segments": {
+   "description": "Segment archetype parameters (LAB-ASSUMPTIONS).",
+   "columns": [
+    {
+     "name": "segment",
+     "type": "STRING",
+     "description": "segment"
+    },
+    {
+     "name": "train_customers",
+     "type": "INT64",
+     "description": "customers in the train cohort"
+    },
+    {
+     "name": "kw_median",
+     "type": "FLOAT64",
+     "description": "median contract kW"
+    },
+    {
+     "name": "cooling_sens_per_c",
+     "type": "FLOAT64",
+     "description": "load change per deg C (summer)"
+    },
+    {
+     "name": "heating_sens_per_c",
+     "type": "FLOAT64",
+     "description": "load change per deg C colder (winter)"
+    },
+    {
+     "name": "sigma_slot",
+     "type": "FLOAT64",
+     "description": "30-min deviation vs plan (fraction)"
+    },
+    {
+     "name": "sigma_month",
+     "type": "FLOAT64",
+     "description": "monthly deviation vs plan (fraction)"
+    },
+    {
+     "name": "flex_share",
+     "type": "FLOAT64",
+     "description": "shiftable energy share"
+    },
+    {
+     "name": "flex_hours",
+     "type": "FLOAT64",
+     "description": "shift window hours"
+    },
+    {
+     "name": "dr_share",
+     "type": "FLOAT64",
+     "description": "curtailable share of contract kW"
+    },
+    {
+     "name": "dr_cost_median_jpy_kw_month",
+     "type": "FLOAT64",
+     "description": "median DR enrolment cost"
+    },
+    {
+     "name": "green_prob",
+     "type": "FLOAT64",
+     "description": "share requiring a green product"
+    },
+    {
+     "name": "essential",
+     "type": "BOOL",
+     "description": "essential facility (alpha <= 0.3)"
+    },
+    {
+     "name": "clv_jpy_m_per_mw_year",
+     "type": "FLOAT64",
+     "description": "relationship value"
+    },
+    {
+     "name": "tender_share",
+     "type": "FLOAT64",
+     "description": "share procuring by tender"
+    }
+   ]
+  },
+  "cost_stack": {
+   "description": "Retail cost stack components for TEPCO PG area C&I supply, with status and source.",
+   "columns": [
+    {
+     "name": "component",
+     "type": "STRING",
+     "description": "component"
+    },
+    {
+     "name": "voltage",
+     "type": "STRING",
+     "description": "HV / EHV / all"
+    },
+    {
+     "name": "period",
+     "type": "STRING",
+     "description": "validity period"
+    },
+    {
+     "name": "value",
+     "type": "FLOAT64",
+     "description": "value"
+    },
+    {
+     "name": "unit",
+     "type": "STRING",
+     "description": "unit"
+    },
+    {
+     "name": "status",
+     "type": "STRING",
+     "description": "VERIFIED / ESTIMATE / DERIVED / LAB-ASSUMPTION"
+    },
+    {
+     "name": "source",
+     "type": "STRING",
+     "description": "citation"
+    },
+    {
+     "name": "treatment",
+     "type": "STRING",
+     "description": "how the evaluator uses it"
+    }
+   ]
+  },
+  "bess_sites": {
+   "description": "KBG BESS fleet (8 fictional sites, BESS-as-a-Service), dispatched as one 60 MW / 180 MWh battery.",
+   "columns": [
+    {
+     "name": "site_id",
+     "type": "STRING",
+     "description": "site id"
+    },
+    {
+     "name": "name",
+     "type": "STRING",
+     "description": "fictional site name"
+    },
+    {
+     "name": "prefecture",
+     "type": "STRING",
+     "description": "prefecture"
+    },
+    {
+     "name": "power_mw",
+     "type": "FLOAT64",
+     "description": "MW"
+    },
+    {
+     "name": "energy_mwh",
+     "type": "FLOAT64",
+     "description": "MWh"
+    },
+    {
+     "name": "duration_h",
+     "type": "INT64",
+     "description": "hours"
+    },
+    {
+     "name": "commissioned",
+     "type": "STRING",
+     "description": "YYYY-MM"
+    },
+    {
+     "name": "voltage",
+     "type": "STRING",
+     "description": "grid connection"
+    },
+    {
+     "name": "rte",
+     "type": "FLOAT64",
+     "description": "round-trip efficiency"
+    },
+    {
+     "name": "soc_min_pct",
+     "type": "FLOAT64",
+     "description": "min SOC %"
+    },
+    {
+     "name": "soc_max_pct",
+     "type": "FLOAT64",
+     "description": "max SOC %"
+    },
+    {
+     "name": "operator_model",
+     "type": "STRING",
+     "description": "commercial model"
+    }
+   ]
+  },
+  "solar_ppa": {
+   "description": "KBG 40 MW solar PPA (fictional).",
+   "columns": [
+    {
+     "name": "name",
+     "type": "STRING",
+     "description": "name"
+    },
+    {
+     "name": "capacity_mw",
+     "type": "FLOAT64",
+     "description": "MW"
+    },
+    {
+     "name": "sites",
+     "type": "INT64",
+     "description": "sites"
+    },
+    {
+     "name": "prefectures",
+     "type": "STRING",
+     "description": "prefectures"
+    },
+    {
+     "name": "contract",
+     "type": "STRING",
+     "description": "terms"
+    }
+   ]
+  },
+  "trading_days": {
+   "description": "Days in the jepx_trading train (FY2024) and holdout (FY2025 + stress) folds.",
+   "columns": [
+    {
+     "name": "fold",
+     "type": "STRING",
+     "description": "train / holdout"
+    },
+    {
+     "name": "date",
+     "type": "STRING",
+     "description": "date"
+    },
+    {
+     "name": "block",
+     "type": "INT64",
+     "description": "8-day block"
+    },
+    {
+     "name": "tag",
+     "type": "STRING",
+     "description": "normal / stress_*"
+    },
+    {
+     "name": "kbg_energy_mwh",
+     "type": "FLOAT64",
+     "description": "KBG net energy"
+    },
+    {
+     "name": "mean_spot_jpy_kwh",
+     "type": "FLOAT64",
+     "description": "mean Tokyo DA price"
+    },
+    {
+     "name": "max_spot_jpy_kwh",
+     "type": "FLOAT64",
+     "description": "max DA price"
+    },
+    {
+     "name": "max_imbalance_jpy_kwh",
+     "type": "FLOAT64",
+     "description": "max imbalance price"
+    },
+    {
+     "name": "min_reserve_margin_pct",
+     "type": "FLOAT64",
+     "description": "min reserve margin %"
+    },
+    {
+     "name": "da_demand_mape_pct",
+     "type": "FLOAT64",
+     "description": "D-1 demand forecast MAPE %"
+    }
+   ]
+  },
+  "calibration": {
+   "description": "Calibration evidence: synthetic statistics vs MARKET_FACTS targets.",
+   "columns": [
+    {
+     "name": "fiscal_year",
+     "type": "INT64",
+     "description": "FY"
+    },
+    {
+     "name": "metric",
+     "type": "STRING",
+     "description": "statistic"
+    },
+    {
+     "name": "synthetic",
+     "type": "FLOAT64",
+     "description": "synthetic value"
+    },
+    {
+     "name": "target",
+     "type": "FLOAT64",
+     "description": "MARKET_FACTS value"
+    },
+    {
+     "name": "abs_error",
+     "type": "FLOAT64",
+     "description": "absolute error"
+    },
+    {
+     "name": "rel_error_pct",
+     "type": "FLOAT64",
+     "description": "relative error %"
+    },
+    {
+     "name": "market_facts_section",
+     "type": "STRING",
+     "description": "section"
+    },
+    {
+     "name": "status",
+     "type": "STRING",
+     "description": "calibrated / diagnostic / scenario"
+    }
+   ]
+  },
+  "lab_runs": {
+   "description": "One row per finished evolution run (evidence file).",
+   "columns": [
+    {
+     "name": "run_id",
+     "type": "STRING",
+     "description": "problem.startedUTC"
+    },
+    {
+     "name": "problem",
+     "type": "STRING",
+     "description": "tariff_pricing / jepx_trading"
+    },
+    {
+     "name": "source",
+     "type": "STRING",
+     "description": "local-gemini-controller / alphaevolve / local-dry-run-mutator"
+    },
+    {
+     "name": "backend",
+     "type": "STRING",
+     "description": "local / alphaevolve"
+    },
+    {
+     "name": "evolved",
+     "type": "BOOL",
+     "description": "true only for a promoted AlphaEvolve run"
+    },
+    {
+     "name": "started",
+     "type": "STRING",
+     "description": "ISO UTC"
+    },
+    {
+     "name": "finished",
+     "type": "STRING",
+     "description": "ISO UTC"
+    },
+    {
+     "name": "programs_evaluated",
+     "type": "INT64",
+     "description": "candidates generated and evaluated"
+    },
+    {
+     "name": "valid_count",
+     "type": "INT64",
+     "description": "feasible candidates"
+    },
+    {
+     "name": "invalid_count",
+     "type": "INT64",
+     "description": "invalid candidates"
+    },
+    {
+     "name": "stopped_reason",
+     "type": "STRING",
+     "description": "max_programs / wall_clock / plateau"
+    },
+    {
+     "name": "wall_s",
+     "type": "FLOAT64",
+     "description": "seconds"
+    },
+    {
+     "name": "seed_train",
+     "type": "FLOAT64",
+     "description": "seed score, train, JPY M"
+    },
+    {
+     "name": "null_train_raw",
+     "type": "FLOAT64",
+     "description": "null raw objective, train, JPY M"
+    },
+    {
+     "name": "null_train_valid",
+     "type": "BOOL",
+     "description": "null satisfies policy invariants on train"
+    },
+    {
+     "name": "best_train",
+     "type": "FLOAT64",
+     "description": "best feasible train score, JPY M"
+    },
+    {
+     "name": "best_program_id",
+     "type": "STRING",
+     "description": "champion program id (best train score)"
+    },
+    {
+     "name": "train_delta_vs_seed",
+     "type": "FLOAT64",
+     "description": "best_train - seed_train"
+    },
+    {
+     "name": "holdout_seed",
+     "type": "FLOAT64",
+     "description": "seed score on holdout"
+    },
+    {
+     "name": "holdout_null_raw",
+     "type": "FLOAT64",
+     "description": "null raw objective on holdout"
+    },
+    {
+     "name": "best_holdout",
+     "type": "FLOAT64",
+     "description": "champion score on holdout"
+    },
+    {
+     "name": "holdout_delta",
+     "type": "FLOAT64",
+     "description": "best_holdout - holdout_seed (the only citable uplift)"
+    },
+    {
+     "name": "uplift_valid",
+     "type": "STRING",
+     "description": "true / false / null"
+    },
+    {
+     "name": "uplift_note",
+     "type": "STRING",
+     "description": "why"
+    },
+    {
+     "name": "llm_calls",
+     "type": "INT64",
+     "description": "model calls"
+    },
+    {
+     "name": "prompt_tokens",
+     "type": "INT64",
+     "description": "prompt tokens"
+    },
+    {
+     "name": "output_tokens",
+     "type": "INT64",
+     "description": "output tokens"
+    },
+    {
+     "name": "thinking_tokens",
+     "type": "INT64",
+     "description": "thinking tokens"
+    },
+    {
+     "name": "cost_usd_est",
+     "type": "FLOAT64",
+     "description": "estimated USD (see pricing_note)"
+    },
+    {
+     "name": "model_mix",
+     "type": "STRING",
+     "description": "mutator models and weights"
+    },
+    {
+     "name": "instance_train_sha",
+     "type": "STRING",
+     "description": "train instance content hash"
+    },
+    {
+     "name": "instance_holdout_sha",
+     "type": "STRING",
+     "description": "holdout instance content hash"
+    },
+    {
+     "name": "best_rationale",
+     "type": "STRING",
+     "description": "the champion's lineage rationales"
+    },
+    {
+     "name": "best_diff_vs_seed",
+     "type": "STRING",
+     "description": "unified diff of the champion vs seed"
+    },
+    {
+     "name": "honesty_note",
+     "type": "STRING",
+     "description": "provenance statement"
+    },
+    {
+     "name": "pricing_note",
+     "type": "STRING",
+     "description": "cost estimate basis"
+    }
+   ]
+  },
+  "lab_programs": {
+   "description": "Every candidate program of every run.",
+   "columns": [
+    {
+     "name": "run_id",
+     "type": "STRING",
+     "description": "run"
+    },
+    {
+     "name": "problem",
+     "type": "STRING",
+     "description": "problem"
+    },
+    {
+     "name": "idx",
+     "type": "INT64",
+     "description": "program index (0 = seed)"
+    },
+    {
+     "name": "program_id",
+     "type": "STRING",
+     "description": "id"
+    },
+    {
+     "name": "parent_id",
+     "type": "STRING",
+     "description": "parent"
+    },
+    {
+     "name": "island",
+     "type": "INT64",
+     "description": "island"
+    },
+    {
+     "name": "model",
+     "type": "STRING",
+     "description": "mutator model"
+    },
+    {
+     "name": "valid",
+     "type": "BOOL",
+     "description": "feasible"
+    },
+    {
+     "name": "kind",
+     "type": "STRING",
+     "description": "ok / policy / sandbox / static / format / diff / ..."
+    },
+    {
+     "name": "score",
+     "type": "FLOAT64",
+     "description": "train score JPY M (null if invalid)"
+    },
+    {
+     "name": "raw_score",
+     "type": "FLOAT64",
+     "description": "objective before the policy gate"
+    },
+    {
+     "name": "best_so_far",
+     "type": "FLOAT64",
+     "description": "running best feasible score"
+    },
+    {
+     "name": "eval_s",
+     "type": "FLOAT64",
+     "description": "evaluation seconds"
+    },
+    {
+     "name": "gen_latency_s",
+     "type": "FLOAT64",
+     "description": "generation seconds"
+    },
+    {
+     "name": "prompt_tokens",
+     "type": "INT64",
+     "description": "tokens"
+    },
+    {
+     "name": "output_tokens",
+     "type": "INT64",
+     "description": "tokens"
+    },
+    {
+     "name": "lines_added",
+     "type": "INT64",
+     "description": "diff lines added vs parent"
+    },
+    {
+     "name": "lines_removed",
+     "type": "INT64",
+     "description": "diff lines removed"
+    },
+    {
+     "name": "first_insight_label",
+     "type": "STRING",
+     "description": "first evaluator insight label"
+    },
+    {
+     "name": "first_insight_text",
+     "type": "STRING",
+     "description": "first evaluator insight text"
+    },
+    {
+     "name": "rationale",
+     "type": "STRING",
+     "description": "mutator rationale"
+    },
+    {
+     "name": "block_sha",
+     "type": "STRING",
+     "description": "EVOLVE-BLOCK hash"
+    }
+   ]
+  },
+  "lab_invariant_catches": {
+   "description": "Invalid candidates caught by a policy invariant (one row per violated invariant).",
+   "columns": [
+    {
+     "name": "run_id",
+     "type": "STRING",
+     "description": "run"
+    },
+    {
+     "name": "problem",
+     "type": "STRING",
+     "description": "problem"
+    },
+    {
+     "name": "idx",
+     "type": "INT64",
+     "description": "program index"
+    },
+    {
+     "name": "program_id",
+     "type": "STRING",
+     "description": "id"
+    },
+    {
+     "name": "model",
+     "type": "STRING",
+     "description": "model"
+    },
+    {
+     "name": "invariant",
+     "type": "STRING",
+     "description": "invariant name"
+    },
+    {
+     "name": "violations",
+     "type": "INT64",
+     "description": "violation count"
+    },
+    {
+     "name": "raw_score",
+     "type": "FLOAT64",
+     "description": "what it would have scored"
+    },
+    {
+     "name": "text",
+     "type": "STRING",
+     "description": "insight text"
+    }
+   ]
+  },
+  "lab_holdout": {
+   "description": "Holdout rescoring of the top train candidates.",
+   "columns": [
+    {
+     "name": "run_id",
+     "type": "STRING",
+     "description": "run"
+    },
+    {
+     "name": "problem",
+     "type": "STRING",
+     "description": "problem"
+    },
+    {
+     "name": "rank",
+     "type": "INT64",
+     "description": "rank by train score"
+    },
+    {
+     "name": "program_id",
+     "type": "STRING",
+     "description": "id"
+    },
+    {
+     "name": "is_seed",
+     "type": "BOOL",
+     "description": "is the seed"
+    },
+    {
+     "name": "is_champion",
+     "type": "BOOL",
+     "description": "selected on train"
+    },
+    {
+     "name": "train_score",
+     "type": "FLOAT64",
+     "description": "train"
+    },
+    {
+     "name": "holdout_score",
+     "type": "FLOAT64",
+     "description": "holdout (null if invalid)"
+    },
+    {
+     "name": "holdout_valid",
+     "type": "BOOL",
+     "description": "feasible on holdout"
+    },
+    {
+     "name": "holdout_kind",
+     "type": "STRING",
+     "description": "kind"
+    },
+    {
+     "name": "holdout_seed",
+     "type": "FLOAT64",
+     "description": "seed on holdout"
+    },
+    {
+     "name": "delta_vs_seed",
+     "type": "FLOAT64",
+     "description": "holdout_score - holdout_seed"
+    }
+   ]
+  },
+  "lab_reviews": {
+   "description": "Append-only human review log (Hold-to-Confirm in the UI).",
+   "columns": [
+    {
+     "name": "run_id",
+     "type": "STRING",
+     "description": "run"
+    },
+    {
+     "name": "program_id",
+     "type": "STRING",
+     "description": "program"
+    },
+    {
+     "name": "reviewer",
+     "type": "STRING",
+     "description": "reviewer label"
+    },
+    {
+     "name": "note",
+     "type": "STRING",
+     "description": "note"
+    },
+    {
+     "name": "at",
+     "type": "STRING",
+     "description": "ISO UTC"
+    }
+   ]
+  }
+ }
+}

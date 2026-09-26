@@ -1,0 +1,49 @@
+{
+ "criteria": {
+  "tool_trajectory_avg_score": {
+   "threshold": 1.0,
+   "match_type": "ANY_ORDER",
+   "ignore_args": false
+  },
+  "rubric_based_final_response_quality_v1": {
+   "threshold": 0.8,
+   "judge_model_options": {
+    "judge_model": "gemini-3.6-flash",
+    "num_samples": 1
+   },
+   "rubrics": [
+    {
+     "rubric_id": "cites_table",
+     "rubric_content": {
+      "text_property": "Every figure is cited with a bracketed table name starting with energy_alphaevolve_lab. such as [energy_alphaevolve_lab.lab_runs]."
+     }
+    },
+    {
+     "rubric_id": "holdout_rule",
+     "rubric_content": {
+      "text_property": "When uplift is discussed, the response treats the holdout delta (not the train improvement) as the only citable uplift, and says plainly if there is none."
+     }
+    },
+    {
+     "rubric_id": "provenance",
+     "rubric_content": {
+      "text_property": "The response does not describe the run as a real AlphaEvolve run; if provenance is mentioned it is a local controller run and evolved is false."
+     }
+    },
+    {
+     "rubric_id": "units",
+     "rubric_content": {
+      "text_property": "Scores are given with units (JPY M)."
+     }
+    }
+   ]
+  },
+  "hallucinations_v1": {
+   "threshold": 0.8,
+   "judge_model_options": {
+    "judge_model": "gemini-3.6-flash",
+    "num_samples": 1
+   }
+  }
+ }
+}
