@@ -16,6 +16,20 @@ UI and deployment path.
 | [**Factory Energy Copilot**](melco-edge-to-grid/) | Mitsubishi Electric | Edge-to-grid: a 7-agent swarm builds a 3,000 kW demand-response plan for a fictional SiC module plant while a deterministic "GDC Edge" interlock engine accepts or rejects every action in milliseconds (the committed furnace batch is rejected, the plan still lands 3,576 kW). BESS-as-a-Service policy comparison, WeatherNext-style PV risk, compressor-leak and stuck-meter detection, gain-share invoicing. Framed as a proposed collaboration with a first-class multi-cloud story. | [PRD](melco-edge-to-grid/docs/PRD.md) · [Design](melco-edge-to-grid/docs/TECHNICAL_DESIGN.md) · [Demo script](melco-edge-to-grid/docs/DEMO_SCRIPT.md) · [Evals](melco-edge-to-grid/docs/EVAL_REPORT.md) |
 | [**AlphaEvolve Energy Lab**](alphaevolve-energy-lab/) | Both | Evolutionary code search on two real problems for a fictional Tokyo balance group: **C&I tariff pricing** (1,200-customer train cohort, separate holdout cohorts, FY2026 Monte Carlo price bank) and **JEPX trading + BESS dispatch** (day-ahead bids, intraday, imbalance). A market model calibrated to FY2023-FY2026 JEPX data, an AlphaEvolve-contract harness (EVOLVE-BLOCKs, sandbox, baseline lock, budget ledger, holdout, evidence files) and policy invariants that reject "wins" that are really rule breaks (intentional imbalance, pricing customers out). | [PRD](alphaevolve-energy-lab/docs/PRD.md) · [Design](alphaevolve-energy-lab/docs/TECHNICAL_DESIGN.md) · [Scenario & data](alphaevolve-energy-lab/docs/SCENARIO_AND_DATA.md) · [Results](alphaevolve-energy-lab/docs/RESULTS.md) · [Evals](alphaevolve-energy-lab/docs/EVAL_REPORT.md) |
 
+## Version 2 UI
+
+Version 2 (tag `v2.0.0`) replaces the v1 control-room dashboards with the editorial, CEO-first design language of the
+owner's mining agents reference: a landing that states the thesis and measures the gap in the data against cited
+research, a five-chapter case for change (`1 · The case`, `2 · The gap`, `3 · The prize`, `4 · The solution`,
+`5 · The proof`), and a workspace (`Value`, `Cockpit`, `Agent teams`, `My role`, `Handover`) where every proposed action
+opens a sign-off sheet that shows what the agents could not settle before the 2 s hold. The spec is
+[`docs/DESIGN_V2.md`](docs/DESIGN_V2.md) and the shared kit is [`docs/reference/ui-v2/`](docs/reference/ui-v2/).
+Version 1 stays reachable at `/v1/` in every demo and at tag `v1.0.0`.
+
+| Retail Energy Desk | Factory Energy Copilot | AlphaEvolve Energy Lab |
+|---|---|---|
+| ![TEPCO v2 landing](tepco-retail-vpp/docs/img/v2/landing_1440.jpg) | ![MELCO v2 landing](melco-edge-to-grid/docs/img/v2/landing_1440.jpg) | ![Lab v2 landing](alphaevolve-energy-lab/docs/img/v2/landing-1440.png) |
+
 ## Architecture (common pattern)
 
 ```mermaid
@@ -48,32 +62,40 @@ flowchart LR
 Each demo is tested four ways: deterministic `pytest`, ADK `AgentEvaluator` eval sets (tool trajectory, rubric-based
 response quality, hallucinations; judge = balanced tier), a grounding eval that recomputes the truth with SQL at
 test time and checks the figures in the answer, and a safety eval (prompt injection inside documents, requests that
-break market or safety rules, execution without approval). Results as of 2026-09-26, live on Gemini:
+break market or safety rules, execution without approval). Results as of 2026-09-27 (v2), live on Gemini:
 
 | Demo | pytest | ADK eval | Grounding | Safety | Deployed-agent probes |
 |---|---|---|---|---|---|
-| Retail Energy Desk | 61 passed, 1 skipped | 18/19 first attempt, 19/19 after one retry | 10/10 | 9/9 | 2/2 grounded from BigQuery |
-| Factory Energy Copilot | 123 passed, 1 skipped | 18/18 | 9/9 | 8/8 | 2/2 (anomalies found; unsafe shutdown rejected at the edge) |
-| AlphaEvolve Energy Lab | 80 passed | 11/12 (1 persistent: per-figure citations when quoting code constants) | 7/7 | 6/6 | 2/2 (run truth matched; promotion refused) |
+| Retail Energy Desk | 102 passed, 1 skipped | 18/19 first attempt, 19/19 after one retry | 10/10 | 9/9 | 2/2 grounded from BigQuery |
+| Factory Energy Copilot | 149 passed, 1 skipped | 18/18 | 9/9 | 8/8 | 2/2 (anomalies found; unsafe shutdown rejected at the edge) |
+| AlphaEvolve Energy Lab | 106 passed | 11/12 after one retry, 10/12 first (1 persistent: per-figure citations when quoting code constants) | 8/8 | 6/6 | 3/3 (run truth matched; promotion refused; run 4 margin caveat stated) |
 
 Skips are named in each eval report (BigQuery-only or local-only tests). Every retry is classified transient or
 persistent, and first attempts are kept as evidence.
 
 ## AlphaEvolve Lab: what the runs actually found
 
-Six live runs, 40 programs each, about USD 8.5 of Gemini in total. All runs used the **local Gemini-driven
-controller** that speaks the AlphaEvolve contract, because the demo project has no Gemini Enterprise app with
-AlphaEvolve provisioned (AlphaEvolve is GA on Google Cloud since 2026-07-10; switching is one flag). So `evolved`
-stays `false` and nothing is promotable.
+Seven live runs (280 programs evaluated, about USD 9.6 of Gemini in total; two further attempts generated no program and
+are disclosed). All runs used the **local Gemini-driven controller** that speaks the AlphaEvolve contract, because the
+demo project has no Gemini Enterprise app with AlphaEvolve provisioned (AlphaEvolve is GA on Google Cloud since
+2026-07-10; switching is one flag). So `evolved` stays `false` and nothing is promotable.
 
 * **JEPX trading:** validated holdout gains in all three runs: **+397, +323 and +206 JPY M/yr** versus the
   hand-written seed on unseen FY2025 days plus stress days. Most of the gain comes from cold-snap days. The
   invariants caught three candidates that "won" by leaving slots deliberately short (intentional imbalance,
   prohibited under the 30-minute balancing rule).
-* **Tariff pricing:** the search found a real hedging mechanism (large raw improvement on holdout), but every
-  champion broke the per-segment churn limit on unseen customers, so **no citable pricing uplift** yet. The
-  recommended next run uses a holdout cohort as large as the training cohort. See
-  [RESULTS.md](alphaevolve-energy-lab/docs/RESULTS.md).
+* **Tariff pricing, runs 1-3:** the search found a real hedging mechanism, but every champion broke the per-segment
+  churn limit on small unseen cohorts (5 to 17 customers per segment), so no citable uplift.
+* **Tariff pricing, run 4 (pre-registered, 2026-09-27):** a fresh 1,200-customer holdout (`holdout3`) and per-segment
+  churn limits judged with a sampling margin, both fixed in
+  [`PREREGISTRATION_tariff_v4.md`](alphaevolve-energy-lab/docs/PREREGISTRATION_tariff_v4.md) before any candidate was
+  scored. Result: **validated holdout delta +21,191 JPY M** (risk-adjusted score; seed -35,021, best -13,830), mostly
+  from lower tail risk (expected margin alone +6,745 JPY M). **Caveat, carried everywhere the number appears:** the
+  champion passes only under the pre-registered sampling margin (semiconductor fabs, n=14: churn rise +5.1 pp against a
+  5.0 pp point limit and a 7.6 pp margin limit); under the stricter v3 point rules ranks 1-2 would be invalid and ranks
+  3-5 still pass. The Lab Analyst agent reads this caveat from a recomputed `lab_segment_judgments` table and states it.
+
+See [RESULTS.md](alphaevolve-energy-lab/docs/RESULTS.md).
 
 ## Run locally
 

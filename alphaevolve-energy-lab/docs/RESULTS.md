@@ -23,6 +23,9 @@ TRAIN score.**
 | `jepx_trading.20260926T075644Z` | jepx_trading | v1 | -85,419.4 | -85,393.6 (invalid) | -85,369.9 | -208,944.6 (holdout) | -208,621.4 | 323.2 | True | policy:intentional_imbalance 2, diff 1 | 40 | 1.68 |
 | `tariff_pricing.20260926T080035Z` | tariff_pricing | v3 | -8,800.4 | -10,827.9 (invalid) | -2,033.2 | -10,874.0 (holdout2) | n/a | n/a | False | policy:churn 3 | 40 | 1.18 |
 | `jepx_trading.20260926T081714Z` | jepx_trading | v2 | -85,421.9 | -85,393.6 (invalid) | -85,398.3 | -208,950.2 (holdout) | -208,744.5 | 205.8 | True | sandbox 1 | 40 | 1.80 |
+| `tariff_pricing.20260927T081840Z` | tariff_pricing | v4 | -8,800.4 | -10,827.9 (invalid) | no search | -35,021.1 (holdout3) | no search | none | False | INFRASTRUCTURE FAILURE: generation 40 | 0 generated of 40 | 0.00 |
+| `tariff_pricing.20260927T084903Z` | tariff_pricing | v4 | -8,800.4 | -10,827.9 (invalid) | no search | -35,021.1 (holdout3) | no search | none | False | INFRASTRUCTURE FAILURE: generation 4 | 0 generated of 4 | 0.00 |
+| `tariff_pricing.20260927T085054Z` | tariff_pricing | v4 | -8,800.4 | -10,827.9 (invalid) | -2,159.0 | -35,021.1 (holdout3) | -13,830.1 | 21,190.9 | True | generation 1, policy:churn 2 | 40 | 1.12 |
 <!-- /RUN_TABLE -->
 
 Null programs: tariff = one flat rate for everyone; trading = buy the D-1 forecast at the cap, no battery, no intraday.
@@ -66,8 +69,61 @@ but that number is **not citable** because the book breaks segment retention pro
 search pushed retention in the smallest, most price-sensitive segments to the edge of whatever limit the train fold
 enforced, and the holdout cohort's small segments (5 to 17 customers) tipped over. The honest findings are: (1) the
 score undervalues retention in small segments, and (2) a 401-customer holdout cannot judge per-segment limits on
-5-customer segments. Next step (not run, budget exhausted): a holdout cohort as large as the train cohort, per-segment
-limits judged with a sampling margin, then re-run; only a positive holdout delta from that design may be cited.
+5-customer segments. That next step was pre-registered and run on 2026-09-27 (run 4 below).
+
+### Tariff run 4 (pre-registered 2026-09-27, evaluator v4, holdout3)
+
+Design, committed before any holdout3 data existed: `docs/PREREGISTRATION_tariff_v4.md`. A fresh 1,200-customer holdout
+cohort (seed 37, segment sizes equal to train) and a fresh 64-scenario bank (seed 606); per-segment churn rules on holdout3
+judged with a paired-standard-error sampling margin (5 pp / 25% + 1.645 x SE, pooled sd below 30 customers); portfolio
+limits, the train rules and the score unchanged (train-fold diagnostics of runs 1-3 showed no score defect: on train, no
+champion concentrated churn in small segments). Success = champion valid on holdout3 with a positive holdout delta.
+
+**Two attempts generated no program** and are kept as evidence: `tariff_pricing.20260927T081840Z` (every model call failed
+with `RefreshError`: the workstation's credentials had expired; 40 failed calls recorded) and
+`tariff_pricing.20260927T084903Z` (an operator error while testing the one-command runner without the Vertex AI
+environment; the new circuit breaker stopped it after 4 failed calls). Neither generated a candidate, neither spent money,
+and in both the holdout rescoring evaluated only the seed (-35,021.1 JPY M on holdout3, valid; about 3x the scale of
+holdouts 1-2 because the cohort is 3x larger) and the null (invalid, raw -37,668.0). Pre-registration Addendum 3 records how
+such attempts are counted (one attempt that generates programs is allowed). Harness lessons turned into code with tests:
+a credential and Vertex-configuration preflight, and a circuit breaker after 3 consecutive generation failures.
+
+<!-- RUN4_RESULT -->
+**Pre-registered run 4 result (`tariff_pricing.20260927T085054Z`, filled by `python -m energy_lab.followup tariff_v4`).**
+
+* Primary criterion (champion valid on holdout3 and holdout delta > 0): **MET**; uplift_valid = True; note: holdout_delta=21190.933 JPY M under all policy invariants; evidence is from the local controller, so evolved stays false.
+* Train: seed -8,800.4 -> best -2,159.0 JPY M (40 programs, 37 valid, invalid by kind {'generation': 1, 'policy:churn': 2}).
+* holdout3: seed -35,021.1; champion `p040-f3b6f3eb` -13,830.1; holdout delta 21,190.9 JPY M.
+* Segments failing the v4 rule for the champion: none.
+* Secondary (not a success claim): v3 point-estimate rules on holdout3, champion valid = False; max holdout3 score in the top 5 = -13,830.1 (selection-biased: chosen on holdout3; not citable).
+* Cost: 40 model calls, 227,969 prompt / 53,742 output / 131,364 thinking tokens, USD 1.12 estimated.
+* Evidence: `runs/tariff_pricing.20260927T085054Z.json`; secondary analyses: `runs/analysis/tariff_pricing.20260927T085054Z.secondary_v4.json`.
+* local controller, not the managed AlphaEvolve service; evolved stays false.
+<!-- /RUN4_RESULT -->
+
+**Reading the result honestly.** The pre-registered criterion is met: `tariff_pricing.20260927T085054Z` is the first tariff
+run with a validated holdout delta (+21,190.9 JPY M on the 1,200-customer holdout3 under its harsher scenario bank; seed
+-35,021.1, champion -13,830.1). What the champion does is the same risk-transfer mechanism as runs 1-3: energy-weighted
+market-link share 0.10 -> 0.59 (essential facilities capped at 0.30), segment and procurement-style margins, DR value
+sharing and multi-year terms only for high-alpha customers. On holdout3 it cuts the CVaR95 shortfall from 54,040 to
+24,647 JPY M and lifts expected margin from -9,108 to -2,363 JPY M, at portfolio churn 10.7% (seed 10.2%).
+
+Three caveats belong next to that number:
+1. **The pass depends on the pre-registered sampling margin.** In semiconductor_fab (14 customers) the champion raises
+   expected churn by +5.1 pp (14.9% -> 19.9%). That is above the 5 pp point limit and inside the pre-registered limit of
+   7.6 pp (5 pp + 1.645 x the pooled paired SE). Under the v3 point-estimate rules (secondary analysis) the champion and the
+   #2 candidate would be invalid. Candidates #3 to #5 pass even the point-estimate rules, with holdout3 deltas of about
+   +20,100 to +20,600 JPY M. That is shown only as a robustness indication, not as a citable result, because it
+   selects on holdout3. The per-segment judgment behind this caveat is recomputed without a model call and exported as
+   `lab_segment_judgments`; the caveat reaches `lab_runs.uplift_caveat`, the analyst's tools and the UI as computed text
+   (`energy_lab/segment_judgments.py`).
+2. **The size reflects the regime, not a per-customer margin.** Most of the delta is the 0.5 x CVaR term: the holdout
+   bank is weighted towards the realised FY2026 fuel shock, where a fixed-price book is badly exposed. Expressed as expected
+   margin alone, the gain is +6,745 JPY M on about 5.5 TWh retained.
+3. **Provenance:** local controller, not the managed AlphaEvolve service; `evolved` stays false, and promotion still needs a
+   managed run plus a human review. One of the 40 generations failed on a client race I introduced with lazy client
+   creation (fixed with a lock afterwards); 2 candidates were rejected by the train churn rules.
+
 
 ## 3. JEPX trading
 
@@ -129,6 +185,12 @@ wear. Four candidates across the runs tried to leave slots short or long of the 
 ![tariff_pricing.20260926T080035Z](figures/score_curve_tariff_pricing_20260926T080035Z.svg)
 
 ![jepx_trading.20260926T081714Z](figures/score_curve_jepx_trading_20260926T081714Z.svg)
+
+![tariff_pricing.20260927T081840Z](figures/score_curve_tariff_pricing_20260927T081840Z.svg)
+
+![tariff_pricing.20260927T084903Z](figures/score_curve_tariff_pricing_20260927T084903Z.svg)
+
+![tariff_pricing.20260927T085054Z](figures/score_curve_tariff_pricing_20260927T085054Z.svg)
 <!-- /SCORE_FIGS -->
 
 ## 5. Holdout rescoring (top 5 train candidates per run)
@@ -194,6 +256,28 @@ wear. Four candidates across the runs tried to leave slots short or long of the 
 | 3 | `p035-78cae0d8` | -85,398.8 | -208,638.0 | True | annual cost 208582.1 + risk penalty 55.9 => score -208638.0 JPY M; vs buy-actual-at-DA benchmark -0.106 JPY/kWh |
 | 4 | `p027-baae6243` | -85,402.6 | -208,739.5 | True | annual cost 208678.6 + risk penalty 61.0 => score -208739.5 JPY M; vs buy-actual-at-DA benchmark -0.090 JPY/kWh |
 | 5 | `p031-b8362f9c` | -85,402.6 | -208,739.5 | True | annual cost 208678.6 + risk penalty 61.0 => score -208739.5 JPY M; vs buy-actual-at-DA benchmark -0.090 JPY/kWh |
+
+**`tariff_pricing.20260927T081840Z`** (holdout fold `holdout3`; seed -35,021.1; champion = best train score):
+
+| Rank | Program | Train | Holdout | Valid on holdout | First holdout insight |
+|---|---|---|---|---|---|
+| 1 | `p000-5dd8d486` | -8,800.4 | -35,021.1 | True | E[margin] -9108.1 - 0.5 x CVaR95 54039.8 + LTV 1106.9 = -35021.1 JPY M |
+
+**`tariff_pricing.20260927T084903Z`** (holdout fold `holdout3`; seed -35,021.1; champion = best train score):
+
+| Rank | Program | Train | Holdout | Valid on holdout | First holdout insight |
+|---|---|---|---|---|---|
+| 1 | `p000-5dd8d486` | -8,800.4 | -35,021.1 | True | E[margin] -9108.1 - 0.5 x CVaR95 54039.8 + LTV 1106.9 = -35021.1 JPY M |
+
+**`tariff_pricing.20260927T085054Z`** (holdout fold `holdout3`; seed -35,021.1; champion = best train score):
+
+| Rank | Program | Train | Holdout | Valid on holdout | First holdout insight |
+|---|---|---|---|---|---|
+| 1 | `p040-f3b6f3eb` | -2,159.0 | -13,830.1 | True | E[margin] -2363.3 - 0.5 x CVaR95 24647.4 + LTV 856.8 = -13830.1 JPY M |
+| 2 | `p037-0f836f1b` | -2,246.9 | -14,187.1 | True | E[margin] -2509.0 - 0.5 x CVaR95 25166.3 + LTV 905.1 = -14187.1 JPY M |
+| 3 | `p034-e2f99153` | -2,267.9 | -14,426.9 | True | E[margin] -2564.1 - 0.5 x CVaR95 25634.2 + LTV 954.3 = -14426.9 JPY M |
+| 4 | `p027-35aa8616` | -2,400.8 | -14,920.4 | True | E[margin] -2764.0 - 0.5 x CVaR95 26315.8 + LTV 1001.5 = -14920.4 JPY M |
+| 5 | `p033-9adc2b66` | -2,468.6 | -14,514.0 | True | E[margin] -2734.4 - 0.5 x CVaR95 25359.8 + LTV 900.4 = -14514.0 JPY M |
 <!-- /HOLDOUT_TABLES -->
 
 ## 6. Invalid candidates caught by a policy invariant
@@ -212,6 +296,8 @@ Each row is a candidate that never entered the population. "Would have scored" i
 | `tariff_pricing.20260926T080035Z` | #1 `p002-76630950` | gemini-3.1-pro-preview | churn | -3,824.3 | segment churn rises more than 5% above the incumbent book: semiconductor_fab 20.3% -> 30.9%, water_utility 16.8% -> 27.7%, university 11.8% -> 20.9%; portfolio churn 14.3% > 14% (train guard band); energy-weighted churn 18.1% > 14% (train guard band); segment  |
 | `tariff_pricing.20260926T080035Z` | #2 `p001-c5a073a5` | gemini-3.6-flash | churn | -4,629.3 | segment churn > 22% (train guard band): semiconductor_fab 22.9% (pricing customers out is a strategy change, not an uplift) |
 | `tariff_pricing.20260926T080035Z` | #38 `p038-67ecb9fd` | gemini-3.6-flash | churn | -1,826.8 | segment churn > 22% (train guard band): semiconductor_fab 22.2% (pricing customers out is a strategy change, not an uplift) |
+| `tariff_pricing.20260927T085054Z` | #3 `p001-0bd19925` | gemini-3.6-flash | churn | -5,623.6 | segment churn rises more than 5% above the incumbent book: water_utility 16.8% -> 22.6%; segment churn > 22% (train guard band): semiconductor_fab 23.8%, water_utility 22.6% (pricing customers out is a strategy change, not an uplift) |
+| `tariff_pricing.20260927T085054Z` | #5 `p004-4b36e1f6` | gemini-3.1-pro-preview | churn | -6,488.8 | segment churn rises more than 5% above the incumbent book: university 11.8% -> 18.0% (pricing customers out is a strategy change, not an uplift) |
 <!-- /CATCH_TABLE -->
 
 Examples worth showing: the trading intentional-imbalance catch (a slot left 32 MWh short while imbalance was cheaper
@@ -229,7 +315,10 @@ programs (they cost a model call) and are listed in the evidence with the raw re
 | `jepx_trading.20260926T075644Z` | 40 | 304,700 | 67,400 | 273,026 | 27 | 13 | 837.2 | max_programs |
 | `tariff_pricing.20260926T080035Z` | 40 | 248,039 | 60,737 | 150,223 | 30 | 10 | 495.1 | max_programs |
 | `jepx_trading.20260926T081714Z` | 40 | 288,898 | 83,170 | 294,036 | 28 | 12 | 931.1 | max_programs |
-| **total** | 240 | | | | | | | USD 8.48 est. |
+| `tariff_pricing.20260927T081840Z` | 40 | 0 | 0 | 0 | 23 | 17 | 5.3 | max_programs |
+| `tariff_pricing.20260927T084903Z` | 4 | 0 | 0 | 0 | 3 | 1 | 0.7 | generation_errors |
+| `tariff_pricing.20260927T085054Z` | 40 | 227,969 | 53,742 | 131,364 | 27 | 13 | 465.3 | max_programs |
+| **total** | 324 | | | | | | | USD 9.60 est. |
 <!-- /TOKEN_TABLE -->
 
 Cost is an estimate from token counts at assumed prices (balanced 0.50 / 3.00, reasoning 2.00 / 12.00 USD per 1M tokens,
@@ -239,8 +328,11 @@ dry-runs were run in scratch directories before the real runs and are not part o
 
 ## 8. What this means
 
-* The harness did its job: it separated train progress from validated uplift, caught 1 intentional-imbalance strategy
-  and several segment-repricing strategies at score time, and turned two tariff failures into an evaluator
-  specification change with a fresh holdout.
+* The harness did its job: it separated train progress from validated uplift, caught intentional-imbalance strategies
+  and segment-repricing strategies at score time, and turned three tariff failures into a pre-registered design that was
+  then run once.
 * Trading shows a validated holdout delta on the local controller, concentrated in stress days.
 * Nothing here is promotable: promotion needs a real AlphaEvolve run (`source == alphaevolve`) plus human review.
+* The pre-registered tariff follow-up (run 4) met its criterion: holdout3 delta +21,190.9 JPY M with every invariant,
+  but only with the pre-registered sampling margin in a 14-customer segment; the two zero-program attempts before it are
+  disclosed in its section.

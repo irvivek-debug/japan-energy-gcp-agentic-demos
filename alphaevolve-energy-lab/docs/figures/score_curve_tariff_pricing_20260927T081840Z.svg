@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="360" viewBox="0 0 760 360" font-family="Inter, sans-serif">
+<rect width="760" height="360" fill="#131313"/>
+<text x="64" y="24" fill="#e4e2e1" font-size="15" font-weight="600">tariff_pricing.20260927T081840Z: train score by program (JPY M)</text>
+<line x1="64" y1="40.0" x2="590" y2="40.0" stroke="#2a2f38"/>
+<text x="56" y="44.0" fill="#a0a3a8" font-size="11" text-anchor="end">-8800.4</text>
+<line x1="64" y1="94.4" x2="590" y2="94.4" stroke="#2a2f38"/>
+<text x="56" y="98.4" fill="#a0a3a8" font-size="11" text-anchor="end">-8800.4</text>
+<line x1="64" y1="148.8" x2="590" y2="148.8" stroke="#2a2f38"/>
+<text x="56" y="152.8" fill="#a0a3a8" font-size="11" text-anchor="end">-8800.4</text>
+<line x1="64" y1="203.2" x2="590" y2="203.2" stroke="#2a2f38"/>
+<text x="56" y="207.2" fill="#a0a3a8" font-size="11" text-anchor="end">-8800.4</text>
+<line x1="64" y1="257.6" x2="590" y2="257.6" stroke="#2a2f38"/>
+<text x="56" y="261.6" fill="#a0a3a8" font-size="11" text-anchor="end">-8800.4</text>
+<line x1="64" y1="312.0" x2="590" y2="312.0" stroke="#2a2f38"/>
+<text x="56" y="316.0" fill="#a0a3a8" font-size="11" text-anchor="end">-8800.4</text>
+<text x="64.0" y="330" fill="#a0a3a8" font-size="11" text-anchor="middle">0</text>
+<text x="169.2" y="330" fill="#a0a3a8" font-size="11" text-anchor="middle">8</text>
+<text x="274.4" y="330" fill="#a0a3a8" font-size="11" text-anchor="middle">16</text>
+<text x="379.6" y="330" fill="#a0a3a8" font-size="11" text-anchor="middle">24</text>
+<text x="484.8" y="330" fill="#a0a3a8" font-size="11" text-anchor="middle">32</text>
+<text x="590.0" y="330" fill="#a0a3a8" font-size="11" text-anchor="middle">40</text>
+<text x="327.0" y="352" fill="#a0a3a8" font-size="12" text-anchor="middle">program index</text>
+<text x="14" y="176.0" fill="#a0a3a8" font-size="12" transform="rotate(-90 14 176.0)" text-anchor="middle">score (JPY M)</text>
+<circle cx="64.0" cy="312.0" r="2.2" fill="#7fd1c7" fill-opacity="0.6"/>
+<line x1="602" y1="52" x2="624" y2="52" stroke="#7fd1c7" stroke-width="2"/>
+<text x="630" y="56" fill="#e4e2e1" font-size="11">feasible candidates</text>
+<polyline points="64.0,312.0 77.2,312.0 90.3,312.0 103.4,312.0 116.6,312.0 129.8,312.0 142.9,312.0 156.1,312.0 169.2,312.0 182.4,312.0 195.5,312.0 208.7,312.0 221.8,312.0 235.0,312.0 248.1,312.0 261.2,312.0 274.4,312.0 287.5,312.0 300.7,312.0 313.9,312.0 327.0,312.0 340.2,312.0 353.3,312.0 366.4,312.0 379.6,312.0 392.8,312.0 405.9,312.0 419.1,312.0 432.2,312.0 445.3,312.0 458.5,312.0 471.7,312.0 484.8,312.0 497.9,312.0 511.1,312.0 524.2,312.0 537.4,312.0 550.5,312.0 563.7,312.0 576.9,312.0 590.0,312.0" fill="none" stroke="#e0a458" stroke-width="2"/>
+<line x1="602" y1="72" x2="624" y2="72" stroke="#e0a458" stroke-width="2"/>
+<text x="630" y="76" fill="#e4e2e1" font-size="11">best so far</text>
+<polyline points="64.0,312.0 590.0,312.0" fill="none" stroke="#a7caed" stroke-width="2" stroke-dasharray="5 4"/>
+<line x1="602" y1="92" x2="624" y2="92" stroke="#a7caed" stroke-width="2" stroke-dasharray="5 4"/>
+<text x="630" y="96" fill="#e4e2e1" font-size="11">seed</text>
+</svg>

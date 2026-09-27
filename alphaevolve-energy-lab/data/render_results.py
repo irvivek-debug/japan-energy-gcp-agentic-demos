@@ -33,6 +33,14 @@ def main() -> None:
     for r in recs:
         ho = r.get("holdout") or {}
         inv = ", ".join(f"{k} {v}" for k, v in (r.get("invalid_by_kind") or {}).items()) or "none"
+        kinds = r.get("invalid_by_kind") or {}
+        if (r.get("valid_count") or 0) == 0 and kinds and set(kinds) <= {"generation"}:
+            rows.append(f"| `{r['run_id']}` | {r['problem']} | {(r.get('evaluator_version') or 'v1').split(':')[0].split('/')[-1]} | "
+                        f"{f(r['seed']['train'])} | {f((r.get('baseline_lock') or {}).get('null_raw'))} (invalid) | "
+                        f"no search | {f(ho.get('seed'))} ({ho.get('fold', 'holdout')}) | no search | none | "
+                        f"{r.get('uplift_valid')} | INFRASTRUCTURE FAILURE: {inv} | 0 generated of "
+                        f"{(r.get('budget') or {}).get('programs_evaluated')} | {f((r.get('tokens') or {}).get('cost_usd'), 2)} |")
+            continue
         rows.append(f"| `{r['run_id']}` | {r['problem']} | {(r.get('evaluator_version') or 'v1').split(':')[0].split('/')[-1]} | "
                     f"{f(r['seed']['train'])} | {f((r.get('baseline_lock') or {}).get('null_raw'))} (invalid) | "
                     f"{f((r.get('best') or {}).get('train'))} | {f(ho.get('seed'))} ({ho.get('fold', 'holdout')}) | "

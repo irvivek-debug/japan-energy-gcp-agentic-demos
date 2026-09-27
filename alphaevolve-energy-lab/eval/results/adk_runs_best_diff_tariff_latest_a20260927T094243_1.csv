@@ -1,0 +1,148 @@
+eval_set_id,eval_id,metric_name,threshold,score,eval_status,prompt,expected_response,actual_response,expected_tool_calls,actual_tool_calls
+runs_best_diff_tariff_latest,best_diff_tariff_latest,tool_trajectory_avg_score,1.0,1.0,PASSED,"What did the best program in run tariff_pricing.20260927T085054Z change versus the seed, and how much did it gain?","The champion p040-f3b6f3eb changed the price book logic; train and holdout deltas as recorded [energy_alphaevolve_lab.lab_runs]. The uplift carries a caveat computed from lab_segment_judgments: passes only under the pre-registered sampling margin: semiconductor_fab (n=14) rise +5.1 pp > 5.0 pp point limit, <= 7.6 pp margin limit; under v3 point rules ranks 1-2 of the top 5 would be invalid (ranks 3-5 pass both rule sets) [energy_alphaevolve_lab.lab_runs, energy_alphaevolve_lab.lab_segment_judgments].","### Program Mechanism Changes
+
+In run `tariff_pricing.20260927T085054Z`, champion program `p040-f3b6f3eb` replaced the simple fixed cost-plus pricing structure with a risk-hedged, segment-differentiated pricing strategy [energy_alphaevolve_lab.lab_runs]. 
+
+1. **Risk-Tailored Market Linkage ($\alpha$)**: Replaced the seed's static market-linked share (0.5 for data centers, 0.0 otherwise) with a variable $\alpha$ (clamped between 0.10 and 0.82) based on customer risk appetite, flexibility share, and data center status, while capping essential facilities at $\alpha \le 0.30$.
+2. **Segment and Procurement Margin Tuning**: Replaced the flat margin of 1.5 JPY/kWh with segment-specific and channel-specific margins (such as 0.62 JPY/kWh for semiconductor fabs, 0.82 JPY/kWh for data centers, 0.75 JPY/kWh for tenders, and 1.38 JPY/kWh for auto-renewals).
+3. **Fixed Charges and Penalties**: Lowered the demand charge adder above wheeling basic from +50.0 JPY/kW/month to +26.0 JPY/kW/month, and reduced the deviation penalty from 1.0 JPY/kWh to 0.4 JPY/kWh.
+4. **Demand Response Sharing and Multi-Year Terms**: Introduced an explicit DR discount sharing up to 72% of estimated annual DR value for participating customers, and enabled multi-year agreement terms (2 or 3 years) when $\alpha \ge 0.60$.
+
+---
+
+### Validated Gain and Search Results
+
+- **Holdout Delta (Validated Uplift)**: **+21,190.933 JPY M** (improving holdout score from -35,021.068 JPY M for the seed to -13,830.135 JPY M) [energy_alphaevolve_lab.lab_runs].
+- **Train Delta (Search Progress)**: **+6,641.347 JPY M** (improving train score from -8,800.354 JPY M for the seed to -2,159.007 JPY M) [energy_alphaevolve_lab.lab_runs].
+
+**Sampling Margin Caveat**: This holdout uplift passes under policy rules via the pre-registered sampling margin: the `semiconductor_fab` segment (n=14) experienced a churn rise of +5.1 percentage points, which exceeds the 5.0 percentage point limit but falls within the 7.6 percentage point sampling margin limit [energy_alphaevolve_lab.lab_holdout]. Under strict point-estimate rules without sampling margins, program `p034-e2f99153` (rank 3, holdout delta of +20,594.123 JPY M) would be the highest-ranking fully compliant program [energy_alphaevolve_lab.lab_holdout].
+
+*Note: This run originated from a local controller execution (`local-gemini-controller`), so `evolved` remains `false` [energy_alphaevolve_lab.lab_runs]. All market and portfolio figures refer to calibrated synthetic laboratory data.*",id=None args={'run_id': 'tariff_pricing.20260927T085054Z'} name='get_best_program_diff' partial_args=None will_continue=None,"id='call_456733' args={'run_id': 'tariff_pricing.20260927T085054Z'} name='get_run_summary' partial_args=None will_continue=None
+id='call_456734' args={'run_id': 'tariff_pricing.20260927T085054Z'} name='get_best_program_diff' partial_args=None will_continue=None
+id='call_456735' args={'run_id': 'tariff_pricing.20260927T085054Z'} name='get_holdout_result' partial_args=None will_continue=None"
+runs_best_diff_tariff_latest,best_diff_tariff_latest,rubric_based_final_response_quality_v1,0.8,0.75,FAILED,"What did the best program in run tariff_pricing.20260927T085054Z change versus the seed, and how much did it gain?","The champion p040-f3b6f3eb changed the price book logic; train and holdout deltas as recorded [energy_alphaevolve_lab.lab_runs]. The uplift carries a caveat computed from lab_segment_judgments: passes only under the pre-registered sampling margin: semiconductor_fab (n=14) rise +5.1 pp > 5.0 pp point limit, <= 7.6 pp margin limit; under v3 point rules ranks 1-2 of the top 5 would be invalid (ranks 3-5 pass both rule sets) [energy_alphaevolve_lab.lab_runs, energy_alphaevolve_lab.lab_segment_judgments].","### Program Mechanism Changes
+
+In run `tariff_pricing.20260927T085054Z`, champion program `p040-f3b6f3eb` replaced the simple fixed cost-plus pricing structure with a risk-hedged, segment-differentiated pricing strategy [energy_alphaevolve_lab.lab_runs]. 
+
+1. **Risk-Tailored Market Linkage ($\alpha$)**: Replaced the seed's static market-linked share (0.5 for data centers, 0.0 otherwise) with a variable $\alpha$ (clamped between 0.10 and 0.82) based on customer risk appetite, flexibility share, and data center status, while capping essential facilities at $\alpha \le 0.30$.
+2. **Segment and Procurement Margin Tuning**: Replaced the flat margin of 1.5 JPY/kWh with segment-specific and channel-specific margins (such as 0.62 JPY/kWh for semiconductor fabs, 0.82 JPY/kWh for data centers, 0.75 JPY/kWh for tenders, and 1.38 JPY/kWh for auto-renewals).
+3. **Fixed Charges and Penalties**: Lowered the demand charge adder above wheeling basic from +50.0 JPY/kW/month to +26.0 JPY/kW/month, and reduced the deviation penalty from 1.0 JPY/kWh to 0.4 JPY/kWh.
+4. **Demand Response Sharing and Multi-Year Terms**: Introduced an explicit DR discount sharing up to 72% of estimated annual DR value for participating customers, and enabled multi-year agreement terms (2 or 3 years) when $\alpha \ge 0.60$.
+
+---
+
+### Validated Gain and Search Results
+
+- **Holdout Delta (Validated Uplift)**: **+21,190.933 JPY M** (improving holdout score from -35,021.068 JPY M for the seed to -13,830.135 JPY M) [energy_alphaevolve_lab.lab_runs].
+- **Train Delta (Search Progress)**: **+6,641.347 JPY M** (improving train score from -8,800.354 JPY M for the seed to -2,159.007 JPY M) [energy_alphaevolve_lab.lab_runs].
+
+**Sampling Margin Caveat**: This holdout uplift passes under policy rules via the pre-registered sampling margin: the `semiconductor_fab` segment (n=14) experienced a churn rise of +5.1 percentage points, which exceeds the 5.0 percentage point limit but falls within the 7.6 percentage point sampling margin limit [energy_alphaevolve_lab.lab_holdout]. Under strict point-estimate rules without sampling margins, program `p034-e2f99153` (rank 3, holdout delta of +20,594.123 JPY M) would be the highest-ranking fully compliant program [energy_alphaevolve_lab.lab_holdout].
+
+*Note: This run originated from a local controller execution (`local-gemini-controller`), so `evolved` remains `false` [energy_alphaevolve_lab.lab_runs]. All market and portfolio figures refer to calibrated synthetic laboratory data.*",id=None args={'run_id': 'tariff_pricing.20260927T085054Z'} name='get_best_program_diff' partial_args=None will_continue=None,"id='call_456733' args={'run_id': 'tariff_pricing.20260927T085054Z'} name='get_run_summary' partial_args=None will_continue=None
+id='call_456734' args={'run_id': 'tariff_pricing.20260927T085054Z'} name='get_best_program_diff' partial_args=None will_continue=None
+id='call_456735' args={'run_id': 'tariff_pricing.20260927T085054Z'} name='get_holdout_result' partial_args=None will_continue=None"
+runs_best_diff_tariff_latest,best_diff_tariff_latest,hallucinations_v1,0.8,1.0,PASSED,"What did the best program in run tariff_pricing.20260927T085054Z change versus the seed, and how much did it gain?","The champion p040-f3b6f3eb changed the price book logic; train and holdout deltas as recorded [energy_alphaevolve_lab.lab_runs]. The uplift carries a caveat computed from lab_segment_judgments: passes only under the pre-registered sampling margin: semiconductor_fab (n=14) rise +5.1 pp > 5.0 pp point limit, <= 7.6 pp margin limit; under v3 point rules ranks 1-2 of the top 5 would be invalid (ranks 3-5 pass both rule sets) [energy_alphaevolve_lab.lab_runs, energy_alphaevolve_lab.lab_segment_judgments].","### Program Mechanism Changes
+
+In run `tariff_pricing.20260927T085054Z`, champion program `p040-f3b6f3eb` replaced the simple fixed cost-plus pricing structure with a risk-hedged, segment-differentiated pricing strategy [energy_alphaevolve_lab.lab_runs]. 
+
+1. **Risk-Tailored Market Linkage ($\alpha$)**: Replaced the seed's static market-linked share (0.5 for data centers, 0.0 otherwise) with a variable $\alpha$ (clamped between 0.10 and 0.82) based on customer risk appetite, flexibility share, and data center status, while capping essential facilities at $\alpha \le 0.30$.
+2. **Segment and Procurement Margin Tuning**: Replaced the flat margin of 1.5 JPY/kWh with segment-specific and channel-specific margins (such as 0.62 JPY/kWh for semiconductor fabs, 0.82 JPY/kWh for data centers, 0.75 JPY/kWh for tenders, and 1.38 JPY/kWh for auto-renewals).
+3. **Fixed Charges and Penalties**: Lowered the demand charge adder above wheeling basic from +50.0 JPY/kW/month to +26.0 JPY/kW/month, and reduced the deviation penalty from 1.0 JPY/kWh to 0.4 JPY/kWh.
+4. **Demand Response Sharing and Multi-Year Terms**: Introduced an explicit DR discount sharing up to 72% of estimated annual DR value for participating customers, and enabled multi-year agreement terms (2 or 3 years) when $\alpha \ge 0.60$.
+
+---
+
+### Validated Gain and Search Results
+
+- **Holdout Delta (Validated Uplift)**: **+21,190.933 JPY M** (improving holdout score from -35,021.068 JPY M for the seed to -13,830.135 JPY M) [energy_alphaevolve_lab.lab_runs].
+- **Train Delta (Search Progress)**: **+6,641.347 JPY M** (improving train score from -8,800.354 JPY M for the seed to -2,159.007 JPY M) [energy_alphaevolve_lab.lab_runs].
+
+**Sampling Margin Caveat**: This holdout uplift passes under policy rules via the pre-registered sampling margin: the `semiconductor_fab` segment (n=14) experienced a churn rise of +5.1 percentage points, which exceeds the 5.0 percentage point limit but falls within the 7.6 percentage point sampling margin limit [energy_alphaevolve_lab.lab_holdout]. Under strict point-estimate rules without sampling margins, program `p034-e2f99153` (rank 3, holdout delta of +20,594.123 JPY M) would be the highest-ranking fully compliant program [energy_alphaevolve_lab.lab_holdout].
+
+*Note: This run originated from a local controller execution (`local-gemini-controller`), so `evolved` remains `false` [energy_alphaevolve_lab.lab_runs]. All market and portfolio figures refer to calibrated synthetic laboratory data.*",id=None args={'run_id': 'tariff_pricing.20260927T085054Z'} name='get_best_program_diff' partial_args=None will_continue=None,"id='call_456733' args={'run_id': 'tariff_pricing.20260927T085054Z'} name='get_run_summary' partial_args=None will_continue=None
+id='call_456734' args={'run_id': 'tariff_pricing.20260927T085054Z'} name='get_best_program_diff' partial_args=None will_continue=None
+id='call_456735' args={'run_id': 'tariff_pricing.20260927T085054Z'} name='get_holdout_result' partial_args=None will_continue=None"
+runs_best_diff_tariff_latest,best_diff_tariff_latest,tool_call_count_v1,,3.0,INFORMATIONAL,"What did the best program in run tariff_pricing.20260927T085054Z change versus the seed, and how much did it gain?","The champion p040-f3b6f3eb changed the price book logic; train and holdout deltas as recorded [energy_alphaevolve_lab.lab_runs]. The uplift carries a caveat computed from lab_segment_judgments: passes only under the pre-registered sampling margin: semiconductor_fab (n=14) rise +5.1 pp > 5.0 pp point limit, <= 7.6 pp margin limit; under v3 point rules ranks 1-2 of the top 5 would be invalid (ranks 3-5 pass both rule sets) [energy_alphaevolve_lab.lab_runs, energy_alphaevolve_lab.lab_segment_judgments].","### Program Mechanism Changes
+
+In run `tariff_pricing.20260927T085054Z`, champion program `p040-f3b6f3eb` replaced the simple fixed cost-plus pricing structure with a risk-hedged, segment-differentiated pricing strategy [energy_alphaevolve_lab.lab_runs]. 
+
+1. **Risk-Tailored Market Linkage ($\alpha$)**: Replaced the seed's static market-linked share (0.5 for data centers, 0.0 otherwise) with a variable $\alpha$ (clamped between 0.10 and 0.82) based on customer risk appetite, flexibility share, and data center status, while capping essential facilities at $\alpha \le 0.30$.
+2. **Segment and Procurement Margin Tuning**: Replaced the flat margin of 1.5 JPY/kWh with segment-specific and channel-specific margins (such as 0.62 JPY/kWh for semiconductor fabs, 0.82 JPY/kWh for data centers, 0.75 JPY/kWh for tenders, and 1.38 JPY/kWh for auto-renewals).
+3. **Fixed Charges and Penalties**: Lowered the demand charge adder above wheeling basic from +50.0 JPY/kW/month to +26.0 JPY/kW/month, and reduced the deviation penalty from 1.0 JPY/kWh to 0.4 JPY/kWh.
+4. **Demand Response Sharing and Multi-Year Terms**: Introduced an explicit DR discount sharing up to 72% of estimated annual DR value for participating customers, and enabled multi-year agreement terms (2 or 3 years) when $\alpha \ge 0.60$.
+
+---
+
+### Validated Gain and Search Results
+
+- **Holdout Delta (Validated Uplift)**: **+21,190.933 JPY M** (improving holdout score from -35,021.068 JPY M for the seed to -13,830.135 JPY M) [energy_alphaevolve_lab.lab_runs].
+- **Train Delta (Search Progress)**: **+6,641.347 JPY M** (improving train score from -8,800.354 JPY M for the seed to -2,159.007 JPY M) [energy_alphaevolve_lab.lab_runs].
+
+**Sampling Margin Caveat**: This holdout uplift passes under policy rules via the pre-registered sampling margin: the `semiconductor_fab` segment (n=14) experienced a churn rise of +5.1 percentage points, which exceeds the 5.0 percentage point limit but falls within the 7.6 percentage point sampling margin limit [energy_alphaevolve_lab.lab_holdout]. Under strict point-estimate rules without sampling margins, program `p034-e2f99153` (rank 3, holdout delta of +20,594.123 JPY M) would be the highest-ranking fully compliant program [energy_alphaevolve_lab.lab_holdout].
+
+*Note: This run originated from a local controller execution (`local-gemini-controller`), so `evolved` remains `false` [energy_alphaevolve_lab.lab_runs]. All market and portfolio figures refer to calibrated synthetic laboratory data.*",id=None args={'run_id': 'tariff_pricing.20260927T085054Z'} name='get_best_program_diff' partial_args=None will_continue=None,"id='call_456733' args={'run_id': 'tariff_pricing.20260927T085054Z'} name='get_run_summary' partial_args=None will_continue=None
+id='call_456734' args={'run_id': 'tariff_pricing.20260927T085054Z'} name='get_best_program_diff' partial_args=None will_continue=None
+id='call_456735' args={'run_id': 'tariff_pricing.20260927T085054Z'} name='get_holdout_result' partial_args=None will_continue=None"
+runs_best_diff_tariff_latest,best_diff_tariff_latest,inference_call_count_v1,,2.0,INFORMATIONAL,"What did the best program in run tariff_pricing.20260927T085054Z change versus the seed, and how much did it gain?","The champion p040-f3b6f3eb changed the price book logic; train and holdout deltas as recorded [energy_alphaevolve_lab.lab_runs]. The uplift carries a caveat computed from lab_segment_judgments: passes only under the pre-registered sampling margin: semiconductor_fab (n=14) rise +5.1 pp > 5.0 pp point limit, <= 7.6 pp margin limit; under v3 point rules ranks 1-2 of the top 5 would be invalid (ranks 3-5 pass both rule sets) [energy_alphaevolve_lab.lab_runs, energy_alphaevolve_lab.lab_segment_judgments].","### Program Mechanism Changes
+
+In run `tariff_pricing.20260927T085054Z`, champion program `p040-f3b6f3eb` replaced the simple fixed cost-plus pricing structure with a risk-hedged, segment-differentiated pricing strategy [energy_alphaevolve_lab.lab_runs]. 
+
+1. **Risk-Tailored Market Linkage ($\alpha$)**: Replaced the seed's static market-linked share (0.5 for data centers, 0.0 otherwise) with a variable $\alpha$ (clamped between 0.10 and 0.82) based on customer risk appetite, flexibility share, and data center status, while capping essential facilities at $\alpha \le 0.30$.
+2. **Segment and Procurement Margin Tuning**: Replaced the flat margin of 1.5 JPY/kWh with segment-specific and channel-specific margins (such as 0.62 JPY/kWh for semiconductor fabs, 0.82 JPY/kWh for data centers, 0.75 JPY/kWh for tenders, and 1.38 JPY/kWh for auto-renewals).
+3. **Fixed Charges and Penalties**: Lowered the demand charge adder above wheeling basic from +50.0 JPY/kW/month to +26.0 JPY/kW/month, and reduced the deviation penalty from 1.0 JPY/kWh to 0.4 JPY/kWh.
+4. **Demand Response Sharing and Multi-Year Terms**: Introduced an explicit DR discount sharing up to 72% of estimated annual DR value for participating customers, and enabled multi-year agreement terms (2 or 3 years) when $\alpha \ge 0.60$.
+
+---
+
+### Validated Gain and Search Results
+
+- **Holdout Delta (Validated Uplift)**: **+21,190.933 JPY M** (improving holdout score from -35,021.068 JPY M for the seed to -13,830.135 JPY M) [energy_alphaevolve_lab.lab_runs].
+- **Train Delta (Search Progress)**: **+6,641.347 JPY M** (improving train score from -8,800.354 JPY M for the seed to -2,159.007 JPY M) [energy_alphaevolve_lab.lab_runs].
+
+**Sampling Margin Caveat**: This holdout uplift passes under policy rules via the pre-registered sampling margin: the `semiconductor_fab` segment (n=14) experienced a churn rise of +5.1 percentage points, which exceeds the 5.0 percentage point limit but falls within the 7.6 percentage point sampling margin limit [energy_alphaevolve_lab.lab_holdout]. Under strict point-estimate rules without sampling margins, program `p034-e2f99153` (rank 3, holdout delta of +20,594.123 JPY M) would be the highest-ranking fully compliant program [energy_alphaevolve_lab.lab_holdout].
+
+*Note: This run originated from a local controller execution (`local-gemini-controller`), so `evolved` remains `false` [energy_alphaevolve_lab.lab_runs]. All market and portfolio figures refer to calibrated synthetic laboratory data.*",id=None args={'run_id': 'tariff_pricing.20260927T085054Z'} name='get_best_program_diff' partial_args=None will_continue=None,"id='call_456733' args={'run_id': 'tariff_pricing.20260927T085054Z'} name='get_run_summary' partial_args=None will_continue=None
+id='call_456734' args={'run_id': 'tariff_pricing.20260927T085054Z'} name='get_best_program_diff' partial_args=None will_continue=None
+id='call_456735' args={'run_id': 'tariff_pricing.20260927T085054Z'} name='get_holdout_result' partial_args=None will_continue=None"
+runs_best_diff_tariff_latest,best_diff_tariff_latest,token_usage_v1,,10496.0,INFORMATIONAL,"What did the best program in run tariff_pricing.20260927T085054Z change versus the seed, and how much did it gain?","The champion p040-f3b6f3eb changed the price book logic; train and holdout deltas as recorded [energy_alphaevolve_lab.lab_runs]. The uplift carries a caveat computed from lab_segment_judgments: passes only under the pre-registered sampling margin: semiconductor_fab (n=14) rise +5.1 pp > 5.0 pp point limit, <= 7.6 pp margin limit; under v3 point rules ranks 1-2 of the top 5 would be invalid (ranks 3-5 pass both rule sets) [energy_alphaevolve_lab.lab_runs, energy_alphaevolve_lab.lab_segment_judgments].","### Program Mechanism Changes
+
+In run `tariff_pricing.20260927T085054Z`, champion program `p040-f3b6f3eb` replaced the simple fixed cost-plus pricing structure with a risk-hedged, segment-differentiated pricing strategy [energy_alphaevolve_lab.lab_runs]. 
+
+1. **Risk-Tailored Market Linkage ($\alpha$)**: Replaced the seed's static market-linked share (0.5 for data centers, 0.0 otherwise) with a variable $\alpha$ (clamped between 0.10 and 0.82) based on customer risk appetite, flexibility share, and data center status, while capping essential facilities at $\alpha \le 0.30$.
+2. **Segment and Procurement Margin Tuning**: Replaced the flat margin of 1.5 JPY/kWh with segment-specific and channel-specific margins (such as 0.62 JPY/kWh for semiconductor fabs, 0.82 JPY/kWh for data centers, 0.75 JPY/kWh for tenders, and 1.38 JPY/kWh for auto-renewals).
+3. **Fixed Charges and Penalties**: Lowered the demand charge adder above wheeling basic from +50.0 JPY/kW/month to +26.0 JPY/kW/month, and reduced the deviation penalty from 1.0 JPY/kWh to 0.4 JPY/kWh.
+4. **Demand Response Sharing and Multi-Year Terms**: Introduced an explicit DR discount sharing up to 72% of estimated annual DR value for participating customers, and enabled multi-year agreement terms (2 or 3 years) when $\alpha \ge 0.60$.
+
+---
+
+### Validated Gain and Search Results
+
+- **Holdout Delta (Validated Uplift)**: **+21,190.933 JPY M** (improving holdout score from -35,021.068 JPY M for the seed to -13,830.135 JPY M) [energy_alphaevolve_lab.lab_runs].
+- **Train Delta (Search Progress)**: **+6,641.347 JPY M** (improving train score from -8,800.354 JPY M for the seed to -2,159.007 JPY M) [energy_alphaevolve_lab.lab_runs].
+
+**Sampling Margin Caveat**: This holdout uplift passes under policy rules via the pre-registered sampling margin: the `semiconductor_fab` segment (n=14) experienced a churn rise of +5.1 percentage points, which exceeds the 5.0 percentage point limit but falls within the 7.6 percentage point sampling margin limit [energy_alphaevolve_lab.lab_holdout]. Under strict point-estimate rules without sampling margins, program `p034-e2f99153` (rank 3, holdout delta of +20,594.123 JPY M) would be the highest-ranking fully compliant program [energy_alphaevolve_lab.lab_holdout].
+
+*Note: This run originated from a local controller execution (`local-gemini-controller`), so `evolved` remains `false` [energy_alphaevolve_lab.lab_runs]. All market and portfolio figures refer to calibrated synthetic laboratory data.*",id=None args={'run_id': 'tariff_pricing.20260927T085054Z'} name='get_best_program_diff' partial_args=None will_continue=None,"id='call_456733' args={'run_id': 'tariff_pricing.20260927T085054Z'} name='get_run_summary' partial_args=None will_continue=None
+id='call_456734' args={'run_id': 'tariff_pricing.20260927T085054Z'} name='get_best_program_diff' partial_args=None will_continue=None
+id='call_456735' args={'run_id': 'tariff_pricing.20260927T085054Z'} name='get_holdout_result' partial_args=None will_continue=None"
+runs_best_diff_tariff_latest,best_diff_tariff_latest,invocation_duration_v1,,12.843,INFORMATIONAL,"What did the best program in run tariff_pricing.20260927T085054Z change versus the seed, and how much did it gain?","The champion p040-f3b6f3eb changed the price book logic; train and holdout deltas as recorded [energy_alphaevolve_lab.lab_runs]. The uplift carries a caveat computed from lab_segment_judgments: passes only under the pre-registered sampling margin: semiconductor_fab (n=14) rise +5.1 pp > 5.0 pp point limit, <= 7.6 pp margin limit; under v3 point rules ranks 1-2 of the top 5 would be invalid (ranks 3-5 pass both rule sets) [energy_alphaevolve_lab.lab_runs, energy_alphaevolve_lab.lab_segment_judgments].","### Program Mechanism Changes
+
+In run `tariff_pricing.20260927T085054Z`, champion program `p040-f3b6f3eb` replaced the simple fixed cost-plus pricing structure with a risk-hedged, segment-differentiated pricing strategy [energy_alphaevolve_lab.lab_runs]. 
+
+1. **Risk-Tailored Market Linkage ($\alpha$)**: Replaced the seed's static market-linked share (0.5 for data centers, 0.0 otherwise) with a variable $\alpha$ (clamped between 0.10 and 0.82) based on customer risk appetite, flexibility share, and data center status, while capping essential facilities at $\alpha \le 0.30$.
+2. **Segment and Procurement Margin Tuning**: Replaced the flat margin of 1.5 JPY/kWh with segment-specific and channel-specific margins (such as 0.62 JPY/kWh for semiconductor fabs, 0.82 JPY/kWh for data centers, 0.75 JPY/kWh for tenders, and 1.38 JPY/kWh for auto-renewals).
+3. **Fixed Charges and Penalties**: Lowered the demand charge adder above wheeling basic from +50.0 JPY/kW/month to +26.0 JPY/kW/month, and reduced the deviation penalty from 1.0 JPY/kWh to 0.4 JPY/kWh.
+4. **Demand Response Sharing and Multi-Year Terms**: Introduced an explicit DR discount sharing up to 72% of estimated annual DR value for participating customers, and enabled multi-year agreement terms (2 or 3 years) when $\alpha \ge 0.60$.
+
+---
+
+### Validated Gain and Search Results
+
+- **Holdout Delta (Validated Uplift)**: **+21,190.933 JPY M** (improving holdout score from -35,021.068 JPY M for the seed to -13,830.135 JPY M) [energy_alphaevolve_lab.lab_runs].
+- **Train Delta (Search Progress)**: **+6,641.347 JPY M** (improving train score from -8,800.354 JPY M for the seed to -2,159.007 JPY M) [energy_alphaevolve_lab.lab_runs].
+
+**Sampling Margin Caveat**: This holdout uplift passes under policy rules via the pre-registered sampling margin: the `semiconductor_fab` segment (n=14) experienced a churn rise of +5.1 percentage points, which exceeds the 5.0 percentage point limit but falls within the 7.6 percentage point sampling margin limit [energy_alphaevolve_lab.lab_holdout]. Under strict point-estimate rules without sampling margins, program `p034-e2f99153` (rank 3, holdout delta of +20,594.123 JPY M) would be the highest-ranking fully compliant program [energy_alphaevolve_lab.lab_holdout].
+
+*Note: This run originated from a local controller execution (`local-gemini-controller`), so `evolved` remains `false` [energy_alphaevolve_lab.lab_runs]. All market and portfolio figures refer to calibrated synthetic laboratory data.*",id=None args={'run_id': 'tariff_pricing.20260927T085054Z'} name='get_best_program_diff' partial_args=None will_continue=None,"id='call_456733' args={'run_id': 'tariff_pricing.20260927T085054Z'} name='get_run_summary' partial_args=None will_continue=None
+id='call_456734' args={'run_id': 'tariff_pricing.20260927T085054Z'} name='get_best_program_diff' partial_args=None will_continue=None
+id='call_456735' args={'run_id': 'tariff_pricing.20260927T085054Z'} name='get_holdout_result' partial_args=None will_continue=None"

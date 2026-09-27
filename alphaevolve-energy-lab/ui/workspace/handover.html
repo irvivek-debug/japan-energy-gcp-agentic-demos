@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Handover · Workspace · AlphaEvolve Energy Lab</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="../kit.css">
+<link rel="stylesheet" href="../lab.css">
+</head>
+<body data-page="workspace" data-screen="handover">
+<main class="wrap" id="main">
+
+  <section class="hero ws-head reveal">
+    <div class="eyebrow">Workspace · Handover</div>
+    <h1>The promotion dossier, one run at a time.</h1>
+    <p class="lede">What a reviewer reads before signing, and what the next desk inherits. The run record is written by the evolution loop; the brief is written by the Lab Analyst on request, and says so until it has been.</p>
+    <div class="controls no-print" style="margin-top:12px">
+      <label class="fl" for="run-select" style="flex:1 1 420px">Run<select class="field" id="run-select"></select></label>
+    </div>
+    <div class="btn-row no-print" style="margin-top:14px">
+      <button class="btn primary" type="button" id="write">Write this brief now</button>
+      <button class="btn" type="button" id="print">Print this brief</button>
+    </div>
+  </section>
+  <div id="dossier"></div>
+
+  <div id="prov"></div>
+</main>
+
+<script src="../shell.js"></script>
+<script src="../motion.js"></script>
+<script src="../signoff.js"></script>
+<script src="../lab.js"></script>
+<script src="handover.js"></script>
+</body>
+</html>

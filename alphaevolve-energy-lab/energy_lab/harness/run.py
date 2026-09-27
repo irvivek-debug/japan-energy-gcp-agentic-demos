@@ -72,6 +72,13 @@ def main(argv: list[str] | None = None) -> int:
     except (BaselineLockError, BudgetExceeded) as e:
         print(f"REFUSED: {e}")
         return 2
+    except Exception as e:  # noqa: BLE001
+        from .llm import GenerationUnavailable
+
+        if isinstance(e, GenerationUnavailable):
+            print(f"REFUSED: {e}")
+            return 4
+        raise
     ho = rec.get("holdout") or {}
     print(json.dumps({"run_id": rec["run_id"], "source": rec["source"], "seed_train": (rec.get("seed") or {}).get("train"),
                       "best_train": (rec.get("best") or {}).get("train"), "holdout_seed": ho.get("seed"),

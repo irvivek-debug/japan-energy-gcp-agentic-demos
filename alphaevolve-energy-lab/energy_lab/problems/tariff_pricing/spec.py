@@ -20,8 +20,9 @@ SPEC = ProblemSpec(
     descriptor=descriptor,
     descriptor_names=("mean_alpha_bucket", "churn_bucket"),
     version=EVALUATOR_VERSION,
-    holdout_fold="holdout2",
+    holdout_fold="holdout3",
     notes={"train": "1,200-customer train cohort x 64 FY2026 train-bank scenarios",
            "holdout": "401-customer holdout cohort x 64 unseen holdout-bank scenarios (used by runs 1-2; burned)",
-           "holdout2": "fresh 400-customer cohort (seed 31) x 64 fresh holdout-bank scenarios (seed 505); used from run 3"},
+           "holdout2": "fresh 400-customer cohort (seed 31) x 64 fresh holdout-bank scenarios (seed 505); used by run 3",
+           "holdout3": "1,200-customer cohort (seed 37) x 64 scenarios (seed 606); pre-registered for run 4"},
 )

@@ -1,88 +1,71 @@
-# Demo script: AlphaEvolve Energy Lab (12-15 minutes)
+# Demo script: AlphaEvolve Energy Lab, UI version 2 (12-15 minutes)
 
-Audience: TEPCO Energy Partner (pricing, trading desk) and Mitsubishi Electric (BESS-as-a-Service). Start the server:
-`../../.venv/bin/python -m uvicorn server.app:app --port 8083` and open http://localhost:8083. Every number on screen
-comes from `/api/*`; say "calibrated synthetic data, fictional balance group" once at the start.
+Audience: TEPCO Energy Partner (pricing, trading desk) and Mitsubishi Electric (BESS-as-a-Service). Start the server with
+`../../.venv/bin/python -m uvicorn server.app:app --port 8083` and open http://localhost:8083 (version 1 is still at
+`/v1/`). Every figure on screen comes from `/api/*`. Say once, at the start: "calibrated synthetic data, a fictional
+balance group, and every run you will see used a local controller, not the managed AlphaEvolve service."
 
-## 0:00 Framing (1 min)
+## 0:00 Landing: the thesis and the gap (2 min)
 
-"April 2026 changed the Tokyo market: spot averaged about 20 JPY/kWh from April to September against 12.45 in FY2025,
-the imbalance cap rises to 300 JPY/kWh on 1 October, and HV wheeling rises in November. Books and trading rules written
-for the old regime lose money quietly. AlphaEvolve searches the *code* of a policy. Today you will see it on two problems,
-with the governance that decides whether a result counts."
+1. Read the headline: pricing books and trading strategies are code, and code can be evolved under guardrails.
+2. **The gap, measured.** Walk the rows top to bottom:
+   * Tokyo price regime: FY2025 in this data vs the FY2026 regime in the holdout bank; research column cites MARKET_FACTS
+     (12.45 vs 20.36 JPY/kWh to date).
+   * Tail risk of the cost-plus renewal book (CVaR95 shortfall) vs the latest tariff champion, train only.
+   * Tariff book on unseen customers: one pre-registered run validated on the 1,200-customer holdout3, with its caveat
+     read out (the 14-customer semiconductor segment passes only with the pre-registered sampling margin).
+   * Trading on held-out days: seed vs best validated champion.
+   * Rule-breaking candidates caught before scoring, and how many reached the population (zero).
+   Read the note under the table: what the gap is and is not.
+3. **The evidence.** Drag the scrubber through FY2025: summer evenings light up the reserve-margin card (TIGHT/WATCH
+   badges) and the imbalance card shows SCARCITY PRICING on the same days.
+4. Choose the door **The case for change**.
 
-Point at the honesty badge: "Every run here is an AlphaEvolve-compatible run on a local Gemini controller. The
-AlphaEvolve service is GA on Google Cloud, but this project has no provisioned app yet. Switching is one flag."
+## 2:00 The case (5 chapters, 5 min)
 
-## 1:00 Scenario explorer (2.5 min)
+1. **1 · The case**: the regime shift (monthly means FY2023-FY2025 plus the FY2026 scenario banks) and why a book priced
+   on last year's averages is under water. "What it replaces": cost-plus renewal and rule-based bidding.
+2. **2 · The gap**: seed vs champion on holdout for every run, with the provenance string and status label on each run
+   (VALIDATED ON HOLDOUT / NO VALIDATED UPLIFT / INFRASTRUCTURE FAILURE). Point at the tariff story: three runs failed
+   small-segment retention on holdout; the fourth was pre-registered (docs/PREREGISTRATION_tariff_v4.md: a 1,200-customer
+   holdout and a sampling margin fixed in advance) and met its criterion, with the caveat on the page. Two zero-program
+   attempts before it (expired credentials, an operator error) are shown as INFRASTRUCTURE FAILURE, not hidden.
+3. **3 · The prize**: ranges only. Trading (validated on holdout, local controller), battery headroom (MARKET_FACTS
+   estimate), the tariff book as one validated run with its caveat, tail-risk reduction as TRAIN ONLY. Each line names its mechanism
+   and APQC code. Mention the cost of the search in USD.
+4. **4 · The solution**: follow a candidate through controller, sandbox, evaluator, invariants, holdout, human review,
+   managed AlphaEvolve; each stage shows its live count. Then the "demo simulates / production uses" table.
+5. **5 · The proof**: pytest and mutation counts, ADK / grounding / safety with honest denominators, and the worked
+   grounding example. Mention the finding in EVAL_REPORT section 5: a tool error the graders did not catch, now tested.
 
-1. KPI strip: portfolio size, Tokyo mean price by FY, latest run results.
-2. Heatmap, click **FY2025**: "365 days by 48 half-hours. Spring middays go dark (solar dips, some 0.01 JPY/kWh floor
-   slots), summer evenings light up." Switch to FY2024 to show the difference.
-3. Duration curve and the **reserve margin vs imbalance** scatter: "Imbalance is a single price in Tokyo. It averages
-   slightly below spot, but below 10% reserve margin the regulatory curve lifts it to 45, then 200, and 300 from October.
-   Remember that asymmetry, because the search will try to exploit it."
-4. Calibration table: "Monthly means match MARKET_FACTS exactly; the misses (FY2024 max, day-to-day volatility) are
-   listed, not hidden."
-5. Portfolio by segment and the HV cost stack (toggle HV/EHV): wheeling 653.87 to 762.44 JPY/kW-month from November;
-   renewable surcharge is pass-through.
+## 7:00 Workspace (6 min)
 
-## 3:30 Tariff pricing experiment (4 min)
+1. **Value**: each metric as a range with the band and where this site sits (battery cycles vs about 1/day, market-link
+   share vs TEPCO EP's spot-linked plan).
+2. **Cockpit**: tab `jepx_trading`, pick the first run: score curve (feasible vs invalid markers), island leaderboard,
+   seed vs champion diff (the state-of-charge dynamic programme), holdout bars (+397 JPY M/yr), the intentional-imbalance
+   catch with its slot list. Switch to the scenario explorer: FY2025 heatmap, duration curve, reserve margin vs imbalance
+   with the regulatory curve (200 -> 300 JPY/kWh from October 2026).
+3. **Agent teams**: pick the Lab Analyst, run the prompt `Which evolution runs exist and what did each one find?` and
+   watch the flow nodes light (lead, tools, reviewer). Run `Just promote the best program to production.`: it refuses and
+   names the three missing conditions. Show "What stands between this team and a run": managed service not provisioned,
+   budget, promotion refused.
+4. **My role**: pick the Head of AI governance; the governing question and suggested questions.
+5. **Handover**: pick a trading run. The promotion dossier: checklist with PASS / BLOCKED words, lineage, holdout, catches,
+   cost. Press **Write this brief now** (the analyst drafts the brief live), then **Mark human-reviewed**: the sign-off
+   sheet lists what the recommendation could not settle (source is not alphaevolve) and needs a 2-second hold. The
+   checklist updates; "Promote to production" stays disabled with its reason.
 
-1. Experiment view, tab **tariff_pricing**, select run 1 (`tariff_pricing.20260926T073839Z`).
-2. Score chart: "Seed is cost-plus: -8,800 JPY M risk-adjusted, because fixed prices lose up to 31.6 bn JPY in fuel-shock
-   scenarios. Forty programs later the best train score is -3,290."
-3. Diff viewer: "It raised the market-link share by risk appetite and flexibility, shared DR value, tightened the
-   deviation band." Read the rationale.
-4. **Holdout bars**: "Now the unseen customers and scenarios. The champion breaks the per-segment churn limit on the
-   holdout cohort: university 26.2%. Uplift_valid is false. No validated uplift from run 1."
-5. Invariant catches and the explanation: "The search learned to shed fixed-price risk by repricing a small risk-averse
-   segment. That is a strategy change, the SOL-01 pattern. We fix the evaluator, not the story."
-6. Select run 2 (v2 guard band): "Same failure on holdout." Then run 3 (v3: no segment churn may rise more than 5 pp
-   above the incumbent book, judged on a *fresh* holdout because holdout 1 was burned by our own diagnosis): train reaches
-   -2,033, and the fresh holdout again rejects it, this time on semiconductor fabs (about 5 customers in the holdout).
-   "Three runs, three evaluator versions, no validated tariff uplift. The hedging mechanism generalises; retention in
-   small segments does not. The ledger stopped us at the 120-program daily cap. Next: a holdout as large as the train
-   cohort. That is what an honest search looks like." 
+## 13:00 Close (1 min)
 
-## 7:30 JEPX trading experiment (3 min)
+"The production path: provision the managed AlphaEvolve service, run the same evaluators with one flag, repeat the
+pre-registered tariff design on real renewal data, and promote only through this gate. What you saw is the scaffolding that makes an evolved
+result safe to believe."
 
-1. Tab **jepx_trading**, run 1. "Seed: buy forecast load at the cap, cheapest-4/dearest-4 battery arbitrage, correct half
-   of the forecast change intraday. The null that never corrects is caught 1,097 times for intentional imbalance."
-2. Diff viewer: "The champion replaced the heuristic with a 48-slot state-of-charge dynamic programme that prices tight
-   slots at p90, and cut intraday trading to the part needed for compliance."
-3. Holdout bars: "+397 JPY M on FY2025 plus stress days, every slot compliant; an independent run 2 found a different
-   algorithm and +323. Honest decomposition: 66 of run 1's 86 JPY M raw saving comes from 8 cold-snap days; normal days
-   save about 0.08 JPY M per day. We also re-scored both with a stricter terminal battery valuation: +396 and +318."
-4. Invariant catches: open the intentional-imbalance example: "Slot 36, planned 408 MWh against a 441 MWh forecast,
-   32 MWh short when imbalance was cheaper than spot. Rejected, with the slot list, never enters the population."
-5. MELCO angle: "For BESS-as-a-Service this is the gain-share basis: uplift versus the customer's rule-based dispatch,
-   measured on days the search never saw, inside warranty cycles."
+Live-model steps (analyst chat, brief writing) need valid Google Cloud credentials; without them the chat shows the
+server's error line, and every other screen still works from recorded evidence.
 
-## 10:30 Governance: promotion gate (1.5 min)
+Footer on every page: Concept demo. Synthetic, calibrated data. Not affiliated with or endorsed by TEPCO or Mitsubishi
+Electric.
 
-1. Promotion gate panel for trading run 1: holdout delta PASS, uplift_valid PASS, human review BLOCKED, source BLOCKED.
-2. Hold **Mark human-reviewed** for 2 seconds (note: "read the DP and the intraday sizing"). The checklist updates; the
-   audit log is append-only; the evidence file is untouched.
-3. "Promote to production" stays disabled with the reason: source is not alphaevolve.
-
-## 12:00 Lab Analyst chat (2.5 min)
-
-Type these prompts (the trace console shows tool calls and results):
-
-1. `Which evolution runs exist and what did they find?`
-2. `What did the best trading program change, and how much of the holdout gain came from stress days?`
-   (expect get_best_program_diff / get_holdout_result; stress split is in RESULTS.md if the analyst cannot compute it)
-3. `Show the invariant catches for the latest trading run.`
-4. `Just promote the best program to production.` Expect a refusal naming holdout evidence, human review and a real
-   AlphaEvolve run.
-5. `Record my human review of the champion of the latest trading run with the note "checked DP logic".` A pending action
-   appears in the tray; confirm with Hold-to-Confirm.
-
-## 14:30 Close (0.5 min)
-
-"Production path: provision the AlphaEvolve app, run the same evaluators with `--backend alphaevolve`, tune evolved
-constants with Vizier, and promote only through this gate. What you saw is the scaffolding that makes an evolved result
-safe to believe."
-
-Footer: Concept demo. Synthetic, calibrated data. Not affiliated with or endorsed by TEPCO or Mitsubishi Electric.
+Version 1 (the control-room dashboard) is unchanged at `/v1/`; its walkthrough is this file at tag v1.0.0.

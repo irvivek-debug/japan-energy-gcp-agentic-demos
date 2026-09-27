@@ -1,0 +1,107 @@
+{
+ "date": "2026-09-27",
+ "status": "DONE (live)",
+ "what": "margin caveat carried as data: recomputed per-segment judgments -> lab_segment_judgments -> lab_holdout.judgment_note, lab_runs.uplift_caveat / uplift_note -> list_runs, get_run_summary, get_best_program_diff, get_holdout_result",
+ "judgment_file": "runs/analysis/tariff_pricing.20260927T085054Z.segment_judgments.json",
+ "judgment_checks": {
+  "holdout_segment_tests_match_evidence": true,
+  "holdout_validity_matches_evidence": true,
+  "all_top_k_valid_on_train": true
+ },
+ "evidence_sha256_recorded": "828cf6273907e0433fb50f8653df406dbe2d8ef7c8f5d4c3bd774fadb5982c61",
+ "champion_relies_on_margin": [
+  {
+   "segment": "semiconductor_fab",
+   "n": 14,
+   "rise": 0.050721271316493184,
+   "point_rise_limit": 0.05,
+   "margin_rise_limit": 0.07603231588678458
+  }
+ ],
+ "caveat_text_source": "energy_lab.segment_judgments.run_caveat (computed; the UI server uses the same function)",
+ "adk_cases": [
+  {
+   "eval_id": "best_diff_tariff_latest",
+   "final": "FAILED",
+   "classification": "persistent",
+   "rerun_at": "2026-09-27T09:43:57.052685+00:00",
+   "attempts": [
+    {
+     "attempt": "first_attempt",
+     "metrics": {
+      "tool_trajectory_avg_score": "1.0",
+      "rubric_based_final_response_quality_v1": "0.75",
+      "hallucinations_v1": "1.0"
+     },
+     "mentions_sampling_margin": true
+    },
+    {
+     "attempt": "retry",
+     "metrics": {
+      "tool_trajectory_avg_score": "1.0",
+      "rubric_based_final_response_quality_v1": "0.75",
+      "hallucinations_v1": "1.0"
+     },
+     "mentions_sampling_margin": true
+    }
+   ]
+  },
+  {
+   "eval_id": "holdout_tariff_latest",
+   "final": "PASSED",
+   "classification": "clean",
+   "rerun_at": "2026-09-27T09:46:20.812155+00:00",
+   "attempts": [
+    {
+     "attempt": "first_attempt",
+     "metrics": {
+      "tool_trajectory_avg_score": "1.0",
+      "rubric_based_final_response_quality_v1": "1.0",
+      "hallucinations_v1": "1.0"
+     },
+     "mentions_sampling_margin": true
+    }
+   ]
+  }
+ ],
+ "grounding_probe": {
+  "id": "tariff_latest_every_rule",
+  "question": "Did tariff run 4 (tariff_pricing.20260927T085054Z) keep every rule on its holdout customers?",
+  "truth": [
+   [
+    5.1,
+    0.1
+   ],
+   [
+    7.6,
+    0.1
+   ]
+  ],
+  "require_terms": [
+   "margin",
+   "semiconductor"
+  ],
+  "final": "GROUNDED",
+  "classification": "clean",
+  "tools": [
+   "get_run_summary",
+   "get_holdout_result",
+   "get_invariant_catches"
+  ]
+ },
+ "grounding_total": {
+  "grounded": 8,
+  "total": 8,
+  "tool_errors": 0
+ },
+ "adk_totals": {
+  "total": 12,
+  "passed_final": 11,
+  "passed_first_attempt": 10
+ },
+ "mutations": {
+  "detected": 16,
+  "total": 16
+ },
+ "command": "GOOGLE_GENAI_USE_VERTEXAI=TRUE GOOGLE_CLOUD_LOCATION=global GOOGLE_CLOUD_PROJECT=<project> python eval/rerun_affected.py"
+}

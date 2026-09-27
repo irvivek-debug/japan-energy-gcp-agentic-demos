@@ -1,8 +1,12 @@
 .env
 .env.*
 !.env.example
+*.local.json
 **/__pycache__
 .pytest_cache
-eval/results
 tests
 docs
+eval/results/probes
+eval/results/iteration1
+eval/results/*.csv
+eval/results/*.log

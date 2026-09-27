@@ -1052,6 +1052,10 @@ def main() -> None:
     for path in (os.path.join(HERE, "schema.json"), os.path.join(PKG, "schema.json")):
         with open(path, "w") as f:  # data/schema.json (BigQuery load) and the packaged copy must stay identical
             json.dump(schema, f, indent=1)
+    manifest = {"generator": "data/generate.py", "seed": SEED, "scenario_now": NOW, "calendar": P["calendar"],
+                "tables": {n: len(df) for n, df in tables.items()}, "rows": int(sum(len(t) for t in tables.values()))}
+    with open(os.path.join(PKG, "data_manifest.json"), "w") as f:  # read by the UI provenance footers
+        json.dump(manifest, f, indent=1)
     from documents import write_documents  # noqa: E402  (sibling module, keeps this file focused on tables)
     write_documents(CORPUS, P, prospects, pload)
     total = sum(os.path.getsize(os.path.join(OUT, f"{n}.csv")) for n in tables)

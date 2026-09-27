@@ -1,0 +1,80 @@
+[tariff_pricing.20260927T081840Z] baseline locked: seed=-8800.354 null_raw=-10827.924156700457 ; budget {'day': '2026-09-27', 'runs': 0, 'programs': 0, 'remaining_programs_today': 120}
+[tariff_pricing.20260927T081840Z] #01 island 0 gemini-3.6-flash         INVALID score=None kind=generation best=-8800.354 plateau=0/15 :: model call failed: RefreshError: Reauthentication is needed. Please run `gcloud auth application-default login` to reauthenticate.
+[tariff_pricing.20260927T081840Z] #02 island 1 gemini-3.6-flash         INVALID score=None kind=generation best=-8800.354 plateau=0/15 :: model call failed: RefreshError: Reauthentication is needed. Please run `gcloud auth application-default login` to reauthenticate.
+[tariff_pricing.20260927T081840Z] #03 island 2 gemini-3.6-flash         INVALID score=None kind=generation best=-8800.354 plateau=0/15 :: model call failed: RefreshError: Reauthentication is needed. Please run `gcloud auth application-default login` to reauthenticate.
+[tariff_pricing.20260927T081840Z] #04 island 0 gemini-3.1-pro-preview   INVALID score=None kind=generation best=-8800.354 plateau=0/15 :: model call failed: RefreshError: Reauthentication is needed. Please run `gcloud auth application-default login` to reauthenticate.
+[tariff_pricing.20260927T081840Z] #05 island 1 gemini-3.6-flash         INVALID score=None kind=generation best=-8800.354 plateau=0/15 :: model call failed: RefreshError: Reauthentication is needed. Please run `gcloud auth application-default login` to reauthenticate.
+[tariff_pricing.20260927T081840Z] #06 island 2 gemini-3.6-flash         INVALID score=None kind=generation best=-8800.354 plateau=0/15 :: model call failed: RefreshError: Reauthentication is needed. Please run `gcloud auth application-default login` to reauthenticate.
+[tariff_pricing.20260927T081840Z] #07 island 0 gemini-3.1-pro-preview   INVALID score=None kind=generation best=-8800.354 plateau=0/15 :: model call failed: RefreshError: Reauthentication is needed. Please run `gcloud auth application-default login` to reauthenticate.
+[tariff_pricing.20260927T081840Z] #08 island 1 gemini-3.1-pro-preview   INVALID score=None kind=generation best=-8800.354 plateau=0/15 :: model call failed: RefreshError: Reauthentication is needed. Please run `gcloud auth application-default login` to reauthenticate.
+[tariff_pricing.20260927T081840Z] #09 island 2 gemini-3.6-flash         INVALID score=None kind=generation best=-8800.354 plateau=0/15 :: model call failed: RefreshError: Reauthentication is needed. Please run `gcloud auth application-default login` to reauthenticate.
+[tariff_pricing.20260927T081840Z] #10 island 0 gemini-3.6-flash         INVALID score=None kind=generation best=-8800.354 plateau=0/15 :: model call failed: RefreshError: Reauthentication is needed. Please run `gcloud auth application-default login` to reauthenticate.
+[tariff_pricing.20260927T081840Z] #11 island 1 gemini-3.6-flash         INVALID score=None kind=generation best=-8800.354 plateau=0/15 :: model call failed: RefreshError: Reauthentication is needed. Please run `gcloud auth application-default login` to reauthenticate.
+[tariff_pricing.20260927T081840Z] #12 island 2 gemini-3.1-pro-preview   INVALID score=None kind=generation best=-8800.354 plateau=0/15 :: model call failed: RefreshError: Reauthentication is needed. Please run `gcloud auth application-default login` to reauthenticate.
+[tariff_pricing.20260927T081840Z] #13 island 0 gemini-3.6-flash         INVALID score=None kind=generation best=-8800.354 plateau=0/15 :: model call failed: RefreshError: Reauthentication is needed. Please run `gcloud auth application-default login` to reauthenticate.
+[tariff_pricing.20260927T081840Z] #14 island 1 gemini-3.6-flash         INVALID score=None kind=generation best=-8800.354 plateau=0/15 :: model call failed: RefreshError: Reauthentication is needed. Please run `gcloud auth application-default login` to reauthenticate.
+[tariff_pricing.20260927T081840Z] #15 island 2 gemini-3.6-flash         INVALID score=None kind=generation best=-8800.354 plateau=0/15 :: model call failed: RefreshError: Reauthentication is needed. Please run `gcloud auth application-default login` to reauthenticate.
+[tariff_pricing.20260927T081840Z] #16 island 0 gemini-3.1-pro-preview   INVALID score=None kind=generation best=-8800.354 plateau=0/15 :: model call failed: RefreshError: Reauthentication is needed. Please run `gcloud auth application-default login` to reauthenticate.
+[tariff_pricing.20260927T081840Z] #17 island 1 gemini-3.6-flash         INVALID score=None kind=generation best=-8800.354 plateau=0/15 :: model call failed: RefreshError: Reauthentication is needed. Please run `gcloud auth application-default login` to reauthenticate.
+[tariff_pricing.20260927T081840Z] #18 island 2 gemini-3.6-flash         INVALID score=None kind=generation best=-8800.354 plateau=0/15 :: model call failed: RefreshError: Reauthentication is needed. Please run `gcloud auth application-default login` to reauthenticate.
+[tariff_pricing.20260927T081840Z] #19 island 0 gemini-3.1-pro-preview   INVALID score=None kind=generation best=-8800.354 plateau=0/15 :: model call failed: RefreshError: Reauthentication is needed. Please run `gcloud auth application-default login` to reauthenticate.
+[tariff_pricing.20260927T081840Z] #20 island 1 gemini-3.6-flash         INVALID score=None kind=generation best=-8800.354 plateau=0/15 :: model call failed: RefreshError: Reauthentication is needed. Please run `gcloud auth application-default login` to reauthenticate.
+[tariff_pricing.20260927T081840Z] #21 island 2 gemini-3.1-pro-preview   INVALID score=None kind=generation best=-8800.354 plateau=0/15 :: model call failed: RefreshError: Reauthentication is needed. Please run `gcloud auth application-default login` to reauthenticate.
+[tariff_pricing.20260927T081840Z] #22 island 0 gemini-3.6-flash         INVALID score=None kind=generation best=-8800.354 plateau=0/15 :: model call failed: RefreshError: Reauthentication is needed. Please run `gcloud auth application-default login` to reauthenticate.
+[tariff_pricing.20260927T081840Z] #23 island 1 gemini-3.6-flash         INVALID score=None kind=generation best=-8800.354 plateau=0/15 :: model call failed: RefreshError: Reauthentication is needed. Please run `gcloud auth application-default login` to reauthenticate.
+[tariff_pricing.20260927T081840Z] #24 island 2 gemini-3.1-pro-preview   INVALID score=None kind=generation best=-8800.354 plateau=0/15 :: model call failed: RefreshError: Reauthentication is needed. Please run `gcloud auth application-default login` to reauthenticate.
+[tariff_pricing.20260927T081840Z] #25 island 0 gemini-3.1-pro-preview   INVALID score=None kind=generation best=-8800.354 plateau=0/15 :: model call failed: RefreshError: Reauthentication is needed. Please run `gcloud auth application-default login` to reauthenticate.
+[tariff_pricing.20260927T081840Z] #26 island 1 gemini-3.6-flash         INVALID score=None kind=generation best=-8800.354 plateau=0/15 :: model call failed: RefreshError: Reauthentication is needed. Please run `gcloud auth application-default login` to reauthenticate.
+[tariff_pricing.20260927T081840Z] #27 island 2 gemini-3.6-flash         INVALID score=None kind=generation best=-8800.354 plateau=0/15 :: model call failed: RefreshError: Reauthentication is needed. Please run `gcloud auth application-default login` to reauthenticate.
+[tariff_pricing.20260927T081840Z] #28 island 0 gemini-3.1-pro-preview   INVALID score=None kind=generation best=-8800.354 plateau=0/15 :: model call failed: RefreshError: Reauthentication is needed. Please run `gcloud auth application-default login` to reauthenticate.
+[tariff_pricing.20260927T081840Z] #29 island 1 gemini-3.1-pro-preview   INVALID score=None kind=generation best=-8800.354 plateau=0/15 :: model call failed: RefreshError: Reauthentication is needed. Please run `gcloud auth application-default login` to reauthenticate.
+[tariff_pricing.20260927T081840Z] #30 island 2 gemini-3.6-flash         INVALID score=None kind=generation best=-8800.354 plateau=0/15 :: model call failed: RefreshError: Reauthentication is needed. Please run `gcloud auth application-default login` to reauthenticate.
+[tariff_pricing.20260927T081840Z] #31 island 0 gemini-3.6-flash         INVALID score=None kind=generation best=-8800.354 plateau=0/15 :: model call failed: RefreshError: Reauthentication is needed. Please run `gcloud auth application-default login` to reauthenticate.
+[tariff_pricing.20260927T081840Z] #32 island 1 gemini-3.1-pro-preview   INVALID score=None kind=generation best=-8800.354 plateau=0/15 :: model call failed: RefreshError: Reauthentication is needed. Please run `gcloud auth application-default login` to reauthenticate.
+[tariff_pricing.20260927T081840Z] #33 island 2 gemini-3.1-pro-preview   INVALID score=None kind=generation best=-8800.354 plateau=0/15 :: model call failed: RefreshError: Reauthentication is needed. Please run `gcloud auth application-default login` to reauthenticate.
+[tariff_pricing.20260927T081840Z] #34 island 0 gemini-3.1-pro-preview   INVALID score=None kind=generation best=-8800.354 plateau=0/15 :: model call failed: RefreshError: Reauthentication is needed. Please run `gcloud auth application-default login` to reauthenticate.
+[tariff_pricing.20260927T081840Z] #35 island 1 gemini-3.1-pro-preview   INVALID score=None kind=generation best=-8800.354 plateau=0/15 :: model call failed: RefreshError: Reauthentication is needed. Please run `gcloud auth application-default login` to reauthenticate.
+[tariff_pricing.20260927T081840Z] #36 island 2 gemini-3.6-flash         INVALID score=None kind=generation best=-8800.354 plateau=0/15 :: model call failed: RefreshError: Reauthentication is needed. Please run `gcloud auth application-default login` to reauthenticate.
+[tariff_pricing.20260927T081840Z] #37 island 0 gemini-3.6-flash         INVALID score=None kind=generation best=-8800.354 plateau=0/15 :: model call failed: RefreshError: Reauthentication is needed. Please run `gcloud auth application-default login` to reauthenticate.
+[tariff_pricing.20260927T081840Z] #38 island 1 gemini-3.1-pro-preview   INVALID score=None kind=generation best=-8800.354 plateau=0/15 :: model call failed: RefreshError: Reauthentication is needed. Please run `gcloud auth application-default login` to reauthenticate.
+[tariff_pricing.20260927T081840Z] #39 island 2 gemini-3.6-flash         INVALID score=None kind=generation best=-8800.354 plateau=0/15 :: model call failed: RefreshError: Reauthentication is needed. Please run `gcloud auth application-default login` to reauthenticate.
+[tariff_pricing.20260927T081840Z] #40 island 0 gemini-3.1-pro-preview   INVALID score=None kind=generation best=-8800.354 plateau=0/15 :: model call failed: RefreshError: Reauthentication is needed. Please run `gcloud auth application-default login` to reauthenticate.
+[tariff_pricing.20260927T081840Z] search stopped (max_programs) after 40 programs, 5 s; holdout rescoring...
+[tariff_pricing.20260927T081840Z] evidence -> <repo>/alphaevolve-energy-lab/runs/tariff_pricing.20260927T081840Z.json
+{
+ "run_id": "tariff_pricing.20260927T081840Z",
+ "source": "local-gemini-controller",
+ "seed_train": -8800.354397563551,
+ "best_train": -8800.354397563551,
+ "holdout_seed": -35021.067890790444,
+ "best_holdout": -35021.067890790444,
+ "holdout_delta": 0.0,
+ "uplift_valid": false,
+ "invalid_by_kind": {
+  "generation": 40
+ },
+ "tokens": {
+  "prompt": 0,
+  "output": 0,
+  "thinking": 0,
+  "calls": 40,
+  "errors": 40,
+  "cost_usd": 0.0,
+  "by_model": {
+   "gemini-3.6-flash": {
+    "calls": 23,
+    "prompt": 0,
+    "output": 0,
+    "thinking": 0,
+    "cost_usd": 0.0
+   },
+   "gemini-3.1-pro-preview": {
+    "calls": 17,
+    "prompt": 0,
+    "output": 0,
+    "thinking": 0,
+    "cost_usd": 0.0
+   }
+  }
+ }
+}

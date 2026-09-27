@@ -86,11 +86,11 @@ default `gemini-3.6-flash`, from `energy_lab/model_policy.py`), 9 tools (`energy
 
 | Tool | Reads | Notes |
 |---|---|---|
-| list_runs(problem) | lab_runs | newest first |
-| get_run_summary(run_id) | lab_runs, lab_programs, lab_invariant_catches | kinds of invalid candidates, programs by model |
-| get_best_program_diff(run_id) | lab_runs | diff and rationales returned under `untrusted_text` |
+| list_runs(problem) | lab_runs | newest first; `uplift_caveat` per run |
+| get_run_summary(run_id) | lab_runs, lab_programs, lab_invariant_catches | kinds of invalid candidates, programs by model, `uplift_caveat` |
+| get_best_program_diff(run_id) | lab_runs | diff and rationales returned under `untrusted_text`; `uplift_caveat` |
 | get_invariant_catches(run_id, invariant) | lab_invariant_catches, lab_runs | would-have-scored numbers |
-| get_holdout_result(run_id) | lab_runs, lab_holdout, lab_reviews | computes the promotion gate with `harness.evidence.promotion_gate` |
+| get_holdout_result(run_id) | lab_runs, lab_holdout, lab_reviews, lab_segment_judgments | computes the promotion gate with `harness.evidence.promotion_gate`; `uplift_caveat`, per-candidate `judgment_note`, the champion's margin-dependent segments |
 | get_market_stats(fiscal_year, month) | market_history, calibration / scenario_monthly | FY2026 = scenario banks |
 | get_portfolio_stats(segment) | customers_train | |
 | explain_cost_stack(voltage) | cost_stack | worked per-kWh example |
@@ -164,12 +164,21 @@ thinking level MEDIUM. Output: rationale + SEARCH/REPLACE hunks applied by `harn
 | tariff v1 | initial | invariants: essential alpha, fair ceiling, non-discrimination, band, churn 15% / 25% |
 | tariff v2 | run `tariff_pricing.20260926T073839Z`: champion broke university churn on holdout | train-fold guard band 14% portfolio / 22% segment |
 | tariff v3 | run `tariff_pricing.20260926T074912Z`: same failure; holdout 1 used for diagnosis, so burned | segment churn may rise <= 5 pp vs the incumbent book on the same cohort; fresh holdout2 fold |
+| tariff v4 | pre-registered 2026-09-27 (docs/PREREGISTRATION_tariff_v4.md) before holdout3 existed | 1,200-customer holdout3 (seed 37, bank 606); per-segment churn judged with a paired-SE margin (5 pp / 25% + 1.645 x SE, pooled sd below 30 customers); train rules and score unchanged |
 | trading v1 | initial | compliance tolerance max(5 MWh, 3%) per slot + systematic bias <= 0.5% |
 | trading v2 | runs 1-2 decomposition: ~115 JPY M/yr of each holdout delta was the terminal-SOC term | terminal SOC at replacement / deliverable value (efficiency and wear); re-scoring moved deltas by < 2% |
 
-Mutation checks (`tests/mutation_check.py`) break 11 gates in the source (sandbox socket patch, look-ahead reads,
+Harness hardening after the 2026-09-27 credential failure: a credential preflight refuses to start a run, and a circuit
+breaker stops a run after 3 consecutive generation failures. Tool fix: `lab_reviews.at` renamed `reviewed_at` (reserved
+word; `get_holdout_result` had been returning a SQL error). Sampling-margin caveat as data: `energy_lab/segment_judgments.py` re-executes the saved top-k
+programs of a margin-judged run (train and holdout, no model call), checks the result against the evidence and writes
+`runs/analysis/<run_id>.segment_judgments.json` once; `export_evidence` turns it into `lab_segment_judgments`, the
+per-candidate `judgment_note` and `lab_runs.uplift_caveat`; the UI server builds the same words with the same function.
+
+Mutation checks (`tests/mutation_check.py`) break 16 gates in the source (sandbox socket patch, look-ahead reads,
 per-slot compliance, naked selling, essential alpha, v3 rise rule, seed == null lock check, exclusive evidence create,
-plateau semantics, promotion source check, DuckDB cursor per query) and require the suite to go red; the first pass
+plateau semantics, promotion source check, DuckDB cursor per query, generation circuit breaker, the reserved-word tool
+query, the caveat dropped from `get_holdout_result`, the caveat never derived, the point rise rule always passing) and require the suite to go red; the first pass
 found two tests that did not isolate their gate, which were fixed.
 
 ## 7. Access model

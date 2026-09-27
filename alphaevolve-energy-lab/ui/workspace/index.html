@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cockpit · Workspace · AlphaEvolve Energy Lab</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="../kit.css">
+<link rel="stylesheet" href="../lab.css">
+</head>
+<body data-page="workspace" data-screen="cockpit">
+<main class="wrap" id="main">
+
+  <section class="hero ws-head reveal">
+    <div class="eyebrow">Workspace · Cockpit</div>
+    <h1>Cockpit</h1>
+    <p class="lede">The runs, their evidence and the market they were judged on, in one place. Pick a problem and a run; every panel below follows it.</p>
+    <div class="counts" id="counts" aria-live="polite">Counting agents and sign-offs.</div>
+  </section>
+  <section><div class="kpis" id="kpis"></div></section>
+
+  <section id="experiments">
+    <div class="eyebrow reveal">Experiments</div>
+    <h2 class="reveal">Runs, candidates and what held</h2>
+    <div class="tabstrip" role="tablist" aria-label="Problem" id="problem-tabs"></div>
+    <div class="card" id="exp-panel" role="tabpanel" style="border-top-left-radius:0;border-top-right-radius:0;border-top:0">
+      <div class="controls">
+        <label class="fl" for="run-select">Run<select class="field" id="run-select"></select></label>
+        <span class="reason" id="poll-status" aria-live="polite"></span>
+      </div>
+      <div id="run-header" style="margin-top:14px"></div>
+    </div>
+    <div class="bento" style="margin-top:16px">
+      <div class="card c8"><div class="card-cap">Score by program, JPY M<span class="spacer"></span><span id="score-legend" class="legend"></span></div>
+        <div class="chart" id="chart-score" role="img" aria-label="Score of every program in evaluation order; invalid programs sit in a band below"></div>
+        <p class="cap-note" id="score-note"></p></div>
+      <div class="card c4"><div class="card-cap">Island leaderboard</div><div id="islands"></div></div>
+      <div class="card c12"><div class="card-cap">Seed against champion<span class="spacer"></span></div>
+        <div class="controls"><label class="fl" for="program-select">Program<select class="field" id="program-select"></select></label></div>
+        <div class="bento" style="margin-top:12px"><div class="c8" id="diff-body"></div><div class="c4 side" id="diff-side"></div></div></div>
+      <div class="card c7"><div class="card-cap">Held-out fold<span class="spacer"></span><span class="seg" id="holdout-mode"><button type="button" data-mode="delta" aria-pressed="true">Change vs seed</button><button type="button" data-mode="abs" aria-pressed="false">Scores</button></span></div>
+        <div id="holdout-body"></div></div>
+      <div class="card c5"><div class="card-cap">Promotion gate</div><div id="gate"></div></div>
+      <div class="card c6"><div class="card-cap">Invariant catches</div><div id="catches"></div></div>
+      <div class="card c6"><div class="card-cap">Budget and ledger</div><div id="budget"></div></div>
+    </div>
+  </section>
+
+  <section id="queue">
+    <div class="eyebrow reveal">Approval queue</div>
+    <h2 class="reveal">Waiting for a person</h2>
+    <div class="card" id="actions"></div>
+  </section>
+
+  <section id="scenarios">
+    <div class="eyebrow reveal">Scenario explorer</div>
+    <h2 class="reveal">The market the runs were judged on</h2>
+    <div class="card" style="margin-bottom:16px"><div class="card-cap">Tokyo price by day and half-hour<span class="spacer"></span><span class="seg" id="fy-seg" aria-label="Fiscal year"></span></div>
+      <div class="chart tall" id="chart-heatmap" role="img" aria-label="Heatmap of Tokyo area price by day and half-hour slot"></div>
+      <p class="cap-note" id="heatmap-note"></p></div>
+    <div class="bento">
+      <div class="card c6"><div class="card-cap">Price duration curve</div><div class="chart" id="chart-duration" role="img" aria-label="Price duration curve by fiscal year"></div><p class="cap-note" id="duration-note"></p></div>
+      <div class="card c6"><div class="card-cap">Reserve margin against imbalance price</div><div class="chart" id="chart-rm" role="img" aria-label="Imbalance price against reserve margin with the regulatory scarcity curve"></div><p class="cap-note" id="rm-note"></p></div>
+      <div class="card c6"><div class="card-cap">The customer book</div><div class="chart short" id="chart-portfolio" role="img" aria-label="Annual energy by customer segment"></div><div id="portfolio-table"></div></div>
+      <div class="card c6"><div class="card-cap">Cost stack<span class="spacer"></span><span class="seg" id="cost-seg"><button type="button" data-v="HV" aria-pressed="true">HV</button><button type="button" data-v="EHV" aria-pressed="false">EHV</button></span></div><div id="cost-body"></div></div>
+      <div class="card c12"><div class="card-cap">Calibration against published figures<span class="spacer"></span><span class="seg"><button type="button" id="cal-filter" aria-pressed="false">Only off target</button></span></div><p class="cap-note" id="cal-summary" style="margin-top:0"></p><div id="cal-table"></div></div>
+    </div>
+  </section>
+
+  <div id="prov"></div>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+<script src="../shell.js"></script>
+<script src="../motion.js"></script>
+<script src="../signoff.js"></script>
+<script src="../lab.js"></script>
+<script src="cockpit.js"></script>
+</body>
+</html>

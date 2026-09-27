@@ -1,0 +1,79 @@
+TRAIN segment n: {'data_center': 36, 'semiconductor_fab': 14, 'auto_parts': 170, 'cold_storage': 90, 'office': 300, 'retail_chain': 190, 'hospital': 80, 'water_utility': 45, 'university': 50, 'logistics': 150, 'hotel': 75}
+incumbent churn: {'data_center': 0.179, 'semiconductor_fab': 0.203, 'auto_parts': 0.09, 'cold_storage': 0.08, 'office': 0.097, 'retail_chain': 0.098, 'hospital': 0.086, 'water_utility': 0.168, 'university': 0.118, 'logistics': 0.097, 'hotel': 0.082}
+
+tariff_pricing.20260926T073839Z (v1): churn 0.119 energy 0.128
+  semiconductor_fab  n=  14 churn 0.203 -> 0.219 (rise +1.6 pp)  retained fixed-price TWh 0.486 -> 0.273  mean dP -0.016
+  data_center        n=  36 churn 0.179 -> 0.079 (rise -10.0 pp)  retained fixed-price TWh 0.527 -> 0.611  mean dP +0.100
+  water_utility      n=  45 churn 0.168 -> 0.161 (rise -0.7 pp)  retained fixed-price TWh 0.408 -> 0.289  mean dP +0.007
+  university         n=  50 churn 0.118 -> 0.157 (rise +4.0 pp)  retained fixed-price TWh 0.237 -> 0.109  mean dP -0.040
+  hotel              n=  75 churn 0.082 -> 0.109 (rise +2.7 pp)  retained fixed-price TWh 0.308 -> 0.161  mean dP -0.027
+  hospital           n=  80 churn 0.086 -> 0.105 (rise +1.9 pp)  retained fixed-price TWh 0.368 -> 0.252  mean dP -0.019
+  cold_storage       n=  90 churn 0.080 -> 0.066 (rise -1.4 pp)  retained fixed-price TWh 0.300 -> 0.132  mean dP +0.014
+  logistics          n= 150 churn 0.097 -> 0.110 (rise +1.3 pp)  retained fixed-price TWh 0.515 -> 0.254  mean dP -0.013
+  auto_parts         n= 170 churn 0.090 -> 0.118 (rise +2.8 pp)  retained fixed-price TWh 0.619 -> 0.304  mean dP -0.028
+  retail_chain       n= 190 churn 0.098 -> 0.121 (rise +2.3 pp)  retained fixed-price TWh 0.375 -> 0.202  mean dP -0.023
+  office             n= 300 churn 0.097 -> 0.133 (rise +3.6 pp)  retained fixed-price TWh 0.545 -> 0.271  mean dP -0.036
+
+tariff_pricing.20260926T074912Z (tariff_pricing/v2:): churn 0.112 energy 0.120
+  semiconductor_fab  n=  14 churn 0.203 -> 0.209 (rise +0.6 pp)  retained fixed-price TWh 0.486 -> 0.270  mean dP -0.006
+  data_center        n=  36 churn 0.179 -> 0.067 (rise -11.3 pp)  retained fixed-price TWh 0.527 -> 0.468  mean dP +0.113
+  water_utility      n=  45 churn 0.168 -> 0.151 (rise -1.6 pp)  retained fixed-price TWh 0.408 -> 0.292  mean dP +0.016
+  university         n=  50 churn 0.118 -> 0.164 (rise +4.7 pp)  retained fixed-price TWh 0.237 -> 0.089  mean dP -0.047
+  hotel              n=  75 churn 0.082 -> 0.105 (rise +2.3 pp)  retained fixed-price TWh 0.308 -> 0.143  mean dP -0.023
+  hospital           n=  80 churn 0.086 -> 0.117 (rise +3.1 pp)  retained fixed-price TWh 0.368 -> 0.250  mean dP -0.031
+  cold_storage       n=  90 churn 0.080 -> 0.061 (rise -1.9 pp)  retained fixed-price TWh 0.300 -> 0.105  mean dP +0.019
+  logistics          n= 150 churn 0.097 -> 0.100 (rise +0.3 pp)  retained fixed-price TWh 0.515 -> 0.208  mean dP -0.003
+  auto_parts         n= 170 churn 0.090 -> 0.115 (rise +2.5 pp)  retained fixed-price TWh 0.619 -> 0.251  mean dP -0.025
+  retail_chain       n= 190 churn 0.098 -> 0.112 (rise +1.4 pp)  retained fixed-price TWh 0.375 -> 0.181  mean dP -0.014
+  office             n= 300 churn 0.097 -> 0.118 (rise +2.1 pp)  retained fixed-price TWh 0.545 -> 0.234  mean dP -0.021
+
+tariff_pricing.20260926T080035Z (tariff_pricing/v3:): churn 0.115 energy 0.122
+  semiconductor_fab  n=  14 churn 0.203 -> 0.208 (rise +0.4 pp)  retained fixed-price TWh 0.486 -> 0.295  mean dP -0.004
+  data_center        n=  36 churn 0.179 -> 0.074 (rise -10.5 pp)  retained fixed-price TWh 0.527 -> 0.445  mean dP +0.105
+  water_utility      n=  45 churn 0.168 -> 0.153 (rise -1.5 pp)  retained fixed-price TWh 0.408 -> 0.292  mean dP +0.015
+  university         n=  50 churn 0.118 -> 0.150 (rise +3.2 pp)  retained fixed-price TWh 0.237 -> 0.097  mean dP -0.032
+  hotel              n=  75 churn 0.082 -> 0.108 (rise +2.5 pp)  retained fixed-price TWh 0.308 -> 0.157  mean dP -0.025
+  hospital           n=  80 churn 0.086 -> 0.099 (rise +1.3 pp)  retained fixed-price TWh 0.368 -> 0.265  mean dP -0.013
+  cold_storage       n=  90 churn 0.080 -> 0.063 (rise -1.7 pp)  retained fixed-price TWh 0.300 -> 0.086  mean dP +0.017
+  logistics          n= 150 churn 0.097 -> 0.107 (rise +1.0 pp)  retained fixed-price TWh 0.515 -> 0.205  mean dP -0.010
+  auto_parts         n= 170 churn 0.090 -> 0.120 (rise +3.1 pp)  retained fixed-price TWh 0.619 -> 0.246  mean dP -0.031
+  retail_chain       n= 190 churn 0.098 -> 0.109 (rise +1.1 pp)  retained fixed-price TWh 0.375 -> 0.202  mean dP -0.011
+  office             n= 300 churn 0.097 -> 0.132 (rise +3.4 pp)  retained fixed-price TWh 0.545 -> 0.227  mean dP -0.034
+
+TRAIN per-customer churn increase d_i = P_seed - P_cand: segment sd(d_i), paired SE = sd/sqrt(n), binomial SE sqrt(p(1-p)/n)
+tariff_pricing.20260926T073839Z whole-cohort sd(d) 0.0443
+   semiconductor_fab  n=  14 mean d  +1.6pp  sd 0.031  paired SE  0.8pp  binomial SE 10.8pp
+   data_center        n=  36 mean d -10.0pp  sd 0.094  paired SE  1.6pp  binomial SE  6.4pp
+   water_utility      n=  45 mean d  -0.7pp  sd 0.030  paired SE  0.4pp  binomial SE  5.6pp
+   university         n=  50 mean d  +4.0pp  sd 0.039  paired SE  0.5pp  binomial SE  4.6pp
+   hotel              n=  75 mean d  +2.7pp  sd 0.039  paired SE  0.4pp  binomial SE  3.2pp
+   hospital           n=  80 mean d  +1.9pp  sd 0.020  paired SE  0.2pp  binomial SE  3.1pp
+   cold_storage       n=  90 mean d  -1.4pp  sd 0.025  paired SE  0.3pp  binomial SE  2.9pp
+   logistics          n= 150 mean d  +1.3pp  sd 0.024  paired SE  0.2pp  binomial SE  2.4pp
+   auto_parts         n= 170 mean d  +2.8pp  sd 0.035  paired SE  0.3pp  binomial SE  2.2pp
+   retail_chain       n= 190 mean d  +2.3pp  sd 0.028  paired SE  0.2pp  binomial SE  2.2pp
+   office             n= 300 mean d  +3.6pp  sd 0.041  paired SE  0.2pp  binomial SE  1.7pp
+tariff_pricing.20260926T074912Z whole-cohort sd(d) 0.0483
+   semiconductor_fab  n=  14 mean d  +0.6pp  sd 0.052  paired SE  1.4pp  binomial SE 10.8pp
+   data_center        n=  36 mean d -11.3pp  sd 0.109  paired SE  1.8pp  binomial SE  6.4pp
+   water_utility      n=  45 mean d  -1.6pp  sd 0.039  paired SE  0.6pp  binomial SE  5.6pp
+   university         n=  50 mean d  +4.7pp  sd 0.055  paired SE  0.8pp  binomial SE  4.6pp
+   hotel              n=  75 mean d  +2.3pp  sd 0.036  paired SE  0.4pp  binomial SE  3.2pp
+   hospital           n=  80 mean d  +3.1pp  sd 0.024  paired SE  0.3pp  binomial SE  3.1pp
+   cold_storage       n=  90 mean d  -1.9pp  sd 0.038  paired SE  0.4pp  binomial SE  2.9pp
+   logistics          n= 150 mean d  +0.3pp  sd 0.037  paired SE  0.3pp  binomial SE  2.4pp
+   auto_parts         n= 170 mean d  +2.5pp  sd 0.043  paired SE  0.3pp  binomial SE  2.2pp
+   retail_chain       n= 190 mean d  +1.4pp  sd 0.031  paired SE  0.2pp  binomial SE  2.2pp
+   office             n= 300 mean d  +2.1pp  sd 0.033  paired SE  0.2pp  binomial SE  1.7pp
+tariff_pricing.20260926T080035Z whole-cohort sd(d) 0.0512
+   semiconductor_fab  n=  14 mean d  +0.4pp  sd 0.048  paired SE  1.3pp  binomial SE 10.8pp
+   data_center        n=  36 mean d -10.5pp  sd 0.110  paired SE  1.8pp  binomial SE  6.4pp
+   water_utility      n=  45 mean d  -1.5pp  sd 0.040  paired SE  0.6pp  binomial SE  5.6pp
+   university         n=  50 mean d  +3.2pp  sd 0.059  paired SE  0.8pp  binomial SE  4.6pp
+   hotel              n=  75 mean d  +2.5pp  sd 0.036  paired SE  0.4pp  binomial SE  3.2pp
+   hospital           n=  80 mean d  +1.3pp  sd 0.016  paired SE  0.2pp  binomial SE  3.1pp
+   cold_storage       n=  90 mean d  -1.7pp  sd 0.045  paired SE  0.5pp  binomial SE  2.9pp
+   logistics          n= 150 mean d  +1.0pp  sd 0.033  paired SE  0.3pp  binomial SE  2.4pp
+   auto_parts         n= 170 mean d  +3.1pp  sd 0.048  paired SE  0.4pp  binomial SE  2.2pp
+   retail_chain       n= 190 mean d  +1.1pp  sd 0.036  paired SE  0.3pp  binomial SE  2.2pp
+   office             n= 300 mean d  +3.4pp  sd 0.042  paired SE  0.2pp  binomial SE  1.7pp

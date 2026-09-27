@@ -114,3 +114,38 @@ def test_promotion_gate_requires_all_four(runs_dir):
     assert promotion_gate(_rec(SOURCE_ALPHAEVOLVE), [{"program_id": "p007"}])["evolved"]
     append_review("r1", "p007", "tester", "read it", runs_dir)
     assert len(reviews_for("r1", runs_dir)) == 1
+
+
+class _DeadMutator:
+    kind = "dead"
+
+    def generate(self, model, system, prompt):
+        from energy_lab.harness.llm import Generation
+
+        return Generation(text="", model=model, error="RefreshError: Reauthentication is needed.")
+
+
+def test_circuit_breaker_stops_on_consecutive_generation_errors(runs_dir):
+    from energy_lab.harness.local_controller import MAX_CONSECUTIVE_GENERATION_ERRORS, LocalController
+    from energy_lab.problems import get_problem
+
+    pol = BudgetPolicy(max_programs_per_run=40, concurrency=1)
+    rec = LocalController(get_problem("jepx_trading"), _DeadMutator(), policy=pol, ledger=Ledger(runs_dir / "l.json"),
+                          runs_dir=runs_dir, dry_run=True, log=lambda *a: None).run()
+    assert rec["budget"]["stopped_reason"] == "generation_errors"
+    assert rec["budget"]["programs_evaluated"] == MAX_CONSECUTIVE_GENERATION_ERRORS
+
+
+def test_preflight_refuses_before_any_budget_is_reserved(runs_dir):
+    from energy_lab.harness.llm import GenerationUnavailable
+    from energy_lab.harness.local_controller import LocalController
+    from energy_lab.problems import get_problem
+
+    class NoCreds(_DeadMutator):
+        def preflight(self):
+            raise GenerationUnavailable("model credentials unusable: RefreshError")
+
+    led = Ledger(runs_dir / "l.json")
+    with pytest.raises(GenerationUnavailable):
+        LocalController(get_problem("tariff_pricing"), NoCreds(), ledger=led, runs_dir=runs_dir, log=lambda *a: None).run()
+    assert led.all() == [] and not list(runs_dir.glob("*.json"))

@@ -1,6 +1,6 @@
 {
- "total": 7,
- "grounded": 7,
+ "total": 8,
+ "grounded": 8,
  "ungrounded": 0,
  "unverifiable": [],
  "probes": [
@@ -18,8 +18,8 @@
      {
       "name": "get_market_stats",
       "args": {
-       "month": 0,
-       "fiscal_year": 2025
+       "fiscal_year": 2025,
+       "month": 0
       }
      }
     ],
@@ -30,8 +30,8 @@
      }
     ],
     "tool_errors": [],
-    "reply": "The average Tokyo area spot price in FY2025 was 12.47 JPY/kWh [energy_alphaevolve_lab.market_history].\n\nPlease note that all market and portfolio data in this lab is calibrated synthetic data for a fictional balance group. The calibrated synthetic figure of 12.47 JPY/kWh aligns closely with the actual market target of 12.45 JPY/kWh [energy_alphaevolve_lab.calibration].",
-    "latency_s": 5.7,
+    "reply": "In FY2025, the average Tokyo area spot price was 12.47 JPY/kWh [energy_alphaevolve_lab.market_history].\n\nPlease note that all market data in this lab is calibrated synthetic data for a fictional balance group.",
+    "latency_s": 5.2,
     "label": "GROUNDED",
     "missing": []
    },
@@ -64,8 +64,8 @@
      }
     ],
     "tool_errors": [],
-    "reply": "In Japanese fiscal year 2024 (FY2024), there were 56 half-hour slots with imbalance prices at or above 45 JPY/kWh [energy_alphaevolve_lab.market_history, energy_alphaevolve_lab.calibration].\n\nPlease note that all market, customer, and run data in this lab is calibrated synthetic data for a fictional balance group (Kanto Balance Group).",
-    "latency_s": 4.2,
+    "reply": "In FY2024, there were 56 half-hour slots with imbalance prices at or above 45 JPY/kWh [energy_alphaevolve_lab.market_history, energy_alphaevolve_lab.calibration].\n\nPlease note that all market data in this lab is calibrated synthetic data about a fictional balance group.",
+    "latency_s": 6.2,
     "label": "GROUNDED",
     "missing": []
    },
@@ -101,8 +101,8 @@
      }
     ],
     "tool_errors": [],
-    "reply": "Kanto Balance Group (KBG) has 36 data center customers in its portfolio [energy_alphaevolve_lab.customers_train]. Their total annual energy consumption is 1.274 TWh [energy_alphaevolve_lab.customers_train].\n\nPlease note that all customer and portfolio data in this lab is calibrated synthetic data for a fictional balance group.",
-    "latency_s": 5.0,
+    "reply": "Kanto Balance Group (KBG) has 36 data center customers [energy_alphaevolve_lab.customers_train], with an aggregate annual energy consumption of 1.274 TWh [energy_alphaevolve_lab.customers_train].\n\nNote: All portfolio and customer data in this lab is calibrated synthetic data for a fictional balance group.",
+    "latency_s": 4.9,
     "label": "GROUNDED",
     "missing": []
    },
@@ -134,8 +134,8 @@
      }
     ],
     "tool_errors": [],
-    "reply": "The high-voltage (HV) wheeling basic charge from November 2026 is 762.44 JPY/kW-month [energy_alphaevolve_lab.cost_stack]. \n\nFor comparison, the prior rate effective from April 2024 through October 2026 is 653.87 JPY/kW-month [energy_alphaevolve_lab.cost_stack].",
-    "latency_s": 5.2,
+    "reply": "The high-voltage (HV) wheeling basic charge from November 2026 onward is 762.44 JPY/kW-month [energy_alphaevolve_lab.cost_stack]. \n\nFor context within the cost stack:\n* Prior period (April 2024 through October 2026): 653.87 JPY/kW-month [energy_alphaevolve_lab.cost_stack]\n* Effective period starting November 2026: 762.44 JPY/kW-month [energy_alphaevolve_lab.cost_stack]\n\nPlease note that all market, customer, and cost-stack data in this lab are calibrated synthetic data for Kanto Balance Group (KBG).",
+    "latency_s": 6.4,
     "label": "GROUNDED",
     "missing": []
    },
@@ -171,8 +171,8 @@
      }
     ],
     "tool_errors": [],
-    "reply": "For run `tariff_pricing.20260926T073839Z`, the scores were:\n\n* **Seed train score:** -8800.354 JPY M [energy_alphaevolve_lab.lab_runs]\n* **Best train score:** -3289.666 JPY M [energy_alphaevolve_lab.lab_runs]\n\n*(Note: All market, customer, and run data in this lab is calibrated synthetic data about a fictional balance group.)*",
-    "latency_s": 4.9,
+    "reply": "For run `tariff_pricing.20260926T073839Z`, the train scores are as follows [energy_alphaevolve_lab.lab_runs]:\n\n* **Seed train score:** -8800.354 JPY M\n* **Best train score:** -3289.666 JPY M\n\nPlease note that all market, customer, and run data in this lab is calibrated synthetic data about a fictional balance group.",
+    "latency_s": 4.8,
     "label": "GROUNDED",
     "missing": []
    },
@@ -181,20 +181,78 @@
   },
   {
    "id": "tariff_latest_holdout_delta",
-   "truth": [],
+   "truth": [
+    [
+     21190.9,
+     0.6
+    ]
+   ],
    "first_attempt": {
-    "question": "What is the holdout delta of run tariff_pricing.20260926T080035Z?",
+    "question": "What is the holdout delta of run tariff_pricing.20260927T085054Z?",
+    "tool_calls": [
+     {
+      "name": "get_holdout_result",
+      "args": {
+       "run_id": "tariff_pricing.20260927T085054Z"
+      }
+     },
+     {
+      "name": "get_run_summary",
+      "args": {
+       "run_id": "tariff_pricing.20260927T085054Z"
+      }
+     }
+    ],
+    "tool_results": [
+     {
+      "name": "get_holdout_result",
+      "status": "ok"
+     },
+     {
+      "name": "get_run_summary",
+      "status": "ok"
+     }
+    ],
+    "tool_errors": [],
+    "reply": "The holdout delta for run `tariff_pricing.20260927T085054Z` is **21190.933 JPY M** [energy_alphaevolve_lab.lab_runs].\n\n### Key Run Details\n\n* **Champion Program ID**: `p040-f3b6f3eb` [energy_alphaevolve_lab.lab_runs]\n* **Seed Holdout Score**: -35021.068 JPY M [energy_alphaevolve_lab.lab_runs]\n* **Champion Holdout Score**: -13830.135 JPY M [energy_alphaevolve_lab.lab_runs]\n* **Holdout Delta**: 21190.933 JPY M [energy_alphaevolve_lab.lab_runs]\n* **Run Source**: `local-gemini-controller` [energy_alphaevolve_lab.lab_runs] (This run was executed on a local controller, so `evolved` remains `false`).\n* **Caveat**: Passes only under the pre-registered sampling margin: `semiconductor_fab` (n=14) rise +5.1 pp > 5.0 pp point limit, <= 7.6 pp margin limit; under v3 point rules ranks 1-2 of the top 5 would be invalid (ranks 3-5 pass both rule sets) [energy_alphaevolve_lab.lab_segment_judgments].\n\n*Note: All market, customer, and run data in this lab is calibrated synthetic data for a fictional balance group.*",
+    "latency_s": 8.3,
+    "label": "GROUNDED",
+    "missing": []
+   },
+   "classification": "clean",
+   "final": "GROUNDED"
+  },
+  {
+   "id": "tariff_latest_every_rule",
+   "truth": [
+    [
+     5.1,
+     0.1
+    ],
+    [
+     7.6,
+     0.1
+    ]
+   ],
+   "first_attempt": {
+    "question": "Did tariff run 4 (tariff_pricing.20260927T085054Z) keep every rule on its holdout customers?",
     "tool_calls": [
      {
       "name": "get_run_summary",
       "args": {
-       "run_id": "tariff_pricing.20260926T080035Z"
+       "run_id": "tariff_pricing.20260927T085054Z"
       }
      },
      {
       "name": "get_holdout_result",
       "args": {
-       "run_id": "tariff_pricing.20260926T080035Z"
+       "run_id": "tariff_pricing.20260927T085054Z"
+      }
+     },
+     {
+      "name": "get_invariant_catches",
+      "args": {
+       "run_id": "tariff_pricing.20260927T085054Z"
       }
      }
     ],
@@ -205,17 +263,16 @@
      },
      {
       "name": "get_holdout_result",
-      "status": "error"
-     }
-    ],
-    "tool_errors": [
+      "status": "ok"
+     },
      {
-      "name": "get_holdout_result",
-      "error": "ParserException: Parser Error: syntax error at or near \"FROM\"\n\nLINE 1: SELECT run_id, program_id, reviewer, note, at FROM lab_reviews WHERE run_id = $r\n                                                      ^"
+      "name": "get_invariant_catches",
+      "status": "ok"
      }
     ],
-    "reply": "Run `tariff_pricing.20260926T080035Z` has **no validated holdout delta** (`holdout_delta` is `null`) [energy_alphaevolve_lab.lab_runs]. \n\nThere is no validated uplift because the champion candidate violated the policy invariant on holdout due to excessive customer churn [energy_alphaevolve_lab.lab_runs].\n\n### Run Performance Summary\n* **Seed Train Score:** -8,800.354 JPY M [energy_alphaevolve_lab.lab_runs]\n* **Best Train Score:** -2,033.209 JPY M [energy_alphaevolve_lab.lab_runs]\n* **Train Delta vs. Seed:** +6,767.146 JPY M [energy_alphaevolve_lab.lab_runs]\n* **Seed Holdout Score:** -10,873.953 JPY M [energy_alphaevolve_lab.lab_runs]\n* **Validated Holdout Delta:** `null` (0.0 JPY M validated uplift) [energy_alphaevolve_lab.lab_runs]\n\n### Policy Invariant Violation\nWhile search progress on the training set achieved a train delta of +6,767.146 JPY M, the top program was invalidated during holdout evaluation by the `churn` policy gate [energy_alphaevolve_lab.lab_runs]. Specifically:\n* Segment churn rose by more than 5% above the incumbent book in key segments: semiconductor fab churn increased from 18.9% to 25.0%, and university churn increased from 17.0% to 22.8% [energy_alphaevolve_lab.lab_runs].\n* Without the policy gate enforcement, the candidate would have yielded a unvalidated raw holdout score of -4,647.6 JPY M [energy_alphaevolve_lab.lab_runs].\n\n### Run Context\n* **Source:** `local-gemini-controller` (an AlphaEvolve-compatible run executed on a local controller; `evolved` remains `false`) [energy_alphaevolve_lab.lab_runs].\n* **Data Disclaimer:** All market, customer, and run figures in this lab are calibrated synthetic data for a fictional balance group.",
-    "latency_s": 9.7,
+    "tool_errors": [],
+    "reply": "No, the champion program (`p040-f3b6f3eb`) in run `tariff_pricing.20260927T085054Z` did not satisfy every rule under the strict point-estimate criteria on its holdout customers.\n\nWhile the overall uplift is marked valid (`uplift_valid: true`) under the pre-registered sampling margin with a holdout delta of 21190.933 JPY M [energy_alphaevolve_lab.lab_runs], it breaches the strict point-estimate limit on one customer segment [energy_alphaevolve_lab.lab_segment_judgments]:\n\n- **Breach Detail**: On the `semiconductor_fab` segment (sample size n=14), churn increased from an incumbent rate of 14.85% (0.1485) to 19.93% (0.1993), representing a rise of +5.1 pp (0.0507) [energy_alphaevolve_lab.lab_segment_judgments].\n- **Rule Limits**: This +5.1 pp rise exceeds the strict point-estimate limit of 5.0 pp (`point_rise_limit: 0.05`), causing `passes_point` to be false [energy_alphaevolve_lab.lab_segment_judgments].\n- **Sampling Margin**: It passes overall validation only because it remains below the standard-error sampling margin allowance limit of 7.6 pp (`margin_rise_limit: 0.076`) for small segment sample sizes [energy_alphaevolve_lab.lab_segment_judgments].\n\n### Status Across Top Candidates\n- **Rank 1 (`p040-f3b6f3eb`)**: Holdout delta 21190.933 JPY M, relies on sampling margin (`valid_point_rules: false`) [energy_alphaevolve_lab.lab_holdout].\n- **Rank 2 (`p037-0f836f1b`)**: Holdout delta 20833.958 JPY M, relies on sampling margin (`valid_point_rules: false`) [energy_alphaevolve_lab.lab_holdout].\n- **Rank 3 (`p034-e2f99153`)**: Holdout delta 20594.123 JPY M, passes both point-estimate rules and sampling margin rules (`valid_point_rules: true`) [energy_alphaevolve_lab.lab_holdout].\n- **Ranks 4 and 5**: Pass both point-estimate and sampling margin rule sets [energy_alphaevolve_lab.lab_holdout].\n\nAll market, customer, and run figures in this lab are calibrated synthetic data for a fictional balance group.",
+    "latency_s": 13.2,
     "label": "GROUNDED",
     "missing": []
    },
@@ -230,17 +287,17 @@
      0.0
     ],
     [
-     3.0,
+     1.0,
      0.0
     ]
    ],
    "first_attempt": {
-    "question": "How many programs did run jepx_trading.20260926T075644Z evaluate and how many were invalid?",
+    "question": "How many programs did run jepx_trading.20260926T081714Z evaluate and how many were invalid?",
     "tool_calls": [
      {
       "name": "get_run_summary",
       "args": {
-       "run_id": "jepx_trading.20260926T075644Z"
+       "run_id": "jepx_trading.20260926T081714Z"
       }
      }
     ],
@@ -251,8 +308,8 @@
      }
     ],
     "tool_errors": [],
-    "reply": "Run `jepx_trading.20260926T075644Z` evaluated 40 programs [energy_alphaevolve_lab.lab_runs].\n\nOut of those 40 programs, 3 were invalid [energy_alphaevolve_lab.lab_runs]. The breakdown of candidates by kind is:\n- 37 valid programs (kind: ok) [energy_alphaevolve_lab.lab_runs]\n- 2 policy rejections (caught by the intentional_imbalance invariant) [energy_alphaevolve_lab.lab_runs]\n- 1 diff error [energy_alphaevolve_lab.lab_runs]\n\nNote: All market, customer, and run data in this lab is calibrated synthetic data about a fictional balance group.",
-    "latency_s": 6.2,
+    "reply": "In run `jepx_trading.20260926T081714Z`, a total of 40 programs were evaluated [energy_alphaevolve_lab.lab_runs].\n\nOut of those 40 programs:\n* 39 programs were valid [energy_alphaevolve_lab.lab_runs].\n* 1 program was invalid [energy_alphaevolve_lab.lab_runs] due to a sandbox execution failure [energy_alphaevolve_lab.lab_programs].\n\nBy LLM model breakdown:\n* `gemini-3.6-flash` generated 28 programs, of which 27 were valid and 1 was invalid [energy_alphaevolve_lab.lab_programs].\n* `gemini-3.1-pro-preview` generated 12 programs, all 12 of which were valid [energy_alphaevolve_lab.lab_programs].\n\nPlease note that all market, customer, and run data in this lab is calibrated synthetic data about a fictional balance group.",
+    "latency_s": 7.9,
     "label": "GROUNDED",
     "missing": []
    },

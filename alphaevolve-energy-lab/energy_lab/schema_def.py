@@ -44,8 +44,9 @@ SCHEMA = {
         ("p95_price_jpy_kwh", F, "monthly 95th percentile slot price"), ("mean_imbalance_jpy_kwh", F, "monthly mean imbalance price"),
         ("max_imbalance_jpy_kwh", F, "monthly max imbalance price"), ("min_reserve_margin_pct", F, "monthly min reserve margin %"),
         ("slots_ge_100", I, "slots with Tokyo price >= 100 JPY/kWh"), ("annual_mean_price_jpy_kwh", F, "scenario FY2026 annual mean")]),
-    "customers_train": None, "customers_holdout": None, "customers_holdout2": None,
+    "customers_train": None, "customers_holdout": None, "customers_holdout2": None, "customers_holdout3": None,
     "customer_behaviour_train": None, "customer_behaviour_holdout": None, "customer_behaviour_holdout2": None,
+    "customer_behaviour_holdout3": None,
     "segment_archetypes": _t("Segment archetype 30-min relative load shapes per representative day type (38 types).", [
         ("segment", S, "customer segment"), ("day_type", S, "MM-working / MM-nonworking / MM-shutdown / heat-working / cold-working"),
         ("slot", I, "1-48"), ("hour", I, "0-23"), ("relative_load", F, "load relative to the segment weekday peak (~1)")]),
@@ -89,7 +90,10 @@ SCHEMA = {
         ("best_program_id", S, "champion program id (best train score)"), ("train_delta_vs_seed", F, "best_train - seed_train"),
         ("holdout_seed", F, "seed score on holdout"), ("holdout_null_raw", F, "null raw objective on holdout"),
         ("best_holdout", F, "champion score on holdout"), ("holdout_delta", F, "best_holdout - holdout_seed (the only citable uplift)"),
-        ("uplift_valid", S, "true / false / null"), ("uplift_note", S, "why"), ("llm_calls", I, "model calls"),
+        ("uplift_valid", S, "true / false / null"),
+        ("uplift_note", S, "why; ends with 'CAVEAT: ...' when the validated uplift relies on the sampling margin"),
+        ("uplift_caveat", S, "computed from lab_segment_judgments: set when the champion passes a per-segment churn rule only "
+                             "under the pre-registered sampling margin; empty otherwise"), ("llm_calls", I, "model calls"),
         ("prompt_tokens", I, "prompt tokens"), ("output_tokens", I, "output tokens"), ("thinking_tokens", I, "thinking tokens"),
         ("cost_usd_est", F, "estimated USD (see pricing_note)"), ("model_mix", S, "mutator models and weights"),
         ("instance_train_sha", S, "train instance content hash"), ("instance_holdout_sha", S, "holdout instance content hash"),
@@ -112,9 +116,32 @@ SCHEMA = {
         ("run_id", S, "run"), ("problem", S, "problem"), ("rank", I, "rank by train score"), ("program_id", S, "id"),
         ("is_seed", B, "is the seed"), ("is_champion", B, "selected on train"), ("train_score", F, "train"),
         ("holdout_score", F, "holdout (null if invalid)"), ("holdout_valid", B, "feasible on holdout"), ("holdout_kind", S, "kind"),
-        ("holdout_seed", F, "seed on holdout"), ("delta_vs_seed", F, "holdout_score - holdout_seed")]),
+        ("holdout_seed", F, "seed on holdout"), ("delta_vs_seed", F, "holdout_score - holdout_seed"),
+        ("valid_point_rules", B, "valid on holdout under the v3 point-estimate segment rules (margin-judged runs only)"),
+        ("relies_on_margin", B, "valid only because of the pre-registered sampling margin (margin-judged runs only)"),
+        ("judgment_note", S, "computed from lab_segment_judgments; empty for runs judged without a margin")]),
+    "lab_segment_judgments": _t(
+        "Per-segment churn judgment of every top-k candidate of a margin-judged tariff run (evaluator v4), on train and on "
+        "the holdout fold, under both rule sets. Recomputed deterministically by re-executing the saved programs (no model "
+        "call; runs/analysis/<run_id>.segment_judgments.json); checked against the run's evidence.", [
+        ("run_id", S, "run"), ("problem", S, "problem"), ("rank", I, "rank by train score in the top-k"), ("program_id", S, "id"),
+        ("is_champion", B, "selected on train"), ("fold_role", S, "train / holdout"), ("fold", S, "instance fold name"),
+        ("rule_applied", S, "point (train, v3-style) / margin (holdout fold of a v4 run): the rule that judged this fold"),
+        ("instance_sha", S, "instance content hash"), ("segment", S, "customer segment"), ("n", I, "customers in the segment"),
+        ("pooled_sd", B, "whole-cohort sd used because n < n_min"), ("incumbent_churn", F, "seed book churn, share"),
+        ("churn", F, "candidate churn, share"), ("rise", F, "candidate churn - incumbent churn, share"),
+        ("se_rise", F, "paired standard error of the rise"), ("se_level", F, "standard error of the churn level"),
+        ("point_rise_limit", F, "5 pp"), ("margin_rise_limit", F, "5 pp + z x se_rise"),
+        ("point_level_limit", F, "25% on holdout, 22% train guard band"), ("margin_level_limit", F, "point_level_limit + z x se_level"),
+        ("passes_point_rise", B, "rise <= point limit"), ("passes_point_level", B, "churn <= point limit"),
+        ("passes_point", B, "both point checks (v3 rules)"), ("passes_margin_rise", B, "rise <= margin limit"),
+        ("passes_margin_level", B, "churn <= margin limit"), ("passes_margin", B, "both margin checks (v4 rules)"),
+        ("relies_on_margin", B, "passes_margin and not passes_point"),
+        ("candidate_valid_point", B, "candidate valid on this fold under point rules (all segments, portfolio, other invariants)"),
+        ("candidate_valid_margin", B, "candidate valid on this fold under margin rules"),
+        ("valid_under_applied_rule", B, "candidate valid under the rule that judged this fold")]),
     "lab_reviews": _t("Append-only human review log (Hold-to-Confirm in the UI).", [
-        ("run_id", S, "run"), ("program_id", S, "program"), ("reviewer", S, "reviewer label"), ("note", S, "note"), ("at", S, "ISO UTC")]),
+        ("run_id", S, "run"), ("program_id", S, "program"), ("reviewer", S, "reviewer label"), ("note", S, "note"), ("reviewed_at", S, "ISO UTC")]),
 }
 
 _CUST = [
@@ -140,6 +167,16 @@ _BEH = [("customer_id", S, "id"), ("cohort", S, "cohort"), ("segment", S, "segme
         ("h_pd", F, "hidden: probability of default"), ("h_clv_jpy_m", F, "hidden: relationship value JPY M/yr"),
         ("h_comp_margin", F, "hidden: competitor margin JPY/kWh"), ("h_comp_noise", F, "hidden: competitor noise"),
         ("h_quote_noise", F, "hidden: quote-estimate noise")]
-for _fold in ("train", "holdout", "holdout2"):
+for _fold in ("train", "holdout", "holdout2", "holdout3"):
     SCHEMA[f"customers_{_fold}"] = _t(f"KBG {_fold} cohort: features visible to price_book (fictional customers).", _CUST)
     SCHEMA[f"customer_behaviour_{_fold}"] = _t(f"KBG {_fold} cohort: hidden evaluator behaviour (never shown to candidates).", _BEH)
+
+
+def write_schema_files(root) -> None:
+    """data/schema.json and its identical package copy energy_lab/schema.json (read by DataStore on Agent Runtime)."""
+    import json
+    from pathlib import Path
+
+    text = json.dumps({"dataset_default": "energy_alphaevolve_lab", "tables": SCHEMA}, indent=1)
+    for p in (Path(root) / "data" / "schema.json", Path(root) / "energy_lab" / "schema.json"):
+        p.write_text(text)

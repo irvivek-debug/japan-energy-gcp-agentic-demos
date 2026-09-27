@@ -21,6 +21,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
 RESULTS = ROOT / "eval" / "results"
+CSV_COLUMNS = ["eval_set_id", "eval_id", "metric_name", "threshold", "score", "eval_status", "prompt", "expected_response",
+               "actual_response", "expected_tool_calls", "actual_tool_calls"]
 
 
 async def run_case(set_dir: Path, case: dict, attempt: int) -> dict:
@@ -42,7 +44,10 @@ async def run_case(set_dir: Path, case: dict, attempt: int) -> dict:
     metrics = []
     if out_csv.exists():
         with open(out_csv) as f:
-            for r in csv.DictReader(f):
+            first = f.readline()
+            f.seek(0)
+            names = None if first.startswith("eval_set_id,") else CSV_COLUMNS   # ADK omits the header when appending
+            for r in csv.DictReader(f, fieldnames=names):
                 metrics.append({"metric": r.get("metric_name"), "score": r.get("score"), "status": r.get("eval_status"),
                                 "actual_tool_calls": (r.get("actual_tool_calls") or "")[:800],
                                 "actual_response": (r.get("actual_response") or "")[:2500]})

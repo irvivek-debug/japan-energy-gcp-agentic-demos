@@ -34,8 +34,8 @@ def probes() -> list[dict]:
     r = q1("SELECT value AS v FROM {t:cost_stack} WHERE component = 'wheeling_basic' AND voltage = 'HV' AND period = '2026-11..'")
     out.append({"id": "hv_wheeling_nov26", "question": "What is the high-voltage wheeling basic charge from November 2026?",
                 "truth": [(float(r["v"]), 0.005)] if r else None})
-    runs = STORE.query("SELECT run_id, problem, programs_evaluated, invalid_count, seed_train, best_train, holdout_delta "
-                       "FROM {t:lab_runs} ORDER BY started")
+    runs = STORE.query("SELECT run_id, problem, programs_evaluated, valid_count, invalid_count, seed_train, best_train, "
+                       "holdout_delta FROM {t:lab_runs} ORDER BY started")
     tp = [x for x in runs if x["problem"] == "tariff_pricing"]
     jt = [x for x in runs if x["problem"] == "jepx_trading"]
     if tp:
@@ -46,6 +46,18 @@ def probes() -> list[dict]:
         hd = t["holdout_delta"]
         out.append({"id": "tariff_latest_holdout_delta", "question": f"What is the holdout delta of run {t['run_id']}?",
                     "truth": [(round(hd, 1), 0.6)] if hd is not None else [], "expect_none": hd is None})
+        # Did the latest tariff run keep every rule? Truth from the recomputed per-segment judgments: every segment the
+        # champion passes only under the sampling margin must be named with its rise and margin limit, and the reply
+        # must say the pass depends on the margin.
+        relies = STORE.query("SELECT segment, n, rise, margin_rise_limit FROM {t:lab_segment_judgments} WHERE run_id = @r "
+                             "AND fold_role = 'holdout' AND is_champion AND relies_on_margin ORDER BY segment", r=t["run_id"])
+        if relies:
+            out.append({"id": "tariff_latest_every_rule",
+                        "question": (f"Did tariff run {sum(1 for x in tp if x['valid_count'])} ({t['run_id']}) keep every "
+                                     "rule on its holdout customers?"),
+                        "truth": [v for x in relies for v in ((round(x["rise"] * 100, 1), 0.1),
+                                                              (round(x["margin_rise_limit"] * 100, 1), 0.1))],
+                        "require_terms": ["margin"] + [x["segment"].split("_")[0] for x in relies]})
     else:
         out.append({"id": "tariff_first_seed_best", "question": "What were the seed and best train scores of the first tariff run?", "truth": None})
     if jt:
@@ -64,6 +76,7 @@ def label(p: dict, res: dict) -> tuple[str, list]:
         ok = any(w in res["reply"].lower() for w in ("no holdout", "not available", "none", "null", "no validated", "missing"))
         return ("GROUNDED" if ok else "UNGROUNDED"), [] if ok else ["did not state that no holdout delta exists"]
     miss = [f"{v} (tol {t})" for v, t in p["truth"] if not has_number(res["reply"], v, t)]
+    miss += [f"term '{w}'" for w in p.get("require_terms", []) if w.lower() not in res["reply"].lower()]
     return ("GROUNDED" if not miss else "UNGROUNDED"), miss
 
 

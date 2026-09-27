@@ -19,6 +19,27 @@ def _err(e: Exception, tables: list[str]) -> dict:
     return {"status": "error", "error": f"{type(e).__name__}: {str(e)[:300]}", "source": src(*tables)}
 
 
+def _run_status(run_id: str, valid_count) -> str:
+    """'infrastructure_failure' when no program was ever generated (all model calls failed), else 'searched'."""
+    if valid_count:
+        return "searched"
+    kinds = {r["kind"] for r in STORE.query("SELECT DISTINCT kind FROM {t:lab_programs} WHERE run_id = @r AND idx > 0", r=run_id)}
+    return "infrastructure_failure" if kinds and kinds <= {"generation"} else "searched"
+
+
+_INFRA_NOTE = ("run_status infrastructure_failure: every model call failed, no program was generated, so the seed is "
+               "'best' by default and holdout_delta 0.0 is not a search result")
+
+
+_CAVEAT_RULE = ("uplift_caveat is computed from lab_segment_judgments. When it is non-empty the holdout uplift is valid only "
+                "under the pre-registered sampling margin, and the caveat belongs next to the uplift wherever it is reported.")
+
+
+def _caveat(run_id: str) -> str:
+    rows = STORE.query("SELECT uplift_caveat FROM {t:lab_runs} WHERE run_id = @r", r=run_id)
+    return (rows[0].get("uplift_caveat") or "") if rows else ""
+
+
 def _round(row: dict, nd: int = 3) -> dict:
     return {k: (round(v, nd) if isinstance(v, float) else v) for k, v in row.items()}
 
@@ -32,12 +53,16 @@ def list_runs(problem: str = "") -> dict:
     try:
         rows = STORE.query(
             "SELECT run_id, problem, source, evolved, started, programs_evaluated, valid_count, invalid_count, stopped_reason, "
-            "seed_train, best_train, train_delta_vs_seed, holdout_seed, best_holdout, holdout_delta, uplift_valid, "
+            "seed_train, best_train, train_delta_vs_seed, holdout_seed, best_holdout, holdout_delta, uplift_valid, uplift_caveat, "
             "cost_usd_est, llm_calls FROM {t:lab_runs} WHERE (@p = '' OR problem = @p) ORDER BY started DESC", p=problem)
         if not rows:
             return {"status": "not_found", "problem": problem, "runs": [], "hint": "no finished runs exported yet",
                     "source": src("lab_runs")}
-        return {"status": "ok", "count": len(rows), "runs": [_round(r) for r in rows],
+        for r in rows:
+            r["run_status"] = _run_status(r["run_id"], r["valid_count"])
+            r["uplift_caveat"] = r.get("uplift_caveat") or ""
+        return {"status": "ok", "count": len(rows), "runs": [_round(r) for r in rows], "caveat_rule": _CAVEAT_RULE,
+                "note": _INFRA_NOTE if any(r["run_status"] != "searched" for r in rows) else "",
                 "units": "scores in JPY M (higher is better); cost in USD (estimate)", "source": src("lab_runs")}
     except Exception as e:  # noqa: BLE001
         return _err(e, ["lab_runs"])
@@ -54,7 +79,7 @@ def get_run_summary(run_id: str) -> dict:
             "SELECT run_id, problem, source, backend, evolved, started, finished, programs_evaluated, valid_count, "
             "invalid_count, stopped_reason, wall_s, seed_train, null_train_raw, null_train_valid, best_train, best_program_id, "
             "train_delta_vs_seed, holdout_seed, holdout_null_raw, best_holdout, holdout_delta, uplift_valid, uplift_note, "
-            "llm_calls, prompt_tokens, output_tokens, thinking_tokens, cost_usd_est, model_mix, honesty_note, pricing_note "
+            "uplift_caveat, llm_calls, prompt_tokens, output_tokens, thinking_tokens, cost_usd_est, model_mix, honesty_note, pricing_note "
             "FROM {t:lab_runs} WHERE run_id = @r", r=run_id)
         if not rows:
             return {"status": "not_found", "run_id": run_id, "hint": "call list_runs for valid ids", "source": src("lab_runs")}
@@ -64,7 +89,11 @@ def get_run_summary(run_id: str) -> dict:
                           "GROUP BY invariant ORDER BY candidates DESC", r=run_id)
         models = STORE.query("SELECT model, COUNT(*) AS programs, SUM(CASE WHEN valid THEN 1 ELSE 0 END) AS valid "
                              "FROM {t:lab_programs} WHERE run_id = @r AND idx > 0 GROUP BY model ORDER BY programs DESC", r=run_id)
-        return {"status": "ok", "run": _round(rows[0]), "candidates_by_kind": kinds, "policy_catches_by_invariant": inv,
+        rs = _run_status(run_id, rows[0]["valid_count"])
+        cav = rows[0].pop("uplift_caveat", None) or ""
+        return {"status": "ok", "run_status": rs, "note": _INFRA_NOTE if rs != "searched" else "",
+                "uplift_caveat": cav, "caveat_rule": _CAVEAT_RULE,
+                "run": _round(rows[0]), "candidates_by_kind": kinds, "policy_catches_by_invariant": inv,
                 "programs_by_model": models, "units": "JPY M for scores; USD for cost_usd_est (token-count estimate)",
                 "source": src("lab_runs", "lab_programs", "lab_invariant_catches")}
     except Exception as e:  # noqa: BLE001
@@ -85,7 +114,8 @@ def get_best_program_diff(run_id: str) -> dict:
         r = rows[0]
         diff = r.pop("best_diff_vs_seed") or ""
         rationale = r.pop("best_rationale") or ""
-        return {"status": "ok", **_round(r), "untrusted_text_notice": _UNTRUSTED,
+        return {"status": "ok", **_round(r), "uplift_caveat": _caveat(run_id), "caveat_rule": _CAVEAT_RULE,
+                "untrusted_text_notice": _UNTRUSTED,
                 "untrusted_text": {"diff_vs_seed": diff[:9000], "lineage_rationales": rationale[:4000]},
                 "diff_truncated": len(diff) > 9000, "source": src("lab_runs")}
     except Exception as e:  # noqa: BLE001
@@ -127,24 +157,45 @@ def get_holdout_result(run_id: str) -> dict:
     """
     try:
         run = STORE.query("SELECT run_id, problem, source, evolved, best_program_id, seed_train, best_train, holdout_seed, "
-                          "best_holdout, holdout_delta, uplift_valid, uplift_note FROM {t:lab_runs} WHERE run_id = @r", r=run_id)
+                          "best_holdout, holdout_delta, uplift_valid, uplift_note, uplift_caveat FROM {t:lab_runs} WHERE run_id = @r",
+                          r=run_id)
         if not run:
             return {"status": "not_found", "run_id": run_id, "source": src("lab_runs")}
         rows = STORE.query("SELECT rank, program_id, is_seed, is_champion, train_score, holdout_score, holdout_valid, "
-                           "holdout_kind, delta_vs_seed FROM {t:lab_holdout} WHERE run_id = @r ORDER BY rank", r=run_id)
-        reviews = STORE.query("SELECT run_id, program_id, reviewer, note, at FROM {t:lab_reviews} WHERE run_id = @r", r=run_id)
+                           "holdout_kind, delta_vs_seed, valid_point_rules, relies_on_margin, judgment_note FROM {t:lab_holdout} "
+                           "WHERE run_id = @r ORDER BY rank", r=run_id)
+        segs = STORE.query("SELECT rank, program_id, segment, n, pooled_sd, incumbent_churn, churn, rise, point_rise_limit, "
+                           "margin_rise_limit, point_level_limit, margin_level_limit, passes_point, passes_margin, relies_on_margin "
+                           "FROM {t:lab_segment_judgments} WHERE run_id = @r AND fold_role = 'holdout' AND is_champion "
+                           "AND (relies_on_margin OR NOT passes_margin) ORDER BY segment", r=run_id)
+        reviews = STORE.query("SELECT run_id, program_id, reviewer, note, reviewed_at FROM {t:lab_reviews} WHERE run_id = @r", r=run_id)
         r = run[0]
+        cav = r.pop("uplift_caveat", None) or ""
+        for x in rows:
+            if not x.get("judgment_note"):
+                for k in ("valid_point_rules", "relies_on_margin", "judgment_note"):
+                    x.pop(k, None)                         # run judged without a margin: nothing to add
         uv = {"true": True, "false": False}.get(str(r["uplift_valid"]).lower())
         gate = promotion_gate({"run_id": run_id, "source": r["source"], "uplift_valid": uv,
                                "holdout": {"best_id": r["best_program_id"], "holdout_delta": r["holdout_delta"]}}, reviews)
-        return {"status": "ok", "run": _round(r), "top_k": [_round(x) for x in rows], "human_reviews": len(reviews),
-                "promotion_gate": gate,
-                "rule": ("holdout_delta = best_holdout - holdout_seed is the only number an uplift may cite; the champion is "
-                         "chosen on TRAIN score. evolved/promotion require source == alphaevolve, a positive holdout delta, "
-                         "uplift_valid true and a recorded human review."),
-                "source": src("lab_runs", "lab_holdout", "lab_reviews")}
+        vc = STORE.query("SELECT valid_count FROM {t:lab_runs} WHERE run_id = @r", r=run_id)[0]["valid_count"]
+        rs = _run_status(run_id, vc)
+        out = {"status": "ok", "run_status": rs, "note": _INFRA_NOTE if rs != "searched" else "",
+               "uplift_caveat": cav, "caveat_rule": _CAVEAT_RULE,
+               "run": _round(r), "top_k": [_round(x) for x in rows], "human_reviews": len(reviews),
+               "promotion_gate": gate,
+               "rule": ("holdout_delta = best_holdout - holdout_seed is the only number an uplift may cite; the champion is "
+                        "chosen on TRAIN score. evolved/promotion require source == alphaevolve, a positive holdout delta, "
+                        "uplift_valid true and a recorded human review."),
+               "source": src("lab_runs", "lab_holdout", "lab_reviews")}
+        if segs:
+            out["champion_segment_judgments"] = {
+                "units": "shares (0.051 = 5.1 pp); point = v3 point-estimate limit, margin = pre-registered limit + z x paired SE",
+                "segments": [_round(x, 4) for x in segs]}
+            out["source"] = src("lab_runs", "lab_holdout", "lab_reviews", "lab_segment_judgments")
+        return out
     except Exception as e:  # noqa: BLE001
-        return _err(e, ["lab_runs", "lab_holdout", "lab_reviews"])
+        return _err(e, ["lab_runs", "lab_holdout", "lab_reviews", "lab_segment_judgments"])
 
 
 def get_market_stats(fiscal_year: int, month: int = 0) -> dict:

@@ -9,6 +9,8 @@
   "customer_behaviour_holdout": 401,
   "customers_holdout2": 401,
   "customer_behaviour_holdout2": 401,
+  "customers_holdout3": 1200,
+  "customer_behaviour_holdout3": 1200,
   "segment_archetypes": 20064,
   "segments": 11,
   "cost_stack": 30,
@@ -16,13 +18,13 @@
   "solar_ppa": 1,
   "trading_days": 208,
   "calibration": 144,
-  "lab_runs": 5,
-  "lab_programs": 205,
+  "lab_runs": 7,
+  "lab_programs": 287,
   "lab_invariant_catches": 9,
-  "lab_holdout": 25,
+  "lab_holdout": 31,
   "lab_reviews": 0
  },
- "csv_total_mb": 10.0,
+ "csv_total_mb": 10.46,
  "instances": {
   "tariff_pricing_train": {
    "file": "tariff_pricing_train.npz",
@@ -41,6 +43,12 @@
    "sha256": "82e114a31fb302031ddf1fa59c95e439cc7fb75bf9744bfd84002661c6209e26",
    "arrays": 44,
    "bytes": 566414
+  },
+  "tariff_pricing_holdout3": {
+   "file": "tariff_pricing_holdout3.npz",
+   "sha256": "1ebd5d0c83ec4c9dabaf3ba9b2f0c4ba9e7aee71b4e8b1094250785f04c9b6b4",
+   "arrays": 44,
+   "bytes": 711250
   },
   "jepx_trading_train": {
    "file": "jepx_trading_train.npz",

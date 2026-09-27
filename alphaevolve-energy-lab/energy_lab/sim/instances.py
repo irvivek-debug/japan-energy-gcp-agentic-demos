@@ -21,7 +21,8 @@ from .portfolio import SEG, SEGMENTS, customer_shape, daytype_of, draw_customers
 from .scenarios import FY26_FLOORS, generate_bank
 
 SEEDS = {"history": 20260926, "train_cohort": 11, "holdout_cohort": 29, "train_bank": 101, "holdout_bank": 202,
-         "kbg_noise": 303, "stress_path": 404, "holdout2_cohort": 31, "holdout2_bank": 505}
+         "kbg_noise": 303, "stress_path": 404, "holdout2_cohort": 31, "holdout2_bank": 505,
+         "holdout3_cohort": 37, "holdout3_bank": 606}
 N_SCEN = {"train": 64, "holdout": 64}
 DT_NAMES = [f"{m:02d}-{t}" for m in range(1, 13) for t in ("working", "nonworking", "shutdown")] + ["heat-working", "cold-working"]
 H_OPTIONS = (1, 2, 3, 4, 6)
@@ -158,7 +159,8 @@ LF_BAND_NAMES = ["low", "mid", "high"]
 VOLT_NAMES = ["HV", "EHV"]
 
 
-def build_tariff(train_bank: dict, holdout_bank: dict, holdout2_bank: dict | None = None) -> dict[str, dict]:
+def build_tariff(train_bank: dict, holdout_bank: dict, holdout2_bank: dict | None = None,
+                 holdout3_bank: dict | None = None) -> dict[str, dict]:
     """Folds: train, holdout (burned for tariff after runs 1-2 informed evaluator v3) and holdout2 (fresh cohort + bank)."""
     from ..problems.tariff_pricing import model as tm
 
@@ -173,6 +175,10 @@ def build_tariff(train_bank: dict, holdout_bank: dict, holdout2_bank: dict | Non
         cohorts["holdout2"] = draw_customers("holdout2", 400, SEEDS["holdout2_cohort"])
         stats["holdout2"] = bank_stats(holdout2_bank)
         banks["holdout2"] = holdout2_bank
+    if holdout3_bank is not None:   # pre-registered (docs/PREREGISTRATION_tariff_v4.md): as large as the train cohort
+        cohorts["holdout3"] = draw_customers("holdout3", 1200, SEEDS["holdout3_cohort"])
+        stats["holdout3"] = bank_stats(holdout3_bank)
+        banks["holdout3"] = holdout3_bank
     raw = {}
     for fold, cs in cohorts.items():
         ca = customer_arrays(cs, arch)

@@ -145,12 +145,27 @@ root_agent = LlmAgent(
     after_agent_callback=_cleanup_and_ensure,
 )
 
+READS = {
+    "optimization_orchestrator": ["specialist results only"],
+    "market_intelligence_agent": ["jepx_prices_30min", "dr_events", "site_load_30min", "site_plan_30min", "pv_forecast_30min", "pv_actual_5min", "tariff_contract"],
+    "factory_interlock_agent": ["telemetry_5min", "production_schedule", "assets", "load_forecast_30min", "plc_tags_snapshot", "interlock_rules", "shift handover notes"],
+    "bess_strategy_agent": ["bess_state_5min", "site_plan_30min", "jepx_prices_30min", "dr_events", "pv_forecast_30min", "site_load_30min"],
+    "asset_health_agent": ["compressor_perf", "telemetry_5min", "meters", "site_load_30min", "jepx_prices_30min"],
+    "gain_share_agent": ["savings_ledger", "dr_events", "site_load_30min", "jepx_prices_30min", "tariff_contract"],
+    "safety_auditor": ["interlock_rules", "assets", "edge simulation record", "plant documents"],
+}
+ROLE = {
+    "optimization_orchestrator": "The lead", "market_intelligence_agent": "Specialist", "factory_interlock_agent": "Specialist",
+    "bess_strategy_agent": "Specialist", "asset_health_agent": "Specialist", "gain_share_agent": "Specialist", "safety_auditor": "The reviewer",
+}
+
 # Inventory used by the UI and docs (matches docs/PRD.md section 6).
 AGENT_INVENTORY = [
-    {"agent_id": "optimization_orchestrator", "pattern": "A", "tier": "reasoning", "hitl_required": True, "tools": [a.name for a in SPECIALISTS]},
+    {"agent_id": "optimization_orchestrator", "pattern": "A", "tier": "reasoning", "hitl_required": True, "tools": [a.name for a in SPECIALISTS],
+     "description": root_agent.description, "reads": READS["optimization_orchestrator"], "role": ROLE["optimization_orchestrator"]},
 ] + [
     {"agent_id": a.name, "pattern": "B" if a.name != "safety_auditor" else "B (peer critic)", "tier": "balanced",
      "hitl_required": a.name in ("factory_interlock_agent", "bess_strategy_agent", "asset_health_agent"),
-     "tools": [t.__name__ for t in a.tools]}
+     "tools": [t.__name__ for t in a.tools], "description": a.description, "reads": READS[a.name], "role": ROLE[a.name]}
     for a in SPECIALISTS
 ]

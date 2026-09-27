@@ -1,0 +1,73 @@
+"""The four PRD personas (docs/PRD.md section 4), served to the UI's "My role" page by /api/personas.
+Text only; every figure shown next to a persona is fetched from the data endpoints at render time."""
+
+PERSONAS = [
+    {
+        "id": "energy_manager",
+        "initials": "EM",
+        "title": "Plant energy manager",
+        "local_title": "エネルギー管理士",
+        "one_line": "Commits the plant to DR events and answers for the energy bill and the monthly gain-share invoice.",
+        "answerable_for": [
+            "A DR commitment the plant can deliver against the High 4 of 5 baseline, without a penalty",
+            "The monthly billing peak and the 30-minute plan-vs-actual deviation band",
+            "The verified savings that feed the gain-share invoice",
+        ],
+        "governing_question": "Can I sign a reduction I will actually deliver, without touching production?",
+        "day_in_life": "08:30 checks the overnight battery recharge and yesterday's day-ahead nomination. 13:00 the aggregator calls. By 14:30 he needs a plan he can defend, before the last gate closure that lets him re-nominate the afternoon slots.",
+        "agents": ["optimization_orchestrator", "market_intelligence_agent", "bess_strategy_agent", "gain_share_agent"],
+        "questions": ["S1", "S2", "S6", "S7"],
+        "kpis": ["dr_firm", "month_peak", "bess_soc"],
+    },
+    {
+        "id": "line_supervisor",
+        "initials": "LS",
+        "title": "Production line supervisor",
+        "local_title": "製造ライン責任者",
+        "one_line": "Runs the SiC module lines and the ECU burn-in area and owns the MES schedule.",
+        "answerable_for": [
+            "No line stop and no scrapped lot for energy reasons",
+            "The customer lot due at 08:00 tomorrow",
+            "The final say on releasing a committed batch",
+        ],
+        "governing_question": "Which of my jobs will move tonight, by how much, and who decided?",
+        "day_in_life": "Watches the FN-02 sinter batch committed for 17:10 and the burn-in racks due to start between 16:00 and 17:00. Rejects any plan she cannot see.",
+        "agents": ["factory_interlock_agent", "safety_auditor", "optimization_orchestrator"],
+        "questions": ["S3", "S8", "S1"],
+        "kpis": ["edge_rejected", "edge_limited", "dr_firm"],
+    },
+    {
+        "id": "utility_operator",
+        "initials": "UO",
+        "title": "Utility and facilities operator on shift",
+        "local_title": "ユーティリティ当直",
+        "one_line": "Runs chillers, compressors, wastewater and the battery panel, and executes set-point changes.",
+        "answerable_for": [
+            "Set-point changes that respect every interlock",
+            "A clean shift handover",
+            "Raising the faults the shift sees (the AC-04 hissing, the frozen M-27 reading)",
+        ],
+        "governing_question": "Exactly what do I change, when, and has the edge already checked it?",
+        "day_in_life": "Writes the shift handover at 13:00 in a 37 C heatwave, logs issues in a notebook rather than a ticket, and waits for a clear, sequenced list of changes.",
+        "agents": ["factory_interlock_agent", "asset_health_agent", "bess_strategy_agent"],
+        "questions": ["S8", "S4", "S3"],
+        "kpis": ["pending_actions", "anomalies", "plant_load"],
+    },
+    {
+        "id": "account_lead",
+        "initials": "AL",
+        "title": "Energy-services account lead",
+        "local_title": "エネルギーサービス営業責任者",
+        "one_line": "Manages plants on Auto-DR gain share and BESS-as-a-Service for the equipment vendor.",
+        "answerable_for": [
+            "A verified net benefit for the client every month",
+            "Gain-share revenue without taking safety risk",
+            "The next retrofit worth proposing (a leak fix, a meter repair)",
+        ],
+        "governing_question": "Is this client better off every month, and can I prove it line by line?",
+        "day_in_life": "Prepares the monthly invoice, reconciles aggregator settlements by hand, and has to explain why July, the DR season, was the thinnest month.",
+        "agents": ["gain_share_agent", "asset_health_agent", "optimization_orchestrator"],
+        "questions": ["S5", "S4", "S10"],
+        "kpis": ["july_client_net", "july_gain_share", "ac04_cost"],
+    },
+]

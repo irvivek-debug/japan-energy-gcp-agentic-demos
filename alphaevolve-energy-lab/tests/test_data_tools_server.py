@@ -150,3 +150,30 @@ def test_dry_run_controller_end_to_end(runs_dir):
     assert rec["holdout"]["seed"] is not None and "holdout_delta" in rec["holdout"]
     assert (runs_dir / f"{rec['run_id']}.json").exists()
     assert not list(runs_dir.glob("*.partial.json"))
+
+
+def test_every_tool_succeeds_on_real_data():
+    """Happy-path regression: every agent tool must return status ok (or pending_approval) on the committed tables.
+    get_holdout_result silently returned a SQL error ('at' is a reserved word) until 2026-09-27 and the evals, which
+    grade final answers, did not notice because the agent fell back to other tools."""
+    import os
+
+    import energy_lab.store as store_mod
+    from energy_lab.datastore import DataStore
+    from energy_lab.tools import lab_tools as t
+
+    real = DataStore("energy_alphaevolve_lab", str(ROOT / "data" / "out"), str(ROOT / "energy_lab" / "schema.json"))
+    orig = t.STORE
+    t.STORE = real
+    try:
+        runs = real.query("SELECT run_id, best_program_id FROM {t:lab_runs} ORDER BY started")
+        if not runs:
+            pytest.skip("no exported runs")
+        rid, pid = runs[-1]["run_id"], runs[-1]["best_program_id"]
+        calls = [t.list_runs(""), t.get_run_summary(rid), t.get_best_program_diff(rid), t.get_invariant_catches(rid, ""),
+                 t.get_holdout_result(rid), t.get_market_stats(2025, 0), t.get_market_stats(2026, 1),
+                 t.get_portfolio_stats(""), t.explain_cost_stack("HV"), t.propose_human_review(rid, pid, "test")]
+        for r in calls:
+            assert r["status"] in ("ok", "pending_approval"), r
+    finally:
+        t.STORE = orig

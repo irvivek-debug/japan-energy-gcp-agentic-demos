@@ -95,6 +95,54 @@
    "tokens": 666104,
    "holdout_delta": 205.75779259295086,
    "uplift_valid": true
+  },
+  {
+   "run_id": "tariff_pricing.20260927T081840Z",
+   "problem": "tariff_pricing",
+   "started": "2026-09-27T08:18:40.322660+00:00",
+   "source": "local-gemini-controller",
+   "programs": 40,
+   "counts_against_budget": true,
+   "status": "finished",
+   "finished": "2026-09-27T08:18:46.006406+00:00",
+   "wall_s": 5.3,
+   "stopped_reason": "max_programs",
+   "cost_usd": 0.0,
+   "tokens": 0,
+   "holdout_delta": 0.0,
+   "uplift_valid": false
+  },
+  {
+   "run_id": "tariff_pricing.20260927T084903Z",
+   "problem": "tariff_pricing",
+   "started": "2026-09-27T08:49:03.285938+00:00",
+   "source": "local-gemini-controller",
+   "programs": 4,
+   "counts_against_budget": true,
+   "status": "finished",
+   "finished": "2026-09-27T08:49:04.576892+00:00",
+   "wall_s": 0.7,
+   "stopped_reason": "generation_errors",
+   "cost_usd": 0.0,
+   "tokens": 0,
+   "holdout_delta": 0.0,
+   "uplift_valid": false
+  },
+  {
+   "run_id": "tariff_pricing.20260927T085054Z",
+   "problem": "tariff_pricing",
+   "started": "2026-09-27T08:50:54.748994+00:00",
+   "source": "local-gemini-controller",
+   "programs": 40,
+   "counts_against_budget": true,
+   "status": "finished",
+   "finished": "2026-09-27T08:58:40.914281+00:00",
+   "wall_s": 465.3,
+   "stopped_reason": "max_programs",
+   "cost_usd": 1.118884,
+   "tokens": 413075,
+   "holdout_delta": 21190.9325725432,
+   "uplift_valid": true
   }
  ]
 }

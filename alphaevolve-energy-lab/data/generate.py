@@ -10,7 +10,6 @@ from __future__ import annotations
 
 import csv
 import json
-import shutil
 import sys
 import time
 from pathlib import Path
@@ -20,7 +19,7 @@ import numpy as np
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
 
-from energy_lab.config import INSTANCE_DIR, OUT_DIR, SCHEMA_PATH  # noqa: E402
+from energy_lab.config import INSTANCE_DIR, OUT_DIR  # noqa: E402
 from energy_lab.problems.tariff_pricing import model as tm  # noqa: E402
 from energy_lab.sim import facts  # noqa: E402
 from energy_lab.sim.assets import BESS, BESS_SITES, PV_PPA  # noqa: E402
@@ -32,7 +31,7 @@ from energy_lab.sim.npz import save_npz  # noqa: E402
 from energy_lab.sim.portfolio import SEG, SEGMENTS  # noqa: E402
 from energy_lab.sim.scenarios import generate_bank  # noqa: E402
 
-from energy_lab.schema_def import SCHEMA  # noqa: E402
+from energy_lab.schema_def import SCHEMA, write_schema_files  # noqa: E402
 
 
 def write_csv(name: str, rows: list[dict]) -> int:
@@ -69,8 +68,9 @@ def main() -> None:
     tr_bank = generate_bank("train", N_SCEN["train"], SEEDS["train_bank"])
     ho_bank = generate_bank("holdout", N_SCEN["holdout"], SEEDS["holdout_bank"])
     ho2_bank = generate_bank("holdout", N_SCEN["holdout"], SEEDS["holdout2_bank"])   # fresh unseen bank (same regime mix)
+    ho3_bank = generate_bank("holdout", N_SCEN["holdout"], SEEDS["holdout3_bank"])   # pre-registered for tariff run 4
     print("tariff instances ...")
-    tariff = build_tariff(tr_bank, ho_bank, ho2_bank)
+    tariff = build_tariff(tr_bank, ho_bank, ho2_bank, ho3_bank)
     print("trading instances ...")
     trading = build_trading(hist, tariff["tariff_pricing_train"]["customers"])
     kh = trading.pop("_kbg_history")
@@ -144,7 +144,7 @@ def main() -> None:
     counts["scenario_monthly"] = write_csv("scenario_monthly", rows)
 
     # ---- customers (visible features + hidden evaluator behaviour, clearly separated) -------------------------------
-    for fold in ("train", "holdout", "holdout2"):
+    for fold in ("train", "holdout", "holdout2", "holdout3"):
         obj = tariff[f"tariff_pricing_{fold}"]
         feats = json.loads(str(obj["arrays"]["features_json"]))
         rows = []
@@ -283,9 +283,7 @@ def main() -> None:
     counts.update(export_all(quiet=True))
 
     # ---- schema.json (+ package copy for Agent Runtime) ------------------------------------------------------------
-    schema = {"dataset_default": "energy_alphaevolve_lab", "tables": SCHEMA}
-    SCHEMA_PATH.write_text(json.dumps(schema, indent=1))
-    shutil.copyfile(SCHEMA_PATH, ROOT / "energy_lab" / "schema.json")
+    write_schema_files(ROOT)
     total = sum((OUT_DIR / f"{k}.csv").stat().st_size for k in SCHEMA)
     (ROOT / "data" / "generation_report.json").write_text(json.dumps(
         {"row_counts": counts, "csv_total_mb": round(total / 1e6, 2), "instances": manifest["instances"],

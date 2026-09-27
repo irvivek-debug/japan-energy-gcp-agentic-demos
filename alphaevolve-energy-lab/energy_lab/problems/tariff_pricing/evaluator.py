@@ -116,17 +116,43 @@ def policy_nondiscrimination(pre, o, feats, market, res):
     return True, None
 
 
-@lru_cache(maxsize=4)
-def incumbent_segment_churn(fold: str, sha: str) -> dict:
-    """Segment churn of the incumbent (seed) book on this fold's cohort. Trusted code: executed in-process, not sandboxed."""
+@lru_cache(maxsize=8)
+def _incumbent(fold: str, sha: str) -> dict:
+    """The incumbent (seed) book settled on this fold's cohort. Trusted code: executed in-process, not sandboxed."""
     from .spec import SEED_PATH
 
     ns: dict = {"__name__": "incumbent_seed"}
     exec(compile(SEED_PATH.read_text(), str(SEED_PATH), "exec"), ns)
     pre, feats, market = _prepared(fold, sha)
     offers = [ns["price_book"](f, market) for f in feats]
-    res = tm.settle(pre, tm.offers_to_arrays(offers), market["segment_reference_jpy_kwh"])
-    return res["seg_churn"]
+    return tm.settle(pre, tm.offers_to_arrays(offers), market["segment_reference_jpy_kwh"])
+
+
+def incumbent_segment_churn(fold: str, sha: str) -> dict:
+    return _incumbent(fold, sha)["seg_churn"]
+
+
+def segment_margin_tests(seg_idx, P_inc, P_cand) -> list[dict]:
+    """Pre-registered v4 per-segment tests (docs/PREREGISTRATION_tariff_v4.md section 2)."""
+    d = P_inc - P_cand
+    level = 1.0 - P_cand
+    sd_d_all, sd_l_all = float(np.std(d, ddof=1)), float(np.std(level, ddof=1))
+    out = []
+    for s in np.unique(seg_idx):
+        sel = seg_idx == s
+        n = int(sel.sum())
+        pooled = n < tm.MARGIN_N_MIN
+        sd_d = sd_d_all if pooled or n < 2 else float(np.std(d[sel], ddof=1))
+        sd_l = sd_l_all if pooled or n < 2 else float(np.std(level[sel], ddof=1))
+        se_r, se_c = sd_d / np.sqrt(n), sd_l / np.sqrt(n)
+        rise, lev = float(d[sel].mean()), float(level[sel].mean())
+        lim_r = tm.SEGMENT_CHURN_RISE_MAX + tm.MARGIN_Z * se_r
+        lim_c = tm.POLICY["churn_max_segment"] + tm.MARGIN_Z * se_c
+        out.append({"segment": SEGMENTS[int(s)], "n": n, "pooled_sd": pooled,
+                    "incumbent_churn": float((1 - P_inc[sel]).mean()), "churn": lev, "rise": rise,
+                    "se_rise": float(se_r), "se_level": float(se_c), "rise_limit": float(lim_r), "level_limit": float(lim_c),
+                    "pass": bool(rise <= lim_r + 1e-12 and lev <= lim_c + 1e-12)})
+    return out
 
 
 def churn_limits(fold: str) -> dict:
@@ -136,10 +162,27 @@ def churn_limits(fold: str) -> dict:
     return lim
 
 
-def policy_churn(pre, o, feats, market, res, fold: str = "holdout", incumbent: dict | None = None):
+def policy_churn(pre, o, feats, market, res, fold: str = "holdout", incumbent: dict | None = None,
+                 incumbent_P=None):
     lim = churn_limits(fold)
     tag = " (train guard band)" if fold == "train" else ""
     msgs = []
+    if fold in tm.MARGIN_FOLDS and incumbent_P is not None:
+        # v4 judgment: portfolio limits as before (point estimates); per-segment rules with the paired-SE margin
+        if res["churn_count"] > lim["churn_max_portfolio"] + 1e-9:
+            msgs.append(f"portfolio churn {res['churn_count']:.1%} > {lim['churn_max_portfolio']:.0%}")
+        if res["churn_energy"] > lim["churn_max_energy"] + 1e-9:
+            msgs.append(f"energy-weighted churn {res['churn_energy']:.1%} > {lim['churn_max_energy']:.0%}")
+        tests = segment_margin_tests(pre.seg_idx, incumbent_P, res["P"])
+        res["segment_tests"] = tests
+        for t in tests:
+            if not t["pass"]:
+                msgs.append(f"{t['segment']} (n {t['n']}): rise {t['rise']:+.1%} vs limit {t['rise_limit']:.1%}, churn "
+                            f"{t['churn']:.1%} vs limit {t['level_limit']:.1%} (5 pp / 25% + 1.645 x paired SE)")
+        if msgs:
+            return False, {"invariant": "churn", "count": len(msgs),
+                           "text": "; ".join(msgs) + " (pricing customers out is a strategy change, not an uplift)"}
+        return True, None
     if incumbent:
         rises = [f"{k} {incumbent[k]:.1%} -> {v:.1%}" for k, v in res["seg_churn"].items()
                  if k in incumbent and v - incumbent[k] > tm.SEGMENT_CHURN_RISE_MAX + 1e-9]
@@ -183,9 +226,10 @@ def evaluate(src: str, fold: str = "train") -> EvalOutcome:
     o = tm.offers_to_arrays(offers)
     res = tm.settle(pre, o, market["segment_reference_jpy_kwh"])
     violations = []
-    incumbent = incumbent_segment_churn(fold, sha)
+    inc = _incumbent(fold, sha)
+    incumbent = inc["seg_churn"]
     for pol in POLICIES:
-        ok, detail = (pol(pre, o, feats, market, res, fold, incumbent) if pol is policy_churn
+        ok, detail = (pol(pre, o, feats, market, res, fold, incumbent, inc["P"]) if pol is policy_churn
                       else pol(pre, o, feats, market, res))
         if not ok:
             violations.append(detail)
@@ -215,6 +259,7 @@ def evaluate(src: str, fold: str = "train") -> EvalOutcome:
     ]
     details = {"eval_s": round(time.monotonic() - t0, 3), "fold": fold, "instance_sha256": sha,
                "evaluator_version": tm.EVALUATOR_VERSION, "churn_limits": churn_limits(fold),
+               "segment_tests": res.get("segment_tests"),
                "seg_churn": res["seg_churn"], "violations": violations}
     if violations:
         ins = [(f"policy: {v['invariant']}", v["text"]) for v in violations] + [

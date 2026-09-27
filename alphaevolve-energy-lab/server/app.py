@@ -403,4 +403,8 @@ def audit():
     return {"audit": AUDIT[-50:]}
 
 
-app.mount("/", StaticFiles(directory=str(ROOT / "ui"), html=True), name="ui")
+from server.v2_api import router as v2_router  # noqa: E402  (read-only endpoints for UI version 2)
+
+app.include_router(v2_router)
+app.mount("/v1", StaticFiles(directory=str(ROOT / "ui" / "v1"), html=True), name="ui_v1")   # version 1, unchanged
+app.mount("/", StaticFiles(directory=str(ROOT / "ui"), html=True), name="ui")              # version 2

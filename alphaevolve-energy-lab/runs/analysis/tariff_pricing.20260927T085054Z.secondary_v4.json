@@ -1,0 +1,195 @@
+{
+ "run_id": "tariff_pricing.20260927T085054Z",
+ "created": "2026-09-27T08:58:41.429279+00:00",
+ "prereg": "docs/PREREGISTRATION_tariff_v4.md section 5 (reported, never used to claim success)",
+ "v3_point_estimate_rules_on_holdout3": [
+  {
+   "id": "p040-f3b6f3eb",
+   "train": -2159.0070571085453,
+   "v4_holdout3": -13830.135318247245,
+   "v3_rules_holdout3": null,
+   "v3_rules_valid": false,
+   "v3_rules_first_insight": "segment churn rises more than 5% above the incumbent book: semiconductor_fab 14.9% -> 19.9% (pricing customers out is a strategy change, not an uplift)"
+  },
+  {
+   "id": "p037-0f836f1b",
+   "train": -2246.9071619937395,
+   "v4_holdout3": -14187.110027928244,
+   "v3_rules_holdout3": null,
+   "v3_rules_valid": false,
+   "v3_rules_first_insight": "segment churn rises more than 5% above the incumbent book: semiconductor_fab 14.9% -> 20.1% (pricing customers out is a strategy change, not an uplift)"
+  },
+  {
+   "id": "p034-e2f99153",
+   "train": -2267.870005292751,
+   "v4_holdout3": -14426.945349257954,
+   "v3_rules_holdout3": -14426.945349257954,
+   "v3_rules_valid": true,
+   "v3_rules_first_insight": "E[margin] -2564.1 - 0.5 x CVaR95 25634.2 + LTV 954.3 = -14426.9 JPY M"
+  },
+  {
+   "id": "p027-35aa8616",
+   "train": -2400.8271407420007,
+   "v4_holdout3": -14920.447299278667,
+   "v3_rules_holdout3": -14920.447299278667,
+   "v3_rules_valid": true,
+   "v3_rules_first_insight": "E[margin] -2764.0 - 0.5 x CVaR95 26315.8 + LTV 1001.5 = -14920.4 JPY M"
+  },
+  {
+   "id": "p033-9adc2b66",
+   "train": -2468.5853967607745,
+   "v4_holdout3": -14513.960931199923,
+   "v3_rules_holdout3": -14513.960931199923,
+   "v3_rules_valid": true,
+   "v3_rules_first_insight": "E[margin] -2734.4 - 0.5 x CVaR95 25359.8 + LTV 900.4 = -14514.0 JPY M"
+  }
+ ],
+ "champion_segment_table_v4": [
+  {
+   "segment": "data_center",
+   "n": 36,
+   "pooled_sd": false,
+   "incumbent_churn": 0.1719536410731467,
+   "churn": 0.059946091285143006,
+   "rise": -0.11200754978800369,
+   "se_rise": 0.024452461006451254,
+   "se_level": 0.013756242194259584,
+   "rise_limit": 0.09022429835561233,
+   "level_limit": 0.272629018409557,
+   "pass": true
+  },
+  {
+   "segment": "semiconductor_fab",
+   "n": 14,
+   "pooled_sd": true,
+   "incumbent_churn": 0.14854526221833467,
+   "churn": 0.19926653353482787,
+   "rise": 0.050721271316493184,
+   "se_rise": 0.015825116040598525,
+   "se_level": 0.034363794607016634,
+   "rise_limit": 0.07603231588678458,
+   "level_limit": 0.30652844212854236,
+   "pass": true
+  },
+  {
+   "segment": "auto_parts",
+   "n": 170,
+   "pooled_sd": false,
+   "incumbent_churn": 0.11117143191863238,
+   "churn": 0.13107143683207836,
+   "rise": 0.019900004913445988,
+   "se_rise": 0.0038089473690723634,
+   "se_level": 0.012419212280188902,
+   "rise_limit": 0.05626571842212404,
+   "level_limit": 0.2704296042009107,
+   "pass": true
+  },
+  {
+   "segment": "cold_storage",
+   "n": 90,
+   "pooled_sd": false,
+   "incumbent_churn": 0.08000062913044557,
+   "churn": 0.06268783422516361,
+   "rise": -0.01731279490528197,
+   "se_rise": 0.005598572915418604,
+   "se_level": 0.00934059892410194,
+   "rise_limit": 0.059209652445863604,
+   "level_limit": 0.2653652852301477,
+   "pass": true
+  },
+  {
+   "segment": "office",
+   "n": 300,
+   "pooled_sd": false,
+   "incumbent_churn": 0.08905886725179865,
+   "churn": 0.10698725456258924,
+   "rise": 0.01792838731079059,
+   "se_rise": 0.0020746985571755906,
+   "se_level": 0.006900744287445624,
+   "rise_limit": 0.05341287912655385,
+   "level_limit": 0.26135172435284804,
+   "pass": true
+  },
+  {
+   "segment": "retail_chain",
+   "n": 190,
+   "pooled_sd": false,
+   "incumbent_churn": 0.11198847380805503,
+   "churn": 0.1064429547295992,
+   "rise": -0.005545519078455836,
+   "se_rise": 0.0038382831426919165,
+   "se_level": 0.009362121166271876,
+   "rise_limit": 0.05631397576972821,
+   "level_limit": 0.26540068931851724,
+   "pass": true
+  },
+  {
+   "segment": "hospital",
+   "n": 80,
+   "pooled_sd": false,
+   "incumbent_churn": 0.08208652323487257,
+   "churn": 0.09951282298766137,
+   "rise": 0.017426299752788792,
+   "se_rise": 0.002029911403561778,
+   "se_level": 0.011338051369461616,
+   "rise_limit": 0.05333920425885913,
+   "level_limit": 0.26865109450276436,
+   "pass": true
+  },
+  {
+   "segment": "water_utility",
+   "n": 45,
+   "pooled_sd": false,
+   "incumbent_churn": 0.13424713052004428,
+   "churn": 0.11008234027156377,
+   "rise": -0.02416479024848048,
+   "se_rise": 0.004671323628808358,
+   "se_level": 0.016623014723971753,
+   "rise_limit": 0.05768432736938975,
+   "level_limit": 0.27734485922093355,
+   "pass": true
+  },
+  {
+   "segment": "university",
+   "n": 50,
+   "pooled_sd": false,
+   "incumbent_churn": 0.15674727340736033,
+   "churn": 0.202168580869856,
+   "rise": 0.04542130746249568,
+   "se_rise": 0.010515523274063496,
+   "se_level": 0.02784058350396605,
+   "rise_limit": 0.06729803578583446,
+   "level_limit": 0.2957977598640242,
+   "pass": true
+  },
+  {
+   "segment": "logistics",
+   "n": 150,
+   "pooled_sd": false,
+   "incumbent_churn": 0.09511170670583906,
+   "churn": 0.08623441846475045,
+   "rise": -0.008877288241088598,
+   "se_rise": 0.0038956050795561584,
+   "se_level": 0.008489272417916558,
+   "rise_limit": 0.056408270355869886,
+   "level_limit": 0.26396485312747275,
+   "pass": true
+  },
+  {
+   "segment": "hotel",
+   "n": 75,
+   "pooled_sd": false,
+   "incumbent_churn": 0.07521576857826617,
+   "churn": 0.09478750917057567,
+   "rise": 0.019571740592309487,
+   "se_rise": 0.006061361122427628,
+   "se_level": 0.012449706704006292,
+   "rise_limit": 0.05997093904639345,
+   "level_limit": 0.27047976752809033,
+   "pass": true
+  }
+ ],
+ "max_holdout3_in_top5": -13830.135318247245,
+ "max_holdout3_id": "p040-f3b6f3eb",
+ "max_note": "selection-biased: chosen on holdout3; not citable"
+}

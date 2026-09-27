@@ -15,6 +15,23 @@ ROOT = Path(__file__).resolve().parent.parent
 PY = sys.executable
 
 MUTATIONS = [
+    ("tools: reserved-word column in get_holdout_result", "energy_lab/tools/lab_tools.py",
+     "note, reviewed_at FROM {t:lab_reviews}", "note, at FROM {t:lab_reviews}",
+     "tests/test_data_tools_server.py::test_every_tool_succeeds_on_real_data"),
+    ("tools: margin caveat dropped from get_holdout_result", "energy_lab/tools/lab_tools.py",
+     'cav = r.pop("uplift_caveat", None) or ""', 'cav = ""; r.pop("uplift_caveat", None)',
+     "tests/test_segment_judgments.py::test_tools_carry_the_margin_caveat_for_run4_and_none_for_trading"),
+    ("judgments: caveat never derived from the segment table", "energy_lab/segment_judgments.py",
+     'relies = [s for s in champ["holdout"]["segments"] if s["relies_on_margin"]]',
+     'relies = [s for s in champ["holdout"]["segments"] if False]',
+     "tests/test_segment_judgments.py::test_caveat_is_derived_from_the_recomputed_judgment_not_typed"),
+    ("judgments: point rise rule always passes", "energy_lab/segment_judgments.py",
+     'pr, pl = t["rise"] <= rise_max + TOL, t["churn"] <= point_level_limit + TOL',
+     'pr, pl = True, t["churn"] <= point_level_limit + TOL',
+     "tests/test_segment_judgments.py::test_judgment_file_matches_unchanged_evidence_and_recomputes_identically"),
+    ("controller: generation circuit breaker removed", "energy_lab/harness/local_controller.py",
+     "MAX_CONSECUTIVE_GENERATION_ERRORS = 3 ", "MAX_CONSECUTIVE_GENERATION_ERRORS = 10**6 ",
+     "tests/test_baseline_budget_evidence.py::test_circuit_breaker_stops_on_consecutive_generation_errors"),
     ("datastore: one DuckDB connection shared across threads", "energy_lab/datastore.py",
      "cur = self._con.cursor().execute(", "cur = self._con.execute(",
      "tests/test_datastore_concurrency.py::test_concurrent_queries_do_not_interleave"),

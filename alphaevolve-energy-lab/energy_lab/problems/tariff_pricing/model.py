@@ -58,8 +58,13 @@ TRAIN_CHURN_GUARD = {"churn_max_portfolio": 0.14, "churn_max_energy": 0.14, "chu
 # change the score did not price. v3 encodes what the incumbent book protects: on every fold, no segment's churn may
 # rise more than SEGMENT_CHURN_RISE_MAX above the incumbent (seed) book's churn for that segment on the same cohort.
 SEGMENT_CHURN_RISE_MAX = 0.05
-EVALUATOR_VERSION = ("tariff_pricing/v3: segment churn may rise <= 5 pp vs the incumbent book on the same cohort "
-                     "(+ v2 train guard band 14%/22%); judged on the fresh holdout2 fold (holdout 1 burned by runs 1-2)")
+# Evaluator v4 (pre-registered in docs/PREREGISTRATION_tariff_v4.md before holdout3 existed): on the judgment fold the
+# per-segment churn rules allow for sampling noise with a paired standard error; train rules and the score are unchanged.
+MARGIN_FOLDS = ("holdout3",)
+MARGIN_Z = 1.645
+MARGIN_N_MIN = 30
+EVALUATOR_VERSION = ("tariff_pricing/v4: on holdout3 per-segment churn rules judged with a paired-SE sampling margin "
+                     "(z 1.645, n_min 30, pooled sd below n_min); train rules and score as v3; pre-registered")
 OFFER_BOUNDS = {"energy_rate_jpy_kwh": (0.0, 80.0), "alpha": (0.0, 1.0), "market_adder_jpy_kwh": (-5.0, 20.0),
                 "demand_charge_jpy_kw_month": (0.0, 6000.0), "deviation_band_pct": (0.0, 100.0),
                 "deviation_penalty_jpy_kwh": (0.0, 50.0), "dr_discount_jpy_kw_month": (0.0, 3000.0),

@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <title>Cockpit · Retail Energy Desk</title>
+  <link rel="stylesheet" href="/kit/kit.css">
+  <link rel="stylesheet" href="/css/v2.css">
+  <style>
+    /* Cockpit-only layout. Tokens from kit.css; nothing new. */
+    [hidden] { display: none !important; }
+    .kpis { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); }
+    .kpi .card-cap .badge { margin-left: auto; }
+    .kpi .metric-sub.hot { color: var(--fg); }
+    .panel-lede { color: var(--fg-muted); font-size: 13.5px; margin: 0 0 12px; }
+    .chart.cockpit { height: 390px; }
+    .chart.heat { height: 420px; }
+    .fig-row { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); margin-bottom: 12px; }
+    .fig-row .metric { font-size: 24px; }
+    .attn { display: grid; gap: 8px; margin: 0 0 12px; padding: 0; list-style: none; }
+    .attn button, .tile { width: 100%; min-height: 44px; text-align: left; cursor: pointer; color: var(--fg); background: var(--bg);
+      border: 1px solid var(--border); border-radius: var(--r-sm); font: 400 13px var(--sans); }
+    .attn button { display: flex; flex-wrap: wrap; gap: 6px 10px; align-items: center; padding: 8px 12px; }
+    .attn button:hover, .tile:hover { border-color: var(--fg-dim); }
+    .attn button[aria-pressed="true"], .tile[aria-pressed="true"] { border-color: var(--accent); }
+    .tiles { display: grid; gap: 6px; grid-template-columns: repeat(auto-fill, minmax(92px, 1fr)); }
+    .tile { display: grid; gap: 3px; padding: 6px 8px; font: 400 11px var(--mono); }
+    .tile .badge { justify-self: start; }
+    .field { display: grid; gap: 6px; flex: 1 1 220px; }
+    .field select { min-height: 44px; background: var(--bg); color: var(--fg); border: 1px solid var(--border); border-radius: var(--r-sm); padding: 0 10px; font: 400 14px var(--sans); max-width: 100%; }
+    .controls { display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-end; margin-bottom: 12px; }
+    .ask-grid { display: grid; gap: 16px; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); }
+    @media (max-width: 900px) { .ask-grid { grid-template-columns: minmax(0, 1fr); } }
+  </style>
+</head>
+<body>
+  <main class="wrap" id="main">
+    <!-- 1. Header -->
+    <section class="reveal" aria-labelledby="headline" style="margin-bottom:32px">
+      <div class="eyebrow">Workspace · Cockpit</div>
+      <h1 id="headline">The evening short, and what it takes to cover it before the gate closes.</h1>
+      <p class="lede mono" id="counts">Counting agents and sign-offs</p>
+    </section>
+
+    <!-- 2. KPI row -->
+    <section class="kpis" aria-label="Key figures" style="margin-bottom:32px">
+      <div class="card kpi reveal" id="k-spot"><div class="card-cap">Tokyo spot now</div><div class="kb"></div></div>
+      <div class="card kpi reveal" id="k-reserve"><div class="card-cap">Reserve margin</div><div class="kb"></div></div>
+      <div class="card kpi reveal" id="k-position"><div class="card-cap">Net open position</div><div class="kb"></div></div>
+      <div class="card kpi reveal" id="k-vpp"><div class="card-cap">VPP power you can count on</div><div class="kb"></div></div>
+      <div class="card kpi reveal" id="k-mar"><div class="card-cap">Margin at risk</div><div class="kb"></div></div>
+    </section>
+
+    <!-- 3. Main charts -->
+    <section class="bento" aria-label="Market and position">
+      <div class="card c8 reveal">
+        <div class="card-cap">Tokyo area prices, 48 slots<span class="spacer"></span><span id="market-src" class="dim"></span></div>
+        <p class="panel-lede" id="market-lede">Spot, intraday best ask and the imbalance forecast band, with the reserve margin strip below.</p>
+        <div class="chart cockpit" id="market-chart" role="img" aria-label="Tokyo area prices and reserve margin by slot"></div>
+        <details class="drawer" id="market-tv" style="margin-top:12px"><summary>View as table<span class="hint">48 slots</span></summary><div class="body table-scroll" id="market-table"></div></details>
+      </div>
+      <div class="card c4 reveal">
+        <div class="card-cap">Balancing group position</div>
+        <p class="panel-lede" id="position-lede">Demand plan against the latest forecast, and the open position per slot.</p>
+        <div class="chart cockpit" id="position-chart" role="img" aria-label="Demand and open position by slot"></div>
+        <p class="foot" style="margin-top:8px">Hatched bars are short. Faded bars are delivered. The shaded band is where the gate is still open.</p>
+        <details class="drawer" id="position-tv" style="margin-top:12px"><summary>View as table<span class="hint">48 slots</span></summary><div class="body table-scroll" id="position-table"></div></details>
+      </div>
+    </section>
+
+    <!-- 4. VPP fleet + 5. CFE -->
+    <section class="bento" aria-label="Fleet and clean energy">
+      <div class="card c6 reveal" id="fleet">
+        <div class="card-cap">VPP fleet<span class="spacer"></span><span class="dim" id="fleet-when"></span></div>
+        <div id="fleet-body"><p class="foot">Loading the fleet.</p></div>
+      </div>
+      <div class="card c6 reveal" id="cfe">
+        <div class="card-cap">24/7 clean energy, hour by hour<span class="spacer"></span><span class="dim" id="cfe-when"></span></div>
+        <div class="controls">
+          <label class="field"><span class="mono-cap">Customer</span><select id="cfe-customer" aria-label="Customer"><option>Loading customers</option></select></label>
+          <button class="btn" id="ppa-toggle" type="button" aria-pressed="false">Prospect design</button>
+        </div>
+        <div id="cfe-figs"></div>
+        <div class="chart heat" id="cfe-chart" role="img" aria-label="Matched share by day and hour"></div>
+        <p class="foot" id="cfe-foot"></p>
+      </div>
+    </section>
+
+    <!-- 6. Approval queue -->
+    <section class="card reveal" aria-labelledby="queue-cap" id="approvals">
+      <div class="card-cap" id="queue-cap">Needs your sign-off<span class="spacer"></span><span class="dim">Every row opens the sign-off sheet</span></div>
+      <div id="queue"><p class="foot">Loading the queue.</p></div>
+    </section>
+
+    <!-- 7. Audit log -->
+    <section class="card reveal" aria-labelledby="audit-cap">
+      <div class="card-cap" id="audit-cap">Audit log<span class="spacer"></span><span class="dim">One row per human decision</span></div>
+      <div id="audit"><p class="foot">Loading the audit log.</p></div>
+    </section>
+
+    <!-- 8. Ask the desk -->
+    <section class="card reveal" aria-labelledby="ask-cap" id="ask">
+      <div class="card-cap" id="ask-cap">Ask the desk<span class="spacer"></span><span class="dim mono" id="session"></span></div>
+      <div class="chips" id="chips" role="group" aria-label="Suggested questions" style="margin-bottom:12px"></div>
+      <div class="ask-grid">
+        <div>
+          <div class="chatlog" id="chatlog" role="log" aria-label="Conversation"><p class="foot">Pick a question or type one. The desk takes 30 to 120 seconds while the agents work.</p></div>
+          <form class="composer" id="composer">
+            <label class="mono-cap" for="ask-input" style="grid-column:1/-1">Your question</label>
+            <textarea id="ask-input" rows="2" placeholder="Enter sends. Shift+Enter adds a line."></textarea>
+            <div class="btn-row"><button class="btn primary" id="ask-send" type="submit">Send</button><button class="btn" id="ask-stop" type="button" hidden>Stop</button></div>
+          </form>
+          <div class="status-line" id="ask-status" role="status" aria-live="polite"></div>
+        </div>
+        <div>
+          <div class="mono-cap" style="margin-bottom:6px">How the agents worked</div>
+          <div class="console" id="trace" role="log" aria-label="Agent trace" tabindex="0"><span class="dim">No trace yet.</span></div>
+        </div>
+      </div>
+    </section>
+
+    <footer id="prov"></footer>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+  <script src="/js/app-shell.js"></script>
+  <script src="/kit/shell.js"></script>
+  <script src="/kit/motion.js"></script>
+  <script src="/kit/signoff.js"></script>
+  <script src="/js/desk.js"></script>
+  <script src="/workspace/cockpit.js"></script>
+</body>
+</html>

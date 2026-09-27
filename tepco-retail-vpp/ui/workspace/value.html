@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <title>Value · Retail Energy Desk</title>
+  <link rel="stylesheet" href="/kit/kit.css">
+  <link rel="stylesheet" href="/css/v2.css">
+  <style>
+    /* Value-only: the legend swatches and the site segment colour. Tokens from kit.css. */
+    .vbar i.site { background: var(--b1); }
+    .vbar b.site { background: var(--fg); }
+    .swatch { display: inline-block; width: 22px; height: 8px; border-radius: 3px; vertical-align: middle; margin-right: 6px; }
+    .swatch.site { background: var(--b1); }
+    .swatch.band { background: rgba(255,255,255,.14); border: 1px dashed var(--fg-dim); }
+    .vrow .where { font: 400 11px var(--mono); color: var(--fg-muted); text-transform: uppercase; letter-spacing: .05em; }
+  </style>
+</head>
+<body>
+  <main class="wrap" id="main">
+    <section class="reveal read" aria-labelledby="headline" style="margin-bottom:32px">
+      <div class="eyebrow">Workspace · Value</div>
+      <h1 id="headline">Each number the agents move, measured on this desk and set against the outside band where one exists.</h1>
+      <p class="lede">Every line names the agent that moves it and shows this site as a range read from the data. Where a third party publishes a verified band, it sits dashed behind the site's range and its source is printed under the bar. Where none is held, the line says so instead of borrowing one.</p>
+      <p class="lede mono" id="asof"></p>
+    </section>
+
+    <div class="note info reveal read" style="margin-bottom:24px">
+      <strong>How to read this</strong><br>
+      Read ranges, not points. The solid segment is this site, measured in this data. The dashed band is a third party's figure, cited under the bar. A line with no band means no verified benchmark is held for it, and the scale is set by the site's own figure.
+    </div>
+
+    <section class="card reveal" aria-labelledby="metrics-cap">
+      <div class="card-cap" id="metrics-cap">What the agents move<span class="spacer"></span>
+        <span class="legend"><span><i class="swatch site" aria-hidden="true"></i>This site, solid</span><span><i class="swatch band" aria-hidden="true"></i>Outside band, dashed</span></span>
+      </div>
+      <div id="metrics"><p class="foot">Loading the figures.</p></div>
+    </section>
+
+    <footer id="prov"></footer>
+  </main>
+
+  <script src="/js/app-shell.js"></script>
+  <script src="/kit/shell.js"></script>
+  <script src="/kit/motion.js"></script>
+  <script src="/kit/signoff.js"></script>
+  <script src="/js/desk.js"></script>
+  <script src="/workspace/value.js"></script>
+</body>
+</html>

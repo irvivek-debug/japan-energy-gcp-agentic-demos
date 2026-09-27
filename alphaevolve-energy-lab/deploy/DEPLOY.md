@@ -94,3 +94,18 @@ human review, source).
 * `GET /api/health` shows `data_backend=bigquery`, `agent_backend=agent_engine`.
 * Ask the analyst "Which evolution runs exist?"; it must cite `[energy_alphaevolve_lab.lab_runs]`.
 * `POST /api/runs/<local run>/promote` must return 403.
+
+## 7. Changes since v1.0.0 that affect a deployment (2026-09-27)
+
+* `lab_reviews.at` is renamed `reviewed_at` (`AT` is a reserved word; `get_holdout_result` returned a SQL error on
+  DuckDB, and the same query is expected to fail on BigQuery, where `AT` is also reserved). Reload the five `lab_*` tables with
+  `--replace` from the new `data/out` and redeploy the analyst package (tool query changed).
+* New tables `customers_holdout3` and `customer_behaviour_holdout3` (1,200 rows each), a new tariff evidence file
+  (run 4, infrastructure failure) and new read-only endpoints `/api/v2/*` for UI version 2 (served at `/`; version 1 at
+  `/v1/`). Cloud Run needs a new revision; no new permissions.
+* New table `lab_segment_judgments` (per-segment churn judgment of every top-k candidate of a margin-judged tariff run,
+  recomputed by `energy_lab.export_evidence` without a model call) and new columns `lab_runs.uplift_caveat`,
+  `lab_holdout.valid_point_rules`, `lab_holdout.relies_on_margin`, `lab_holdout.judgment_note`. Load the new table,
+  reload `lab_runs` and `lab_holdout` with `--replace` from `data/out` using the regenerated `data/schema.json`, and
+  redeploy the analyst package (four tool queries changed: `list_runs`, `get_run_summary`, `get_best_program_diff`,
+  `get_holdout_result`).

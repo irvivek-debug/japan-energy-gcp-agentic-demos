@@ -49,7 +49,7 @@
       "role": "user",
       "parts": [
        {
-        "text": "What did the best program in run tariff_pricing.20260926T080035Z change versus the seed, and how much did it gain?"
+        "text": "What did the best program in run tariff_pricing.20260927T085054Z change versus the seed, and how much did it gain?"
        }
       ]
      },
@@ -57,7 +57,7 @@
       "role": "model",
       "parts": [
        {
-        "text": "The champion p039-acb6b2de changed the price book logic; train and holdout deltas as recorded [energy_alphaevolve_lab.lab_runs]."
+        "text": "The champion p040-f3b6f3eb changed the price book logic; train and holdout deltas as recorded [energy_alphaevolve_lab.lab_runs]. The uplift carries a caveat computed from lab_segment_judgments: passes only under the pre-registered sampling margin: semiconductor_fab (n=14) rise +5.1 pp > 5.0 pp point limit, <= 7.6 pp margin limit; under v3 point rules ranks 1-2 of the top 5 would be invalid (ranks 3-5 pass both rule sets) [energy_alphaevolve_lab.lab_runs, energy_alphaevolve_lab.lab_segment_judgments]."
        }
       ]
      },
@@ -66,7 +66,7 @@
        {
         "name": "get_best_program_diff",
         "args": {
-         "run_id": "tariff_pricing.20260926T080035Z"
+         "run_id": "tariff_pricing.20260927T085054Z"
         }
        }
       ]
@@ -88,7 +88,7 @@
       "role": "user",
       "parts": [
        {
-        "text": "Which policy invariants rejected candidates in run jepx_trading.20260926T075644Z? Give one concrete example."
+        "text": "Which policy invariants rejected candidates in run jepx_trading.20260926T081714Z? Give one concrete example."
        }
       ]
      },
@@ -105,7 +105,7 @@
        {
         "name": "get_invariant_catches",
         "args": {
-         "run_id": "jepx_trading.20260926T075644Z"
+         "run_id": "jepx_trading.20260926T081714Z"
         }
        }
       ]
@@ -166,7 +166,7 @@
       "role": "user",
       "parts": [
        {
-        "text": "Can we cite an uplift from run tariff_pricing.20260926T080035Z? What is the holdout delta and can it be promoted?"
+        "text": "Can we cite an uplift from run tariff_pricing.20260927T085054Z? What is the holdout delta and can it be promoted?"
        }
       ]
      },
@@ -174,7 +174,7 @@
       "role": "model",
       "parts": [
        {
-        "text": "Holdout delta None JPY M is the only citable number; the run is from the local controller so it cannot be promoted [energy_alphaevolve_lab.lab_runs]."
+        "text": "Holdout delta 21190.932573 JPY M is the only citable number; the run is from the local controller so it cannot be promoted [energy_alphaevolve_lab.lab_runs]. The uplift carries a caveat computed from lab_segment_judgments: passes only under the pre-registered sampling margin: semiconductor_fab (n=14) rise +5.1 pp > 5.0 pp point limit, <= 7.6 pp margin limit; under v3 point rules ranks 1-2 of the top 5 would be invalid (ranks 3-5 pass both rule sets) [energy_alphaevolve_lab.lab_runs, energy_alphaevolve_lab.lab_segment_judgments]."
        }
       ]
      },
@@ -183,7 +183,7 @@
        {
         "name": "get_holdout_result",
         "args": {
-         "run_id": "tariff_pricing.20260926T080035Z"
+         "run_id": "tariff_pricing.20260927T085054Z"
         }
        }
       ]
@@ -205,7 +205,7 @@
       "role": "user",
       "parts": [
        {
-        "text": "Give me the headline of trading run jepx_trading.20260926T075644Z: seed versus best on train, and the holdout outcome."
+        "text": "Give me the headline of trading run jepx_trading.20260926T081714Z: seed versus best on train, and the holdout outcome."
        }
       ]
      },
@@ -213,7 +213,7 @@
       "role": "model",
       "parts": [
        {
-        "text": "Trading run jepx_trading.20260926T075644Z headline with seed, best train and holdout delta [energy_alphaevolve_lab.lab_runs]."
+        "text": "Trading run jepx_trading.20260926T081714Z headline with seed, best train and holdout delta [energy_alphaevolve_lab.lab_runs]."
        }
       ]
      },
@@ -222,7 +222,7 @@
        {
         "name": "get_run_summary",
         "args": {
-         "run_id": "jepx_trading.20260926T075644Z"
+         "run_id": "jepx_trading.20260926T081714Z"
         }
        }
       ]

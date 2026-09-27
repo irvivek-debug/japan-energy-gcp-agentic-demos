@@ -27,8 +27,34 @@ class Generation:
     attempts: int = 1
 
 
+class GenerationUnavailable(RuntimeError):
+    """The mutator cannot generate at all (e.g. credentials need re-authentication). Raised before a run starts."""
+
+
 class GeminiMutator:
     kind = "gemini"
+
+    def preflight(self) -> None:
+        """Refresh Application Default Credentials without spending a model call; refuse early if they are unusable.
+
+        Run tariff_pricing.20260927T081840Z spent its whole 40-program budget on RefreshError in 5 s; this check (and the
+        controller's consecutive-failure breaker) makes that impossible."""
+        import os
+
+        missing = [k for k, want in (("GOOGLE_GENAI_USE_VERTEXAI", "TRUE"), ("GOOGLE_CLOUD_LOCATION", "global"),
+                                     ("GOOGLE_CLOUD_PROJECT", None))
+                   if not os.getenv(k) or (want and os.getenv(k, "").upper() != want.upper())]
+        if missing:   # without these the client silently tries the API-key path (operator error 2026-09-27)
+            raise GenerationUnavailable("Vertex AI configuration missing or wrong: " + ", ".join(missing)
+                                        + " (need GOOGLE_GENAI_USE_VERTEXAI=TRUE, GOOGLE_CLOUD_LOCATION=global, GOOGLE_CLOUD_PROJECT)")
+        try:
+            import google.auth
+            from google.auth.transport.requests import Request
+
+            creds, _ = google.auth.default(scopes=["https://www.googleapis.com/auth/cloud-platform"])
+            creds.refresh(Request())
+        except Exception as e:  # noqa: BLE001
+            raise GenerationUnavailable(f"model credentials unusable: {type(e).__name__}: {str(e)[:200]}") from None
 
     def __init__(self, temperature: float = 1.0, max_output_tokens: int = 24576, timeout_s: float = 240.0,
                  thinking_level: str | None = None):
@@ -38,6 +64,9 @@ class GeminiMutator:
         self._types = types
         self._timeout_ms = int(timeout_s * 1000)
         self._client = None          # created on first use, so budget / baseline refusals need no credentials
+        import threading
+
+        self._client_lock = threading.Lock()   # two worker threads must not each create (and drop) a client
         self.temperature = temperature
         self.max_output_tokens = max_output_tokens
         # MEDIUM keeps a generation near 30-60 s so 40 programs fit the 30-min wall at concurrency 2
@@ -45,11 +74,12 @@ class GeminiMutator:
 
     @property
     def client(self):
-        if self._client is None:
-            from google import genai
+        with self._client_lock:
+            if self._client is None:
+                from google import genai
 
-            self._client = genai.Client(http_options=self._types.HttpOptions(timeout=self._timeout_ms))
-        return self._client
+                self._client = genai.Client(http_options=self._types.HttpOptions(timeout=self._timeout_ms))
+            return self._client
 
     def generate(self, model: str, system: str, prompt: str) -> Generation:
         t0 = time.monotonic()

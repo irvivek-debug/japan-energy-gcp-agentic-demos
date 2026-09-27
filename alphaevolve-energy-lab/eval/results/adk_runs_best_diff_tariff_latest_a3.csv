@@ -1,0 +1,204 @@
+
+runs_best_diff_tariff_latest,best_diff_tariff_latest,tool_trajectory_avg_score,1.0,1.0,PASSED,"What did the best program in run tariff_pricing.20260927T085054Z change versus the seed, and how much did it gain?",The champion p040-f3b6f3eb changed the price book logic; train and holdout deltas as recorded [energy_alphaevolve_lab.lab_runs].,"### Mechanism Changes
+
+In run `tariff_pricing.20260927T085054Z`, the champion program `p040-f3b6f3eb` replaced the simple seed price book with a segment-differentiated and risk-hedged structure [energy_alphaevolve_lab.lab_runs]. 
+
+1. **Market-linked share (`alpha`) scaling**: Instead of assigning a fixed `alpha` of 0.5 to data centers and 0.0 to all other segments, the best program scales `alpha` dynamically based on customer risk appetite (0.25 to 0.82) and load flexibility, while maintaining an essential facility cap of 0.30.
+2. **Segment and procurement margin tuning**: Rather than applying a flat margin of 1.500 JPY/kWh, it applies customized margins across segments and procurement types, offering lower margins to price-sensitive segments (0.620 JPY/kWh for semiconductor fabs, 0.650 JPY/kWh for water utilities, and 0.750 JPY/kWh for tenders) and higher margins for auto-renew customers (1.380 JPY/kWh).
+3. **Adjusted fixed charges and penalties**: It reduces the demand charge adder from 50.0 JPY/kW-month to 26.0 JPY/kW-month above wheeling basic and lowers the deviation penalty from 1.000 JPY/kWh to 0.400 JPY/kWh.
+4. **Demand Response value sharing**: It introduces explicit demand response discounts to share up to 72% of estimated annual demand response value with participating flexible customers.
+5. **Multi-year commitment options**: It permits multi-year contract terms (2 or 3 years) for customers who prefer longer terms provided their market-linked risk share (`alpha`) is at least 0.60.
+
+---
+
+### Performance Gain
+
+The validated uplift on holdout data for program `p040-f3b6f3eb` is:
+
+* **Holdout Uplift (Validated Gain)**: **21190.933 JPY M** [energy_alphaevolve_lab.lab_runs]
+  * **Seed Holdout Score**: -35021.068 JPY M [energy_alphaevolve_lab.lab_runs]
+  * **Best Holdout Score**: -13830.135 JPY M [energy_alphaevolve_lab.lab_runs]
+
+For reference during evolutionary search, progress on the training set was:
+
+* **Train Search Delta**: **6641.347 JPY M** [energy_alphaevolve_lab.lab_runs]
+  * **Seed Train Score**: -8800.354 JPY M [energy_alphaevolve_lab.lab_runs]
+  * **Best Train Score**: -2159.007 JPY M [energy_alphaevolve_lab.lab_runs]
+
+*Note: This run source is `local-gemini-controller` (an AlphaEvolve-compatible run on a local controller) [energy_alphaevolve_lab.lab_runs]. All figures reflect calibrated synthetic portfolio data.*",id=None args={'run_id': 'tariff_pricing.20260927T085054Z'} name='get_best_program_diff' partial_args=None will_continue=None,"id='call_203392' args={'run_id': 'tariff_pricing.20260927T085054Z'} name='get_run_summary' partial_args=None will_continue=None
+id='call_203393' args={'run_id': 'tariff_pricing.20260927T085054Z'} name='get_best_program_diff' partial_args=None will_continue=None
+id='call_203394' args={'run_id': 'tariff_pricing.20260927T085054Z'} name='get_holdout_result' partial_args=None will_continue=None"
+runs_best_diff_tariff_latest,best_diff_tariff_latest,rubric_based_final_response_quality_v1,0.8,0.75,FAILED,"What did the best program in run tariff_pricing.20260927T085054Z change versus the seed, and how much did it gain?",The champion p040-f3b6f3eb changed the price book logic; train and holdout deltas as recorded [energy_alphaevolve_lab.lab_runs].,"### Mechanism Changes
+
+In run `tariff_pricing.20260927T085054Z`, the champion program `p040-f3b6f3eb` replaced the simple seed price book with a segment-differentiated and risk-hedged structure [energy_alphaevolve_lab.lab_runs]. 
+
+1. **Market-linked share (`alpha`) scaling**: Instead of assigning a fixed `alpha` of 0.5 to data centers and 0.0 to all other segments, the best program scales `alpha` dynamically based on customer risk appetite (0.25 to 0.82) and load flexibility, while maintaining an essential facility cap of 0.30.
+2. **Segment and procurement margin tuning**: Rather than applying a flat margin of 1.500 JPY/kWh, it applies customized margins across segments and procurement types, offering lower margins to price-sensitive segments (0.620 JPY/kWh for semiconductor fabs, 0.650 JPY/kWh for water utilities, and 0.750 JPY/kWh for tenders) and higher margins for auto-renew customers (1.380 JPY/kWh).
+3. **Adjusted fixed charges and penalties**: It reduces the demand charge adder from 50.0 JPY/kW-month to 26.0 JPY/kW-month above wheeling basic and lowers the deviation penalty from 1.000 JPY/kWh to 0.400 JPY/kWh.
+4. **Demand Response value sharing**: It introduces explicit demand response discounts to share up to 72% of estimated annual demand response value with participating flexible customers.
+5. **Multi-year commitment options**: It permits multi-year contract terms (2 or 3 years) for customers who prefer longer terms provided their market-linked risk share (`alpha`) is at least 0.60.
+
+---
+
+### Performance Gain
+
+The validated uplift on holdout data for program `p040-f3b6f3eb` is:
+
+* **Holdout Uplift (Validated Gain)**: **21190.933 JPY M** [energy_alphaevolve_lab.lab_runs]
+  * **Seed Holdout Score**: -35021.068 JPY M [energy_alphaevolve_lab.lab_runs]
+  * **Best Holdout Score**: -13830.135 JPY M [energy_alphaevolve_lab.lab_runs]
+
+For reference during evolutionary search, progress on the training set was:
+
+* **Train Search Delta**: **6641.347 JPY M** [energy_alphaevolve_lab.lab_runs]
+  * **Seed Train Score**: -8800.354 JPY M [energy_alphaevolve_lab.lab_runs]
+  * **Best Train Score**: -2159.007 JPY M [energy_alphaevolve_lab.lab_runs]
+
+*Note: This run source is `local-gemini-controller` (an AlphaEvolve-compatible run on a local controller) [energy_alphaevolve_lab.lab_runs]. All figures reflect calibrated synthetic portfolio data.*",id=None args={'run_id': 'tariff_pricing.20260927T085054Z'} name='get_best_program_diff' partial_args=None will_continue=None,"id='call_203392' args={'run_id': 'tariff_pricing.20260927T085054Z'} name='get_run_summary' partial_args=None will_continue=None
+id='call_203393' args={'run_id': 'tariff_pricing.20260927T085054Z'} name='get_best_program_diff' partial_args=None will_continue=None
+id='call_203394' args={'run_id': 'tariff_pricing.20260927T085054Z'} name='get_holdout_result' partial_args=None will_continue=None"
+runs_best_diff_tariff_latest,best_diff_tariff_latest,hallucinations_v1,0.8,1.0,PASSED,"What did the best program in run tariff_pricing.20260927T085054Z change versus the seed, and how much did it gain?",The champion p040-f3b6f3eb changed the price book logic; train and holdout deltas as recorded [energy_alphaevolve_lab.lab_runs].,"### Mechanism Changes
+
+In run `tariff_pricing.20260927T085054Z`, the champion program `p040-f3b6f3eb` replaced the simple seed price book with a segment-differentiated and risk-hedged structure [energy_alphaevolve_lab.lab_runs]. 
+
+1. **Market-linked share (`alpha`) scaling**: Instead of assigning a fixed `alpha` of 0.5 to data centers and 0.0 to all other segments, the best program scales `alpha` dynamically based on customer risk appetite (0.25 to 0.82) and load flexibility, while maintaining an essential facility cap of 0.30.
+2. **Segment and procurement margin tuning**: Rather than applying a flat margin of 1.500 JPY/kWh, it applies customized margins across segments and procurement types, offering lower margins to price-sensitive segments (0.620 JPY/kWh for semiconductor fabs, 0.650 JPY/kWh for water utilities, and 0.750 JPY/kWh for tenders) and higher margins for auto-renew customers (1.380 JPY/kWh).
+3. **Adjusted fixed charges and penalties**: It reduces the demand charge adder from 50.0 JPY/kW-month to 26.0 JPY/kW-month above wheeling basic and lowers the deviation penalty from 1.000 JPY/kWh to 0.400 JPY/kWh.
+4. **Demand Response value sharing**: It introduces explicit demand response discounts to share up to 72% of estimated annual demand response value with participating flexible customers.
+5. **Multi-year commitment options**: It permits multi-year contract terms (2 or 3 years) for customers who prefer longer terms provided their market-linked risk share (`alpha`) is at least 0.60.
+
+---
+
+### Performance Gain
+
+The validated uplift on holdout data for program `p040-f3b6f3eb` is:
+
+* **Holdout Uplift (Validated Gain)**: **21190.933 JPY M** [energy_alphaevolve_lab.lab_runs]
+  * **Seed Holdout Score**: -35021.068 JPY M [energy_alphaevolve_lab.lab_runs]
+  * **Best Holdout Score**: -13830.135 JPY M [energy_alphaevolve_lab.lab_runs]
+
+For reference during evolutionary search, progress on the training set was:
+
+* **Train Search Delta**: **6641.347 JPY M** [energy_alphaevolve_lab.lab_runs]
+  * **Seed Train Score**: -8800.354 JPY M [energy_alphaevolve_lab.lab_runs]
+  * **Best Train Score**: -2159.007 JPY M [energy_alphaevolve_lab.lab_runs]
+
+*Note: This run source is `local-gemini-controller` (an AlphaEvolve-compatible run on a local controller) [energy_alphaevolve_lab.lab_runs]. All figures reflect calibrated synthetic portfolio data.*",id=None args={'run_id': 'tariff_pricing.20260927T085054Z'} name='get_best_program_diff' partial_args=None will_continue=None,"id='call_203392' args={'run_id': 'tariff_pricing.20260927T085054Z'} name='get_run_summary' partial_args=None will_continue=None
+id='call_203393' args={'run_id': 'tariff_pricing.20260927T085054Z'} name='get_best_program_diff' partial_args=None will_continue=None
+id='call_203394' args={'run_id': 'tariff_pricing.20260927T085054Z'} name='get_holdout_result' partial_args=None will_continue=None"
+runs_best_diff_tariff_latest,best_diff_tariff_latest,tool_call_count_v1,,3.0,INFORMATIONAL,"What did the best program in run tariff_pricing.20260927T085054Z change versus the seed, and how much did it gain?",The champion p040-f3b6f3eb changed the price book logic; train and holdout deltas as recorded [energy_alphaevolve_lab.lab_runs].,"### Mechanism Changes
+
+In run `tariff_pricing.20260927T085054Z`, the champion program `p040-f3b6f3eb` replaced the simple seed price book with a segment-differentiated and risk-hedged structure [energy_alphaevolve_lab.lab_runs]. 
+
+1. **Market-linked share (`alpha`) scaling**: Instead of assigning a fixed `alpha` of 0.5 to data centers and 0.0 to all other segments, the best program scales `alpha` dynamically based on customer risk appetite (0.25 to 0.82) and load flexibility, while maintaining an essential facility cap of 0.30.
+2. **Segment and procurement margin tuning**: Rather than applying a flat margin of 1.500 JPY/kWh, it applies customized margins across segments and procurement types, offering lower margins to price-sensitive segments (0.620 JPY/kWh for semiconductor fabs, 0.650 JPY/kWh for water utilities, and 0.750 JPY/kWh for tenders) and higher margins for auto-renew customers (1.380 JPY/kWh).
+3. **Adjusted fixed charges and penalties**: It reduces the demand charge adder from 50.0 JPY/kW-month to 26.0 JPY/kW-month above wheeling basic and lowers the deviation penalty from 1.000 JPY/kWh to 0.400 JPY/kWh.
+4. **Demand Response value sharing**: It introduces explicit demand response discounts to share up to 72% of estimated annual demand response value with participating flexible customers.
+5. **Multi-year commitment options**: It permits multi-year contract terms (2 or 3 years) for customers who prefer longer terms provided their market-linked risk share (`alpha`) is at least 0.60.
+
+---
+
+### Performance Gain
+
+The validated uplift on holdout data for program `p040-f3b6f3eb` is:
+
+* **Holdout Uplift (Validated Gain)**: **21190.933 JPY M** [energy_alphaevolve_lab.lab_runs]
+  * **Seed Holdout Score**: -35021.068 JPY M [energy_alphaevolve_lab.lab_runs]
+  * **Best Holdout Score**: -13830.135 JPY M [energy_alphaevolve_lab.lab_runs]
+
+For reference during evolutionary search, progress on the training set was:
+
+* **Train Search Delta**: **6641.347 JPY M** [energy_alphaevolve_lab.lab_runs]
+  * **Seed Train Score**: -8800.354 JPY M [energy_alphaevolve_lab.lab_runs]
+  * **Best Train Score**: -2159.007 JPY M [energy_alphaevolve_lab.lab_runs]
+
+*Note: This run source is `local-gemini-controller` (an AlphaEvolve-compatible run on a local controller) [energy_alphaevolve_lab.lab_runs]. All figures reflect calibrated synthetic portfolio data.*",id=None args={'run_id': 'tariff_pricing.20260927T085054Z'} name='get_best_program_diff' partial_args=None will_continue=None,"id='call_203392' args={'run_id': 'tariff_pricing.20260927T085054Z'} name='get_run_summary' partial_args=None will_continue=None
+id='call_203393' args={'run_id': 'tariff_pricing.20260927T085054Z'} name='get_best_program_diff' partial_args=None will_continue=None
+id='call_203394' args={'run_id': 'tariff_pricing.20260927T085054Z'} name='get_holdout_result' partial_args=None will_continue=None"
+runs_best_diff_tariff_latest,best_diff_tariff_latest,inference_call_count_v1,,2.0,INFORMATIONAL,"What did the best program in run tariff_pricing.20260927T085054Z change versus the seed, and how much did it gain?",The champion p040-f3b6f3eb changed the price book logic; train and holdout deltas as recorded [energy_alphaevolve_lab.lab_runs].,"### Mechanism Changes
+
+In run `tariff_pricing.20260927T085054Z`, the champion program `p040-f3b6f3eb` replaced the simple seed price book with a segment-differentiated and risk-hedged structure [energy_alphaevolve_lab.lab_runs]. 
+
+1. **Market-linked share (`alpha`) scaling**: Instead of assigning a fixed `alpha` of 0.5 to data centers and 0.0 to all other segments, the best program scales `alpha` dynamically based on customer risk appetite (0.25 to 0.82) and load flexibility, while maintaining an essential facility cap of 0.30.
+2. **Segment and procurement margin tuning**: Rather than applying a flat margin of 1.500 JPY/kWh, it applies customized margins across segments and procurement types, offering lower margins to price-sensitive segments (0.620 JPY/kWh for semiconductor fabs, 0.650 JPY/kWh for water utilities, and 0.750 JPY/kWh for tenders) and higher margins for auto-renew customers (1.380 JPY/kWh).
+3. **Adjusted fixed charges and penalties**: It reduces the demand charge adder from 50.0 JPY/kW-month to 26.0 JPY/kW-month above wheeling basic and lowers the deviation penalty from 1.000 JPY/kWh to 0.400 JPY/kWh.
+4. **Demand Response value sharing**: It introduces explicit demand response discounts to share up to 72% of estimated annual demand response value with participating flexible customers.
+5. **Multi-year commitment options**: It permits multi-year contract terms (2 or 3 years) for customers who prefer longer terms provided their market-linked risk share (`alpha`) is at least 0.60.
+
+---
+
+### Performance Gain
+
+The validated uplift on holdout data for program `p040-f3b6f3eb` is:
+
+* **Holdout Uplift (Validated Gain)**: **21190.933 JPY M** [energy_alphaevolve_lab.lab_runs]
+  * **Seed Holdout Score**: -35021.068 JPY M [energy_alphaevolve_lab.lab_runs]
+  * **Best Holdout Score**: -13830.135 JPY M [energy_alphaevolve_lab.lab_runs]
+
+For reference during evolutionary search, progress on the training set was:
+
+* **Train Search Delta**: **6641.347 JPY M** [energy_alphaevolve_lab.lab_runs]
+  * **Seed Train Score**: -8800.354 JPY M [energy_alphaevolve_lab.lab_runs]
+  * **Best Train Score**: -2159.007 JPY M [energy_alphaevolve_lab.lab_runs]
+
+*Note: This run source is `local-gemini-controller` (an AlphaEvolve-compatible run on a local controller) [energy_alphaevolve_lab.lab_runs]. All figures reflect calibrated synthetic portfolio data.*",id=None args={'run_id': 'tariff_pricing.20260927T085054Z'} name='get_best_program_diff' partial_args=None will_continue=None,"id='call_203392' args={'run_id': 'tariff_pricing.20260927T085054Z'} name='get_run_summary' partial_args=None will_continue=None
+id='call_203393' args={'run_id': 'tariff_pricing.20260927T085054Z'} name='get_best_program_diff' partial_args=None will_continue=None
+id='call_203394' args={'run_id': 'tariff_pricing.20260927T085054Z'} name='get_holdout_result' partial_args=None will_continue=None"
+runs_best_diff_tariff_latest,best_diff_tariff_latest,token_usage_v1,,9698.0,INFORMATIONAL,"What did the best program in run tariff_pricing.20260927T085054Z change versus the seed, and how much did it gain?",The champion p040-f3b6f3eb changed the price book logic; train and holdout deltas as recorded [energy_alphaevolve_lab.lab_runs].,"### Mechanism Changes
+
+In run `tariff_pricing.20260927T085054Z`, the champion program `p040-f3b6f3eb` replaced the simple seed price book with a segment-differentiated and risk-hedged structure [energy_alphaevolve_lab.lab_runs]. 
+
+1. **Market-linked share (`alpha`) scaling**: Instead of assigning a fixed `alpha` of 0.5 to data centers and 0.0 to all other segments, the best program scales `alpha` dynamically based on customer risk appetite (0.25 to 0.82) and load flexibility, while maintaining an essential facility cap of 0.30.
+2. **Segment and procurement margin tuning**: Rather than applying a flat margin of 1.500 JPY/kWh, it applies customized margins across segments and procurement types, offering lower margins to price-sensitive segments (0.620 JPY/kWh for semiconductor fabs, 0.650 JPY/kWh for water utilities, and 0.750 JPY/kWh for tenders) and higher margins for auto-renew customers (1.380 JPY/kWh).
+3. **Adjusted fixed charges and penalties**: It reduces the demand charge adder from 50.0 JPY/kW-month to 26.0 JPY/kW-month above wheeling basic and lowers the deviation penalty from 1.000 JPY/kWh to 0.400 JPY/kWh.
+4. **Demand Response value sharing**: It introduces explicit demand response discounts to share up to 72% of estimated annual demand response value with participating flexible customers.
+5. **Multi-year commitment options**: It permits multi-year contract terms (2 or 3 years) for customers who prefer longer terms provided their market-linked risk share (`alpha`) is at least 0.60.
+
+---
+
+### Performance Gain
+
+The validated uplift on holdout data for program `p040-f3b6f3eb` is:
+
+* **Holdout Uplift (Validated Gain)**: **21190.933 JPY M** [energy_alphaevolve_lab.lab_runs]
+  * **Seed Holdout Score**: -35021.068 JPY M [energy_alphaevolve_lab.lab_runs]
+  * **Best Holdout Score**: -13830.135 JPY M [energy_alphaevolve_lab.lab_runs]
+
+For reference during evolutionary search, progress on the training set was:
+
+* **Train Search Delta**: **6641.347 JPY M** [energy_alphaevolve_lab.lab_runs]
+  * **Seed Train Score**: -8800.354 JPY M [energy_alphaevolve_lab.lab_runs]
+  * **Best Train Score**: -2159.007 JPY M [energy_alphaevolve_lab.lab_runs]
+
+*Note: This run source is `local-gemini-controller` (an AlphaEvolve-compatible run on a local controller) [energy_alphaevolve_lab.lab_runs]. All figures reflect calibrated synthetic portfolio data.*",id=None args={'run_id': 'tariff_pricing.20260927T085054Z'} name='get_best_program_diff' partial_args=None will_continue=None,"id='call_203392' args={'run_id': 'tariff_pricing.20260927T085054Z'} name='get_run_summary' partial_args=None will_continue=None
+id='call_203393' args={'run_id': 'tariff_pricing.20260927T085054Z'} name='get_best_program_diff' partial_args=None will_continue=None
+id='call_203394' args={'run_id': 'tariff_pricing.20260927T085054Z'} name='get_holdout_result' partial_args=None will_continue=None"
+runs_best_diff_tariff_latest,best_diff_tariff_latest,invocation_duration_v1,,13.198,INFORMATIONAL,"What did the best program in run tariff_pricing.20260927T085054Z change versus the seed, and how much did it gain?",The champion p040-f3b6f3eb changed the price book logic; train and holdout deltas as recorded [energy_alphaevolve_lab.lab_runs].,"### Mechanism Changes
+
+In run `tariff_pricing.20260927T085054Z`, the champion program `p040-f3b6f3eb` replaced the simple seed price book with a segment-differentiated and risk-hedged structure [energy_alphaevolve_lab.lab_runs]. 
+
+1. **Market-linked share (`alpha`) scaling**: Instead of assigning a fixed `alpha` of 0.5 to data centers and 0.0 to all other segments, the best program scales `alpha` dynamically based on customer risk appetite (0.25 to 0.82) and load flexibility, while maintaining an essential facility cap of 0.30.
+2. **Segment and procurement margin tuning**: Rather than applying a flat margin of 1.500 JPY/kWh, it applies customized margins across segments and procurement types, offering lower margins to price-sensitive segments (0.620 JPY/kWh for semiconductor fabs, 0.650 JPY/kWh for water utilities, and 0.750 JPY/kWh for tenders) and higher margins for auto-renew customers (1.380 JPY/kWh).
+3. **Adjusted fixed charges and penalties**: It reduces the demand charge adder from 50.0 JPY/kW-month to 26.0 JPY/kW-month above wheeling basic and lowers the deviation penalty from 1.000 JPY/kWh to 0.400 JPY/kWh.
+4. **Demand Response value sharing**: It introduces explicit demand response discounts to share up to 72% of estimated annual demand response value with participating flexible customers.
+5. **Multi-year commitment options**: It permits multi-year contract terms (2 or 3 years) for customers who prefer longer terms provided their market-linked risk share (`alpha`) is at least 0.60.
+
+---
+
+### Performance Gain
+
+The validated uplift on holdout data for program `p040-f3b6f3eb` is:
+
+* **Holdout Uplift (Validated Gain)**: **21190.933 JPY M** [energy_alphaevolve_lab.lab_runs]
+  * **Seed Holdout Score**: -35021.068 JPY M [energy_alphaevolve_lab.lab_runs]
+  * **Best Holdout Score**: -13830.135 JPY M [energy_alphaevolve_lab.lab_runs]
+
+For reference during evolutionary search, progress on the training set was:
+
+* **Train Search Delta**: **6641.347 JPY M** [energy_alphaevolve_lab.lab_runs]
+  * **Seed Train Score**: -8800.354 JPY M [energy_alphaevolve_lab.lab_runs]
+  * **Best Train Score**: -2159.007 JPY M [energy_alphaevolve_lab.lab_runs]
+
+*Note: This run source is `local-gemini-controller` (an AlphaEvolve-compatible run on a local controller) [energy_alphaevolve_lab.lab_runs]. All figures reflect calibrated synthetic portfolio data.*",id=None args={'run_id': 'tariff_pricing.20260927T085054Z'} name='get_best_program_diff' partial_args=None will_continue=None,"id='call_203392' args={'run_id': 'tariff_pricing.20260927T085054Z'} name='get_run_summary' partial_args=None will_continue=None
+id='call_203393' args={'run_id': 'tariff_pricing.20260927T085054Z'} name='get_best_program_diff' partial_args=None will_continue=None
+id='call_203394' args={'run_id': 'tariff_pricing.20260927T085054Z'} name='get_holdout_result' partial_args=None will_continue=None"

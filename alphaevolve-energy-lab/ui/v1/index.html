@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AlphaEvolve Energy Lab</title>
+  <meta name="description" content="Evolutionary code search on tariff pricing and JEPX trading for a fictional Japanese balance group.">
+  <link rel="stylesheet" href="tokens.css">
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+  <script type="module" src="app.js"></script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="topbar">
+    <div class="topbar-title">
+      <h1>AlphaEvolve Energy Lab</h1>
+      <p class="subtitle">Evolutionary code search on tariff pricing and JEPX trading. Kanto Balance Group (fictional)</p>
+    </div>
+    <div class="topbar-honesty">
+      <span id="honesty-badge" class="badge warn" role="status"><span aria-hidden="true">&#9888;</span> <span id="honesty-text">Local controller run. evolved = false</span></span>
+      <p class="honesty-note">The AlphaEvolve service is not provisioned for this demo. Every run shown here comes from a local Gemini controller that speaks the AlphaEvolve contract, so no result counts as evolved.</p>
+    </div>
+    <nav class="topnav" aria-label="Sections">
+      <a href="#overview">Overview</a>
+      <a href="#scenarios">Scenario explorer</a>
+      <a href="#experiments">Experiments</a>
+      <a href="#gate">Promotion gate</a>
+      <a href="#analyst">Analyst</a>
+    </nav>
+  </header>
+
+  <main id="main" tabindex="-1">
+    <!-- 1. Overview KPIs -->
+    <section id="overview" aria-labelledby="overview-h">
+      <div class="section-head">
+        <h2 id="overview-h">Overview</h2>
+        <p class="section-sub">Latest finished run per problem from <span class="mono">/api/overview</span>. In-flight runs are marked as partial evidence.</p>
+      </div>
+      <div class="bento">
+        <article class="card span-4" id="kpi-tariff_pricing" aria-live="polite"><p class="caps">Tariff pricing</p><p class="loading">Loading</p></article>
+        <article class="card span-4" id="kpi-jepx_trading" aria-live="polite"><p class="caps">JEPX trading</p><p class="loading">Loading</p></article>
+        <article class="card span-4" id="kpi-market" aria-live="polite"><p class="caps">Portfolio and market</p><p class="loading">Loading</p></article>
+      </div>
+    </section>
+
+    <!-- 2. Scenario explorer -->
+    <section id="scenarios" aria-labelledby="scenarios-h">
+      <div class="section-head">
+        <h2 id="scenarios-h">Scenario explorer</h2>
+        <p class="section-sub">Synthetic Tokyo area history calibrated to public market statistics, plus the customer book and cost stack the evaluators use.</p>
+        <div class="controls">
+          <span class="caps" id="fy-label">Fiscal year</span>
+          <div class="seg-group" role="group" aria-labelledby="fy-label" id="fy-buttons"></div>
+        </div>
+      </div>
+      <div class="bento">
+        <article class="card span-8 row-2" aria-labelledby="heatmap-h">
+          <div class="card-head">
+            <h3 id="heatmap-h">Tokyo day-ahead price heatmap <span class="muted" id="heatmap-fy"></span></h3>
+            <p class="card-sub" id="heatmap-note">Each cell is one half-hour slot. Color scale in JPY/kWh.</p>
+          </div>
+          <div class="chart tall" id="chart-heatmap" role="img" aria-label="Heatmap of Tokyo day-ahead price by date and half-hour slot"></div>
+        </article>
+        <article class="card span-4" aria-labelledby="duration-h">
+          <div class="card-head">
+            <h3 id="duration-h">Price duration curve</h3>
+            <div class="seg-group small" role="group" aria-label="Y axis scale" id="duration-scale">
+              <button class="btn seg" type="button" data-scale="linear" aria-pressed="true">Linear</button>
+              <button class="btn seg" type="button" data-scale="log" aria-pressed="false">Log</button>
+            </div>
+          </div>
+          <div class="chart" id="chart-duration" role="img" aria-label="Price duration curves by fiscal year"></div>
+        </article>
+        <article class="card span-4" aria-labelledby="shape-h">
+          <div class="card-head">
+            <h3 id="shape-h">Diurnal shape by season <span class="muted" id="shape-fy"></span></h3>
+          </div>
+          <div class="chart" id="chart-shape" role="img" aria-label="Average price by hour of day for each season"></div>
+        </article>
+
+        <article class="card span-6" aria-labelledby="rm-h">
+          <div class="card-head">
+            <h3 id="rm-h">Reserve margin vs imbalance price <span class="muted" id="rm-fy"></span></h3>
+            <div class="seg-group small" role="group" aria-label="Reserve margin range" id="rm-range">
+              <button class="btn seg" type="button" data-r="scarcity" aria-pressed="true">Scarcity region</button>
+              <button class="btn seg" type="button" data-r="all" aria-pressed="false">All points</button>
+            </div>
+            <p class="card-sub" id="rm-note">Regulatory scarcity curve overlaid.</p>
+          </div>
+          <div class="chart" id="chart-rm" role="img" aria-label="Scatter of reserve margin against imbalance price with the scarcity curve"></div>
+        </article>
+        <article class="card span-6" aria-labelledby="monthly-h">
+          <div class="card-head">
+            <h3 id="monthly-h">Monthly mean Tokyo price</h3>
+            <p class="card-sub" id="monthly-note">History by fiscal year plus the scenario bank means.</p>
+          </div>
+          <div class="chart" id="chart-monthly" role="img" aria-label="Monthly mean prices by fiscal year and scenario bank"></div>
+        </article>
+
+        <article class="card span-6" aria-labelledby="portfolio-h">
+          <div class="card-head">
+            <h3 id="portfolio-h">Customer portfolio by segment</h3>
+            <p class="card-sub" id="portfolio-note"></p>
+          </div>
+          <div class="chart" id="chart-portfolio" role="img" aria-label="Annual energy by customer segment"></div>
+          <div class="table-wrap" id="portfolio-table" tabindex="0" role="region" aria-label="Portfolio table"></div>
+        </article>
+        <article class="card span-6" aria-labelledby="cost-h">
+          <div class="card-head">
+            <h3 id="cost-h">Cost stack</h3>
+            <div class="seg-group small" role="group" aria-label="Voltage class" id="cost-voltage">
+              <button class="btn seg" type="button" data-v="HV" aria-pressed="true">HV</button>
+              <button class="btn seg" type="button" data-v="EHV" aria-pressed="false">EHV</button>
+            </div>
+          </div>
+          <div id="cost-body"><p class="loading">Loading</p></div>
+        </article>
+
+        <article class="card span-12" aria-labelledby="cal-h">
+          <div class="card-head">
+            <h3 id="cal-h">Calibration: synthetic vs MARKET_FACTS targets</h3>
+            <button class="btn seg" type="button" id="cal-filter" aria-pressed="false">Only rows off by more than 10%</button>
+          </div>
+          <p class="card-sub" id="cal-summary"></p>
+          <div class="table-wrap tall" id="cal-table" tabindex="0" role="region" aria-label="Calibration table"></div>
+        </article>
+      </div>
+    </section>
+
+    <!-- 3. Experiment view -->
+    <section id="experiments" aria-labelledby="exp-h">
+      <div class="section-head">
+        <h2 id="exp-h">Experiments</h2>
+        <p class="section-sub">Run evidence files, including in-flight partial evidence. The view refreshes every 10 s while a run is in progress.</p>
+        <div class="controls">
+          <div class="tabs" role="tablist" aria-label="Problem" id="problem-tabs">
+            <button class="tab" type="button" role="tab" id="tab-tariff_pricing" data-problem="tariff_pricing" aria-selected="true" aria-controls="exp-panel" tabindex="0">tariff_pricing</button>
+            <button class="tab" type="button" role="tab" id="tab-jepx_trading" data-problem="jepx_trading" aria-selected="false" aria-controls="exp-panel" tabindex="-1">jepx_trading</button>
+          </div>
+          <label class="select-label" for="run-select"><span class="caps">Run</span>
+            <select id="run-select"></select>
+          </label>
+          <span id="poll-status" class="muted small-text" role="status"></span>
+        </div>
+      </div>
+      <div id="exp-panel" role="tabpanel" aria-labelledby="tab-tariff_pricing">
+        <div class="bento">
+          <article class="card span-12" id="run-header" aria-live="polite"><p class="loading">Loading runs</p></article>
+
+          <article class="card span-8" aria-labelledby="score-h">
+            <div class="card-head">
+              <h3 id="score-h">Score vs program index</h3>
+              <p class="card-sub" id="score-note"></p>
+            </div>
+            <div class="chart" id="chart-score" role="img" aria-label="Score of each evaluated program with best so far and seed line"></div>
+            <p class="legend-note"><span class="glyph ok" aria-hidden="true">&#9679;</span> valid program &nbsp; <span class="glyph crit" aria-hidden="true">&#10006;</span> invalid program (not scored, shown in the band below the axis) &nbsp; <span class="glyph line" aria-hidden="true">&#9473;</span> best so far &nbsp; <span class="glyph dash" aria-hidden="true">&#9476;</span> seed</p>
+          </article>
+          <article class="card span-4" aria-labelledby="islands-h">
+            <div class="card-head"><h3 id="islands-h">Island leaderboard</h3></div>
+            <div id="islands-body" class="scroll-y" tabindex="0" role="region" aria-label="Island leaderboard"></div>
+          </article>
+
+          <article class="card span-12" aria-labelledby="diff-h">
+            <div class="card-head">
+              <h3 id="diff-h">Seed vs program diff</h3>
+              <label class="select-label" for="program-select"><span class="caps">Program</span>
+                <select id="program-select"></select>
+              </label>
+            </div>
+            <div class="diff-layout">
+              <div id="diff-body" class="diff-col"></div>
+              <aside id="diff-side" class="diff-side" aria-label="Mutator rationale and lineage"></aside>
+            </div>
+          </article>
+
+          <article class="card span-6" aria-labelledby="holdout-h">
+            <div class="card-head">
+              <h3 id="holdout-h">Holdout validation</h3>
+              <div class="seg-group small" role="group" aria-label="Holdout chart values" id="holdout-mode">
+                <button class="btn seg" type="button" data-mode="delta" aria-pressed="true">Change vs seed</button>
+                <button class="btn seg" type="button" data-mode="abs" aria-pressed="false">Absolute</button>
+              </div>
+            </div>
+            <div id="holdout-body"></div>
+          </article>
+          <article class="card span-6" aria-labelledby="catches-h">
+            <div class="card-head"><h3 id="catches-h">Invariant catches</h3></div>
+            <div id="catches-body"></div>
+          </article>
+
+          <article class="card span-6" aria-labelledby="budget-h">
+            <div class="card-head"><h3 id="budget-h">Run budget and tokens</h3></div>
+            <div id="budget-body"></div>
+          </article>
+          <article class="card span-6" aria-labelledby="ledger-h">
+            <div class="card-head"><h3 id="ledger-h">Budget ledger</h3></div>
+            <div id="ledger-body"></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. Promotion gate -->
+    <section id="gate" aria-labelledby="gate-h">
+      <div class="section-head">
+        <h2 id="gate-h">Promotion gate</h2>
+        <p class="section-sub">A pure function of run evidence and the append-only review log. Promotion needs every check to pass, including a real AlphaEvolve source.</p>
+      </div>
+      <div class="bento">
+        <article class="card span-6" aria-labelledby="checks-h">
+          <div class="card-head"><h3 id="checks-h">Checklist <span class="muted" id="gate-run"></span></h3></div>
+          <div id="gate-checks" aria-live="polite"></div>
+        </article>
+        <article class="card span-6" aria-labelledby="actions-h">
+          <div class="card-head"><h3 id="actions-h">Human review and promotion</h3></div>
+          <div id="gate-actions"></div>
+        </article>
+      </div>
+    </section>
+
+    <!-- 5. Analyst chat + trace -->
+    <section id="analyst" aria-labelledby="analyst-h">
+      <div class="section-head">
+        <h2 id="analyst-h">Lab Analyst</h2>
+        <p class="section-sub">The analyst reads run evidence and market tables through tools. It never writes: proposals land in the pending tray and run only after a person holds Confirm.</p>
+      </div>
+      <div class="bento">
+        <article class="card span-6 chat-card" aria-labelledby="chat-h">
+          <div class="card-head"><h3 id="chat-h">Chat</h3></div>
+          <div id="chat-log" class="chat-log" role="log" aria-live="polite" aria-label="Conversation" tabindex="0"></div>
+          <div class="chips" id="chips" role="group" aria-label="Suggested prompts"></div>
+          <form id="composer" class="composer">
+            <label for="chat-input" class="sr-only">Message to the Lab Analyst</label>
+            <textarea id="chat-input" rows="3" placeholder="Ask about runs, catches, holdout or market facts. Enter sends, Shift+Enter adds a line."></textarea>
+            <button class="btn primary" type="submit" id="chat-send">Send</button>
+          </form>
+        </article>
+        <article class="card span-6" aria-labelledby="trace-h">
+          <div class="card-head">
+            <h3 id="trace-h">Trace console</h3>
+            <button class="btn" type="button" id="trace-clear">Clear</button>
+          </div>
+          <div id="trace" class="console trace" role="log" aria-label="Tool call trace" tabindex="0"></div>
+        </article>
+        <article class="card span-12" aria-labelledby="pending-h">
+          <div class="card-head">
+            <h3 id="pending-h">Pending actions</h3>
+            <button class="btn" type="button" id="actions-refresh">Refresh</button>
+          </div>
+          <div id="pending-body" aria-live="polite"></div>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="disclaimer site-footer">Concept demo. Synthetic, calibrated data. Not affiliated with or endorsed by TEPCO or Mitsubishi Electric.</footer>
+</body>
+</html>

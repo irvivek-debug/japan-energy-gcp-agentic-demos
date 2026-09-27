@@ -1,0 +1,36 @@
+{
+ "generator": "data/generate.py",
+ "seed": 20260819,
+ "scenario_now": "2026-08-19T15:40",
+ "calendar": {
+  "spot_start": "2026-06-01",
+  "spot_end": "2026-08-20",
+  "load_start": "2026-08-01",
+  "intraday_start": "2026-08-06",
+  "telemetry_start": "2026-08-18",
+  "forward_end": "2026-09-30"
+ },
+ "tables": {
+  "jepx_spot_30min": 3888,
+  "jepx_intraday_30min": 672,
+  "imbalance_30min": 3840,
+  "weather_forecast_hourly": 3600,
+  "customers": 300,
+  "customer_load_30min": 273600,
+  "balance_position_30min": 912,
+  "customer_forecast_daily": 3600,
+  "forward_curve_daily": 42,
+  "hedge_book": 4,
+  "vpp_clusters": 60,
+  "vpp_telemetry_30min": 4800,
+  "ancillary_commitments": 10,
+  "clean_resources": 8,
+  "clean_supply_hourly": 79608,
+  "grid_mix_hourly": 1191,
+  "cfe_allocation_hourly": 9528,
+  "nfc_ledger": 27747,
+  "prospects": 3,
+  "prospect_load_hourly": 26280
+ },
+ "rows": 439693
+}

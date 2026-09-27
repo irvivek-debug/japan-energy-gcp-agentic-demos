@@ -30,7 +30,7 @@ flowchart LR
     WN["WeatherNext 3 ensemble\n(demo: simulated p10/p50/p90)"]
     APIGEE["Apigee: JEPX API, aggregator API\n(demo: jepx_prices_30min, dr_events)"]
     AR["Agent Runtime (formerly Agent Engine)\nADK swarm: orchestrator + 6 specialists\nGemini 3.x at global endpoint"]
-    CR["Cloud Run: Factory Energy Command\nFastAPI + static UI, SSE chat,\nHITL action queue + audit"]
+    CR["Cloud Run: Factory Energy Copilot\nFastAPI + static UI, SSE chat,\nHITL action queue + audit"]
     AE["AlphaEvolve (Energy Lab demo)\npolicy search path"]
   end
   ME96 --> OPC

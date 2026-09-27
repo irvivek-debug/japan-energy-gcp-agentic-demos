@@ -24,7 +24,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, ROOT)
 
 from fastapi import FastAPI, HTTPException  # noqa: E402
-from fastapi.responses import StreamingResponse  # noqa: E402
+from fastapi.responses import FileResponse, RedirectResponse, StreamingResponse  # noqa: E402
 from fastapi.staticfiles import StaticFiles  # noqa: E402
 from pydantic import BaseModel  # noqa: E402
 
@@ -35,9 +35,10 @@ from factory_copilot.datastore import STORE  # noqa: E402
 from factory_copilot.edge.interlock_engine import evaluate_plan, parse_plan  # noqa: E402
 from factory_copilot.tools import common as C  # noqa: E402
 from factory_copilot.tools import gainshare, health, market  # noqa: E402
+from server import v2_api  # noqa: E402
 
 APP_NAME = "factory_copilot"
-app = FastAPI(title="Factory Energy Command")
+app = FastAPI(title="Factory Energy Copilot")
 ACTIONS: dict[str, dict] = {}
 AUDIT: list[dict] = []
 
@@ -208,7 +209,9 @@ def flex():
 @app.get("/api/bess")
 def bess_panel():
     runs = bess_runs()
-    out = {"soc_now_pct": round(float(C.bess_now()["soc_pct"]), 2), "policies": {}}
+    bp = C.bess_params()
+    out = {"soc_now_pct": round(float(C.bess_now()["soc_pct"]), 2), "policies": {},
+           "limits": {"soc_min_pct": bp.soc_min_pct, "soc_max_pct": bp.soc_max_pct, "power_kw": bp.power_kw, "energy_kwh": bp.energy_kwh}}
     for pol, r in runs.items():
         out["policies"][pol] = {"kpis": r["kpis"], "rows": [{"slot": x["slot"], "time": slot_start(x["slot"]), "power_kw": x["power_kw"],
                                                                "soc_end_pct": round(x["soc_end_pct"], 2), "dr": x["in_dr_window"], "spike": x["in_spike_window"],
@@ -284,9 +287,10 @@ def _attach_audit(result: dict):
     pid, verdict = result.get("plan_id"), result.get("verdict")
     if not pid or not verdict:
         return
-    for a in ACTIONS.values():
+    for k, a in list(ACTIONS.items()):
         if a.get("details", {}).get("plan_id") == pid:
             a["audit"] = verdict
+            ACTIONS[k] = v2_api.enrich_action(a)
 
 
 def _part_events(author: str, content: Any) -> list[dict]:
@@ -302,6 +306,7 @@ def _part_events(author: str, content: Any) -> list[dict]:
             pa = resp.get("pending_action") if isinstance(resp, dict) else None
             if pa:
                 pa = {**pa, "id": pa.get("id") or f"act-{uuid.uuid4().hex[:8]}", "status": "pending", "created": time.time(), "proposed_by": author}
+                pa = v2_api.enrich_action(pa)
                 ACTIONS[pa["id"]] = pa
                 out.append({"type": "pending_action", "author": author, "action": pa})
         elif getattr(p, "text", None) and not getattr(p, "thought", False):
@@ -326,12 +331,18 @@ async def _local_stream(message: str, session_id: str | None) -> AsyncIterator[d
     if not session_id or not await _session_service.get_session(app_name=APP_NAME, user_id="web", session_id=session_id):
         session_id = (await _session_service.create_session(app_name=APP_NAME, user_id="web")).id
     yield {"type": "session", "session_id": session_id}
+    answered = False
     async for ev in _runner.run_async(user_id="web", session_id=session_id,
                                       new_message=types.Content(role="user", parts=[types.Part(text=message)])):
+        if getattr(ev, "error_message", None):
+            yield {"type": "error", "author": ev.author, "error": f"{ev.error_code or 'model error'}: {ev.error_message}"[:500]}
         for e in _part_events(ev.author, ev.content):
+            answered = answered or (e["type"] == "text" and ev.author == root_agent.name)
             yield e
         if ev.is_final_response() and ev.author == root_agent.name:
             yield {"type": "final", "author": ev.author}
+    if not answered:   # the runner logs a failed model call and ends quietly; say so instead of leaving an empty answer
+        yield {"type": "error", "error": "The lead agent ended without an answer: a model call failed or returned nothing (see the server log). Nothing was proposed or executed."}
 
 
 async def _agent_engine_stream(message: str, session_id: str | None) -> AsyncIterator[dict]:
@@ -403,4 +414,33 @@ def decide(aid: str, decision: str):
     return a
 
 
+@app.get("/v1", include_in_schema=False)
+def v1_redirect():
+    return RedirectResponse("/v1/")
+
+
+@app.get("/favicon.ico", include_in_schema=False)
+def favicon():
+    return FileResponse(os.path.join(ROOT, "ui", "favicon.svg"), media_type="image/svg+xml")
+
+
+app.include_router(v2_api.router)
+
+
+def _warm_caches() -> None:
+    """Fill the landing's cached figures as soon as the process starts. Cold on BigQuery the gap and meta figures take
+    about 10 s; without this the first visitor after a scale-to-zero waits for them. Failures only mean a slower first
+    request, so they are swallowed here and surface on the request itself."""
+    for f in (v2_api.meta, v2_api.gap, v2_api.strip, v2_api.prize, v2_api.value, overview):
+        try:
+            f()
+        except Exception:  # noqa: BLE001
+            pass
+
+
+if os.getenv("WARM_CACHES", "1") == "1":
+    import threading
+
+    threading.Thread(target=_warm_caches, daemon=True, name="warm-caches").start()
+# UI v2 lives in ui/ (served at /); the unchanged v1 dashboard lives in ui/v1/ (served at /v1/).
 app.mount("/", StaticFiles(directory=os.path.join(ROOT, "ui"), html=True), name="ui")

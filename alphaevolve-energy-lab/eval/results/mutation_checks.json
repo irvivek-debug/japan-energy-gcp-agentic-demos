@@ -2,6 +2,41 @@
  "all_gates_protected": true,
  "results": [
   {
+   "mutation": "tools: reserved-word column in get_holdout_result",
+   "file": "energy_lab/tools/lab_tools.py",
+   "test": "tests/test_data_tools_server.py::test_every_tool_succeeds_on_real_data",
+   "suite_went_red": true,
+   "tail": "1 failed in 1.52s"
+  },
+  {
+   "mutation": "tools: margin caveat dropped from get_holdout_result",
+   "file": "energy_lab/tools/lab_tools.py",
+   "test": "tests/test_segment_judgments.py::test_tools_carry_the_margin_caveat_for_run4_and_none_for_trading",
+   "suite_went_red": true,
+   "tail": "1 failed in 1.17s"
+  },
+  {
+   "mutation": "judgments: caveat never derived from the segment table",
+   "file": "energy_lab/segment_judgments.py",
+   "test": "tests/test_segment_judgments.py::test_caveat_is_derived_from_the_recomputed_judgment_not_typed",
+   "suite_went_red": true,
+   "tail": "1 failed in 0.04s"
+  },
+  {
+   "mutation": "judgments: point rise rule always passes",
+   "file": "energy_lab/segment_judgments.py",
+   "test": "tests/test_segment_judgments.py::test_judgment_file_matches_unchanged_evidence_and_recomputes_identically",
+   "suite_went_red": true,
+   "tail": "1 failed in 2.54s"
+  },
+  {
+   "mutation": "controller: generation circuit breaker removed",
+   "file": "energy_lab/harness/local_controller.py",
+   "test": "tests/test_baseline_budget_evidence.py::test_circuit_breaker_stops_on_consecutive_generation_errors",
+   "suite_went_red": true,
+   "tail": "1 failed in 8.60s"
+  },
+  {
    "mutation": "datastore: one DuckDB connection shared across threads",
    "file": "energy_lab/datastore.py",
    "test": "tests/test_datastore_concurrency.py::test_concurrent_queries_do_not_interleave",
@@ -13,7 +48,7 @@
    "file": "energy_lab/harness/sandbox_child.py",
    "test": "tests/test_sandbox.py::test_socket_denied_even_if_import_guard_is_bypassed",
    "suite_went_red": true,
-   "tail": "1 failed in 0.09s"
+   "tail": "1 failed in 0.10s"
   },
   {
    "mutation": "sandbox: out-of-installation reads allowed (look-ahead)",
@@ -27,56 +62,56 @@
    "file": "energy_lab/problems/jepx_trading/sim.py",
    "test": "tests/test_invariants_trading.py::test_intentional_imbalance_is_caught_with_slot_list",
    "suite_went_red": true,
-   "tail": "1 failed in 2.43s"
+   "tail": "1 failed in 2.37s"
   },
   {
    "mutation": "trading: naked-selling check disabled",
    "file": "energy_lab/problems/jepx_trading/sim.py",
    "test": "tests/test_invariants_trading.py::test_other_invariants",
    "suite_went_red": true,
-   "tail": "1 failed in 2.26s"
+   "tail": "1 failed in 2.48s"
   },
   {
    "mutation": "tariff: essential alpha limit 0.30 -> 0.95",
    "file": "energy_lab/problems/tariff_pricing/model.py",
    "test": "tests/test_invariants_tariff.py::test_violator_is_caught",
    "suite_went_red": true,
-   "tail": "1 failed in 0.89s"
+   "tail": "1 failed in 0.92s"
   },
   {
    "mutation": "tariff: v3 rise rule disabled",
    "file": "energy_lab/problems/tariff_pricing/model.py",
    "test": "tests/test_invariants_tariff.py::test_v3_segment_churn_rise_vs_incumbent_is_caught",
    "suite_went_red": true,
-   "tail": "1 failed in 0.86s"
+   "tail": "1 failed in 0.90s"
   },
   {
    "mutation": "baseline: seed == null check removed",
    "file": "energy_lab/harness/baseline.py",
    "test": "tests/test_baseline_budget_evidence.py::test_baseline_refuses_evaluator_that_cannot_separate_seed_from_null",
    "suite_went_red": true,
-   "tail": "1 failed in 0.67s"
+   "tail": "1 failed in 0.70s"
   },
   {
    "mutation": "evidence: exclusive create -> overwrite",
    "file": "energy_lab/harness/evidence.py",
    "test": "tests/test_baseline_budget_evidence.py::test_evidence_is_never_overwritten",
    "suite_went_red": true,
-   "tail": "1 failed in 0.78s"
+   "tail": "1 failed in 0.67s"
   },
   {
    "mutation": "budget: invalid candidates reset the plateau",
    "file": "energy_lab/harness/budget.py",
    "test": "tests/test_baseline_budget_evidence.py::test_plateau_counts_feasible_only",
    "suite_went_red": true,
-   "tail": "1 failed in 0.69s"
+   "tail": "1 failed in 0.67s"
   },
   {
    "mutation": "promotion: source check removed",
    "file": "energy_lab/harness/evidence.py",
    "test": "tests/test_baseline_budget_evidence.py::test_promotion_gate_requires_all_four",
    "suite_went_red": true,
-   "tail": "1 failed in 0.64s"
+   "tail": "1 failed in 0.66s"
   }
  ]
 }

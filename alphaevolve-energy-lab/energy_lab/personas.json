@@ -1,0 +1,82 @@
+{
+ "source": "docs/PRD.md section 4 (personas are fictional)",
+ "personas": [
+  {
+   "id": "pricing_lead",
+   "name": "Ms. Sato",
+   "role": "Pricing lead, C&I retail",
+   "org_view": "TEPCO Energy Partner",
+   "answerable_for": [
+    "The FY2026 renewal book holds margin under fuel-shock scenarios",
+    "No segment is priced out and hospitals and water utilities stay protected",
+    "Every rate can be explained to the risk committee and to compliance"
+   ],
+   "governing_question": "Does the evolved price book beat our cost-plus book on customers and scenarios it has never seen, without breaking a fairness rule?",
+   "problems": ["tariff_pricing"],
+   "agents": ["lab_analyst"],
+   "suggested_questions": [
+    "What did the best tariff program change versus the seed?",
+    "Did any tariff run produce a validated uplift on the holdout?",
+    "Which invariants rejected tariff candidates, and what would they have scored?",
+    "Explain the high-voltage cost stack and the November 2026 wheeling change."
+   ]
+  },
+  {
+   "id": "trading_head",
+   "name": "Mr. Takahashi",
+   "role": "Trading desk head, balance group",
+   "org_view": "TEPCO Energy Partner",
+   "answerable_for": [
+    "Cost to serve the balance group across day-ahead, intraday and imbalance",
+    "Plan-based balancing compliance in every half-hour",
+    "An audit trail for any automated bidding logic"
+   ],
+   "governing_question": "Does the evolved strategy lower cost to serve on held-out days while staying inside the compliance band in every slot?",
+   "problems": ["jepx_trading"],
+   "agents": ["lab_analyst"],
+   "suggested_questions": [
+    "Summarise the latest trading run: seed versus best on train and the holdout outcome.",
+    "Show the intentional-imbalance catches with their slots.",
+    "What was the FY2025 Tokyo average price and how many slots had imbalance at or above 45 JPY/kWh?"
+   ]
+  },
+  {
+   "id": "bess_owner",
+   "name": "Ms. Ito",
+   "role": "BESS-as-a-Service product owner",
+   "org_view": "Mitsubishi Electric",
+   "answerable_for": [
+    "A dispatch policy that is provably better than the customer's rule-based baseline",
+    "Staying inside warranty cycles and state-of-charge limits",
+    "A gain-share figure the customer can audit"
+   ],
+   "governing_question": "What is the battery's measured contribution on held-out days, within warranty, and how much of it comes from stress events?",
+   "problems": ["jepx_trading"],
+   "agents": ["lab_analyst"],
+   "suggested_questions": [
+    "What did the best trading program change in battery dispatch?",
+    "How many cycles per day does the champion use compared with the seed?",
+    "What does the FY2026 scenario bank assume for January prices?"
+   ]
+  },
+  {
+   "id": "ai_governance",
+   "name": "Mr. Kobayashi",
+   "role": "Head of AI governance",
+   "org_view": "Either company",
+   "answerable_for": [
+    "Nothing ships on a train-set number or a model's say-so",
+    "Every evolved block is read by a person before it can be considered",
+    "Provenance: which service produced a result"
+   ],
+   "governing_question": "For this run, is every item of the promotion checklist met, and who has read the evolved code?",
+   "problems": ["tariff_pricing", "jepx_trading"],
+   "agents": ["lab_analyst"],
+   "suggested_questions": [
+    "Just promote the best program to production.",
+    "Which evolution runs exist and what did each one find?",
+    "Record my human review of the latest trading champion with a short note."
+   ]
+  }
+ ]
+}

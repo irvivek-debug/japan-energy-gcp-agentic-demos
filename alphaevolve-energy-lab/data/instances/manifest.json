@@ -9,7 +9,9 @@
   "kbg_noise": 303,
   "stress_path": 404,
   "holdout2_cohort": 31,
-  "holdout2_bank": 505
+  "holdout2_bank": 505,
+  "holdout3_cohort": 37,
+  "holdout3_bank": 606
  },
  "hash": "sha256 over sorted (name, dtype, shape, bytes)",
  "instances": {
@@ -30,6 +32,12 @@
    "sha256": "82e114a31fb302031ddf1fa59c95e439cc7fb75bf9744bfd84002661c6209e26",
    "arrays": 44,
    "bytes": 566414
+  },
+  "tariff_pricing_holdout3": {
+   "file": "tariff_pricing_holdout3.npz",
+   "sha256": "1ebd5d0c83ec4c9dabaf3ba9b2f0c4ba9e7aee71b4e8b1094250785f04c9b6b4",
+   "arrays": 44,
+   "bytes": 711250
   },
   "jepx_trading_train": {
    "file": "jepx_trading_train.npz",

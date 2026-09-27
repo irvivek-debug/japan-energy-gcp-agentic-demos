@@ -35,6 +35,8 @@ from .evaluate import evaluate_candidate
 from .evidence import SCHEMA, EvidenceWriter
 from .package import END, START, assemble
 
+MAX_CONSECUTIVE_GENERATION_ERRORS = 3   # circuit breaker: stop instead of burning the budget on a dead model endpoint
+
 SYSTEM_PROMPT = """You are an expert quantitative developer and energy-market economist working on an \
 evolutionary code search (AlphaEvolve-style). You improve ONE Python policy block for a Japanese electricity \
 retailer. You must respect the stated regulatory and fairness invariants: a candidate that violates any of them \
@@ -256,6 +258,8 @@ class LocalController:
         spec = self.spec
         started = datetime.now(timezone.utc)
         t0 = time.monotonic()
+        if hasattr(self.mutator, "preflight"):
+            self.mutator.preflight()                              # refuses to start (and spend budget) without credentials
         lock_report = verify_baseline(spec)                       # refuses to start on an unlocked baseline
         budget_state = self.ledger.check_can_start(spec.name, self.max_programs, self.policy)
         writer = EvidenceWriter(spec.name, started, self.runs_dir)
@@ -275,6 +279,7 @@ class LocalController:
         plateau = PlateauTracker(self.policy.plateau_patience, seed.score)
         submitted = 0
         next_island = 0
+        consecutive_gen_errors = 0
         in_flight: dict[Future, int] = {}
         record_base = self._record_base(writer.run_id, started, lock_report)
         with ThreadPoolExecutor(max_workers=self.policy.concurrency) as pool:
@@ -287,6 +292,8 @@ class LocalController:
                     stop = "wall_clock"
                 elif plateau.plateaued:
                     stop = "plateau"
+                elif consecutive_gen_errors >= MAX_CONSECUTIVE_GENERATION_ERRORS:
+                    stop = "generation_errors"
                 if stop is None and len(in_flight) < self.policy.concurrency:
                     submitted += 1
                     island = next_island
@@ -309,6 +316,7 @@ class LocalController:
                     except Exception as e:  # noqa: BLE001
                         c = Candidate(len(self.cands), f"p{len(self.cands):03d}-error", None, 0, self.seed_prog.block,
                                       "error", EvalOutcome(None, "controller_error", [("controller_error", repr(e)[:400])]))
+                    consecutive_gen_errors = consecutive_gen_errors + 1 if (c.outcome and c.outcome.kind == "generation") else 0
                     with self.lock:
                         c.idx = len(self.cands)
                         self._admit(c)
@@ -356,7 +364,8 @@ class LocalController:
             o = seed_h if c.idx == 0 else evaluate_candidate(spec, src, hf)
             rows.append({"id": c.id, "idx": c.idx, "train": c.score, "holdout": o.score, "holdout_valid": o.valid,
                          "holdout_kind": o.kind, "holdout_metrics": o.metrics,
-                         "holdout_insights": [{"label": l, "text": t} for l, t in o.insights[:8]]})
+                         "holdout_insights": [{"label": l, "text": t} for l, t in o.insights[:8]],
+                         "holdout_segment_tests": o.details.get("segment_tests")})
         champion = rows[0] if rows else None      # selected on TRAIN score only; holdout is reported, not searched
         best_holdout = champion["holdout"] if champion else None
         delta = (best_holdout - seed_h.score) if (best_holdout is not None and seed_h.score is not None) else None

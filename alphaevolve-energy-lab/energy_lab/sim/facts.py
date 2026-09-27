@@ -106,6 +106,9 @@ BESS_DEGRADATION_JPY_KWH = 8.0                         # ESTIMATE (recommended s
 SPREAD_2H = {2023: 8.66, 2024: 8.77, 2025: 8.28, 2026: 18.35}   # mean daily top-4 minus bottom-4, VERIFIED (computed)
 SPREAD_4H = {2023: 7.66, 2024: 7.89, 2025: 7.25, 2026: 15.41}
 PERFECT_FORESIGHT_2H_JPY_KWH_CAP_YR = {2024: 2190, 2025: 2080}   # ESTIMATE 12
+PERFECT_FORESIGHT_2H_FY2026_JPY_KWH_CAP_DAY = 13.6                # ESTIMATE 12 (FY2026 to date)
+REAL_CAPTURE_OF_PERFECT_FORESIGHT = (0.60, 0.80)                  # ESTIMATE 12 ("real bots capture perhaps 60-80%")
+IMBALANCE_IMPROPER_CONDUCT = "intentional imbalance is treated as improper conduct under plan-based balancing"  # 3
 
 # --- DR (MARKET_FACTS 8) ----------------------------------------------------------------------------------
 CAPACITY_MARKET_DR_CALL_HOURS = 3                      # VERIFIED 8 (must deliver for 3 h when called)

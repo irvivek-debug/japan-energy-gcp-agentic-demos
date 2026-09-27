@@ -129,9 +129,52 @@ def test_v3_mutation_disabling_rise_rule_lets_it_through(monkeypatch):
     assert not v or "above the incumbent book" not in v[0]["text"]
 
 
-def test_tariff_holdout_moved_to_fresh_fold():
-    assert SPEC.holdout_fold == "holdout2"
-    h2 = evaluate_candidate(SPEC, SPEC.seed_src, "holdout2")
-    h1 = evaluate_candidate(SPEC, SPEC.seed_src, "holdout")
-    assert h2.valid and h1.valid and h2.details["instance_sha256"] != h1.details["instance_sha256"]
-    assert "v3" in h2.details["evaluator_version"]
+def test_tariff_judgment_fold_is_preregistered_holdout3():
+    # Only facts about holdout3 are checked here (no program is evaluated on it before the pre-registered run).
+    from energy_lab.problems.base import load_manifest
+
+    assert SPEC.holdout_fold == "holdout3" and "v4" in tm.EVALUATOR_VERSION
+    man = load_manifest()["instances"]
+    assert "tariff_pricing_holdout3" in man
+    prereg = (SPEC.seed_path.parent.parent.parent.parent / "docs" / "PREREGISTRATION_tariff_v4.md").read_text()
+    assert man["tariff_pricing_holdout3"]["sha256"] in prereg      # the hash was recorded before the run
+    h2 = evaluate_candidate(SPEC, SPEC.seed_src, "holdout2")     # burned folds still evaluate
+    assert h2.valid
+
+
+def _synthetic(n_small=14, n_big=300, rise_small=0.0, rise_big=0.0, noise=0.04, seed=0):
+    import numpy as np
+
+    rng = np.random.default_rng(seed)
+    seg = np.array([1] * n_small + [2] * n_big)
+    p_inc = np.clip(rng.normal(0.85, 0.05, seg.size), 0.5, 0.99)
+    d = np.where(seg == 1, rise_small, rise_big) + rng.normal(0, noise, seg.size)
+    return seg, p_inc, p_inc - d
+
+
+def test_v4_margin_rule_uses_paired_se_and_pooled_sd_below_n_min():
+    import numpy as np
+
+    seg, p_inc, p_cand = _synthetic(rise_small=0.02, rise_big=0.02)
+    tests = {t["segment"]: t for t in tev.segment_margin_tests(seg, p_inc, p_cand)}
+    small, big = tests["semiconductor_fab"], tests["auto_parts"]
+    d = p_inc - p_cand
+    assert small["pooled_sd"] and not big["pooled_sd"]
+    assert abs(small["se_rise"] - np.std(d, ddof=1) / np.sqrt(14)) < 1e-12              # pooled (whole-cohort) sd
+    assert abs(big["se_rise"] - np.std(d[seg == 2], ddof=1) / np.sqrt(300)) < 1e-12   # own sd
+    assert abs(big["rise_limit"] - (0.05 + 1.645 * big["se_rise"])) < 1e-12
+    assert small["pass"] and big["pass"]
+
+
+def test_v4_margin_rule_rejects_a_real_rise_but_not_noise():
+    seg, p_inc, p_cand = _synthetic(rise_big=0.09)                    # 9 pp rise in a 300-customer segment
+    assert not {t["segment"]: t for t in tev.segment_margin_tests(seg, p_inc, p_cand)}["auto_parts"]["pass"]
+    seg, p_inc, p_cand = _synthetic(rise_big=0.051, noise=0.04)       # at the limit: noise must not reject it
+    assert {t["segment"]: t for t in tev.segment_margin_tests(seg, p_inc, p_cand)}["auto_parts"]["pass"]
+
+
+def test_v4_mutation_zero_margin_rejects_noise(monkeypatch):
+    monkeypatch.setattr(tm, "MARGIN_Z", 0.0)
+    seg, p_inc, p_cand = _synthetic(rise_big=0.051, noise=0.04, seed=1)
+    t = {x["segment"]: x for x in tev.segment_margin_tests(seg, p_inc, p_cand)}["auto_parts"]
+    assert t["rise_limit"] == 0.05

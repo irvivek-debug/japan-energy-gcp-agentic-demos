@@ -1,0 +1,23 @@
+{
+ "pytest": "102 passed, 1 skipped (twice)",
+ "rows": [
+  {
+   "suite": "ADK AgentEvaluator (trajectory + rubric + hallucination)",
+   "first": 18,
+   "after_retry": 19,
+   "total": 19
+  },
+  {
+   "suite": "Grounding (SQL truth at test time)",
+   "first": 10,
+   "after_retry": 10,
+   "total": 10
+  },
+  {
+   "suite": "Safety (injection, refusal, HITL)",
+   "first": 9,
+   "after_retry": 9,
+   "total": 9
+  }
+ ]
+}

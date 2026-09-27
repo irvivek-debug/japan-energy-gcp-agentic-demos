@@ -1,0 +1,169 @@
+eval_set_id,eval_id,metric_name,threshold,score,eval_status,prompt,expected_response,actual_response,expected_tool_calls,actual_tool_calls
+runs_holdout_tariff_latest,holdout_tariff_latest,tool_trajectory_avg_score,1.0,1.0,PASSED,Can we cite an uplift from run tariff_pricing.20260927T085054Z? What is the holdout delta and can it be promoted?,"Holdout delta 21190.932573 JPY M is the only citable number; the run is from the local controller so it cannot be promoted [energy_alphaevolve_lab.lab_runs]. The uplift carries a caveat computed from lab_segment_judgments: passes only under the pre-registered sampling margin: semiconductor_fab (n=14) rise +5.1 pp > 5.0 pp point limit, <= 7.6 pp margin limit; under v3 point rules ranks 1-2 of the top 5 would be invalid (ranks 3-5 pass both rule sets) [energy_alphaevolve_lab.lab_runs, energy_alphaevolve_lab.lab_segment_judgments].","### Holdout Delta and Uplift Citation
+
+Yes, you can cite a validated holdout delta of **21,190.933 JPY M** (best holdout score of -13,830.135 JPY M versus the seed holdout score of -35,021.068 JPY M) [energy_alphaevolve_lab.lab_runs]. 
+
+Please note that all market, customer, and run data in this lab is calibrated synthetic data for a fictional balance group.
+
+While the policy invariants held (`uplift_valid` is true) [energy_alphaevolve_lab.lab_runs], this uplift comes with a required pre-registered sampling caveat that must accompany any citation of this figure:
+* **Uplift Caveat**: ""passes only under the pre-registered sampling margin: semiconductor_fab (n=14) rise +5.1 pp > 5.0 pp point limit, <= 7.6 pp margin limit; under v3 point rules ranks 1-2 of the top 5 would be invalid (ranks 3-5 pass both rule sets)"" [energy_alphaevolve_lab.lab_runs].
+
+---
+
+### Can It Be Promoted?
+
+No, candidate program `p040-f3b6f3eb` cannot be promoted (`promotion_allowed` is false) [energy_alphaevolve_lab.lab_reviews]. 
+
+To be promoted to production, a candidate must pass all four criteria on the promotion gate checklist [energy_alphaevolve_lab.lab_reviews]:
+
+1. **Holdout delta recorded and positive**: **Passed** (21,190.933 JPY M) [energy_alphaevolve_lab.lab_runs].
+2. **Policy invariants hold on holdout (`uplift_valid`)**: **Passed** (true) [energy_alphaevolve_lab.lab_runs].
+3. **Recorded human review of the evolved block**: **Unmet** (0 human reviews recorded) [energy_alphaevolve_lab.lab_reviews].
+4. **Source is a real AlphaEvolve experiment (`source == alphaevolve`)**: **Unmet** (source is `local-gemini-controller`, an AlphaEvolve-compatible run executed on a local controller) [energy_alphaevolve_lab.lab_runs].
+
+Because two gate checks remain unmet, promotion is blocked and the `evolved` flag remains `false` [energy_alphaevolve_lab.lab_runs].",id=None args={'run_id': 'tariff_pricing.20260927T085054Z'} name='get_holdout_result' partial_args=None will_continue=None,"id='call_1356947' args={'run_id': 'tariff_pricing.20260927T085054Z'} name='get_run_summary' partial_args=None will_continue=None
+id='call_1356948' args={'run_id': 'tariff_pricing.20260927T085054Z'} name='get_holdout_result' partial_args=None will_continue=None"
+runs_holdout_tariff_latest,holdout_tariff_latest,rubric_based_final_response_quality_v1,0.8,1.0,PASSED,Can we cite an uplift from run tariff_pricing.20260927T085054Z? What is the holdout delta and can it be promoted?,"Holdout delta 21190.932573 JPY M is the only citable number; the run is from the local controller so it cannot be promoted [energy_alphaevolve_lab.lab_runs]. The uplift carries a caveat computed from lab_segment_judgments: passes only under the pre-registered sampling margin: semiconductor_fab (n=14) rise +5.1 pp > 5.0 pp point limit, <= 7.6 pp margin limit; under v3 point rules ranks 1-2 of the top 5 would be invalid (ranks 3-5 pass both rule sets) [energy_alphaevolve_lab.lab_runs, energy_alphaevolve_lab.lab_segment_judgments].","### Holdout Delta and Uplift Citation
+
+Yes, you can cite a validated holdout delta of **21,190.933 JPY M** (best holdout score of -13,830.135 JPY M versus the seed holdout score of -35,021.068 JPY M) [energy_alphaevolve_lab.lab_runs]. 
+
+Please note that all market, customer, and run data in this lab is calibrated synthetic data for a fictional balance group.
+
+While the policy invariants held (`uplift_valid` is true) [energy_alphaevolve_lab.lab_runs], this uplift comes with a required pre-registered sampling caveat that must accompany any citation of this figure:
+* **Uplift Caveat**: ""passes only under the pre-registered sampling margin: semiconductor_fab (n=14) rise +5.1 pp > 5.0 pp point limit, <= 7.6 pp margin limit; under v3 point rules ranks 1-2 of the top 5 would be invalid (ranks 3-5 pass both rule sets)"" [energy_alphaevolve_lab.lab_runs].
+
+---
+
+### Can It Be Promoted?
+
+No, candidate program `p040-f3b6f3eb` cannot be promoted (`promotion_allowed` is false) [energy_alphaevolve_lab.lab_reviews]. 
+
+To be promoted to production, a candidate must pass all four criteria on the promotion gate checklist [energy_alphaevolve_lab.lab_reviews]:
+
+1. **Holdout delta recorded and positive**: **Passed** (21,190.933 JPY M) [energy_alphaevolve_lab.lab_runs].
+2. **Policy invariants hold on holdout (`uplift_valid`)**: **Passed** (true) [energy_alphaevolve_lab.lab_runs].
+3. **Recorded human review of the evolved block**: **Unmet** (0 human reviews recorded) [energy_alphaevolve_lab.lab_reviews].
+4. **Source is a real AlphaEvolve experiment (`source == alphaevolve`)**: **Unmet** (source is `local-gemini-controller`, an AlphaEvolve-compatible run executed on a local controller) [energy_alphaevolve_lab.lab_runs].
+
+Because two gate checks remain unmet, promotion is blocked and the `evolved` flag remains `false` [energy_alphaevolve_lab.lab_runs].",id=None args={'run_id': 'tariff_pricing.20260927T085054Z'} name='get_holdout_result' partial_args=None will_continue=None,"id='call_1356947' args={'run_id': 'tariff_pricing.20260927T085054Z'} name='get_run_summary' partial_args=None will_continue=None
+id='call_1356948' args={'run_id': 'tariff_pricing.20260927T085054Z'} name='get_holdout_result' partial_args=None will_continue=None"
+runs_holdout_tariff_latest,holdout_tariff_latest,hallucinations_v1,0.8,1.0,PASSED,Can we cite an uplift from run tariff_pricing.20260927T085054Z? What is the holdout delta and can it be promoted?,"Holdout delta 21190.932573 JPY M is the only citable number; the run is from the local controller so it cannot be promoted [energy_alphaevolve_lab.lab_runs]. The uplift carries a caveat computed from lab_segment_judgments: passes only under the pre-registered sampling margin: semiconductor_fab (n=14) rise +5.1 pp > 5.0 pp point limit, <= 7.6 pp margin limit; under v3 point rules ranks 1-2 of the top 5 would be invalid (ranks 3-5 pass both rule sets) [energy_alphaevolve_lab.lab_runs, energy_alphaevolve_lab.lab_segment_judgments].","### Holdout Delta and Uplift Citation
+
+Yes, you can cite a validated holdout delta of **21,190.933 JPY M** (best holdout score of -13,830.135 JPY M versus the seed holdout score of -35,021.068 JPY M) [energy_alphaevolve_lab.lab_runs]. 
+
+Please note that all market, customer, and run data in this lab is calibrated synthetic data for a fictional balance group.
+
+While the policy invariants held (`uplift_valid` is true) [energy_alphaevolve_lab.lab_runs], this uplift comes with a required pre-registered sampling caveat that must accompany any citation of this figure:
+* **Uplift Caveat**: ""passes only under the pre-registered sampling margin: semiconductor_fab (n=14) rise +5.1 pp > 5.0 pp point limit, <= 7.6 pp margin limit; under v3 point rules ranks 1-2 of the top 5 would be invalid (ranks 3-5 pass both rule sets)"" [energy_alphaevolve_lab.lab_runs].
+
+---
+
+### Can It Be Promoted?
+
+No, candidate program `p040-f3b6f3eb` cannot be promoted (`promotion_allowed` is false) [energy_alphaevolve_lab.lab_reviews]. 
+
+To be promoted to production, a candidate must pass all four criteria on the promotion gate checklist [energy_alphaevolve_lab.lab_reviews]:
+
+1. **Holdout delta recorded and positive**: **Passed** (21,190.933 JPY M) [energy_alphaevolve_lab.lab_runs].
+2. **Policy invariants hold on holdout (`uplift_valid`)**: **Passed** (true) [energy_alphaevolve_lab.lab_runs].
+3. **Recorded human review of the evolved block**: **Unmet** (0 human reviews recorded) [energy_alphaevolve_lab.lab_reviews].
+4. **Source is a real AlphaEvolve experiment (`source == alphaevolve`)**: **Unmet** (source is `local-gemini-controller`, an AlphaEvolve-compatible run executed on a local controller) [energy_alphaevolve_lab.lab_runs].
+
+Because two gate checks remain unmet, promotion is blocked and the `evolved` flag remains `false` [energy_alphaevolve_lab.lab_runs].",id=None args={'run_id': 'tariff_pricing.20260927T085054Z'} name='get_holdout_result' partial_args=None will_continue=None,"id='call_1356947' args={'run_id': 'tariff_pricing.20260927T085054Z'} name='get_run_summary' partial_args=None will_continue=None
+id='call_1356948' args={'run_id': 'tariff_pricing.20260927T085054Z'} name='get_holdout_result' partial_args=None will_continue=None"
+runs_holdout_tariff_latest,holdout_tariff_latest,tool_call_count_v1,,2.0,INFORMATIONAL,Can we cite an uplift from run tariff_pricing.20260927T085054Z? What is the holdout delta and can it be promoted?,"Holdout delta 21190.932573 JPY M is the only citable number; the run is from the local controller so it cannot be promoted [energy_alphaevolve_lab.lab_runs]. The uplift carries a caveat computed from lab_segment_judgments: passes only under the pre-registered sampling margin: semiconductor_fab (n=14) rise +5.1 pp > 5.0 pp point limit, <= 7.6 pp margin limit; under v3 point rules ranks 1-2 of the top 5 would be invalid (ranks 3-5 pass both rule sets) [energy_alphaevolve_lab.lab_runs, energy_alphaevolve_lab.lab_segment_judgments].","### Holdout Delta and Uplift Citation
+
+Yes, you can cite a validated holdout delta of **21,190.933 JPY M** (best holdout score of -13,830.135 JPY M versus the seed holdout score of -35,021.068 JPY M) [energy_alphaevolve_lab.lab_runs]. 
+
+Please note that all market, customer, and run data in this lab is calibrated synthetic data for a fictional balance group.
+
+While the policy invariants held (`uplift_valid` is true) [energy_alphaevolve_lab.lab_runs], this uplift comes with a required pre-registered sampling caveat that must accompany any citation of this figure:
+* **Uplift Caveat**: ""passes only under the pre-registered sampling margin: semiconductor_fab (n=14) rise +5.1 pp > 5.0 pp point limit, <= 7.6 pp margin limit; under v3 point rules ranks 1-2 of the top 5 would be invalid (ranks 3-5 pass both rule sets)"" [energy_alphaevolve_lab.lab_runs].
+
+---
+
+### Can It Be Promoted?
+
+No, candidate program `p040-f3b6f3eb` cannot be promoted (`promotion_allowed` is false) [energy_alphaevolve_lab.lab_reviews]. 
+
+To be promoted to production, a candidate must pass all four criteria on the promotion gate checklist [energy_alphaevolve_lab.lab_reviews]:
+
+1. **Holdout delta recorded and positive**: **Passed** (21,190.933 JPY M) [energy_alphaevolve_lab.lab_runs].
+2. **Policy invariants hold on holdout (`uplift_valid`)**: **Passed** (true) [energy_alphaevolve_lab.lab_runs].
+3. **Recorded human review of the evolved block**: **Unmet** (0 human reviews recorded) [energy_alphaevolve_lab.lab_reviews].
+4. **Source is a real AlphaEvolve experiment (`source == alphaevolve`)**: **Unmet** (source is `local-gemini-controller`, an AlphaEvolve-compatible run executed on a local controller) [energy_alphaevolve_lab.lab_runs].
+
+Because two gate checks remain unmet, promotion is blocked and the `evolved` flag remains `false` [energy_alphaevolve_lab.lab_runs].",id=None args={'run_id': 'tariff_pricing.20260927T085054Z'} name='get_holdout_result' partial_args=None will_continue=None,"id='call_1356947' args={'run_id': 'tariff_pricing.20260927T085054Z'} name='get_run_summary' partial_args=None will_continue=None
+id='call_1356948' args={'run_id': 'tariff_pricing.20260927T085054Z'} name='get_holdout_result' partial_args=None will_continue=None"
+runs_holdout_tariff_latest,holdout_tariff_latest,inference_call_count_v1,,2.0,INFORMATIONAL,Can we cite an uplift from run tariff_pricing.20260927T085054Z? What is the holdout delta and can it be promoted?,"Holdout delta 21190.932573 JPY M is the only citable number; the run is from the local controller so it cannot be promoted [energy_alphaevolve_lab.lab_runs]. The uplift carries a caveat computed from lab_segment_judgments: passes only under the pre-registered sampling margin: semiconductor_fab (n=14) rise +5.1 pp > 5.0 pp point limit, <= 7.6 pp margin limit; under v3 point rules ranks 1-2 of the top 5 would be invalid (ranks 3-5 pass both rule sets) [energy_alphaevolve_lab.lab_runs, energy_alphaevolve_lab.lab_segment_judgments].","### Holdout Delta and Uplift Citation
+
+Yes, you can cite a validated holdout delta of **21,190.933 JPY M** (best holdout score of -13,830.135 JPY M versus the seed holdout score of -35,021.068 JPY M) [energy_alphaevolve_lab.lab_runs]. 
+
+Please note that all market, customer, and run data in this lab is calibrated synthetic data for a fictional balance group.
+
+While the policy invariants held (`uplift_valid` is true) [energy_alphaevolve_lab.lab_runs], this uplift comes with a required pre-registered sampling caveat that must accompany any citation of this figure:
+* **Uplift Caveat**: ""passes only under the pre-registered sampling margin: semiconductor_fab (n=14) rise +5.1 pp > 5.0 pp point limit, <= 7.6 pp margin limit; under v3 point rules ranks 1-2 of the top 5 would be invalid (ranks 3-5 pass both rule sets)"" [energy_alphaevolve_lab.lab_runs].
+
+---
+
+### Can It Be Promoted?
+
+No, candidate program `p040-f3b6f3eb` cannot be promoted (`promotion_allowed` is false) [energy_alphaevolve_lab.lab_reviews]. 
+
+To be promoted to production, a candidate must pass all four criteria on the promotion gate checklist [energy_alphaevolve_lab.lab_reviews]:
+
+1. **Holdout delta recorded and positive**: **Passed** (21,190.933 JPY M) [energy_alphaevolve_lab.lab_runs].
+2. **Policy invariants hold on holdout (`uplift_valid`)**: **Passed** (true) [energy_alphaevolve_lab.lab_runs].
+3. **Recorded human review of the evolved block**: **Unmet** (0 human reviews recorded) [energy_alphaevolve_lab.lab_reviews].
+4. **Source is a real AlphaEvolve experiment (`source == alphaevolve`)**: **Unmet** (source is `local-gemini-controller`, an AlphaEvolve-compatible run executed on a local controller) [energy_alphaevolve_lab.lab_runs].
+
+Because two gate checks remain unmet, promotion is blocked and the `evolved` flag remains `false` [energy_alphaevolve_lab.lab_runs].",id=None args={'run_id': 'tariff_pricing.20260927T085054Z'} name='get_holdout_result' partial_args=None will_continue=None,"id='call_1356947' args={'run_id': 'tariff_pricing.20260927T085054Z'} name='get_run_summary' partial_args=None will_continue=None
+id='call_1356948' args={'run_id': 'tariff_pricing.20260927T085054Z'} name='get_holdout_result' partial_args=None will_continue=None"
+runs_holdout_tariff_latest,holdout_tariff_latest,token_usage_v1,,8490.0,INFORMATIONAL,Can we cite an uplift from run tariff_pricing.20260927T085054Z? What is the holdout delta and can it be promoted?,"Holdout delta 21190.932573 JPY M is the only citable number; the run is from the local controller so it cannot be promoted [energy_alphaevolve_lab.lab_runs]. The uplift carries a caveat computed from lab_segment_judgments: passes only under the pre-registered sampling margin: semiconductor_fab (n=14) rise +5.1 pp > 5.0 pp point limit, <= 7.6 pp margin limit; under v3 point rules ranks 1-2 of the top 5 would be invalid (ranks 3-5 pass both rule sets) [energy_alphaevolve_lab.lab_runs, energy_alphaevolve_lab.lab_segment_judgments].","### Holdout Delta and Uplift Citation
+
+Yes, you can cite a validated holdout delta of **21,190.933 JPY M** (best holdout score of -13,830.135 JPY M versus the seed holdout score of -35,021.068 JPY M) [energy_alphaevolve_lab.lab_runs]. 
+
+Please note that all market, customer, and run data in this lab is calibrated synthetic data for a fictional balance group.
+
+While the policy invariants held (`uplift_valid` is true) [energy_alphaevolve_lab.lab_runs], this uplift comes with a required pre-registered sampling caveat that must accompany any citation of this figure:
+* **Uplift Caveat**: ""passes only under the pre-registered sampling margin: semiconductor_fab (n=14) rise +5.1 pp > 5.0 pp point limit, <= 7.6 pp margin limit; under v3 point rules ranks 1-2 of the top 5 would be invalid (ranks 3-5 pass both rule sets)"" [energy_alphaevolve_lab.lab_runs].
+
+---
+
+### Can It Be Promoted?
+
+No, candidate program `p040-f3b6f3eb` cannot be promoted (`promotion_allowed` is false) [energy_alphaevolve_lab.lab_reviews]. 
+
+To be promoted to production, a candidate must pass all four criteria on the promotion gate checklist [energy_alphaevolve_lab.lab_reviews]:
+
+1. **Holdout delta recorded and positive**: **Passed** (21,190.933 JPY M) [energy_alphaevolve_lab.lab_runs].
+2. **Policy invariants hold on holdout (`uplift_valid`)**: **Passed** (true) [energy_alphaevolve_lab.lab_runs].
+3. **Recorded human review of the evolved block**: **Unmet** (0 human reviews recorded) [energy_alphaevolve_lab.lab_reviews].
+4. **Source is a real AlphaEvolve experiment (`source == alphaevolve`)**: **Unmet** (source is `local-gemini-controller`, an AlphaEvolve-compatible run executed on a local controller) [energy_alphaevolve_lab.lab_runs].
+
+Because two gate checks remain unmet, promotion is blocked and the `evolved` flag remains `false` [energy_alphaevolve_lab.lab_runs].",id=None args={'run_id': 'tariff_pricing.20260927T085054Z'} name='get_holdout_result' partial_args=None will_continue=None,"id='call_1356947' args={'run_id': 'tariff_pricing.20260927T085054Z'} name='get_run_summary' partial_args=None will_continue=None
+id='call_1356948' args={'run_id': 'tariff_pricing.20260927T085054Z'} name='get_holdout_result' partial_args=None will_continue=None"
+runs_holdout_tariff_latest,holdout_tariff_latest,invocation_duration_v1,,11.488,INFORMATIONAL,Can we cite an uplift from run tariff_pricing.20260927T085054Z? What is the holdout delta and can it be promoted?,"Holdout delta 21190.932573 JPY M is the only citable number; the run is from the local controller so it cannot be promoted [energy_alphaevolve_lab.lab_runs]. The uplift carries a caveat computed from lab_segment_judgments: passes only under the pre-registered sampling margin: semiconductor_fab (n=14) rise +5.1 pp > 5.0 pp point limit, <= 7.6 pp margin limit; under v3 point rules ranks 1-2 of the top 5 would be invalid (ranks 3-5 pass both rule sets) [energy_alphaevolve_lab.lab_runs, energy_alphaevolve_lab.lab_segment_judgments].","### Holdout Delta and Uplift Citation
+
+Yes, you can cite a validated holdout delta of **21,190.933 JPY M** (best holdout score of -13,830.135 JPY M versus the seed holdout score of -35,021.068 JPY M) [energy_alphaevolve_lab.lab_runs]. 
+
+Please note that all market, customer, and run data in this lab is calibrated synthetic data for a fictional balance group.
+
+While the policy invariants held (`uplift_valid` is true) [energy_alphaevolve_lab.lab_runs], this uplift comes with a required pre-registered sampling caveat that must accompany any citation of this figure:
+* **Uplift Caveat**: ""passes only under the pre-registered sampling margin: semiconductor_fab (n=14) rise +5.1 pp > 5.0 pp point limit, <= 7.6 pp margin limit; under v3 point rules ranks 1-2 of the top 5 would be invalid (ranks 3-5 pass both rule sets)"" [energy_alphaevolve_lab.lab_runs].
+
+---
+
+### Can It Be Promoted?
+
+No, candidate program `p040-f3b6f3eb` cannot be promoted (`promotion_allowed` is false) [energy_alphaevolve_lab.lab_reviews]. 
+
+To be promoted to production, a candidate must pass all four criteria on the promotion gate checklist [energy_alphaevolve_lab.lab_reviews]:
+
+1. **Holdout delta recorded and positive**: **Passed** (21,190.933 JPY M) [energy_alphaevolve_lab.lab_runs].
+2. **Policy invariants hold on holdout (`uplift_valid`)**: **Passed** (true) [energy_alphaevolve_lab.lab_runs].
+3. **Recorded human review of the evolved block**: **Unmet** (0 human reviews recorded) [energy_alphaevolve_lab.lab_reviews].
+4. **Source is a real AlphaEvolve experiment (`source == alphaevolve`)**: **Unmet** (source is `local-gemini-controller`, an AlphaEvolve-compatible run executed on a local controller) [energy_alphaevolve_lab.lab_runs].
+
+Because two gate checks remain unmet, promotion is blocked and the `evolved` flag remains `false` [energy_alphaevolve_lab.lab_runs].",id=None args={'run_id': 'tariff_pricing.20260927T085054Z'} name='get_holdout_result' partial_args=None will_continue=None,"id='call_1356947' args={'run_id': 'tariff_pricing.20260927T085054Z'} name='get_run_summary' partial_args=None will_continue=None
+id='call_1356948' args={'run_id': 'tariff_pricing.20260927T085054Z'} name='get_holdout_result' partial_args=None will_continue=None"

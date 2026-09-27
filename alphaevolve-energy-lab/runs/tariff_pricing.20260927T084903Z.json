@@ -1,0 +1,770 @@
+{
+ "schema": "energy_lab.run_evidence/v1",
+ "run_id": "tariff_pricing.20260927T084903Z",
+ "problem": "tariff_pricing",
+ "title": "C&I retail tariff pricing (KBG FY2026 renewal book)",
+ "evaluator_version": "tariff_pricing/v4: on holdout3 per-segment churn rules judged with a paired-SE sampling margin (z 1.645, n_min 30, pooled sd below n_min); train rules and score as v3; pre-registered",
+ "source": "local-gemini-controller",
+ "backend": "local",
+ "evolved": false,
+ "honesty_note": "AlphaEvolve-compatible run, local controller; production run pending GE app provisioning; switching is one flag (--backend alphaevolve).",
+ "started": "2026-09-27T08:49:03.285938+00:00",
+ "mutator": "gemini",
+ "model_mix": [
+  {
+   "name": "gemini-3.6-flash",
+   "weight": 0.7
+  },
+  {
+   "name": "gemini-3.1-pro-preview",
+   "weight": 0.3
+  }
+ ],
+ "pricing_note": "Cost is estimated from token counts x assumed USD/1M-token prices (balanced 0.50/3.00, reasoning 2.00/12.00 unless overridden by PRICE_* env vars); not a billing figure.",
+ "instances": {
+  "train": {
+   "name": "tariff_pricing_train",
+   "sha256": "8f3d1516cef35cbf9f272b2bf7c8f2778639079f6691e5d640877d64678fe016"
+  },
+  "holdout": {
+   "name": "tariff_pricing_holdout3",
+   "sha256": "1ebd5d0c83ec4c9dabaf3ba9b2f0c4ba9e7aee71b4e8b1094250785f04c9b6b4"
+  }
+ },
+ "holdout_fold": "holdout3",
+ "baseline_lock": {
+  "reproduced": true,
+  "seed_score": -8800.354397563551,
+  "seed_raw": -8800.354397563551,
+  "null_score": null,
+  "null_raw": -10827.924156700457,
+  "null_valid": false,
+  "instance_sha256": "8f3d1516cef35cbf9f272b2bf7c8f2778639079f6691e5d640877d64678fe016",
+  "seed_minus_null": 2027.5697591369062,
+  "seed_metrics": {
+   "expected_margin_jpy_m": 7613.943114732486,
+   "cvar95_shortfall_jpy_m": 34904.92631223363,
+   "ltv_jpy_m": 1038.1656438207751,
+   "worst_scenario_margin_jpy_m": -31554.188847523477,
+   "churn_count": 0.10060635296578084,
+   "churn_energy": 0.1331753852306053,
+   "mean_alpha": 0.10583174661463174,
+   "dr_enrolled_mw": 0.0,
+   "flex_value_jpy_m": 74.01010608364359,
+   "imbalance_cost_jpy_m": 597.6747535241125,
+   "penalty_revenue_jpy_m": 1.4908883010798408,
+   "retained_twh": 5.215972874510898,
+   "margin_per_kwh": 1.4597359491533868
+  },
+  "null_metrics": {
+   "expected_margin_jpy_m": 5673.490268847298,
+   "cvar95_shortfall_jpy_m": 34886.01778074229,
+   "ltv_jpy_m": 941.5944648233881,
+   "worst_scenario_margin_jpy_m": -33450.38135152785,
+   "churn_count": 0.07837050528498202,
+   "churn_energy": 0.22322800384423513,
+   "mean_alpha": 0.0,
+   "dr_enrolled_mw": 0.0,
+   "flex_value_jpy_m": 0.0,
+   "imbalance_cost_jpy_m": 631.6144784934907,
+   "penalty_revenue_jpy_m": 0.0,
+   "retained_twh": 4.674096227304325,
+   "margin_per_kwh": 1.2138154614158103
+  },
+  "null_insights": [
+   {
+    "label": "policy: churn",
+    "text": "segment churn rises more than 5% above the incumbent book: data_center 17.9% -> 36.9%, semiconductor_fab 20.3% -> 47.5%, water_utility 16.8% -> 31.1%; energy-weighted churn 22.3% > 14% (train guard band); segment churn > 22% (train guard band): data_center 36.9%, semiconductor_fab 47.5%, water_utility 31.1% (pricing customers out is a strategy change, not an uplift)"
+   },
+   {
+    "label": "raw_objective",
+    "text": "would have scored -10827.9 JPY M without the policy gate"
+   },
+   {
+    "label": "score_components",
+    "text": "E[margin] 5673.5 - 0.5 x CVaR95 34886.0 + LTV 941.6 = -10827.9 JPY M"
+   },
+   {
+    "label": "risk",
+    "text": "worst scenario margin -33450.4 JPY M; energy-weighted mean alpha 0.00"
+   },
+   {
+    "label": "retention",
+    "text": "churn 7.8% by count, 22.3% by energy; highest segment semiconductor_fab 47.5%; retained 4.67 TWh"
+   }
+  ]
+ },
+ "budget_policy": {
+  "max_programs_per_run": 40,
+  "max_wall_s": 1800,
+  "max_programs_per_day": 120,
+  "max_runs_per_day": 4,
+  "plateau_patience": 15,
+  "concurrency": 2
+ },
+ "search": {
+  "islands": 3,
+  "archive": "MAP-Elites-lite",
+  "descriptor": [
+   "mean_alpha_bucket",
+   "churn_bucket"
+  ],
+  "parent_selection": "rank-weighted 0.6 / random elite 0.4",
+  "migration_every": 10,
+  "diff_format": "SEARCH/REPLACE inside EVOLVE-BLOCK"
+ },
+ "unit": "JPY M",
+ "finished": "2026-09-27T08:49:04.575574+00:00",
+ "budget": {
+  "programs_evaluated": 4,
+  "max_programs": 40,
+  "wall_s": 0.7,
+  "stopped_reason": "generation_errors",
+  "plateau_since": 0,
+  "concurrency": 2
+ },
+ "tokens": {
+  "prompt": 0,
+  "output": 0,
+  "thinking": 0,
+  "calls": 4,
+  "errors": 4,
+  "cost_usd": 0.0,
+  "by_model": {
+   "gemini-3.6-flash": {
+    "calls": 3,
+    "prompt": 0,
+    "output": 0,
+    "thinking": 0,
+    "cost_usd": 0.0
+   },
+   "gemini-3.1-pro-preview": {
+    "calls": 1,
+    "prompt": 0,
+    "output": 0,
+    "thinking": 0,
+    "cost_usd": 0.0
+   }
+  }
+ },
+ "score_curve": [
+  {
+   "idx": 0,
+   "score": -8800.354397563551,
+   "best": -8800.354397563551,
+   "valid": true,
+   "kind": "ok",
+   "island": 0
+  },
+  {
+   "idx": 1,
+   "score": null,
+   "best": -8800.354397563551,
+   "valid": false,
+   "kind": "generation",
+   "island": 1
+  },
+  {
+   "idx": 2,
+   "score": null,
+   "best": -8800.354397563551,
+   "valid": false,
+   "kind": "generation",
+   "island": 0
+  },
+  {
+   "idx": 3,
+   "score": null,
+   "best": -8800.354397563551,
+   "valid": false,
+   "kind": "generation",
+   "island": 2
+  },
+  {
+   "idx": 4,
+   "score": null,
+   "best": -8800.354397563551,
+   "valid": false,
+   "kind": "generation",
+   "island": 0
+  }
+ ],
+ "invalid_by_kind": {
+  "generation": 4
+ },
+ "valid_count": 0,
+ "invalid_count": 4,
+ "seed": {
+  "id": "p000-5dd8d486",
+  "train": -8800.354397563551,
+  "metrics": {
+   "expected_margin_jpy_m": 7613.943114732486,
+   "cvar95_shortfall_jpy_m": 34904.92631223363,
+   "ltv_jpy_m": 1038.1656438207751,
+   "worst_scenario_margin_jpy_m": -31554.188847523477,
+   "churn_count": 0.10060635296578084,
+   "churn_energy": 0.1331753852306053,
+   "mean_alpha": 0.10583174661463174,
+   "dr_enrolled_mw": 0.0,
+   "flex_value_jpy_m": 74.01010608364359,
+   "imbalance_cost_jpy_m": 597.6747535241125,
+   "penalty_revenue_jpy_m": 1.4908883010798408,
+   "retained_twh": 5.215972874510898,
+   "margin_per_kwh": 1.4597359491533868
+  }
+ },
+ "best": {
+  "id": "p000-5dd8d486",
+  "idx": 0,
+  "train": -8800.354397563551,
+  "metrics": {
+   "expected_margin_jpy_m": 7613.943114732486,
+   "cvar95_shortfall_jpy_m": 34904.92631223363,
+   "ltv_jpy_m": 1038.1656438207751,
+   "worst_scenario_margin_jpy_m": -31554.188847523477,
+   "churn_count": 0.10060635296578084,
+   "churn_energy": 0.1331753852306053,
+   "mean_alpha": 0.10583174661463174,
+   "dr_enrolled_mw": 0.0,
+   "flex_value_jpy_m": 74.01010608364359,
+   "imbalance_cost_jpy_m": 597.6747535241125,
+   "penalty_revenue_jpy_m": 1.4908883010798408,
+   "retained_twh": 5.215972874510898,
+   "margin_per_kwh": 1.4597359491533868
+  },
+  "island": 0,
+  "model": "seed",
+  "block": "def price_book(customer, market):\n    \"\"\"Seed: cost-plus. Fixed margin on expected cost; market link only for data centers.\"\"\"\n    margin = 1.5\n    energy = energy_cost_jpy_kwh(customer, market)\n    other = non_energy_cost_jpy_kwh(customer, market)\n    alpha = 0.5 if customer[\"segment\"] == \"data_center\" else 0.0\n    return {\n        \"energy_rate_jpy_kwh\": round(energy + other + margin, 3),\n        \"alpha\": alpha,\n        \"market_adder_jpy_kwh\": round(other + margin, 3),\n        \"demand_charge_jpy_kw_month\": round(wheeling_basic_jpy_kw_month(customer, market) + 50.0, 1),\n        \"deviation_band_pct\": 10.0,\n        \"deviation_penalty_jpy_kwh\": 1.0,\n        \"dr_discount_jpy_kw_month\": 0.0,\n        \"term_years\": 1,\n    }\n",
+  "train_delta_vs_seed": 0.0,
+  "diff_vs_seed": "",
+  "lineage": [
+   {
+    "id": "p000-5dd8d486",
+    "score": -8800.354397563551,
+    "model": "seed",
+    "rationale": "seed program (hand-written baseline)"
+   }
+  ]
+ },
+ "programs": [
+  {
+   "idx": 0,
+   "id": "p000-5dd8d486",
+   "parent_id": null,
+   "island": 0,
+   "model": "seed",
+   "created": "2026-09-27T08:49:04.008778+00:00",
+   "score": -8800.354398,
+   "raw_score": -8800.354398,
+   "valid": true,
+   "kind": "ok",
+   "insights": [
+    {
+     "label": "score_components",
+     "text": "E[margin] 7613.9 - 0.5 x CVaR95 34904.9 + LTV 1038.2 = -8800.4 JPY M"
+    },
+    {
+     "label": "risk",
+     "text": "worst scenario margin -31554.2 JPY M; energy-weighted mean alpha 0.11"
+    },
+    {
+     "label": "retention",
+     "text": "churn 10.1% by count, 13.3% by energy; highest segment semiconductor_fab 20.3%; retained 5.22 TWh"
+    },
+    {
+     "label": "levers",
+     "text": "DR enrolled 0.0 MW; retailer flex value 74.0 JPY M; imbalance cost 597.7 JPY M; penalty revenue 1.5 JPY M; margin 1.46 JPY/kWh"
+    },
+    {
+     "label": "segments",
+     "text": "churn by segment: data_center 18%, semiconductor_fab 20%, auto_parts 9%, cold_storage 8%, office 10%, retail_chain 10%, hospital 9%, water_utility 17%, university 12%, logistics 10%, hotel 8%"
+    }
+   ],
+   "metrics": {
+    "expected_margin_jpy_m": 7613.943115,
+    "cvar95_shortfall_jpy_m": 34904.926312,
+    "ltv_jpy_m": 1038.165644,
+    "worst_scenario_margin_jpy_m": -31554.188848,
+    "churn_count": 0.100606,
+    "churn_energy": 0.133175,
+    "mean_alpha": 0.105832,
+    "dr_enrolled_mw": 0.0,
+    "flex_value_jpy_m": 74.010106,
+    "imbalance_cost_jpy_m": 597.674754,
+    "penalty_revenue_jpy_m": 1.490888,
+    "retained_twh": 5.215973,
+    "margin_per_kwh": 1.459736
+   },
+   "violations": [],
+   "eval_s": 0.107,
+   "descriptor": [
+    0,
+    2
+   ],
+   "block_sha": "5dd8d4864f1229d3",
+   "block": "def price_book(customer, market):\n    \"\"\"Seed: cost-plus. Fixed margin on expected cost; market link only for data centers.\"\"\"\n    margin = 1.5\n    energy = energy_cost_jpy_kwh(customer, market)\n    other = non_energy_cost_jpy_kwh(customer, market)\n    alpha = 0.5 if customer[\"segment\"] == \"data_center\" else 0.0\n    return {\n        \"energy_rate_jpy_kwh\": round(energy + other + margin, 3),\n        \"alpha\": alpha,\n        \"market_adder_jpy_kwh\": round(other + margin, 3),\n        \"demand_charge_jpy_kw_month\": round(wheeling_basic_jpy_kw_month(customer, market) + 50.0, 1),\n        \"deviation_band_pct\": 10.0,\n        \"deviation_penalty_jpy_kwh\": 1.0,\n        \"dr_discount_jpy_kw_month\": 0.0,\n        \"term_years\": 1,\n    }\n",
+   "diff_vs_parent": "",
+   "diff_stats": {},
+   "rationale": "seed program (hand-written baseline)",
+   "generation": {},
+   "diff_report": {},
+   "inspirations": [],
+   "raw_reply_if_unparsed_or_invalid": ""
+  },
+  {
+   "idx": 1,
+   "id": "p002-5dd8d486",
+   "parent_id": "p000-5dd8d486",
+   "island": 1,
+   "model": "gemini-3.6-flash",
+   "created": "2026-09-27T08:49:04.029749+00:00",
+   "score": null,
+   "raw_score": null,
+   "valid": false,
+   "kind": "generation",
+   "insights": [
+    {
+     "label": "generation",
+     "text": "model call failed: ValueError: No API key was provided. Please pass a valid API key. Learn how to create an API key at https://ai.google.dev/gemini-api/docs/api-key."
+    }
+   ],
+   "metrics": {},
+   "violations": null,
+   "eval_s": null,
+   "descriptor": null,
+   "block_sha": "5dd8d4864f1229d3",
+   "block": "def price_book(customer, market):\n    \"\"\"Seed: cost-plus. Fixed margin on expected cost; market link only for data centers.\"\"\"\n    margin = 1.5\n    energy = energy_cost_jpy_kwh(customer, market)\n    other = non_energy_cost_jpy_kwh(customer, market)\n    alpha = 0.5 if customer[\"segment\"] == \"data_center\" else 0.0\n    return {\n        \"energy_rate_jpy_kwh\": round(energy + other + margin, 3),\n        \"alpha\": alpha,\n        \"market_adder_jpy_kwh\": round(other + margin, 3),\n        \"demand_charge_jpy_kw_month\": round(wheeling_basic_jpy_kw_month(customer, market) + 50.0, 1),\n        \"deviation_band_pct\": 10.0,\n        \"deviation_penalty_jpy_kwh\": 1.0,\n        \"dr_discount_jpy_kw_month\": 0.0,\n        \"term_years\": 1,\n    }\n",
+   "diff_vs_parent": "",
+   "diff_stats": {
+    "lines_added": 0,
+    "lines_removed": 0
+   },
+   "rationale": "",
+   "generation": {
+    "model": "gemini-3.6-flash",
+    "prompt_tokens": 0,
+    "output_tokens": 0,
+    "thinking_tokens": 0,
+    "latency_s": 0.01,
+    "cost_usd": 0.0,
+    "error": "ValueError: No API key was provided. Please pass a valid API key. Learn how to create an API key at https://ai.google.dev/gemini-api/docs/api-key.",
+    "attempts": 1
+   },
+   "diff_report": {},
+   "inspirations": [],
+   "raw_reply_if_unparsed_or_invalid": ""
+  },
+  {
+   "idx": 2,
+   "id": "p001-5dd8d486",
+   "parent_id": "p000-5dd8d486",
+   "island": 0,
+   "model": "gemini-3.6-flash",
+   "created": "2026-09-27T08:49:04.026874+00:00",
+   "score": null,
+   "raw_score": null,
+   "valid": false,
+   "kind": "generation",
+   "insights": [
+    {
+     "label": "generation",
+     "text": "model call failed: ValueError: No API key was provided. Please pass a valid API key. Learn how to create an API key at https://ai.google.dev/gemini-api/docs/api-key."
+    }
+   ],
+   "metrics": {},
+   "violations": null,
+   "eval_s": null,
+   "descriptor": null,
+   "block_sha": "5dd8d4864f1229d3",
+   "block": "def price_book(customer, market):\n    \"\"\"Seed: cost-plus. Fixed margin on expected cost; market link only for data centers.\"\"\"\n    margin = 1.5\n    energy = energy_cost_jpy_kwh(customer, market)\n    other = non_energy_cost_jpy_kwh(customer, market)\n    alpha = 0.5 if customer[\"segment\"] == \"data_center\" else 0.0\n    return {\n        \"energy_rate_jpy_kwh\": round(energy + other + margin, 3),\n        \"alpha\": alpha,\n        \"market_adder_jpy_kwh\": round(other + margin, 3),\n        \"demand_charge_jpy_kw_month\": round(wheeling_basic_jpy_kw_month(customer, market) + 50.0, 1),\n        \"deviation_band_pct\": 10.0,\n        \"deviation_penalty_jpy_kwh\": 1.0,\n        \"dr_discount_jpy_kw_month\": 0.0,\n        \"term_years\": 1,\n    }\n",
+   "diff_vs_parent": "",
+   "diff_stats": {
+    "lines_added": 0,
+    "lines_removed": 0
+   },
+   "rationale": "",
+   "generation": {
+    "model": "gemini-3.6-flash",
+    "prompt_tokens": 0,
+    "output_tokens": 0,
+    "thinking_tokens": 0,
+    "latency_s": 0.02,
+    "cost_usd": 0.0,
+    "error": "ValueError: No API key was provided. Please pass a valid API key. Learn how to create an API key at https://ai.google.dev/gemini-api/docs/api-key.",
+    "attempts": 1
+   },
+   "diff_report": {},
+   "inspirations": [],
+   "raw_reply_if_unparsed_or_invalid": ""
+  },
+  {
+   "idx": 3,
+   "id": "p003-5dd8d486",
+   "parent_id": "p000-5dd8d486",
+   "island": 2,
+   "model": "gemini-3.6-flash",
+   "created": "2026-09-27T08:49:04.031489+00:00",
+   "score": null,
+   "raw_score": null,
+   "valid": false,
+   "kind": "generation",
+   "insights": [
+    {
+     "label": "generation",
+     "text": "model call failed: ValueError: No API key was provided. Please pass a valid API key. Learn how to create an API key at https://ai.google.dev/gemini-api/docs/api-key."
+    }
+   ],
+   "metrics": {},
+   "violations": null,
+   "eval_s": null,
+   "descriptor": null,
+   "block_sha": "5dd8d4864f1229d3",
+   "block": "def price_book(customer, market):\n    \"\"\"Seed: cost-plus. Fixed margin on expected cost; market link only for data centers.\"\"\"\n    margin = 1.5\n    energy = energy_cost_jpy_kwh(customer, market)\n    other = non_energy_cost_jpy_kwh(customer, market)\n    alpha = 0.5 if customer[\"segment\"] == \"data_center\" else 0.0\n    return {\n        \"energy_rate_jpy_kwh\": round(energy + other + margin, 3),\n        \"alpha\": alpha,\n        \"market_adder_jpy_kwh\": round(other + margin, 3),\n        \"demand_charge_jpy_kw_month\": round(wheeling_basic_jpy_kw_month(customer, market) + 50.0, 1),\n        \"deviation_band_pct\": 10.0,\n        \"deviation_penalty_jpy_kwh\": 1.0,\n        \"dr_discount_jpy_kw_month\": 0.0,\n        \"term_years\": 1,\n    }\n",
+   "diff_vs_parent": "",
+   "diff_stats": {
+    "lines_added": 0,
+    "lines_removed": 0
+   },
+   "rationale": "",
+   "generation": {
+    "model": "gemini-3.6-flash",
+    "prompt_tokens": 0,
+    "output_tokens": 0,
+    "thinking_tokens": 0,
+    "latency_s": 0.0,
+    "cost_usd": 0.0,
+    "error": "ValueError: No API key was provided. Please pass a valid API key. Learn how to create an API key at https://ai.google.dev/gemini-api/docs/api-key.",
+    "attempts": 1
+   },
+   "diff_report": {},
+   "inspirations": [],
+   "raw_reply_if_unparsed_or_invalid": ""
+  },
+  {
+   "idx": 4,
+   "id": "p004-5dd8d486",
+   "parent_id": "p000-5dd8d486",
+   "island": 0,
+   "model": "gemini-3.1-pro-preview",
+   "created": "2026-09-27T08:49:04.031581+00:00",
+   "score": null,
+   "raw_score": null,
+   "valid": false,
+   "kind": "generation",
+   "insights": [
+    {
+     "label": "generation",
+     "text": "model call failed: ValueError: No API key was provided. Please pass a valid API key. Learn how to create an API key at https://ai.google.dev/gemini-api/docs/api-key."
+    }
+   ],
+   "metrics": {},
+   "violations": null,
+   "eval_s": null,
+   "descriptor": null,
+   "block_sha": "5dd8d4864f1229d3",
+   "block": "def price_book(customer, market):\n    \"\"\"Seed: cost-plus. Fixed margin on expected cost; market link only for data centers.\"\"\"\n    margin = 1.5\n    energy = energy_cost_jpy_kwh(customer, market)\n    other = non_energy_cost_jpy_kwh(customer, market)\n    alpha = 0.5 if customer[\"segment\"] == \"data_center\" else 0.0\n    return {\n        \"energy_rate_jpy_kwh\": round(energy + other + margin, 3),\n        \"alpha\": alpha,\n        \"market_adder_jpy_kwh\": round(other + margin, 3),\n        \"demand_charge_jpy_kw_month\": round(wheeling_basic_jpy_kw_month(customer, market) + 50.0, 1),\n        \"deviation_band_pct\": 10.0,\n        \"deviation_penalty_jpy_kwh\": 1.0,\n        \"dr_discount_jpy_kw_month\": 0.0,\n        \"term_years\": 1,\n    }\n",
+   "diff_vs_parent": "",
+   "diff_stats": {
+    "lines_added": 0,
+    "lines_removed": 0
+   },
+   "rationale": "",
+   "generation": {
+    "model": "gemini-3.1-pro-preview",
+    "prompt_tokens": 0,
+    "output_tokens": 0,
+    "thinking_tokens": 0,
+    "latency_s": 0.0,
+    "cost_usd": 0.0,
+    "error": "ValueError: No API key was provided. Please pass a valid API key. Learn how to create an API key at https://ai.google.dev/gemini-api/docs/api-key.",
+    "attempts": 1
+   },
+   "diff_report": {},
+   "inspirations": [],
+   "raw_reply_if_unparsed_or_invalid": ""
+  }
+ ],
+ "islands": {
+  "0": {
+   "members": 3,
+   "best": -8800.354397563551
+  },
+  "1": {
+   "members": 2,
+   "best": -8800.354397563551
+  },
+  "2": {
+   "members": 2,
+   "best": -8800.354397563551
+  }
+ },
+ "holdout": {
+  "fold": "holdout3",
+  "seed": -35021.067890790444,
+  "seed_valid": true,
+  "seed_metrics": {
+   "expected_margin_jpy_m": -9108.056570218137,
+   "cvar95_shortfall_jpy_m": 54039.75903082604,
+   "ltv_jpy_m": 1106.868194840712,
+   "worst_scenario_margin_jpy_m": -69147.24928337576,
+   "churn_count": 0.10226498337372772,
+   "churn_energy": 0.10992971675764458,
+   "mean_alpha": 0.10164031697814024,
+   "dr_enrolled_mw": 0.0,
+   "flex_value_jpy_m": 96.13674119258403,
+   "imbalance_cost_jpy_m": 719.4345552152166,
+   "penalty_revenue_jpy_m": 1.5317209969814791,
+   "retained_twh": 5.455931847928726,
+   "margin_per_kwh": -1.6693860598122927
+  },
+  "seed_insights": [
+   {
+    "label": "score_components",
+    "text": "E[margin] -9108.1 - 0.5 x CVaR95 54039.8 + LTV 1106.9 = -35021.1 JPY M"
+   },
+   {
+    "label": "risk",
+    "text": "worst scenario margin -69147.2 JPY M; energy-weighted mean alpha 0.10"
+   },
+   {
+    "label": "retention",
+    "text": "churn 10.2% by count, 11.0% by energy; highest segment data_center 17.2%; retained 5.46 TWh"
+   },
+   {
+    "label": "levers",
+    "text": "DR enrolled 0.0 MW; retailer flex value 96.1 JPY M; imbalance cost 719.4 JPY M; penalty revenue 1.5 JPY M; margin -1.67 JPY/kWh"
+   },
+   {
+    "label": "segments",
+    "text": "churn by segment: data_center 17%, semiconductor_fab 15%, auto_parts 11%, cold_storage 8%, office 9%, retail_chain 11%, hospital 8%, water_utility 13%, university 16%, logistics 10%, hotel 8%"
+   }
+  ],
+  "null": null,
+  "null_raw": -37668.042826011646,
+  "null_valid": false,
+  "null_insights": [
+   {
+    "label": "policy: churn",
+    "text": "energy-weighted churn 17.9% > 15%; data_center (n 36): rise +16.0% vs limit 9.4%, churn 33.2% vs limit 33.8% (5 pp / 25% + 1.645 x paired SE); semiconductor_fab (n 14): rise +29.0% vs limit 10.1%, churn 43.9% vs limit 31.1% (5 pp / 25% + 1.645 x paired SE); water_utility (n 45): rise +12.3% vs limit 10.0%, churn 25.8% vs limit 31.0% (5 pp / 25% + 1.645 x paired SE) (pricing customers out is a strategy change, not an uplift)"
+   },
+   {
+    "label": "raw_objective",
+    "text": "would have scored -37668.0 JPY M without the policy gate"
+   },
+   {
+    "label": "score_components",
+    "text": "E[margin] -11021.3 - 0.5 x CVaR95 55325.7 + LTV 1016.1 = -37668.0 JPY M"
+   },
+   {
+    "label": "risk",
+    "text": "worst scenario margin -72513.0 JPY M; energy-weighted mean alpha 0.00"
+   },
+   {
+    "label": "retention",
+    "text": "churn 7.6% by count, 17.9% by energy; highest segment semiconductor_fab 43.9%; retained 5.03 TWh"
+   }
+  ],
+  "top_k": [
+   {
+    "id": "p000-5dd8d486",
+    "idx": 0,
+    "train": -8800.354397563551,
+    "holdout": -35021.067890790444,
+    "holdout_valid": true,
+    "holdout_kind": "ok",
+    "holdout_metrics": {
+     "expected_margin_jpy_m": -9108.056570218137,
+     "cvar95_shortfall_jpy_m": 54039.75903082604,
+     "ltv_jpy_m": 1106.868194840712,
+     "worst_scenario_margin_jpy_m": -69147.24928337576,
+     "churn_count": 0.10226498337372772,
+     "churn_energy": 0.10992971675764458,
+     "mean_alpha": 0.10164031697814024,
+     "dr_enrolled_mw": 0.0,
+     "flex_value_jpy_m": 96.13674119258403,
+     "imbalance_cost_jpy_m": 719.4345552152166,
+     "penalty_revenue_jpy_m": 1.5317209969814791,
+     "retained_twh": 5.455931847928726,
+     "margin_per_kwh": -1.6693860598122927
+    },
+    "holdout_insights": [
+     {
+      "label": "score_components",
+      "text": "E[margin] -9108.1 - 0.5 x CVaR95 54039.8 + LTV 1106.9 = -35021.1 JPY M"
+     },
+     {
+      "label": "risk",
+      "text": "worst scenario margin -69147.2 JPY M; energy-weighted mean alpha 0.10"
+     },
+     {
+      "label": "retention",
+      "text": "churn 10.2% by count, 11.0% by energy; highest segment data_center 17.2%; retained 5.46 TWh"
+     },
+     {
+      "label": "levers",
+      "text": "DR enrolled 0.0 MW; retailer flex value 96.1 JPY M; imbalance cost 719.4 JPY M; penalty revenue 1.5 JPY M; margin -1.67 JPY/kWh"
+     },
+     {
+      "label": "segments",
+      "text": "churn by segment: data_center 17%, semiconductor_fab 15%, auto_parts 11%, cold_storage 8%, office 9%, retail_chain 11%, hospital 8%, water_utility 13%, university 16%, logistics 10%, hotel 8%"
+     }
+    ],
+    "holdout_segment_tests": [
+     {
+      "segment": "data_center",
+      "n": 36,
+      "pooled_sd": false,
+      "incumbent_churn": 0.1719536410731467,
+      "churn": 0.1719536410731467,
+      "rise": 0.0,
+      "se_rise": 0.0,
+      "se_level": 0.036354115005681815,
+      "rise_limit": 0.05,
+      "level_limit": 0.3098025191843466,
+      "pass": true
+     },
+     {
+      "segment": "semiconductor_fab",
+      "n": 14,
+      "pooled_sd": true,
+      "incumbent_churn": 0.14854526221833467,
+      "churn": 0.14854526221833467,
+      "rise": 0.0,
+      "se_rise": 0.0,
+      "se_level": 0.0349881487027498,
+      "rise_limit": 0.05,
+      "level_limit": 0.30755550461602343,
+      "pass": true
+     },
+     {
+      "segment": "auto_parts",
+      "n": 170,
+      "pooled_sd": false,
+      "incumbent_churn": 0.11117143191863238,
+      "churn": 0.11117143191863238,
+      "rise": 0.0,
+      "se_rise": 0.0,
+      "se_level": 0.011145536777023644,
+      "rise_limit": 0.05,
+      "level_limit": 0.2683344079982039,
+      "pass": true
+     },
+     {
+      "segment": "cold_storage",
+      "n": 90,
+      "pooled_sd": false,
+      "incumbent_churn": 0.08000062913044557,
+      "churn": 0.08000062913044557,
+      "rise": 0.0,
+      "se_rise": 0.0,
+      "se_level": 0.012203170172846644,
+      "rise_limit": 0.05,
+      "level_limit": 0.2700742149343327,
+      "pass": true
+     },
+     {
+      "segment": "office",
+      "n": 300,
+      "pooled_sd": false,
+      "incumbent_churn": 0.08905886725179865,
+      "churn": 0.08905886725179865,
+      "rise": 0.0,
+      "se_rise": 0.0,
+      "se_level": 0.0064193417842095205,
+      "rise_limit": 0.05,
+      "level_limit": 0.26055981723502464,
+      "pass": true
+     },
+     {
+      "segment": "retail_chain",
+      "n": 190,
+      "pooled_sd": false,
+      "incumbent_churn": 0.11198847380805503,
+      "churn": 0.11198847380805503,
+      "rise": 0.0,
+      "se_rise": 0.0,
+      "se_level": 0.011006412391174832,
+      "rise_limit": 0.05,
+      "level_limit": 0.2681055483834826,
+      "pass": true
+     },
+     {
+      "segment": "hospital",
+      "n": 80,
+      "pooled_sd": false,
+      "incumbent_churn": 0.08208652323487257,
+      "churn": 0.08208652323487257,
+      "rise": 0.0,
+      "se_rise": 0.0,
+      "se_level": 0.01102637365672229,
+      "rise_limit": 0.05,
+      "level_limit": 0.26813838466530815,
+      "pass": true
+     },
+     {
+      "segment": "water_utility",
+      "n": 45,
+      "pooled_sd": false,
+      "incumbent_churn": 0.13424713052004428,
+      "churn": 0.13424713052004428,
+      "rise": 0.0,
+      "se_rise": 0.0,
+      "se_level": 0.018006548287516685,
+      "rise_limit": 0.05,
+      "level_limit": 0.279620771932965,
+      "pass": true
+     },
+     {
+      "segment": "university",
+      "n": 50,
+      "pooled_sd": false,
+      "incumbent_churn": 0.15674727340736033,
+      "churn": 0.15674727340736033,
+      "rise": 0.0,
+      "se_rise": 0.0,
+      "se_level": 0.022655459626688912,
+      "rise_limit": 0.05,
+      "level_limit": 0.28726823108590327,
+      "pass": true
+     },
+     {
+      "segment": "logistics",
+      "n": 150,
+      "pooled_sd": false,
+      "incumbent_churn": 0.09511170670583906,
+      "churn": 0.09511170670583906,
+      "rise": 0.0,
+      "se_rise": 0.0,
+      "se_level": 0.009681571326328983,
+      "rise_limit": 0.05,
+      "level_limit": 0.2659261848318112,
+      "pass": true
+     },
+     {
+      "segment": "hotel",
+      "n": 75,
+      "pooled_sd": false,
+      "incumbent_churn": 0.07521576857826617,
+      "churn": 0.07521576857826617,
+      "rise": 0.0,
+      "se_rise": 0.0,
+      "se_level": 0.009785870724630238,
+      "rise_limit": 0.05,
+      "level_limit": 0.26609775734201674,
+      "pass": true
+     }
+    ]
+   }
+  ],
+  "best_id": "p000-5dd8d486",
+  "best_is_seed": true,
+  "best_holdout": -35021.067890790444,
+  "holdout_delta": 0.0,
+  "selection": "champion = best TRAIN score among valid candidates; holdout is only reported",
+  "max_holdout_in_top_k": -35021.067890790444,
+  "max_holdout_id": "p000-5dd8d486"
+ },
+ "uplift_valid": false,
+ "uplift_note": "no candidate beat the seed on train; nothing to promote",
+ "status": "finished"
+}

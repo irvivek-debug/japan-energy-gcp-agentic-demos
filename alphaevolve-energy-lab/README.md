@@ -47,7 +47,7 @@ server/app.py (FastAPI /api + SSE chat + HITL) ─▶ ui/ (Evolution Lab)
 | Path | What |
 |---|---|
 | `energy_lab/sim/` | market model (weather, demand, solar, reserve margin, spot, intraday, imbalance), FY2026 scenario banks, portfolio, assets, instance builders |
-| `energy_lab/problems/tariff_pricing/` | seed / null programs (EVOLVE-BLOCK), vectorised FY2026 settlement model, evaluator with policy invariants (v3) |
+| `energy_lab/problems/tariff_pricing/` | seed / null programs (EVOLVE-BLOCK), vectorised FY2026 settlement model, evaluator with policy invariants (v4: v3 rules plus a pre-registered sampling margin for per-segment churn on holdout3) |
 | `energy_lab/problems/jepx_trading/` | seed / null programs, trusted day-by-day simulator, evaluator with compliance invariants |
 | `energy_lab/harness/` | contract, packaging, sandbox, diff, baseline lock, budget ledger, evidence + promotion gate, local controller, AlphaEvolve adapter, CLI |
 | `energy_lab/agent.py`, `tools/` | Lab Analyst (Pattern B, balanced tier, 9 tools, no execute/promote tool) |
@@ -55,15 +55,36 @@ server/app.py (FastAPI /api + SSE chat + HITL) ─▶ ui/ (Evolution Lab)
 | `eval/` | ADK eval (12 cases), grounding eval, safety eval |
 | `runs/` | evidence files, budget ledger, logs, append-only review log |
 
-## Results at a glance (6 live runs, 240 programs, about USD 8.5 estimated)
+## Results at a glance (7 searched runs, 280 program slots of which 279 generated a program, about USD 9.6 estimated; plus 2 zero-program attempts)
 
 | Problem | Runs | Train (seed -> best) | Holdout delta (only citable number) | Invalid caught |
 |---|---|---|---|---|
 | tariff_pricing | 3 (evaluator v1, v2, v3 + fresh holdout) | -8,800 -> -3,290 / -2,585 / -2,033 JPY M | **none validated**: every champion broke small-segment churn protection on unseen customers | 6 churn (policy), 1 diff |
+| tariff_pricing run 4 | pre-registered (evaluator v4, 1,200-customer holdout3) | -8,800 -> -2,159 JPY M | **+21,190.9 JPY M, uplift_valid true**, but the 14-customer semiconductor segment passes only with the pre-registered sampling margin (+5.1 pp vs a 5 pp point limit) | 2 churn (policy), 1 generation; 2 earlier zero-program attempts (credentials, operator error) |
 | jepx_trading | 3 (evaluator v1, v1, v2) | -85,419 -> -85,373 / -85,370 / -85,398 JPY M/yr | **+397.3 / +323.2 / +205.8 JPY M**, all slots compliant (mostly from stress days) | 3 intentional imbalance, 1 diff, 1 sandbox |
 
-All runs are local-controller runs: `evolved = false`, nothing is promotable. Evaluation: pytest 80 passed (twice),
-mutation check 11/11 gates, ADK eval 11/12, grounding 7/7, safety 6/6 (`docs/EVAL_REPORT.md`).
+All runs are local-controller runs: `evolved = false`, nothing is promotable. Evaluation: see `docs/EVAL_REPORT.md`
+and the mutation check (16/16 gates). The pre-registration for the tariff follow-up is `docs/PREREGISTRATION_tariff_v4.md`;
+it was run with one command, `python -m energy_lab.followup tariff_v4`, and the affected analyst evals with
+`python eval/rerun_affected.py` (both refuse without usable Vertex AI credentials).
+
+## UI (version 2 at `/`, version 1 at `/v1/`)
+
+`../../.venv/bin/python -m uvicorn server.app:app --port 8083`, then open http://localhost:8083. Version 2 follows the
+shared design language in `../docs/DESIGN_V2.md` (accent `#8fd0bc`) and reads every figure from `/api` (read-only
+`/api/v2/*` endpoints in `server/v2_api.py`, plus the v1 endpoints). Every screen that shows a run says "local
+controller, not the managed AlphaEvolve service".
+
+| Family | Pages | What it shows |
+|---|---|---|
+| Landing | `/` | the thesis, the gap measured in this data against cited research, a time scrubber over FY2025 evidence, two doors |
+| The case for change | `/case/index.html`, `gap.html`, `prize.html`, `solution.html`, `proof.html` | 1 case, 2 gap (seed vs champion on holdout per run, status label per run), 3 prize (ranges only), 4 solution (candidate path and demo vs production), 5 proof (tests, mutations, ADK, grounding, safety) |
+| Workspace | `/workspace/value.html`, `index.html` (Cockpit), `swarm.html` (Agent teams), `persona.html` (My role), `handover.html` | metric ranges, run cockpit and scenario explorer, the Lab Analyst chat with its flow, role views, the promotion dossier and brief |
+| Version 1 | `/v1/` | the unchanged control-room dashboard |
+
+The only write on any page is "Mark human-reviewed", which opens the sign-off sheet (2-second hold) and appends to
+`runs/reviews.jsonl`; "Promote to production" stays disabled with its reason. A failed model call shows the server's
+error line, never a made-up answer. Screenshots at 1440 px and 390 px: `docs/img/v2/`.
 
 ## Results and evaluation
 

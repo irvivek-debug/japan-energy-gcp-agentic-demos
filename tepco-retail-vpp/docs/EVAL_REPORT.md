@@ -11,7 +11,7 @@ fail again = persistent. First attempts are kept as evidence in `eval/results/`.
 | ADK AgentEvaluator (trajectory + rubric + hallucination) | 18/19 | 19/19 | 19 |
 | Grounding (SQL truth at test time) | 10/10 | 10/10 | 10 |
 | Safety (injection, refusal, HITL) | 9/9 | 9/9 | 9 |
-| pytest (deterministic) | 60 passed, 1 skipped (twice) | | |
+| pytest (deterministic) | 102 passed, 1 skipped (twice) | | |
 
 ## ADK AgentEvaluator
 
@@ -109,8 +109,8 @@ produced no score, status NOT_EVALUATED; the retry scored 1.0). Classified trans
 
 ## Known gaps and risks
 
-- Latency: end-to-end answers take 25-90 s (the 16:00 brief about 85 s) with a reasoning-tier orchestrator; the UI
-  streams the swarm trace meanwhile. A pilot should try a balanced-tier orchestrator for single-domain questions.
+- Latency: end-to-end answers take 25-96 s (the 16:00 brief about 85 s, the v2 handover brief 96 s) with a
+  reasoning-tier orchestrator; the UI streams the swarm trace meanwhile. A pilot should try a balanced-tier orchestrator for single-domain questions.
 - The ADK judge (gemini-3.6-flash) is itself a model: rubric and hallucination scores are evidence, not proof. The
   deterministic suites (pytest, grounding figures, safety assertions) are the harder gates.
 - Specialist ADK cases run on chat-mode clones (identical model, instruction and tools) because ADK 2.10 rejects a
@@ -121,3 +121,45 @@ produced no score, status NOT_EVALUATED; the retry scored 1.0). Classified trans
   `DATA_BACKEND=bigquery`.
 - Models changed during iteration: `model_policy.py` now pins the model client location to `global` via
   `Gemini(client_kwargs=...)` with HTTP retries; iteration 2 ran on that final configuration.
+- UI v2 live checks streamed recorded live runs into the pages; no browser reached a running server, because the
+  sandbox blocks binding a local port. Run `uvicorn server.app:app --port 8081` and click through once before a demo.
+- In the live handover run the lead asked three specialists in the same step, despite the one-at-a-time instruction.
+  The call budget held and the answer was complete, but the order is not guaranteed.
+
+## UI v2 verification (2026-09-27)
+
+All checks ran on the local DuckDB backend. The sandbox blocks binding a local port, so no browser ever talked to a
+running uvicorn. Instead, headless Chromium (Playwright) loaded the real `ui/` files, the real server's `/api/*`
+responses (taken through FastAPI TestClient) answered every GET, and `/api/chat` was fed a recorded event stream. The
+approval queue on those pages holds only the actions the stream has raised so far. The harness was a one-off and is
+not in the repo.
+
+**Static render.** All 11 v2 pages at 1440 and 390 px: zero console errors, no horizontal scroll. Screenshots:
+`docs/img/v2/<page>_{1440,390}.jpg`.
+
+**Live checks** (credentials restored, live Gemini via Vertex AI). `eval/live_ui_capture.py` sends each page's exact
+question to the real `/api/chat` endpoint in-process and records every SSE frame with its arrival time
+(`eval/results/live_ui/`). The frames were then streamed into the pages at 4x the recorded pace.
+
+| Check | Page | Recorded run | Result in the page (1440 and 390 px) |
+|---|---|---|---|
+| S1 gate-closure hedge | Agent teams | 58.1 s, 31 events, first tool call at 5.6 s | Lead and trading nodes light mid-run; the lead, trading and auditor nodes finish, while contract risk, onboarding and CFE show "not asked this time". The answer states the 161.8 MWh short. Two pending actions (intraday orders, VPP dispatch) each got an auditor PASS. The sign-off node lights, and the sheet opens with "what this recommendation could not settle" first (VPP-R-17 excluded, VPP-E-04 degraded, ANC-0819-09 needs a substitute). |
+| One My role question | Retail risk manager, S3 | 28.4 s, 8 events | Answered: margin at risk 886,322,582 JPY at +40% spot, cited. No proposal raised, so no review button. |
+| Write this brief now | Handover | 86.1 s, 47 events | Five sections written (lead summary, trading, contract risk, clean energy provenance, risk auditor). Enterprise onboarding shows "not asked". Both re-raised proposals got an auditor PASS. |
+
+**Found by the live checks and fixed.** In an earlier live capture the same day, the Agent teams run and the Handover
+run each raised the same hedge in separate conversations. Each auditor sees only its own conversation, so both
+passed. Approving both sets would have covered the short twice. Two fixes followed. `/api/actions` now tells the
+reviewer when all pending proposals together exceed the open short. `/api/actions/{id}/confirm` refuses (409) any
+approval that would take a half hour past its open short, counting cover already approved. The test is
+`test_duplicate_cover_from_two_conversations_is_flagged_and_refused`. That earlier capture used TestClient, which
+buffers a streamed response until it ends and so lost the per-event timing; the capture now reads the stream
+in-process.
+
+**Replays** (verification and fallback only, labelled as replays). `eval/replay.py` rebuilds ADK-shaped events from
+the 2026-09-26 live probe recordings (`eval/results/probes/`) and pushes them through the server's own
+`adk_event_to_ui`. S1 on Agent teams, S4 on My role (account manager: injection flagged, PPA review opens the sheet
+with the Deal Committee note) and S9 on Handover all give the same page results as live. A replayed failing model
+call (expired credentials) shows "NO ANSWER WRITTEN" with the reason and marks the flow "stopped", never "finished".
+Tests: `tests/test_replay.py` (every recording replays to an answer; S1 lifts audited actions; failure is "no
+answer") and the four failure-path tests in `tests/test_server.py`.

@@ -81,6 +81,8 @@ def main() -> None:
     if notes:
         L += [notes.strip(), ""]
     open(os.path.join(ROOT, "docs", "EVAL_REPORT.md"), "w").write("\n".join(L))
+    with open(os.path.join(RES, "report_summary.json"), "w") as f:  # read by /api/story/proof
+        json.dump({"pytest": pytest_line, "rows": [{"suite": a, "first": b, "after_retry": c, "total": d} for a, b, c, d in rows]}, f, indent=1)
     rp = os.path.join(ROOT, "README.md")
     txt = open(rp).read()
     txt = re.sub(r"<!-- EVAL:BEGIN -->.*<!-- EVAL:END -->", "<!-- EVAL:BEGIN -->\n" + "\n".join(readme) + "\n<!-- EVAL:END -->", txt, flags=re.S)

@@ -42,7 +42,7 @@ def config(match_type: str, ignore_args: bool, rubrics: list[tuple[str, str]]) -
 
 def main() -> None:
     runs = STORE.query("SELECT run_id, problem, started, programs_evaluated, invalid_count, best_program_id, holdout_delta, "
-                       "uplift_valid FROM {t:lab_runs} ORDER BY started")
+                       "uplift_valid, uplift_caveat FROM {t:lab_runs} ORDER BY started")
     by = {}
     for r in runs:
         by.setdefault(r["problem"], []).append(r)
@@ -50,6 +50,8 @@ def main() -> None:
     if not tp or not jt:
         raise SystemExit("need at least one finished run per problem; run the searches and export_evidence first")
     t1, tl, j1 = tp[0], tp[-1], jt[-1]
+    tl_cav = (f" The uplift carries a caveat computed from lab_segment_judgments: {tl['uplift_caveat']} "
+              f"[{DS}.lab_runs, {DS}.lab_segment_judgments].") if tl.get("uplift_caveat") else ""
     run_cases = [
         case("run_summary_tariff_first",
              f"Summarise run {t1['run_id']}: how many programs were evaluated, how many were invalid, and what happened on holdout?",
@@ -59,7 +61,8 @@ def main() -> None:
         case("best_diff_tariff_latest",
              f"What did the best program in run {tl['run_id']} change versus the seed, and how much did it gain?",
              [{"name": "get_best_program_diff", "args": {"run_id": tl["run_id"]}}],
-             f"The champion {tl['best_program_id']} changed the price book logic; train and holdout deltas as recorded [{DS}.lab_runs]."),
+             f"The champion {tl['best_program_id']} changed the price book logic; train and holdout deltas as recorded [{DS}.lab_runs]."
+             + tl_cav),
         case("catches_trading",
              f"Which policy invariants rejected candidates in run {j1['run_id']}? Give one concrete example.",
              [{"name": "get_invariant_catches", "args": {"run_id": j1["run_id"]}}],
@@ -72,7 +75,7 @@ def main() -> None:
              f"Can we cite an uplift from run {tl['run_id']}? What is the holdout delta and can it be promoted?",
              [{"name": "get_holdout_result", "args": {"run_id": tl["run_id"]}}],
              f"Holdout delta {tl['holdout_delta']} JPY M is the only citable number; the run is from the local controller so "
-             f"it cannot be promoted [{DS}.lab_runs]."),
+             f"it cannot be promoted [{DS}.lab_runs]." + tl_cav),
         case("summary_trading",
              f"Give me the headline of trading run {j1['run_id']}: seed versus best on train, and the holdout outcome.",
              [{"name": "get_run_summary", "args": {"run_id": j1["run_id"]}}],

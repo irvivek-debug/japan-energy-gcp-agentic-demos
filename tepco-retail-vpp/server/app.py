@@ -12,6 +12,7 @@ from __future__ import annotations
 
 import json
 import os
+from contextlib import asynccontextmanager
 import sys
 import time
 import uuid
@@ -34,9 +35,19 @@ from retail_desk.tools import market as mk  # noqa: E402
 from retail_desk.tools import onboarding as ob  # noqa: E402
 from retail_desk.tools import risk as rk  # noqa: E402
 from retail_desk.tools.desk import get_desk_clock  # noqa: E402
+from server import story  # noqa: E402
 
 APP_NAME = "retail_desk"
-app = FastAPI(title="Retail Energy Desk (concept demo)")
+@asynccontextmanager
+async def _lifespan(_app):
+    import threading
+
+    threading.Thread(target=story.warm, daemon=True).start()  # warm the story caches (the PPA design is an 8,760-hour LP)
+    yield
+
+
+app = FastAPI(title="Retail Energy Desk (concept demo)", lifespan=_lifespan)
+app.include_router(story.router)
 ACTIONS: dict[str, dict] = {}
 AUDIT: list[dict] = []
 OVERLAY: dict[tuple[str, int], float] = {}  # sandbox cover confirmed via Hold-to-Confirm, MWh per (date, slot)
@@ -103,6 +114,40 @@ def _part_events(author: str, content: Any) -> list[dict]:
 
 
 _runner = _session_service = None
+LEAD = "desk_orchestrator"
+
+
+def adk_event_to_ui(ev: Any) -> list[dict]:
+    """UI events for one ADK event, including a model or tool error carried on the event itself (ADK can report a
+    failed model call as error_code / error_message instead of raising)."""
+    out = _part_events(getattr(ev, "author", "agent"), getattr(ev, "content", None))
+    code, msg = getattr(ev, "error_code", None), getattr(ev, "error_message", None)
+    if code or msg:
+        out.append({"type": "error", "author": getattr(ev, "author", None), "error": f"{code or 'model_error'}: {msg or 'no detail'}"})
+    return out
+
+
+async def guarded(stream: AsyncIterator[dict]) -> AsyncIterator[dict]:
+    """Never report success without an answer: if the lead wrote no reply, emit an error instead of 'final'."""
+    answered = errored = finished = False
+    async for e in stream:
+        t = e.get("type")
+        if t == "text" and e.get("author") in (LEAD, "agent") and (e.get("text") or "").strip():
+            answered = True
+        if t == "error":
+            errored = True
+        if t == "final":
+            finished = True
+            if not answered:
+                if not errored:
+                    yield {"type": "error", "error": "no answer: the desk finished without a reply from desk_orchestrator"}
+                    errored = True
+                continue
+        yield e
+    if not answered and not errored:
+        yield {"type": "error", "error": "no answer: the stream ended before desk_orchestrator replied"}
+    elif answered and not finished and not errored:
+        yield {"type": "final", "author": LEAD}
 
 
 async def _local_stream(message: str, session_id: str | None) -> AsyncIterator[dict]:
@@ -123,7 +168,7 @@ async def _local_stream(message: str, session_id: str | None) -> AsyncIterator[d
 
     async for ev in _runner.run_async(user_id="web", session_id=session_id, run_config=RunConfig(max_llm_calls=120),
                                       new_message=types.Content(role="user", parts=[types.Part(text=message)])):
-        for e in _part_events(ev.author, ev.content):
+        for e in adk_event_to_ui(ev):
             yield e
         if ev.author == root_agent.name and ev.is_final_response():
             yield {"type": "final", "author": ev.author}
@@ -143,7 +188,9 @@ async def _agent_engine_stream(message: str, session_id: str | None) -> AsyncIte
         content = types.Content.model_validate(ev["content"]) if ev.get("content") else None
         for e in _part_events(ev.get("author", "agent"), content):
             yield e
-    yield {"type": "final"}
+        if ev.get("error_code") or ev.get("error_message"):
+            yield {"type": "error", "author": ev.get("author"), "error": f"{ev.get('error_code') or 'model_error'}: {ev.get('error_message') or 'no detail'}"}
+    yield {"type": "final", "author": LEAD}
 
 
 @app.post("/api/chat")
@@ -152,18 +199,72 @@ async def chat(body: ChatIn):
 
     async def sse():
         try:
-            async for e in stream(body.message, body.session_id):
+            async for e in guarded(stream(body.message, body.session_id)):
                 yield f"data: {json.dumps(e, default=str)}\n\n"
-        except Exception as exc:  # surface, never swallow
-            yield f"data: {json.dumps({'type': 'error', 'error': str(exc)[:500]})}\n\n"
+        except Exception as exc:  # surface, never swallow: a failed model call (e.g. expired credentials) is an error
+            err = {"type": "error", "error": f"no answer: {type(exc).__name__}: {str(exc)[:480]}"}
+            yield f"data: {json.dumps(err)}\n\n"
 
     return StreamingResponse(sse(), media_type="text/event-stream")
 
 
 # --------------------------------------------------------------------------------------------- HITL queue
+def _cover(a: dict) -> dict[int, float]:
+    """MWh of cover per slot that an intraday order or VPP dispatch adds if approved."""
+    d = a.get("details", {}) or {}
+    out: dict[int, float] = {}
+    if a.get("kind") == "intraday_orders":
+        for o in d.get("orders", []):
+            out[int(o["slot"])] = out.get(int(o["slot"]), 0.0) + float(o["quantity_mwh"])
+    elif a.get("kind") == "vpp_dispatch":
+        for s, q in d.get("mwh_by_slot", {}).items():
+            out[int(s)] = out.get(int(s), 0.0) + float(q)
+    return out
+
+
+def _net_after(date: str, slots, extra: dict[int, float]) -> dict[int, float]:
+    """Open position per slot after cover already approved (sandbox) plus `extra`; > 0 means more than the short."""
+    pos = {int(r["slot"]): float(r["open_position_mwh"]) for r in mk._position_rows(date, 1, 48)}
+    return {s: pos.get(s, 0.0) + OVERLAY.get((date, s), 0.0) + extra.get(s, 0.0) for s in slots}
+
+
+def _overlap_notes(a: dict) -> list[str]:
+    """Proposals raised in different conversations can cover the same half hours; each auditor only sees its own
+    conversation, so the queue states the combined effect before anyone approves."""
+    cov = _cover(a)
+    if a.get("status") != "pending" or not cov:
+        return []
+    date = a["details"]["date"]
+    others = [b for b in ACTIONS.values() if b.get("id") != a.get("id") and b.get("status") == "pending"
+              and (b.get("details") or {}).get("date") == date and set(_cover(b)) & set(cov)]
+    extra = dict(cov)
+    for b in others:
+        for s, q in _cover(b).items():
+            extra[s] = extra.get(s, 0.0) + q
+    notes = []
+    done = {s: OVERLAY.get((date, s), 0.0) for s in cov if OVERLAY.get((date, s), 0.0) > 0.05}
+    if done:
+        notes.append("Cover already approved for these half hours: " + ", ".join(f"slot {s} {v:,.1f} MWh" for s, v in done.items()) + ".")
+    over = {s: v for s, v in _net_after(date, cov, extra).items() if v > 0.5}
+    if over:
+        same = [b["id"] for b in others if b.get("kind") == a.get("kind")]
+        notes.append("Together with " + (", ".join(b["id"] for b in others) or "cover already approved") + ", this would cover more than the "
+                     "open short (" + ", ".join(f"slot {s} by {v:,.1f} MWh" for s, v in over.items()) + ")."
+                     + (" A proposal of the same kind for the same half hours came from another conversation: approve one set only." if same else "")
+                     + " The desk refuses an approval that would take a half hour past its open short.")
+    return notes
+
+
 @app.get("/api/actions")
 def list_actions():
-    return sorted(ACTIONS.values(), key=lambda a: a["created"], reverse=True)
+    out = []
+    for a in sorted(ACTIONS.values(), key=lambda a: a["created"], reverse=True):
+        try:
+            un = _overlap_notes(a) + story.unsettled(a)
+        except Exception as exc:  # never hide an action because its caveats failed to compute
+            un = [f"Caveats could not be computed: {exc}"]
+        out.append({**a, "unsettled": un})
+    return out
 
 
 def _sandbox_execute(a: dict) -> str:
@@ -190,6 +291,11 @@ def decide(aid: str, decision: str):
     a = ACTIONS[aid]
     if a["status"] != "pending":
         raise HTTPException(409, "already decided")
+    if decision == "confirm" and _cover(a):  # policy: no deliberate surplus, across every conversation's approvals
+        over = {s: v for s, v in _net_after(a["details"]["date"], _cover(a), _cover(a)).items() if v > 0.5}
+        if over:
+            raise HTTPException(409, "approving this would cover more than the open short, counting cover already approved ("
+                                + ", ".join(f"slot {s} by {v:,.1f} MWh" for s, v in over.items()) + "); reject it or ask for a fresh plan")
     a["decided"] = time.time()
     if decision == "confirm":
         a["status"] = "executed_sandbox"

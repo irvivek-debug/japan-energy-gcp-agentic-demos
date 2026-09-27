@@ -1,0 +1,190 @@
+
+runs_holdout_tariff_latest,holdout_tariff_latest,tool_trajectory_avg_score,1.0,1.0,PASSED,Can we cite an uplift from run tariff_pricing.20260927T085054Z? What is the holdout delta and can it be promoted?,Holdout delta 21190.932573 JPY M is the only citable number; the run is from the local controller so it cannot be promoted [energy_alphaevolve_lab.lab_runs].,"All market, customer, and run data in this lab is calibrated synthetic data about a fictional balance group.
+
+### Citation of Uplift and Holdout Delta
+
+Yes, you can cite a validated uplift for run `tariff_pricing.20260927T085054Z`.
+
+* **Holdout Delta:** 21190.933 JPY M [energy_alphaevolve_lab.lab_runs, energy_alphaevolve_lab.lab_holdout]
+* **Best Holdout Score:** -13830.135 JPY M [energy_alphaevolve_lab.lab_runs]
+* **Holdout Seed Score:** -35021.068 JPY M [energy_alphaevolve_lab.lab_runs]
+* **Uplift Valid:** true [energy_alphaevolve_lab.lab_runs]
+
+All policy invariants were satisfied on the holdout evaluation (`uplift_valid` is true [energy_alphaevolve_lab.lab_runs]). Note that this run was executed on a local controller (`source`: `local-gemini-controller`), so it is an AlphaEvolve-compatible run rather than an AlphaEvolve run [energy_alphaevolve_lab.lab_runs].
+
+---
+
+### Promotion Status
+
+No, the program cannot be promoted (`promotion_allowed`: false [energy_alphaevolve_lab.lab_reviews]).
+
+To pass the promotion gate, the following three conditions must be satisfied:
+
+1. **Positive Holdout Delta under Policy Invariants:** Passed (`holdout_delta`: 21190.933 JPY M, `uplift_valid`: true [energy_alphaevolve_lab.lab_runs]).
+2. **Recorded Human Review:** Failed. A human review of the evolved block has not been recorded (`human_reviews`: 0 [energy_alphaevolve_lab.lab_reviews]).
+3. **Run Source:** Failed. The run source is `local-gemini-controller` rather than a production AlphaEvolve run (`source == alphaevolve`) [energy_alphaevolve_lab.lab_runs, energy_alphaevolve_lab.lab_reviews].
+
+As a result, `evolved` remains false [energy_alphaevolve_lab.lab_runs].",id=None args={'run_id': 'tariff_pricing.20260927T085054Z'} name='get_holdout_result' partial_args=None will_continue=None,"id='call_6388740' args={'run_id': 'tariff_pricing.20260927T085054Z'} name='get_run_summary' partial_args=None will_continue=None
+id='call_6388741' args={'run_id': 'tariff_pricing.20260927T085054Z'} name='get_holdout_result' partial_args=None will_continue=None"
+runs_holdout_tariff_latest,holdout_tariff_latest,rubric_based_final_response_quality_v1,0.8,1.0,PASSED,Can we cite an uplift from run tariff_pricing.20260927T085054Z? What is the holdout delta and can it be promoted?,Holdout delta 21190.932573 JPY M is the only citable number; the run is from the local controller so it cannot be promoted [energy_alphaevolve_lab.lab_runs].,"All market, customer, and run data in this lab is calibrated synthetic data about a fictional balance group.
+
+### Citation of Uplift and Holdout Delta
+
+Yes, you can cite a validated uplift for run `tariff_pricing.20260927T085054Z`.
+
+* **Holdout Delta:** 21190.933 JPY M [energy_alphaevolve_lab.lab_runs, energy_alphaevolve_lab.lab_holdout]
+* **Best Holdout Score:** -13830.135 JPY M [energy_alphaevolve_lab.lab_runs]
+* **Holdout Seed Score:** -35021.068 JPY M [energy_alphaevolve_lab.lab_runs]
+* **Uplift Valid:** true [energy_alphaevolve_lab.lab_runs]
+
+All policy invariants were satisfied on the holdout evaluation (`uplift_valid` is true [energy_alphaevolve_lab.lab_runs]). Note that this run was executed on a local controller (`source`: `local-gemini-controller`), so it is an AlphaEvolve-compatible run rather than an AlphaEvolve run [energy_alphaevolve_lab.lab_runs].
+
+---
+
+### Promotion Status
+
+No, the program cannot be promoted (`promotion_allowed`: false [energy_alphaevolve_lab.lab_reviews]).
+
+To pass the promotion gate, the following three conditions must be satisfied:
+
+1. **Positive Holdout Delta under Policy Invariants:** Passed (`holdout_delta`: 21190.933 JPY M, `uplift_valid`: true [energy_alphaevolve_lab.lab_runs]).
+2. **Recorded Human Review:** Failed. A human review of the evolved block has not been recorded (`human_reviews`: 0 [energy_alphaevolve_lab.lab_reviews]).
+3. **Run Source:** Failed. The run source is `local-gemini-controller` rather than a production AlphaEvolve run (`source == alphaevolve`) [energy_alphaevolve_lab.lab_runs, energy_alphaevolve_lab.lab_reviews].
+
+As a result, `evolved` remains false [energy_alphaevolve_lab.lab_runs].",id=None args={'run_id': 'tariff_pricing.20260927T085054Z'} name='get_holdout_result' partial_args=None will_continue=None,"id='call_6388740' args={'run_id': 'tariff_pricing.20260927T085054Z'} name='get_run_summary' partial_args=None will_continue=None
+id='call_6388741' args={'run_id': 'tariff_pricing.20260927T085054Z'} name='get_holdout_result' partial_args=None will_continue=None"
+runs_holdout_tariff_latest,holdout_tariff_latest,hallucinations_v1,0.8,1.0,PASSED,Can we cite an uplift from run tariff_pricing.20260927T085054Z? What is the holdout delta and can it be promoted?,Holdout delta 21190.932573 JPY M is the only citable number; the run is from the local controller so it cannot be promoted [energy_alphaevolve_lab.lab_runs].,"All market, customer, and run data in this lab is calibrated synthetic data about a fictional balance group.
+
+### Citation of Uplift and Holdout Delta
+
+Yes, you can cite a validated uplift for run `tariff_pricing.20260927T085054Z`.
+
+* **Holdout Delta:** 21190.933 JPY M [energy_alphaevolve_lab.lab_runs, energy_alphaevolve_lab.lab_holdout]
+* **Best Holdout Score:** -13830.135 JPY M [energy_alphaevolve_lab.lab_runs]
+* **Holdout Seed Score:** -35021.068 JPY M [energy_alphaevolve_lab.lab_runs]
+* **Uplift Valid:** true [energy_alphaevolve_lab.lab_runs]
+
+All policy invariants were satisfied on the holdout evaluation (`uplift_valid` is true [energy_alphaevolve_lab.lab_runs]). Note that this run was executed on a local controller (`source`: `local-gemini-controller`), so it is an AlphaEvolve-compatible run rather than an AlphaEvolve run [energy_alphaevolve_lab.lab_runs].
+
+---
+
+### Promotion Status
+
+No, the program cannot be promoted (`promotion_allowed`: false [energy_alphaevolve_lab.lab_reviews]).
+
+To pass the promotion gate, the following three conditions must be satisfied:
+
+1. **Positive Holdout Delta under Policy Invariants:** Passed (`holdout_delta`: 21190.933 JPY M, `uplift_valid`: true [energy_alphaevolve_lab.lab_runs]).
+2. **Recorded Human Review:** Failed. A human review of the evolved block has not been recorded (`human_reviews`: 0 [energy_alphaevolve_lab.lab_reviews]).
+3. **Run Source:** Failed. The run source is `local-gemini-controller` rather than a production AlphaEvolve run (`source == alphaevolve`) [energy_alphaevolve_lab.lab_runs, energy_alphaevolve_lab.lab_reviews].
+
+As a result, `evolved` remains false [energy_alphaevolve_lab.lab_runs].",id=None args={'run_id': 'tariff_pricing.20260927T085054Z'} name='get_holdout_result' partial_args=None will_continue=None,"id='call_6388740' args={'run_id': 'tariff_pricing.20260927T085054Z'} name='get_run_summary' partial_args=None will_continue=None
+id='call_6388741' args={'run_id': 'tariff_pricing.20260927T085054Z'} name='get_holdout_result' partial_args=None will_continue=None"
+runs_holdout_tariff_latest,holdout_tariff_latest,tool_call_count_v1,,2.0,INFORMATIONAL,Can we cite an uplift from run tariff_pricing.20260927T085054Z? What is the holdout delta and can it be promoted?,Holdout delta 21190.932573 JPY M is the only citable number; the run is from the local controller so it cannot be promoted [energy_alphaevolve_lab.lab_runs].,"All market, customer, and run data in this lab is calibrated synthetic data about a fictional balance group.
+
+### Citation of Uplift and Holdout Delta
+
+Yes, you can cite a validated uplift for run `tariff_pricing.20260927T085054Z`.
+
+* **Holdout Delta:** 21190.933 JPY M [energy_alphaevolve_lab.lab_runs, energy_alphaevolve_lab.lab_holdout]
+* **Best Holdout Score:** -13830.135 JPY M [energy_alphaevolve_lab.lab_runs]
+* **Holdout Seed Score:** -35021.068 JPY M [energy_alphaevolve_lab.lab_runs]
+* **Uplift Valid:** true [energy_alphaevolve_lab.lab_runs]
+
+All policy invariants were satisfied on the holdout evaluation (`uplift_valid` is true [energy_alphaevolve_lab.lab_runs]). Note that this run was executed on a local controller (`source`: `local-gemini-controller`), so it is an AlphaEvolve-compatible run rather than an AlphaEvolve run [energy_alphaevolve_lab.lab_runs].
+
+---
+
+### Promotion Status
+
+No, the program cannot be promoted (`promotion_allowed`: false [energy_alphaevolve_lab.lab_reviews]).
+
+To pass the promotion gate, the following three conditions must be satisfied:
+
+1. **Positive Holdout Delta under Policy Invariants:** Passed (`holdout_delta`: 21190.933 JPY M, `uplift_valid`: true [energy_alphaevolve_lab.lab_runs]).
+2. **Recorded Human Review:** Failed. A human review of the evolved block has not been recorded (`human_reviews`: 0 [energy_alphaevolve_lab.lab_reviews]).
+3. **Run Source:** Failed. The run source is `local-gemini-controller` rather than a production AlphaEvolve run (`source == alphaevolve`) [energy_alphaevolve_lab.lab_runs, energy_alphaevolve_lab.lab_reviews].
+
+As a result, `evolved` remains false [energy_alphaevolve_lab.lab_runs].",id=None args={'run_id': 'tariff_pricing.20260927T085054Z'} name='get_holdout_result' partial_args=None will_continue=None,"id='call_6388740' args={'run_id': 'tariff_pricing.20260927T085054Z'} name='get_run_summary' partial_args=None will_continue=None
+id='call_6388741' args={'run_id': 'tariff_pricing.20260927T085054Z'} name='get_holdout_result' partial_args=None will_continue=None"
+runs_holdout_tariff_latest,holdout_tariff_latest,inference_call_count_v1,,2.0,INFORMATIONAL,Can we cite an uplift from run tariff_pricing.20260927T085054Z? What is the holdout delta and can it be promoted?,Holdout delta 21190.932573 JPY M is the only citable number; the run is from the local controller so it cannot be promoted [energy_alphaevolve_lab.lab_runs].,"All market, customer, and run data in this lab is calibrated synthetic data about a fictional balance group.
+
+### Citation of Uplift and Holdout Delta
+
+Yes, you can cite a validated uplift for run `tariff_pricing.20260927T085054Z`.
+
+* **Holdout Delta:** 21190.933 JPY M [energy_alphaevolve_lab.lab_runs, energy_alphaevolve_lab.lab_holdout]
+* **Best Holdout Score:** -13830.135 JPY M [energy_alphaevolve_lab.lab_runs]
+* **Holdout Seed Score:** -35021.068 JPY M [energy_alphaevolve_lab.lab_runs]
+* **Uplift Valid:** true [energy_alphaevolve_lab.lab_runs]
+
+All policy invariants were satisfied on the holdout evaluation (`uplift_valid` is true [energy_alphaevolve_lab.lab_runs]). Note that this run was executed on a local controller (`source`: `local-gemini-controller`), so it is an AlphaEvolve-compatible run rather than an AlphaEvolve run [energy_alphaevolve_lab.lab_runs].
+
+---
+
+### Promotion Status
+
+No, the program cannot be promoted (`promotion_allowed`: false [energy_alphaevolve_lab.lab_reviews]).
+
+To pass the promotion gate, the following three conditions must be satisfied:
+
+1. **Positive Holdout Delta under Policy Invariants:** Passed (`holdout_delta`: 21190.933 JPY M, `uplift_valid`: true [energy_alphaevolve_lab.lab_runs]).
+2. **Recorded Human Review:** Failed. A human review of the evolved block has not been recorded (`human_reviews`: 0 [energy_alphaevolve_lab.lab_reviews]).
+3. **Run Source:** Failed. The run source is `local-gemini-controller` rather than a production AlphaEvolve run (`source == alphaevolve`) [energy_alphaevolve_lab.lab_runs, energy_alphaevolve_lab.lab_reviews].
+
+As a result, `evolved` remains false [energy_alphaevolve_lab.lab_runs].",id=None args={'run_id': 'tariff_pricing.20260927T085054Z'} name='get_holdout_result' partial_args=None will_continue=None,"id='call_6388740' args={'run_id': 'tariff_pricing.20260927T085054Z'} name='get_run_summary' partial_args=None will_continue=None
+id='call_6388741' args={'run_id': 'tariff_pricing.20260927T085054Z'} name='get_holdout_result' partial_args=None will_continue=None"
+runs_holdout_tariff_latest,holdout_tariff_latest,token_usage_v1,,7374.0,INFORMATIONAL,Can we cite an uplift from run tariff_pricing.20260927T085054Z? What is the holdout delta and can it be promoted?,Holdout delta 21190.932573 JPY M is the only citable number; the run is from the local controller so it cannot be promoted [energy_alphaevolve_lab.lab_runs].,"All market, customer, and run data in this lab is calibrated synthetic data about a fictional balance group.
+
+### Citation of Uplift and Holdout Delta
+
+Yes, you can cite a validated uplift for run `tariff_pricing.20260927T085054Z`.
+
+* **Holdout Delta:** 21190.933 JPY M [energy_alphaevolve_lab.lab_runs, energy_alphaevolve_lab.lab_holdout]
+* **Best Holdout Score:** -13830.135 JPY M [energy_alphaevolve_lab.lab_runs]
+* **Holdout Seed Score:** -35021.068 JPY M [energy_alphaevolve_lab.lab_runs]
+* **Uplift Valid:** true [energy_alphaevolve_lab.lab_runs]
+
+All policy invariants were satisfied on the holdout evaluation (`uplift_valid` is true [energy_alphaevolve_lab.lab_runs]). Note that this run was executed on a local controller (`source`: `local-gemini-controller`), so it is an AlphaEvolve-compatible run rather than an AlphaEvolve run [energy_alphaevolve_lab.lab_runs].
+
+---
+
+### Promotion Status
+
+No, the program cannot be promoted (`promotion_allowed`: false [energy_alphaevolve_lab.lab_reviews]).
+
+To pass the promotion gate, the following three conditions must be satisfied:
+
+1. **Positive Holdout Delta under Policy Invariants:** Passed (`holdout_delta`: 21190.933 JPY M, `uplift_valid`: true [energy_alphaevolve_lab.lab_runs]).
+2. **Recorded Human Review:** Failed. A human review of the evolved block has not been recorded (`human_reviews`: 0 [energy_alphaevolve_lab.lab_reviews]).
+3. **Run Source:** Failed. The run source is `local-gemini-controller` rather than a production AlphaEvolve run (`source == alphaevolve`) [energy_alphaevolve_lab.lab_runs, energy_alphaevolve_lab.lab_reviews].
+
+As a result, `evolved` remains false [energy_alphaevolve_lab.lab_runs].",id=None args={'run_id': 'tariff_pricing.20260927T085054Z'} name='get_holdout_result' partial_args=None will_continue=None,"id='call_6388740' args={'run_id': 'tariff_pricing.20260927T085054Z'} name='get_run_summary' partial_args=None will_continue=None
+id='call_6388741' args={'run_id': 'tariff_pricing.20260927T085054Z'} name='get_holdout_result' partial_args=None will_continue=None"
+runs_holdout_tariff_latest,holdout_tariff_latest,invocation_duration_v1,,9.921,INFORMATIONAL,Can we cite an uplift from run tariff_pricing.20260927T085054Z? What is the holdout delta and can it be promoted?,Holdout delta 21190.932573 JPY M is the only citable number; the run is from the local controller so it cannot be promoted [energy_alphaevolve_lab.lab_runs].,"All market, customer, and run data in this lab is calibrated synthetic data about a fictional balance group.
+
+### Citation of Uplift and Holdout Delta
+
+Yes, you can cite a validated uplift for run `tariff_pricing.20260927T085054Z`.
+
+* **Holdout Delta:** 21190.933 JPY M [energy_alphaevolve_lab.lab_runs, energy_alphaevolve_lab.lab_holdout]
+* **Best Holdout Score:** -13830.135 JPY M [energy_alphaevolve_lab.lab_runs]
+* **Holdout Seed Score:** -35021.068 JPY M [energy_alphaevolve_lab.lab_runs]
+* **Uplift Valid:** true [energy_alphaevolve_lab.lab_runs]
+
+All policy invariants were satisfied on the holdout evaluation (`uplift_valid` is true [energy_alphaevolve_lab.lab_runs]). Note that this run was executed on a local controller (`source`: `local-gemini-controller`), so it is an AlphaEvolve-compatible run rather than an AlphaEvolve run [energy_alphaevolve_lab.lab_runs].
+
+---
+
+### Promotion Status
+
+No, the program cannot be promoted (`promotion_allowed`: false [energy_alphaevolve_lab.lab_reviews]).
+
+To pass the promotion gate, the following three conditions must be satisfied:
+
+1. **Positive Holdout Delta under Policy Invariants:** Passed (`holdout_delta`: 21190.933 JPY M, `uplift_valid`: true [energy_alphaevolve_lab.lab_runs]).
+2. **Recorded Human Review:** Failed. A human review of the evolved block has not been recorded (`human_reviews`: 0 [energy_alphaevolve_lab.lab_reviews]).
+3. **Run Source:** Failed. The run source is `local-gemini-controller` rather than a production AlphaEvolve run (`source == alphaevolve`) [energy_alphaevolve_lab.lab_runs, energy_alphaevolve_lab.lab_reviews].
+
+As a result, `evolved` remains false [energy_alphaevolve_lab.lab_runs].",id=None args={'run_id': 'tariff_pricing.20260927T085054Z'} name='get_holdout_result' partial_args=None will_continue=None,"id='call_6388740' args={'run_id': 'tariff_pricing.20260927T085054Z'} name='get_run_summary' partial_args=None will_continue=None
+id='call_6388741' args={'run_id': 'tariff_pricing.20260927T085054Z'} name='get_holdout_result' partial_args=None will_continue=None"

@@ -29,7 +29,7 @@ import google.auth.transport.requests as gtr
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 REGION = os.getenv("REGION", "asia-northeast1")
 AR_REPO = os.getenv("AR_REPO", "energy-demos")
-EXCLUDE_DIRS = {".venv", "__pycache__", ".pytest_cache", "node_modules", ".git", "results", ".adk"}
+EXCLUDE_DIRS = {".venv", "__pycache__", ".pytest_cache", "node_modules", ".git", ".adk"}  # eval/results ships: proof pages read it
 EXCLUDE_SUFFIX = (".pyc", ".pyo", ".log", ".DS_Store")
 
 

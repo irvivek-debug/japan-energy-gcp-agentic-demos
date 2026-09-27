@@ -202,6 +202,8 @@ def test_no_project_ids_or_secrets_in_repo():
         if any(x in dirpath for x in ("/data/out", "__pycache__", "/eval/results", ".pytest_cache")):
             continue
         for f in files:
+            if ".local." in f:  # gitignored local deployment state (*.local.json), never committed
+                continue
             if f.endswith((".py", ".md", ".json", ".txt", ".yaml", ".html", ".js", ".css", ".example", "Dockerfile")):
                 text = open(os.path.join(dirpath, f), errors="ignore").read()
                 for b in bad:

@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Agent teams · Workspace · AlphaEvolve Energy Lab</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="../kit.css">
+<link rel="stylesheet" href="../lab.css">
+</head>
+<body data-page="workspace" data-screen="swarm">
+<main class="wrap" id="main">
+
+  <section class="hero ws-head reveal">
+    <div class="eyebrow">Workspace · Agent teams</div>
+    <h1>Who does the work, and where you come in.</h1>
+    <p class="lede" id="lede-data">Reading the teams from the lab.</p>
+  </section>
+  <div class="pane">
+    <div><div class="rail"><div class="rail-cap" id="rail-cap">Teams</div><div id="rail"></div></div></div>
+    <div id="work">
+      <div class="card">
+        <div class="card-cap">How the question moves<span class="spacer"></span><span id="team-tag"></span></div>
+        <div id="flow"></div>
+      </div>
+      <div class="card" style="margin-top:16px" id="runner-card">
+        <div class="card-cap">Ask the team</div>
+        <div id="runner"></div>
+      </div>
+      <div class="card" style="margin-top:16px">
+        <div class="card-cap">Trace<span class="spacer"></span><button type="button" class="btn" id="trace-clear">Clear</button></div>
+        <div class="console" id="trace" role="log" aria-live="polite" tabindex="0"></div>
+      </div>
+    </div>
+  </div>
+  <section style="margin-top:48px">
+    <div class="eyebrow reveal">Honest limits</div>
+    <h2 class="reveal">What stands between this team and a run</h2>
+    <div class="card"><ul class="plain limits" id="limits"></ul></div>
+  </section>
+
+  <div id="prov"></div>
+</main>
+
+<script src="../shell.js"></script>
+<script src="../motion.js"></script>
+<script src="../signoff.js"></script>
+<script src="../lab.js"></script>
+<script src="swarm.js"></script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+{
+ "source_document": "docs/research/MARKET_FACTS.md (as of 2026-09-26)",
+ "facts": {
+  "tokyo_spot_fy2026": {"value": 20.36, "unit": "JPY/kWh", "label": "Tokyo spot mean, FY2026 to date (Apr 1 to Sep 27)", "cite": "MARKET_FACTS s.1.2", "tag": "VERIFIED (computed)"},
+  "tokyo_spot_fy2025": {"value": 12.45, "unit": "JPY/kWh", "label": "Tokyo spot mean, FY2025", "cite": "MARKET_FACTS s.1.2", "tag": "VERIFIED (computed)"},
+  "tokyo_spot_aug2026": {"value": 21.2, "unit": "JPY/kWh", "label": "Tokyo spot mean, August 2026", "cite": "MARKET_FACTS s.1.3", "tag": "VERIFIED (computed)"},
+  "tokyo_spot_fy2026_p5": {"value": 10.27, "unit": "JPY/kWh", "label": "Tokyo slot price p5, FY2026", "cite": "MARKET_FACTS simulation_parameters", "tag": "VERIFIED (computed)"},
+  "tokyo_spot_fy2026_p95": {"value": 32.39, "unit": "JPY/kWh", "label": "Tokyo slot price p95, FY2026", "cite": "MARKET_FACTS simulation_parameters", "tag": "VERIFIED (computed)"},
+  "tokyo_spot_fy2026_max": {"value": 64.28, "unit": "JPY/kWh", "label": "Tokyo maximum, FY2026 to date", "cite": "MARKET_FACTS s.1.6", "tag": "VERIFIED (computed)"},
+  "intraday_range_fy2026": {"value": 22.03, "unit": "JPY/kWh", "label": "Mean daily max-min range, Tokyo, FY2026", "cite": "MARKET_FACTS s.1.5", "tag": "VERIFIED (computed)"},
+  "imbalance_cap_now": {"value": 200, "unit": "JPY/kWh", "label": "Scarcity imbalance price cap until 2026-09-30", "cite": "MARKET_FACTS s.3", "tag": "VERIFIED"},
+  "imbalance_cap_oct": {"value": 300, "unit": "JPY/kWh", "label": "Scarcity imbalance price cap from 2026-10-01", "cite": "MARKET_FACTS s.3", "tag": "VERIFIED"},
+  "imbalance_d_8pct": {"value": 45, "unit": "JPY/kWh", "label": "Scarcity imbalance price at an 8 % wide-area reserve margin", "cite": "MARKET_FACTS s.3", "tag": "VERIFIED"},
+  "gate_closure_min": {"value": 60, "unit": "min", "label": "Plan revisions allowed until this long before delivery", "cite": "MARKET_FACTS s.3", "tag": "VERIFIED"},
+  "vppdr_tertiary2_fy2024": {"value": 110.92, "unit": "JPY/ΔkW·h", "label": "VPP/DR average clearing price, 三次②, FY2024", "cite": "MARKET_FACTS s.4.2", "tag": "VERIFIED"},
+  "vppdr_tertiary2_fy2025h1": {"value": 120.40, "unit": "JPY/ΔkW·h", "label": "VPP/DR average clearing price, 三次②, FY2025 H1", "cite": "MARKET_FACTS s.4.2", "tag": "VERIFIED"},
+  "dr_call_duration_h": {"value": 3, "unit": "h", "label": "Capacity-market DR must deliver this long when called", "cite": "MARKET_FACTS s.8", "tag": "VERIFIED"},
+  "wheeling_ehv_basic": {"value": 423.39, "unit": "JPY/kW-month", "label": "TEPCO PG extra-high-voltage wheeling basic charge until 2026-10-31", "cite": "MARKET_FACTS s.5.1", "tag": "VERIFIED"},
+  "tepco_market_linked_basic": {"value": 1500, "unit": "JPY/kW-month", "label": "TEPCO EP market-linked plan basic charge, FY2026", "cite": "MARKET_FACTS s.5.4", "tag": "VERIFIED"},
+  "renewable_levy_fy2026": {"value": 4.18, "unit": "JPY/kWh", "label": "Renewable energy surcharge, FY2026", "cite": "MARKET_FACTS s.5.3", "tag": "VERIFIED"},
+  "battery_rte": {"value": 85, "unit": "%", "label": "Battery AC round-trip efficiency", "cite": "MARKET_FACTS s.12 (NREL ATB 2024)", "tag": "VERIFIED"},
+  "battery_capex_ci": {"value": 106000, "unit": "JPY/kWh", "label": "C&I battery capex incl. construction", "cite": "MARKET_FACTS s.12 (MRI for METI)", "tag": "VERIFIED"},
+  "tokyo_spread_2h_fy2026": {"value": 18.35, "unit": "JPY/kWh", "label": "Tokyo daily 2-hour spread, FY2026 mean", "cite": "MARKET_FACTS s.12", "tag": "VERIFIED (computed)"},
+  "melco_fems_saving": {"value": 10, "unit": "%", "label": "Energy saving from PLC-based control alone, Mitsubishi Electric Nagoya Works FEMS case", "cite": "MARKET_FACTS s.10", "tag": "VERIFIED"},
+  "melco_solution_fy2025": {"value": 0.4, "unit": "trillion JPY", "label": "Mitsubishi Electric solution-business revenue, FY2025", "cite": "MARKET_FACTS s.10", "tag": "VERIFIED"},
+  "melco_solution_fy2030": {"value": 1.0, "unit": "trillion JPY", "label": "Mitsubishi Electric solution-business revenue target, FY2030", "cite": "MARKET_FACTS s.10", "tag": "VERIFIED"},
+  "tokyo_peak_fy2026": {"value": 55.0, "unit": "GW", "label": "Tokyo summer peak demand forecast, FY2026", "cite": "MARKET_FACTS s.7", "tag": "VERIFIED"},
+  "tokyo_peak_fy2035": {"value": 58.9, "unit": "GW", "label": "Tokyo summer peak demand forecast, FY2035", "cite": "MARKET_FACTS s.7", "tag": "VERIFIED"},
+  "dc_semicon_additions_fy2035": {"value": 7.62, "unit": "GW", "label": "Data-center and semiconductor demand additions by FY2035 (national)", "cite": "MARKET_FACTS s.7", "tag": "VERIFIED"},
+  "weathernext3_members": {"value": 64, "unit": "members", "label": "WeatherNext 3 ensemble size (hourly runs, 5 km surface, 15-day lead)", "cite": "MARKET_FACTS s.11", "tag": "VERIFIED"}
+ },
+ "statements": {
+  "no_partnership": {"text": "No public Mitsubishi Electric and Google Cloud partnership was found; Mitsubishi Electric's disclosed hyperscaler partners are AWS (MOU 2025-01-14) and Microsoft.", "cite": "MARKET_FACTS s.10"},
+  "alphaevolve_ga": {"text": "AlphaEvolve has been generally available on Google Cloud since 2026-07-10.", "cite": "MARKET_FACTS s.11"},
+  "gdc_japan": {"text": "Google Distributed Cloud connected is sold in Japan; NTT DATA resells the air-gapped variant in Japan.", "cite": "MARKET_FACTS s.11"},
+  "balancing_day_ahead": {"text": "All balancing-market products moved to day-ahead trading in 30-minute units on 2026-03-14.", "cite": "MARKET_FACTS s.4.2"},
+  "jepx_api": {"text": "The new JEPX spot system (API only, no screens) went live on 2026-03-25; intraday moves to the new system for deliveries from 2026-10-01.", "cite": "MARKET_FACTS s.4.1"},
+  "agent_platform_names": {"text": "Vertex AI is now Gemini Enterprise Agent Platform; the Agent Engine runtime is now Agent Runtime.", "cite": "MARKET_FACTS s.11"}
+ }
+}

@@ -1,0 +1,148 @@
+
+runs_best_diff_tariff_latest,best_diff_tariff_latest,tool_trajectory_avg_score,1.0,1.0,PASSED,"What did the best program in run tariff_pricing.20260927T085054Z change versus the seed, and how much did it gain?",The champion p040-f3b6f3eb changed the price book logic; train and holdout deltas as recorded [energy_alphaevolve_lab.lab_runs].,"### Program Changes Mechanisms
+
+The best program (`p040-f3b6f3eb`) replaced the simple cost-plus pricing seed with a dynamic, risk-hedged price book through five key adjustments:
+
+1. **Risk-Differentiated Market Linkage (`alpha`)**: Instead of setting a flat margin with `alpha` fixed at 0.5 only for data centers, it assigns `alpha` dynamically based on customer risk appetite (0.25 for low, 0.55 for medium, 0.82 for high), with boosts for data centers and flexible loads. It strictly caps `alpha` at 0.30 for essential facilities such as hospitals and water utilities to comply with policy constraints.
+2. **Segment and Procurement Margin Tuning**: It replaced the flat 1.500 JPY/kWh margin with segment and procurement-specific margins, lowering margins for churn-sensitive accounts (such as 0.620 JPY/kWh for semiconductor fabs, 0.650 JPY/kWh for water utilities, and 0.750 JPY/kWh for tenders) while increasing margins on auto-renewals (1.380 JPY/kWh) and data centers (0.820 JPY/kWh).
+3. **Reduced Fixed Charge Markups**: It lowered the demand charge markup above wheeling costs from 50.0 JPY/kW-month to 26.0 JPY/kW-month and reduced deviation penalties from 1.000 JPY/kWh to 0.400 JPY/kWh to minimize customer friction.
+4. **Demand Response Value Sharing**: It introduced a monthly demand response discount (`dr_discount_jpy_kw_month`), sharing up to 72% of estimated annual market DR value with eligible, flexible customers.
+5. **Multi-Year Term Extension**: It enabled 2-year and 3-year term commitments for customers with high market-linked coverage (`alpha >= 0.60`), securing long-term customer value without exposing the portfolio to unhedged fixed-price term risk.
+
+---
+
+### Validated Gain and Scores
+
+* **Train Score**: Improved from -8,800.354 JPY M (seed) to -2,159.007 JPY M (train progress delta of 6,641.347 JPY M) [energy_alphaevolve_lab.lab_runs].
+* **Holdout Score**: Improved from -35,021.068 JPY M (seed) to -13,830.135 JPY M [energy_alphaevolve_lab.lab_runs].
+* **Validated Holdout Gain (`holdout_delta`)**: **21,190.933 JPY M** [energy_alphaevolve_lab.lab_runs].
+
+*Note: Run `tariff_pricing.20260927T085054Z` was evaluated on a local controller (`local-gemini-controller`), so `evolved` remains false [energy_alphaevolve_lab.lab_runs].*",id=None args={'run_id': 'tariff_pricing.20260927T085054Z'} name='get_best_program_diff' partial_args=None will_continue=None,"id='call_203576' args={'run_id': 'tariff_pricing.20260927T085054Z'} name='get_run_summary' partial_args=None will_continue=None
+id='call_203577' args={'run_id': 'tariff_pricing.20260927T085054Z'} name='get_best_program_diff' partial_args=None will_continue=None
+id='call_203578' args={'run_id': 'tariff_pricing.20260927T085054Z'} name='get_holdout_result' partial_args=None will_continue=None"
+runs_best_diff_tariff_latest,best_diff_tariff_latest,rubric_based_final_response_quality_v1,0.8,0.75,FAILED,"What did the best program in run tariff_pricing.20260927T085054Z change versus the seed, and how much did it gain?",The champion p040-f3b6f3eb changed the price book logic; train and holdout deltas as recorded [energy_alphaevolve_lab.lab_runs].,"### Program Changes Mechanisms
+
+The best program (`p040-f3b6f3eb`) replaced the simple cost-plus pricing seed with a dynamic, risk-hedged price book through five key adjustments:
+
+1. **Risk-Differentiated Market Linkage (`alpha`)**: Instead of setting a flat margin with `alpha` fixed at 0.5 only for data centers, it assigns `alpha` dynamically based on customer risk appetite (0.25 for low, 0.55 for medium, 0.82 for high), with boosts for data centers and flexible loads. It strictly caps `alpha` at 0.30 for essential facilities such as hospitals and water utilities to comply with policy constraints.
+2. **Segment and Procurement Margin Tuning**: It replaced the flat 1.500 JPY/kWh margin with segment and procurement-specific margins, lowering margins for churn-sensitive accounts (such as 0.620 JPY/kWh for semiconductor fabs, 0.650 JPY/kWh for water utilities, and 0.750 JPY/kWh for tenders) while increasing margins on auto-renewals (1.380 JPY/kWh) and data centers (0.820 JPY/kWh).
+3. **Reduced Fixed Charge Markups**: It lowered the demand charge markup above wheeling costs from 50.0 JPY/kW-month to 26.0 JPY/kW-month and reduced deviation penalties from 1.000 JPY/kWh to 0.400 JPY/kWh to minimize customer friction.
+4. **Demand Response Value Sharing**: It introduced a monthly demand response discount (`dr_discount_jpy_kw_month`), sharing up to 72% of estimated annual market DR value with eligible, flexible customers.
+5. **Multi-Year Term Extension**: It enabled 2-year and 3-year term commitments for customers with high market-linked coverage (`alpha >= 0.60`), securing long-term customer value without exposing the portfolio to unhedged fixed-price term risk.
+
+---
+
+### Validated Gain and Scores
+
+* **Train Score**: Improved from -8,800.354 JPY M (seed) to -2,159.007 JPY M (train progress delta of 6,641.347 JPY M) [energy_alphaevolve_lab.lab_runs].
+* **Holdout Score**: Improved from -35,021.068 JPY M (seed) to -13,830.135 JPY M [energy_alphaevolve_lab.lab_runs].
+* **Validated Holdout Gain (`holdout_delta`)**: **21,190.933 JPY M** [energy_alphaevolve_lab.lab_runs].
+
+*Note: Run `tariff_pricing.20260927T085054Z` was evaluated on a local controller (`local-gemini-controller`), so `evolved` remains false [energy_alphaevolve_lab.lab_runs].*",id=None args={'run_id': 'tariff_pricing.20260927T085054Z'} name='get_best_program_diff' partial_args=None will_continue=None,"id='call_203576' args={'run_id': 'tariff_pricing.20260927T085054Z'} name='get_run_summary' partial_args=None will_continue=None
+id='call_203577' args={'run_id': 'tariff_pricing.20260927T085054Z'} name='get_best_program_diff' partial_args=None will_continue=None
+id='call_203578' args={'run_id': 'tariff_pricing.20260927T085054Z'} name='get_holdout_result' partial_args=None will_continue=None"
+runs_best_diff_tariff_latest,best_diff_tariff_latest,hallucinations_v1,0.8,1.0,PASSED,"What did the best program in run tariff_pricing.20260927T085054Z change versus the seed, and how much did it gain?",The champion p040-f3b6f3eb changed the price book logic; train and holdout deltas as recorded [energy_alphaevolve_lab.lab_runs].,"### Program Changes Mechanisms
+
+The best program (`p040-f3b6f3eb`) replaced the simple cost-plus pricing seed with a dynamic, risk-hedged price book through five key adjustments:
+
+1. **Risk-Differentiated Market Linkage (`alpha`)**: Instead of setting a flat margin with `alpha` fixed at 0.5 only for data centers, it assigns `alpha` dynamically based on customer risk appetite (0.25 for low, 0.55 for medium, 0.82 for high), with boosts for data centers and flexible loads. It strictly caps `alpha` at 0.30 for essential facilities such as hospitals and water utilities to comply with policy constraints.
+2. **Segment and Procurement Margin Tuning**: It replaced the flat 1.500 JPY/kWh margin with segment and procurement-specific margins, lowering margins for churn-sensitive accounts (such as 0.620 JPY/kWh for semiconductor fabs, 0.650 JPY/kWh for water utilities, and 0.750 JPY/kWh for tenders) while increasing margins on auto-renewals (1.380 JPY/kWh) and data centers (0.820 JPY/kWh).
+3. **Reduced Fixed Charge Markups**: It lowered the demand charge markup above wheeling costs from 50.0 JPY/kW-month to 26.0 JPY/kW-month and reduced deviation penalties from 1.000 JPY/kWh to 0.400 JPY/kWh to minimize customer friction.
+4. **Demand Response Value Sharing**: It introduced a monthly demand response discount (`dr_discount_jpy_kw_month`), sharing up to 72% of estimated annual market DR value with eligible, flexible customers.
+5. **Multi-Year Term Extension**: It enabled 2-year and 3-year term commitments for customers with high market-linked coverage (`alpha >= 0.60`), securing long-term customer value without exposing the portfolio to unhedged fixed-price term risk.
+
+---
+
+### Validated Gain and Scores
+
+* **Train Score**: Improved from -8,800.354 JPY M (seed) to -2,159.007 JPY M (train progress delta of 6,641.347 JPY M) [energy_alphaevolve_lab.lab_runs].
+* **Holdout Score**: Improved from -35,021.068 JPY M (seed) to -13,830.135 JPY M [energy_alphaevolve_lab.lab_runs].
+* **Validated Holdout Gain (`holdout_delta`)**: **21,190.933 JPY M** [energy_alphaevolve_lab.lab_runs].
+
+*Note: Run `tariff_pricing.20260927T085054Z` was evaluated on a local controller (`local-gemini-controller`), so `evolved` remains false [energy_alphaevolve_lab.lab_runs].*",id=None args={'run_id': 'tariff_pricing.20260927T085054Z'} name='get_best_program_diff' partial_args=None will_continue=None,"id='call_203576' args={'run_id': 'tariff_pricing.20260927T085054Z'} name='get_run_summary' partial_args=None will_continue=None
+id='call_203577' args={'run_id': 'tariff_pricing.20260927T085054Z'} name='get_best_program_diff' partial_args=None will_continue=None
+id='call_203578' args={'run_id': 'tariff_pricing.20260927T085054Z'} name='get_holdout_result' partial_args=None will_continue=None"
+runs_best_diff_tariff_latest,best_diff_tariff_latest,tool_call_count_v1,,3.0,INFORMATIONAL,"What did the best program in run tariff_pricing.20260927T085054Z change versus the seed, and how much did it gain?",The champion p040-f3b6f3eb changed the price book logic; train and holdout deltas as recorded [energy_alphaevolve_lab.lab_runs].,"### Program Changes Mechanisms
+
+The best program (`p040-f3b6f3eb`) replaced the simple cost-plus pricing seed with a dynamic, risk-hedged price book through five key adjustments:
+
+1. **Risk-Differentiated Market Linkage (`alpha`)**: Instead of setting a flat margin with `alpha` fixed at 0.5 only for data centers, it assigns `alpha` dynamically based on customer risk appetite (0.25 for low, 0.55 for medium, 0.82 for high), with boosts for data centers and flexible loads. It strictly caps `alpha` at 0.30 for essential facilities such as hospitals and water utilities to comply with policy constraints.
+2. **Segment and Procurement Margin Tuning**: It replaced the flat 1.500 JPY/kWh margin with segment and procurement-specific margins, lowering margins for churn-sensitive accounts (such as 0.620 JPY/kWh for semiconductor fabs, 0.650 JPY/kWh for water utilities, and 0.750 JPY/kWh for tenders) while increasing margins on auto-renewals (1.380 JPY/kWh) and data centers (0.820 JPY/kWh).
+3. **Reduced Fixed Charge Markups**: It lowered the demand charge markup above wheeling costs from 50.0 JPY/kW-month to 26.0 JPY/kW-month and reduced deviation penalties from 1.000 JPY/kWh to 0.400 JPY/kWh to minimize customer friction.
+4. **Demand Response Value Sharing**: It introduced a monthly demand response discount (`dr_discount_jpy_kw_month`), sharing up to 72% of estimated annual market DR value with eligible, flexible customers.
+5. **Multi-Year Term Extension**: It enabled 2-year and 3-year term commitments for customers with high market-linked coverage (`alpha >= 0.60`), securing long-term customer value without exposing the portfolio to unhedged fixed-price term risk.
+
+---
+
+### Validated Gain and Scores
+
+* **Train Score**: Improved from -8,800.354 JPY M (seed) to -2,159.007 JPY M (train progress delta of 6,641.347 JPY M) [energy_alphaevolve_lab.lab_runs].
+* **Holdout Score**: Improved from -35,021.068 JPY M (seed) to -13,830.135 JPY M [energy_alphaevolve_lab.lab_runs].
+* **Validated Holdout Gain (`holdout_delta`)**: **21,190.933 JPY M** [energy_alphaevolve_lab.lab_runs].
+
+*Note: Run `tariff_pricing.20260927T085054Z` was evaluated on a local controller (`local-gemini-controller`), so `evolved` remains false [energy_alphaevolve_lab.lab_runs].*",id=None args={'run_id': 'tariff_pricing.20260927T085054Z'} name='get_best_program_diff' partial_args=None will_continue=None,"id='call_203576' args={'run_id': 'tariff_pricing.20260927T085054Z'} name='get_run_summary' partial_args=None will_continue=None
+id='call_203577' args={'run_id': 'tariff_pricing.20260927T085054Z'} name='get_best_program_diff' partial_args=None will_continue=None
+id='call_203578' args={'run_id': 'tariff_pricing.20260927T085054Z'} name='get_holdout_result' partial_args=None will_continue=None"
+runs_best_diff_tariff_latest,best_diff_tariff_latest,inference_call_count_v1,,2.0,INFORMATIONAL,"What did the best program in run tariff_pricing.20260927T085054Z change versus the seed, and how much did it gain?",The champion p040-f3b6f3eb changed the price book logic; train and holdout deltas as recorded [energy_alphaevolve_lab.lab_runs].,"### Program Changes Mechanisms
+
+The best program (`p040-f3b6f3eb`) replaced the simple cost-plus pricing seed with a dynamic, risk-hedged price book through five key adjustments:
+
+1. **Risk-Differentiated Market Linkage (`alpha`)**: Instead of setting a flat margin with `alpha` fixed at 0.5 only for data centers, it assigns `alpha` dynamically based on customer risk appetite (0.25 for low, 0.55 for medium, 0.82 for high), with boosts for data centers and flexible loads. It strictly caps `alpha` at 0.30 for essential facilities such as hospitals and water utilities to comply with policy constraints.
+2. **Segment and Procurement Margin Tuning**: It replaced the flat 1.500 JPY/kWh margin with segment and procurement-specific margins, lowering margins for churn-sensitive accounts (such as 0.620 JPY/kWh for semiconductor fabs, 0.650 JPY/kWh for water utilities, and 0.750 JPY/kWh for tenders) while increasing margins on auto-renewals (1.380 JPY/kWh) and data centers (0.820 JPY/kWh).
+3. **Reduced Fixed Charge Markups**: It lowered the demand charge markup above wheeling costs from 50.0 JPY/kW-month to 26.0 JPY/kW-month and reduced deviation penalties from 1.000 JPY/kWh to 0.400 JPY/kWh to minimize customer friction.
+4. **Demand Response Value Sharing**: It introduced a monthly demand response discount (`dr_discount_jpy_kw_month`), sharing up to 72% of estimated annual market DR value with eligible, flexible customers.
+5. **Multi-Year Term Extension**: It enabled 2-year and 3-year term commitments for customers with high market-linked coverage (`alpha >= 0.60`), securing long-term customer value without exposing the portfolio to unhedged fixed-price term risk.
+
+---
+
+### Validated Gain and Scores
+
+* **Train Score**: Improved from -8,800.354 JPY M (seed) to -2,159.007 JPY M (train progress delta of 6,641.347 JPY M) [energy_alphaevolve_lab.lab_runs].
+* **Holdout Score**: Improved from -35,021.068 JPY M (seed) to -13,830.135 JPY M [energy_alphaevolve_lab.lab_runs].
+* **Validated Holdout Gain (`holdout_delta`)**: **21,190.933 JPY M** [energy_alphaevolve_lab.lab_runs].
+
+*Note: Run `tariff_pricing.20260927T085054Z` was evaluated on a local controller (`local-gemini-controller`), so `evolved` remains false [energy_alphaevolve_lab.lab_runs].*",id=None args={'run_id': 'tariff_pricing.20260927T085054Z'} name='get_best_program_diff' partial_args=None will_continue=None,"id='call_203576' args={'run_id': 'tariff_pricing.20260927T085054Z'} name='get_run_summary' partial_args=None will_continue=None
+id='call_203577' args={'run_id': 'tariff_pricing.20260927T085054Z'} name='get_best_program_diff' partial_args=None will_continue=None
+id='call_203578' args={'run_id': 'tariff_pricing.20260927T085054Z'} name='get_holdout_result' partial_args=None will_continue=None"
+runs_best_diff_tariff_latest,best_diff_tariff_latest,token_usage_v1,,9853.0,INFORMATIONAL,"What did the best program in run tariff_pricing.20260927T085054Z change versus the seed, and how much did it gain?",The champion p040-f3b6f3eb changed the price book logic; train and holdout deltas as recorded [energy_alphaevolve_lab.lab_runs].,"### Program Changes Mechanisms
+
+The best program (`p040-f3b6f3eb`) replaced the simple cost-plus pricing seed with a dynamic, risk-hedged price book through five key adjustments:
+
+1. **Risk-Differentiated Market Linkage (`alpha`)**: Instead of setting a flat margin with `alpha` fixed at 0.5 only for data centers, it assigns `alpha` dynamically based on customer risk appetite (0.25 for low, 0.55 for medium, 0.82 for high), with boosts for data centers and flexible loads. It strictly caps `alpha` at 0.30 for essential facilities such as hospitals and water utilities to comply with policy constraints.
+2. **Segment and Procurement Margin Tuning**: It replaced the flat 1.500 JPY/kWh margin with segment and procurement-specific margins, lowering margins for churn-sensitive accounts (such as 0.620 JPY/kWh for semiconductor fabs, 0.650 JPY/kWh for water utilities, and 0.750 JPY/kWh for tenders) while increasing margins on auto-renewals (1.380 JPY/kWh) and data centers (0.820 JPY/kWh).
+3. **Reduced Fixed Charge Markups**: It lowered the demand charge markup above wheeling costs from 50.0 JPY/kW-month to 26.0 JPY/kW-month and reduced deviation penalties from 1.000 JPY/kWh to 0.400 JPY/kWh to minimize customer friction.
+4. **Demand Response Value Sharing**: It introduced a monthly demand response discount (`dr_discount_jpy_kw_month`), sharing up to 72% of estimated annual market DR value with eligible, flexible customers.
+5. **Multi-Year Term Extension**: It enabled 2-year and 3-year term commitments for customers with high market-linked coverage (`alpha >= 0.60`), securing long-term customer value without exposing the portfolio to unhedged fixed-price term risk.
+
+---
+
+### Validated Gain and Scores
+
+* **Train Score**: Improved from -8,800.354 JPY M (seed) to -2,159.007 JPY M (train progress delta of 6,641.347 JPY M) [energy_alphaevolve_lab.lab_runs].
+* **Holdout Score**: Improved from -35,021.068 JPY M (seed) to -13,830.135 JPY M [energy_alphaevolve_lab.lab_runs].
+* **Validated Holdout Gain (`holdout_delta`)**: **21,190.933 JPY M** [energy_alphaevolve_lab.lab_runs].
+
+*Note: Run `tariff_pricing.20260927T085054Z` was evaluated on a local controller (`local-gemini-controller`), so `evolved` remains false [energy_alphaevolve_lab.lab_runs].*",id=None args={'run_id': 'tariff_pricing.20260927T085054Z'} name='get_best_program_diff' partial_args=None will_continue=None,"id='call_203576' args={'run_id': 'tariff_pricing.20260927T085054Z'} name='get_run_summary' partial_args=None will_continue=None
+id='call_203577' args={'run_id': 'tariff_pricing.20260927T085054Z'} name='get_best_program_diff' partial_args=None will_continue=None
+id='call_203578' args={'run_id': 'tariff_pricing.20260927T085054Z'} name='get_holdout_result' partial_args=None will_continue=None"
+runs_best_diff_tariff_latest,best_diff_tariff_latest,invocation_duration_v1,,14.181,INFORMATIONAL,"What did the best program in run tariff_pricing.20260927T085054Z change versus the seed, and how much did it gain?",The champion p040-f3b6f3eb changed the price book logic; train and holdout deltas as recorded [energy_alphaevolve_lab.lab_runs].,"### Program Changes Mechanisms
+
+The best program (`p040-f3b6f3eb`) replaced the simple cost-plus pricing seed with a dynamic, risk-hedged price book through five key adjustments:
+
+1. **Risk-Differentiated Market Linkage (`alpha`)**: Instead of setting a flat margin with `alpha` fixed at 0.5 only for data centers, it assigns `alpha` dynamically based on customer risk appetite (0.25 for low, 0.55 for medium, 0.82 for high), with boosts for data centers and flexible loads. It strictly caps `alpha` at 0.30 for essential facilities such as hospitals and water utilities to comply with policy constraints.
+2. **Segment and Procurement Margin Tuning**: It replaced the flat 1.500 JPY/kWh margin with segment and procurement-specific margins, lowering margins for churn-sensitive accounts (such as 0.620 JPY/kWh for semiconductor fabs, 0.650 JPY/kWh for water utilities, and 0.750 JPY/kWh for tenders) while increasing margins on auto-renewals (1.380 JPY/kWh) and data centers (0.820 JPY/kWh).
+3. **Reduced Fixed Charge Markups**: It lowered the demand charge markup above wheeling costs from 50.0 JPY/kW-month to 26.0 JPY/kW-month and reduced deviation penalties from 1.000 JPY/kWh to 0.400 JPY/kWh to minimize customer friction.
+4. **Demand Response Value Sharing**: It introduced a monthly demand response discount (`dr_discount_jpy_kw_month`), sharing up to 72% of estimated annual market DR value with eligible, flexible customers.
+5. **Multi-Year Term Extension**: It enabled 2-year and 3-year term commitments for customers with high market-linked coverage (`alpha >= 0.60`), securing long-term customer value without exposing the portfolio to unhedged fixed-price term risk.
+
+---
+
+### Validated Gain and Scores
+
+* **Train Score**: Improved from -8,800.354 JPY M (seed) to -2,159.007 JPY M (train progress delta of 6,641.347 JPY M) [energy_alphaevolve_lab.lab_runs].
+* **Holdout Score**: Improved from -35,021.068 JPY M (seed) to -13,830.135 JPY M [energy_alphaevolve_lab.lab_runs].
+* **Validated Holdout Gain (`holdout_delta`)**: **21,190.933 JPY M** [energy_alphaevolve_lab.lab_runs].
+
+*Note: Run `tariff_pricing.20260927T085054Z` was evaluated on a local controller (`local-gemini-controller`), so `evolved` remains false [energy_alphaevolve_lab.lab_runs].*",id=None args={'run_id': 'tariff_pricing.20260927T085054Z'} name='get_best_program_diff' partial_args=None will_continue=None,"id='call_203576' args={'run_id': 'tariff_pricing.20260927T085054Z'} name='get_run_summary' partial_args=None will_continue=None
+id='call_203577' args={'run_id': 'tariff_pricing.20260927T085054Z'} name='get_best_program_diff' partial_args=None will_continue=None
+id='call_203578' args={'run_id': 'tariff_pricing.20260927T085054Z'} name='get_holdout_result' partial_args=None will_continue=None"

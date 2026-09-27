@@ -31,7 +31,7 @@ promotion gate, analyst agent) is production-grade and identical for both backen
 
 | Lever | Scale anchor (MF) | Plausible range | Basis |
 |---|---|---|---|
-| Risk-adjusted tariff margin | TEPCO EP C&I sales 112.7 TWh FY2025 (MF 9) | 0.05 to 0.20 JPY/kWh = 5.6 to 22.5 bn JPY/yr | **sizing hypothesis only**: the lab has NO validated tariff holdout delta yet (three runs failed segment-retention invariants on holdout, see RESULTS.md); a pilot must establish it |
+| Risk-adjusted tariff margin | TEPCO EP C&I sales 112.7 TWh FY2025 (MF 9) | 0.05 to 0.20 JPY/kWh = 5.6 to 22.5 bn JPY/yr | **sizing hypothesis only**: one pre-registered lab run validated on holdout (+21,191 JPY M risk-adjusted on a fictional 1,200-customer book in a fuel-shock-weighted bank, passing a small-segment rule only with its sampling margin); three earlier runs failed; a pilot on real renewal data must establish any per-kWh figure |
 | Trading cost to serve | KBG-scale 6 TWh book | 30 to 400 JPY M/yr per 6 TWh | lab holdout deltas +323 and +397 JPY M/yr (annualised over FY2025 + stress days, mostly stress); about 30 JPY M/yr on normal days; compliance-constrained |
 | BESS dispatch value | 2 h perfect-foresight arbitrage ~2,080 JPY/kWh-cap/yr FY2025, 13.6/day in FY2026 regime (MF 12) | 60 to 80% capture of the bound; gain-share on the uplift vs a rule-based baseline | MF 12 notes real bots capture 60-80% |
 

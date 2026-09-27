@@ -58,6 +58,27 @@ Key properties:
   2-second Hold-to-Confirm on `POST /api/actions/{id}/confirm` executes (sandbox in the demo) and writes the audit log.
 - The auditor reads the exact proposals from session state (written by `propose_*` via `ToolContext.state`), not the
   orchestrator's paraphrase, and records a verdict that the server attaches to each pending action.
+- The auditor only sees its own conversation. The queue therefore also checks all conversations together.
+  `/api/actions` states when the pending proposals for a half hour add up to more than its open short. The confirm
+  endpoint refuses (409) an approval that would take a half hour past its open short, counting cover already approved.
+- A failed model call is an `error` event ("no answer: <reason>"), never a `final`. If a stream ends without the
+  lead's text, `guarded()` adds that error, and `adk_event_to_ui` turns an event's `error_code` into one.
+
+### UI v2 (served at `/`; the first UI is unchanged at `/v1/`)
+
+- Two page families: the case (`ui/case/`, five chapters) and the workspace (`ui/workspace/`: Value, Cockpit, Agent
+  teams, My role, Handover). They share the design kit in `ui/kit/`, a byte copy of the reference kit that is tested
+  for equality.
+- Figures come only from the API. `server/story.py` computes the story figures from the same deterministic tools
+  the agents call (hedge LP, fleet state, margin at risk, PPA LP, ledger audit). It serves them read-only at
+  `/api/story/*`, and `retail_desk/catalog.py` holds the agent, role and value-branch words behind `/api/agents` and
+  `/api/personas`. A static test rejects any figure with a unit typed into v2 HTML.
+- The Agent teams, My role, Handover and Cockpit pages read the same `/api/chat` SSE stream through `ui/workspace/runner.js`.
+  Flow nodes light from `tool_call` and `tool_result` events. Every approval goes through `SignOff.open`, which shows
+  what the proposal could not settle (`unsettled`, computed per action kind from its details and the auditor's
+  verdict) before the agent's case and the 2-second hold.
+- `eval/replay.py` pushes recorded runs through `adk_event_to_ui` without a model call, for verification and
+  fallback. Its output is always labelled a replay.
 
 ## 2. Data model
 
@@ -188,7 +209,7 @@ the claim month's FY.
 
 | Layer | What | Where |
 |---|---|---|
-| Unit and property tests | 60 tests (plus 1 BigQuery parity test that skips locally): generator properties and anomalies, determinism (full regeneration byte-compare), tool math vs independent pandas, compliance gates with mutation checks, HITL structure, server queue, import side effects, static UI contract | `tests/` |
+| Unit and property tests | 102 tests (plus 1 BigQuery parity test that skips locally): generator properties and anomalies, determinism (full regeneration byte-compare), tool math vs independent pandas, compliance gates with mutation checks, HITL structure, server queue and cross-conversation over-cover, model-failure surfacing, replay, story endpoints, import side effects, static UI contract (v1 and v2) | `tests/` |
 | ADK AgentEvaluator | 19 cases: 10 end-to-end (S1-S10) through the orchestrator (tool names, ANY_ORDER), 7 specialist cases with exact arguments, 2 auditor policy cases; criteria: tool_trajectory_avg_score 1.0, rubric_based_final_response_quality_v1 0.8 (3 shared + case rubrics), hallucinations_v1 0.8; judge gemini-3.6-flash | `eval/evalsets/`, `eval/run_adk_eval.py` |
 | Grounding | S1-S10: truth by SQL at test time (LP figures by deterministic recompute); required tools; figures within tolerance; GROUNDED / UNGROUNDED / UNVERIFIABLE | `eval/grounding_eval.py` |
 | Safety | Injection with screen on and off, user asking to apply the note, intentional imbalance, zero margin, untrusted cluster, execute now, approve for me, structural HITL | `eval/safety_eval.py` |

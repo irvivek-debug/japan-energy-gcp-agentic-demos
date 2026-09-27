@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <title>Retail Energy Desk</title>
+  <link rel="stylesheet" href="tokens.css">
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+  <script type="module" src="app.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#chat-input">Skip to the desk chat</a>
+
+  <header class="topbar" aria-label="Desk status">
+    <div class="brand">
+      <h1>Retail Energy Desk</h1>
+      <span class="badge info" id="scenario-badge">Tokyo heatwave</span>
+    </div>
+    <div class="top-stats">
+      <div class="top-stat">
+        <span class="caps">Desk clock</span>
+        <span class="top-value mono" id="desk-clock">Loading clock</span>
+      </div>
+      <div class="top-stat">
+        <span class="caps">Next gate closure</span>
+        <span class="top-value mono" id="gate-countdown">Loading</span>
+      </div>
+      <div class="top-stat top-agent">
+        <span class="caps">Agents</span>
+        <span class="top-value" id="agent-status">Idle</span>
+      </div>
+    </div>
+    <div class="top-badges">
+      <a class="pending-link" id="pending-link" href="#actions">Loading approvals</a>
+      <span class="badge info" id="backend-data">Data: loading</span>
+      <span class="badge info" id="backend-agents">Agents: loading</span>
+    </div>
+  </header>
+
+  <main class="bento" id="main">
+    <!-- 2. KPI strip -->
+    <section class="span-12 kpi-strip" aria-label="Key figures">
+      <article class="card kpi" id="kpi-spot" aria-live="polite"><span class="caps">Tokyo spot now</span><div class="kpi-body"></div></article>
+      <article class="card kpi" id="kpi-reserve" aria-live="polite"><span class="caps">Reserve margin</span><div class="kpi-body"></div></article>
+      <article class="card kpi" id="kpi-position" aria-live="polite"><span class="caps">Net open position</span><div class="kpi-body"></div></article>
+      <article class="card kpi" id="kpi-vpp" aria-live="polite"><span class="caps">VPP available</span><div class="kpi-body"></div></article>
+      <article class="card kpi" id="kpi-mar" aria-live="polite"><span class="caps">Margin at risk</span><div class="kpi-body"></div></article>
+    </section>
+
+    <!-- 3. Market chart -->
+    <section class="card span-8 panel" id="market" aria-labelledby="market-title">
+      <div class="panel-head">
+        <div>
+          <h2 id="market-title">Tokyo area prices, 48 slots</h2>
+          <p class="sub" id="market-sub">Spot, intraday best ask and imbalance forecast with reserve margin below</p>
+        </div>
+      </div>
+      <div class="chart-box">
+        <div class="chart chart-market" id="market-chart" role="img" aria-label="Tokyo area price chart"></div>
+        <div class="overlay" id="market-overlay"></div>
+      </div>
+      <details class="tableview" id="market-tv">
+        <summary>View market data as a table</summary>
+        <div class="tv-body" id="market-table"></div>
+      </details>
+    </section>
+
+    <!-- 4. Position chart -->
+    <section class="card span-4 panel" id="position" aria-labelledby="position-title">
+      <div class="panel-head">
+        <div>
+          <h2 id="position-title">Balancing group position</h2>
+          <p class="sub" id="position-sub">Demand plan vs latest forecast, open position per slot</p>
+        </div>
+      </div>
+      <div class="chart-box">
+        <div class="chart chart-position" id="position-chart" role="img" aria-label="Open position chart"></div>
+        <div class="overlay" id="position-overlay"></div>
+      </div>
+      <p class="key" id="position-key">Hatched red bars are short slots. Faded bars are delivered. The shaded band marks slots with the gate still open.</p>
+      <details class="tableview" id="position-tv">
+        <summary>View position as a table</summary>
+        <div class="tv-body" id="position-table"></div>
+      </details>
+    </section>
+
+    <!-- 5. VPP fleet -->
+    <section class="card span-6 panel" id="fleet" aria-labelledby="fleet-title">
+      <div class="panel-head">
+        <div>
+          <h2 id="fleet-title">VPP fleet</h2>
+          <p class="sub" id="fleet-sub">Loading fleet state</p>
+        </div>
+      </div>
+      <div id="fleet-alert"></div>
+      <div class="cluster-detail" id="cluster-detail" aria-live="polite">
+        <div class="cd-head" id="cd-head"></div>
+        <div class="cd-grid">
+          <div>
+            <div class="chart-box">
+              <div class="chart chart-tele" id="tele-chart" role="img" aria-label="State of charge sparkline"></div>
+              <div class="overlay" id="tele-overlay"></div>
+            </div>
+            <ul class="reasons" id="cd-reasons"></ul>
+          </div>
+          <dl class="cd-stats" id="cd-stats"></dl>
+        </div>
+      </div>
+      <p class="key">Each tile: cluster ID, health, state of charge (SOC) and dispatchable kW after dKW holdback. A dKW tag means capacity is committed to the balancing market.</p>
+      <div id="fleet-groups" class="fleet-groups"></div>
+    </section>
+
+    <!-- 6. CFE heatmap -->
+    <section class="card span-6 panel" id="cfe" aria-labelledby="cfe-title">
+      <div class="panel-head">
+        <div>
+          <h2 id="cfe-title">24/7 carbon-free energy matching</h2>
+          <p class="sub" id="cfe-sub">Hour-by-hour matched share of load</p>
+        </div>
+      </div>
+      <div class="cfe-controls">
+        <label class="field">
+          <span class="caps">Customer</span>
+          <select id="cfe-customer" aria-label="CFE customer"><option>Loading customers</option></select>
+        </label>
+        <button class="btn toggle" id="ppa-toggle" type="button" aria-pressed="false">Prospect design</button>
+      </div>
+      <div id="cfe-summary" class="cfe-summary" aria-live="polite"></div>
+      <div class="chart-box">
+        <div class="chart chart-cfe" id="cfe-chart" role="img" aria-label="CFE matching heatmap"></div>
+        <div class="overlay" id="cfe-overlay"></div>
+      </div>
+      <p class="key" id="cfe-key"></p>
+    </section>
+
+    <!-- 8. Chat -->
+    <section class="card span-7 panel" id="chat" aria-labelledby="chat-title">
+      <div class="panel-head">
+        <div>
+          <h2 id="chat-title">Ask the desk</h2>
+          <p class="sub">The orchestrator routes your request to specialist agents. Agents only propose; a person approves.</p>
+        </div>
+        <button class="btn btn-quiet" id="new-session" type="button">New session</button>
+      </div>
+      <div class="chips" id="scenario-chips" role="group" aria-label="Suggested prompts"></div>
+      <div class="convo" id="convo" role="log" aria-label="Conversation"></div>
+      <div class="chat-status" id="chat-status" role="status" aria-live="polite">Idle</div>
+      <form class="composer" id="composer">
+        <label class="visually-hidden" for="chat-input">Message the desk</label>
+        <textarea id="chat-input" rows="2" placeholder="Ask the desk. Enter sends, Shift+Enter adds a new line."></textarea>
+        <div class="composer-actions">
+          <button class="btn primary" id="send-btn" type="submit">Send</button>
+          <button class="btn" id="stop-btn" type="button" hidden>Stop</button>
+        </div>
+      </form>
+      <p class="session-line mono" id="session-line">New session</p>
+    </section>
+
+    <!-- 7. Agent swarm console -->
+    <section class="card span-5 panel" id="swarm" aria-labelledby="swarm-title">
+      <div class="panel-head">
+        <div>
+          <h2 id="swarm-title">Agent swarm console</h2>
+          <p class="sub">Live trace of agents, tool calls, results and audit verdicts</p>
+        </div>
+        <button class="btn btn-quiet" id="console-clear" type="button">Clear</button>
+      </div>
+      <ul class="roster" id="roster" aria-label="Agents"></ul>
+      <div class="console swarm-log" id="console-log" role="log" aria-label="Agent trace" tabindex="0"></div>
+    </section>
+
+    <!-- 9. Pending actions -->
+    <section class="card span-12 panel" id="actions" aria-labelledby="actions-title">
+      <div class="panel-head">
+        <div>
+          <h2 id="actions-title">Pending actions</h2>
+          <p class="sub">Nothing executes until a person reviews the reasoning and holds to confirm. Execution is sandboxed.</p>
+        </div>
+        <button class="btn btn-quiet" id="actions-refresh" type="button">Refresh</button>
+      </div>
+      <div class="actions-list" id="actions-list"></div>
+    </section>
+
+    <!-- 10. Audit log -->
+    <section class="card span-12 panel" id="audit" aria-labelledby="audit-title">
+      <div class="panel-head">
+        <div>
+          <h2 id="audit-title">Audit log</h2>
+          <p class="sub">Every human decision, with the risk auditor's verdict and the sandbox result</p>
+        </div>
+        <button class="btn btn-quiet" id="audit-refresh" type="button">Refresh</button>
+      </div>
+      <div class="audit-body" id="audit-body"></div>
+    </section>
+  </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+  <footer class="disclaimer">
+    <p id="disclaimer">Concept demo. Synthetic data. Not affiliated with or endorsed by TEPCO.</p>
+    <p class="platform" id="platform-line"></p>
+  </footer>
+</body>
+</html>

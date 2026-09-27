@@ -1,4 +1,4 @@
-# Edge-to-Grid Factory Energy Copilot ("Factory Energy Command")
+# Edge-to-Grid Factory Energy Copilot
 
 Concept demo for Mitsubishi Electric, proposed with Google Cloud. **Synthetic data. Not affiliated with or endorsed by Mitsubishi Electric.** No Mitsubishi Electric and Google Cloud partnership is implied; the design is deliberately multi-cloud and portable.
 
@@ -6,7 +6,7 @@ It is Wednesday 2026-08-19, 13:30 JST, a Tokyo heatwave. A fictional 16 MW SiC-m
 
 **Cloud agents propose. The edge disposes. A named person confirms.**
 
-![Factory Energy Command](docs/img/dashboard.jpg)
+![Factory Energy Copilot, UI version 2: landing](docs/img/v2/landing_1440.jpg)
 
 ## What the demo shows (all figures from the demo tools)
 
@@ -24,13 +24,42 @@ It is Wednesday 2026-08-19, 13:30 JST, a Tokyo heatwave. A fictional 16 MW SiC-m
 cd showcase/melco-edge-to-grid
 PY=../../.venv/bin/python                                 # Python 3.12 with requirements.txt installed
 $PY data/generate.py                                      # optional: deterministic, data/out is committed
-$PY -m pytest -q tests                                    # 123 passed, 1 skipped (BigQuery test needs DATA_BACKEND=bigquery)
+$PY -m pytest -q tests                                    # 149 passed, 1 skipped (BigQuery test needs DATA_BACKEND=bigquery)
 export GOOGLE_GENAI_USE_VERTEXAI=TRUE GOOGLE_CLOUD_LOCATION=global GOOGLE_CLOUD_PROJECT=<your-project>
-$PY -m uvicorn server.app:app --port 8082                 # open http://localhost:8082
+$PY -m uvicorn server.app:app --port 8082                 # open http://localhost:8082 (v1 at /v1/)
 $PY eval/probe.py "How confident is the PV forecast this afternoon?"   # one question from the terminal
 ```
 
-The dashboard panels work without model access (they call the same deterministic tools); chat needs Vertex AI access (Gemini 3.x at the `global` location). See [.env.example](.env.example) for every setting and [docs/DEMO_SCRIPT.md](docs/DEMO_SCRIPT.md) for the 10-12 minute walkthrough.
+Every page except the agent conversations works without model access (they call the same deterministic tools); chat needs Vertex AI access (Gemini 3.x at the `global` location). See [.env.example](.env.example) for every setting and [docs/DEMO_SCRIPT.md](docs/DEMO_SCRIPT.md) for the 10-12 minute walkthrough.
+
+## The UI (version 2)
+
+The UI leads with value and the gap in the plant's own data, and shows technology only from chapter 4 and in the workspace. Every figure comes from `/api/*`; research figures carry their MARKET_FACTS source; a missing figure says **NOT IN THE DATA**. The version 1 dashboard is kept at [`/v1/`](docs/img/dashboard.jpg).
+
+| Page | Path | What it shows |
+|---|---|---|
+| Landing | `/` | Thesis, today's call, the gap table (ordinary against best, with research), the evidence strip with a scrubber, two doors |
+| 1 · The case | `/case/index.html` | FY2026 prices, today's spot and imbalance curve, the 30-minute deviation band |
+| 2 · The gap | `/case/gap.html` | DR requested against delivered, billing peaks set around DR events, battery policy, AC-04 drift, PV band |
+| 3 · The prize | `/case/prize.html` | Value ranges by branch with the basis for each line, gain-share economics, the July invoice |
+| 4 · The solution | `/case/solution.html` | The lead, specialists, the reviewer, the edge, your sign-off; what the demo simulates and what production would use |
+| 5 · The proof | `/case/proof.html` | Evaluation pass counts with denominators, one worked grounding example recomputed by SQL, safety probes, run history |
+| Value | `/workspace/value.html` | Each metric the agents move as a range, with the industry band or NO VERIFIED BENCHMARK HELD |
+| Cockpit | `/workspace/index.html` | The v1 panels restyled: KPIs, load stack, approval queue, edge verdict badges, SOC, PV, JEPX, asset health, audit |
+| Agent teams | `/workspace/swarm.html` | Flow nodes lit live from the SSE trace, with the edge engine as its own node, a scenario runner and the trace |
+| My role | `/workspace/persona.html` | The four PRD personas: what each answers for, today's figures, their agents, a chat side panel |
+| Handover | `/workspace/handover.html` | A shift brief the agents write on request, one section per team, each starting NOT YET WRITTEN; printable |
+
+Every pending action opens the same sign-off sheet: what the recommendation could not settle (edge verdicts, rejected and limited actions, caveats) first, then the agent's reasoning, the exact order lines and its sources, then a 2-second hold.
+
+| | |
+|---|---|
+| ![2 · The gap](docs/img/v2/case2_gap_1440.jpg) | ![3 · The prize](docs/img/v2/case3_prize_1440.jpg) |
+| ![Cockpit](docs/img/v2/ws_cockpit_1440.jpg) | ![Sign-off sheet](docs/img/v2/signoff_1440.jpg) |
+| ![Agent teams](docs/img/v2/ws_swarm_replay_1440.jpg) | ![Shift handover](docs/img/v2/ws_handover_replay_1440.jpg) |
+| ![Landing at 390 px](docs/img/v2/landing_390.jpg) | ![My role at 390 px](docs/img/v2/ws_persona_390.jpg) |
+
+The Agent teams, sign-off and handover screenshots were taken with a replay of the deterministic tools' real outputs through the page code (no model call; the agent text in them says "Replay"), because model credentials had expired on the capture machine. All pages are in [docs/img/v2/](docs/img/v2/) at 1440 and 390 px.
 
 ## Architecture
 
@@ -41,7 +70,7 @@ flowchart LR
   WX["WeatherNext 3\n(demo: simulated ensemble)"] --> BQ
   MKT["JEPX / aggregator APIs via Apigee\n(demo: synthetic tables)"] --> BQ
   BQ --> AG["Agent Runtime: ADK swarm\norchestrator + 6 specialists (Gemini)"]
-  AG <--> UI["Cloud Run: Factory Energy Command\nSSE chat, dashboard, Hold-to-Confirm"]
+  AG <--> UI["Cloud Run: Factory Energy Copilot\nSSE chat, case and workspace UI, Hold-to-Confirm"]
   UI -->|confirmed plan, re-checked| EDGE["Edge interlock engine\n(production: GDC connected, air-gapped fallback)"]
   AG -->|simulate_edge_interlock| EDGE
   OT <--> EDGE
@@ -68,7 +97,7 @@ The copilot is tested with ADK agent evaluation (tool trajectory, rubric-based r
 | ADK AgentEvaluator: 18 cases, every specialist + end-to-end (trajectory, rubric quality, hallucinations) | **18 / 18** on first attempt |
 | Grounding: 9 scenario probes, truth computed by SQL at test time | **9 / 9 GROUNDED** (0 unverifiable) |
 | Safety: injection in a document, unsafe requests, HITL, authority claim | **8 / 8**; no execute tool exists |
-| pytest | **123 passed**, 1 skipped (BigQuery backend) |
+| pytest | **149 passed**, 1 skipped (BigQuery backend) |
 
 Earlier runs are kept in `eval/results/run1_baseline` and `run2_partial_stopped`; they surfaced one persistent defect (an empty orchestrator turn after parallel specialist calls) and two transients, all fixed and explained in the report. The final figures are a single run (n = 1), not a rate.
 
@@ -79,9 +108,11 @@ factory_copilot/   agent.py (root_agent), prompts.py, model_policy.py, datastore
                    core/ (clock, DR baseline and settlement, BESS policies, plan registry), edge/interlock_engine.py, tools/
 data/              generate.py, simulation_parameters.yaml, schema.json, out/*.csv (17 MB)
 eval/              evalsets/*.test.json + test_config.json, run_adk_eval.py, grounding_eval.py, safety_eval.py, results/
-server/app.py      FastAPI: /api/* dashboard, /api/chat (SSE), /api/actions (HITL), static ui/
-ui/                index.html, app.js, styles.css, tokens.css, hold-to-confirm.js (ECharts from jsDelivr)
-tests/             generator properties, interlock engine, math, tools + HITL + server, BigQuery backend
+server/app.py      FastAPI: /api/* dashboard, /api/chat (SSE), /api/actions (HITL), static ui/ at / and ui/v1/ at /v1/
+server/v2_api.py   read-only v2 endpoints: meta, research, gap, strip, prize, value, proof, personas, compressor-trend
+ui/                v2: index.html + landing.js, case/ (5 chapters), workspace/ (5 pages), kit.css, shell.js, motion.js, signoff.js, app.css, common.js
+ui/v1/             version 1 dashboard, unchanged (ECharts from jsDelivr)
+tests/             generator properties, interlock engine, math, tools + HITL + server, v2 endpoints and pages, BigQuery backend
 docs/              PRD, TECHNICAL_DESIGN, DEMO_SCRIPT, EVAL_REPORT
 deploy/DEPLOY.md   BigQuery, Agent Runtime, Cloud Run
 ```
