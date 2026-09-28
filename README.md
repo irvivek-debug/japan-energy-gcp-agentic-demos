@@ -16,6 +16,28 @@ UI and deployment path.
 | [**Factory Energy Copilot**](melco-edge-to-grid/) | Mitsubishi Electric | Edge-to-grid: a 7-agent swarm builds a 3,000 kW demand-response plan for a fictional SiC module plant while a deterministic "GDC Edge" interlock engine accepts or rejects every action in milliseconds (the committed furnace batch is rejected, the plan still lands 3,576 kW). BESS-as-a-Service policy comparison, WeatherNext-style PV risk, compressor-leak and stuck-meter detection, gain-share invoicing. Framed as a proposed collaboration with a first-class multi-cloud story. | [PRD](melco-edge-to-grid/docs/PRD.md) · [Design](melco-edge-to-grid/docs/TECHNICAL_DESIGN.md) · [Demo script](melco-edge-to-grid/docs/DEMO_SCRIPT.md) · [Evals](melco-edge-to-grid/docs/EVAL_REPORT.md) |
 | [**AlphaEvolve Energy Lab**](alphaevolve-energy-lab/) | Both | Evolutionary code search on two real problems for a fictional Tokyo balance group: **C&I tariff pricing** (1,200-customer train cohort, separate holdout cohorts, FY2026 Monte Carlo price bank) and **JEPX trading + BESS dispatch** (day-ahead bids, intraday, imbalance). A market model calibrated to FY2023-FY2026 JEPX data, an AlphaEvolve-contract harness (EVOLVE-BLOCKs, sandbox, baseline lock, budget ledger, holdout, evidence files) and policy invariants that reject "wins" that are really rule breaks (intentional imbalance, pricing customers out). | [PRD](alphaevolve-energy-lab/docs/PRD.md) · [Design](alphaevolve-energy-lab/docs/TECHNICAL_DESIGN.md) · [Scenario & data](alphaevolve-energy-lab/docs/SCENARIO_AND_DATA.md) · [Results](alphaevolve-energy-lab/docs/RESULTS.md) · [Evals](alphaevolve-energy-lab/docs/EVAL_REPORT.md) |
 
+## Version alpha UI (CEO story, light design language)
+
+Version alpha (tag `alpha`) is a **third front end on the same back end**: the same server, `/api`, agents and
+BigQuery, switched on with `UI_VARIANT=alpha` and deployed as its own Cloud Run service. It tells the deep work in
+simple language to a CEO-level audience, with a visual on every screen, in the owner's **light** mining front-end
+design language (off-white canvas, white cards, Google blue, serif headlines, mono figures). Six hash-routed screens:
+**Why now** (market timeline, three headwinds, the lever matrix, outcomes as ranges) · **The system** (a clickable
+twin with red and amber nodes and a systems-of-record strip) · **The call** (one event told twice, live agents,
+the edge verdict, hold-to-approve) · **Who changes** (personas before and after, assigned squad) · **The team**
+(lead, specialists, reviewer, edge; five-stage decision flow per agent) · **How it's built** (the boundary, the
+stack, simulated versus production). Spec: [`docs/DESIGN_ALPHA.md`](docs/DESIGN_ALPHA.md); kit:
+[`docs/reference/ui-alpha/`](docs/reference/ui-alpha/).
+
+| Screen | Factory Energy Copilot (Mitsubishi Electric) |
+|---|---|
+| Why now | ![Why now](melco-edge-to-grid/docs/img/alpha/why_1440.jpg) |
+| The system | ![The system](melco-edge-to-grid/docs/img/alpha/system_1440.jpg) |
+| The call | ![The call](melco-edge-to-grid/docs/img/alpha/call_edge_live_1440.jpg) |
+
+Alpha ships first for the Factory Energy Copilot (`melco-edge-to-grid/ui-alpha/`, 165 tests, the 13:00 call
+verified live). The Retail Energy Desk and the Energy Lab keep v2 at `/` until their alpha front ends land.
+
 ## Version 2 UI
 
 Version 2 (tag `v2.0.0`) replaces the v1 control-room dashboards with the editorial, CEO-first design language of the

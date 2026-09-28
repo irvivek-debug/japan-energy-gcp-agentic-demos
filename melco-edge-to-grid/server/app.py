@@ -21,6 +21,7 @@ from statistics import mean
 from typing import Any, AsyncIterator
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+UI_VARIANT = os.getenv("UI_VARIANT", "").strip().lower()
 sys.path.insert(0, ROOT)
 
 from fastapi import FastAPI, HTTPException  # noqa: E402
@@ -35,7 +36,7 @@ from factory_copilot.datastore import STORE  # noqa: E402
 from factory_copilot.edge.interlock_engine import evaluate_plan, parse_plan  # noqa: E402
 from factory_copilot.tools import common as C  # noqa: E402
 from factory_copilot.tools import gainshare, health, market  # noqa: E402
-from server import v2_api  # noqa: E402
+from server import alpha_api, v2_api  # noqa: E402
 
 APP_NAME = "factory_copilot"
 app = FastAPI(title="Factory Energy Copilot")
@@ -102,7 +103,7 @@ def _now_import() -> dict:
 @app.get("/api/health")
 def health_check():
     return {"ok": True, "agent_backend": os.getenv("AGENT_BACKEND", "local"), "data_backend": STORE.backend, "dataset": STORE.dataset,
-            "demo_now": DEMO_NOW}
+            "demo_now": DEMO_NOW, "ui_variant": UI_VARIANT or "v2"}
 
 
 @app.get("/api/overview")
@@ -277,7 +278,7 @@ def _compact(obj: Any, limit: int = 3500) -> Any:
     if len(s) <= limit:
         return obj
     if isinstance(obj, dict):
-        keep = {k: obj[k] for k in ("status", "plan_id", "verdict", "summary", "kpis", "error", "source", "message") if k in obj}
+        keep = {k: obj[k] for k in ("status", "plan_id", "verdict", "summary", "kpis", "error", "source", "message", "rejected_actions", "findings") if k in obj}
         keep["_truncated"] = True
         return keep
     return s[:limit]
@@ -425,6 +426,7 @@ def favicon():
 
 
 app.include_router(v2_api.router)
+app.include_router(alpha_api.router)
 
 
 def _warm_caches() -> None:
@@ -442,5 +444,25 @@ if os.getenv("WARM_CACHES", "1") == "1":
     import threading
 
     threading.Thread(target=_warm_caches, daemon=True, name="warm-caches").start()
+
+
+class _LayeredStatic(StaticFiles):
+    """Serve the first directory, falling back to the next for any path it lacks. Under UI_VARIANT=alpha the CEO story
+    front end owns / while v2's absolute asset paths (/kit.css, /case/..., /workspace/..., /v1/...) keep resolving."""
+
+    def __init__(self, directories: list[str], **kw):
+        super().__init__(directory=directories[0], **kw)
+        self.all_directories = list(directories)
+
+
 # UI v2 lives in ui/ (served at /); the unchanged v1 dashboard lives in ui/v1/ (served at /v1/).
-app.mount("/", StaticFiles(directory=os.path.join(ROOT, "ui"), html=True), name="ui")
+# UI_VARIANT=alpha mounts ui-alpha/ at / and keeps v2 at /v2/ (and at its own absolute paths) and v1 at /v1/.
+if UI_VARIANT == "alpha":
+    @app.get("/v2", include_in_schema=False)
+    def v2_redirect():
+        return RedirectResponse("/v2/")
+
+    app.mount("/v2", StaticFiles(directory=os.path.join(ROOT, "ui"), html=True), name="ui-v2")
+    app.mount("/", _LayeredStatic([os.path.join(ROOT, "ui-alpha"), os.path.join(ROOT, "ui")], html=True), name="ui")
+else:
+    app.mount("/", StaticFiles(directory=os.path.join(ROOT, "ui"), html=True), name="ui")

@@ -125,3 +125,7 @@ From the demo root with the same env vars as local:
 | Data | `data/generate.py`, `data/schema.json`, `data/out/*.csv` |
 | Evals | `eval/run_adk_eval.py`, `eval/grounding_eval.py`, `eval/safety_eval.py` |
 | Env template | `.env.example` |
+
+## Version alpha as a second service
+
+Deploy the same image a second time as `<service>-alpha` with `UI_VARIANT=alpha` and otherwise identical env (same `AGENT_ENGINE_ID`, same dataset). It serves the CEO story at `/`, version 2 at `/v2/` and version 1 at `/v1/`; `/api/health` reports `ui_variant`. The Dockerfile already copies `ui-alpha/`.

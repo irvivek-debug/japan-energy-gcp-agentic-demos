@@ -78,3 +78,23 @@ The pass counts with their denominators, the worked grounding example (the PV p1
 * A tool error shows in red in the trace; the agent will not invent a number.
 * Reset between runs: restart the server (the pending-action queue and audit log are in memory).
 * v1 is at `/v1/` if the audience wants the single-screen dashboard.
+
+---
+
+# Version alpha: the CEO walk-through (8 minutes)
+
+Start the server with `UI_VARIANT=alpha` (or open the `-alpha` Cloud Run service). Six tabs, one story, plain words. Press **Run the agents live** on **The call** as soon as the tab opens; it takes 60 to 90 s and the pills light while you talk. If the run bar reports **no answer**, press **Play the replay**: the same beats from the deterministic tools, badged `replay`.
+
+**0:00 Why now (1 min).** Read the headline. Point at the chart: verified savings by month, and the July drop marked ("DR season began"). Then the three headwinds, each measured in this plant's data: the billing peak set around a DR event, the compressor leak, the deviation exposure with the cap rising on 1 October. The four levers: three spent, one left. Close on the outcomes bar: ranges, never points.
+
+**1:00 The system (1 min).** "This is your plant." Click **Compressed air** (red): live readings, the excess cost a year, the rules that protect it, who watches it. Click **Sintering furnaces** (amber): FN-02's committed batch, and IR-FN-02, the rule the edge will use at 13:12. Point at the systems-of-record strip: read-mostly in, write back through their own interfaces.
+
+**2:00 The call (3 min).** Beat 1, the call: 3,000 kW asked, 62.4 JPY/kWh coming, 59 percent delivered last time. Beat 2: the pills light as the lead asks three specialists at once. Beat 4, the edge verdict: FN-02 rejected with the rule id, FN-01 and the pumps limited, 3,576 kW firm survives. Beat 7: three options, option A struck by the edge with the reason. Beat 8: read "what it could not settle" first, then hold the button for two seconds; release early once to show it cancels. The released box reports exactly what the server did: sandbox status, the edge re-check at dispatch, one audit record. Beat 9: delivered, with margin. Beat 10: where the value landed.
+
+**5:00 Who changes (1 min).** Pick **Production line supervisor**: today she is asked at 16:00 to release a batch she committed at lunchtime; with the agents FN-02 is never on the list. Press **Ask it** on the plant floor agent if there is time (about 30 s).
+
+**6:00 The team (1 min).** The lead, five specialists, the reviewer, and the edge as its own tier. Open **Battery**: the value range, the problem it removes, what it may not do, the five-stage flow. **Ask this agent** runs live; **Play the recorded run** is the evaluation evidence, badged replay.
+
+**7:00 How it's built (1 min).** "Zero write access to plant control." The stack top to bottom, dashed where simulated; the guardrails; the production path table. Say it plainly: Google Cloud is a proposed collaboration, the design stays multi-cloud, and nothing here reaches a real controller.
+
+**If something goes wrong.** Every screen except the live runs works without the model. The replay produces a real pending action, so the hold still works. Reset between runs by restarting the server (the queue and the audit log are in memory).

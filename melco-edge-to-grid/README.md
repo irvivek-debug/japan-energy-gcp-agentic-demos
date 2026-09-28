@@ -24,9 +24,10 @@ It is Wednesday 2026-08-19, 13:30 JST, a Tokyo heatwave. A fictional 16 MW SiC-m
 cd showcase/melco-edge-to-grid
 PY=../../.venv/bin/python                                 # Python 3.12 with requirements.txt installed
 $PY data/generate.py                                      # optional: deterministic, data/out is committed
-$PY -m pytest -q tests                                    # 149 passed, 1 skipped (BigQuery test needs DATA_BACKEND=bigquery)
+$PY -m pytest -q tests                                    # 165 passed, 1 skipped (BigQuery test needs DATA_BACKEND=bigquery)
 export GOOGLE_GENAI_USE_VERTEXAI=TRUE GOOGLE_CLOUD_LOCATION=global GOOGLE_CLOUD_PROJECT=<your-project>
 $PY -m uvicorn server.app:app --port 8082                 # open http://localhost:8082 (v1 at /v1/)
+UI_VARIANT=alpha $PY -m uvicorn server.app:app --port 8085 # the CEO story at /, v2 at /v2/, v1 at /v1/
 $PY eval/probe.py "How confident is the PV forecast this afternoon?"   # one question from the terminal
 ```
 
@@ -60,6 +61,28 @@ Every pending action opens the same sign-off sheet: what the recommendation coul
 | ![Landing at 390 px](docs/img/v2/landing_390.jpg) | ![My role at 390 px](docs/img/v2/ws_persona_390.jpg) |
 
 The Agent teams, sign-off and handover screenshots were taken with a replay of the deterministic tools' real outputs through the page code (no model call; the agent text in them says "Replay"), because model credentials had expired on the capture machine. All pages are in [docs/img/v2/](docs/img/v2/) at 1440 and 390 px.
+
+## Version alpha: the CEO story
+
+A separate front end on the same back end, for a first meeting with a plant's leadership: light canvas, serif headlines, one idea per card, a visual on every screen, and plain words (the agents, the reviewer, the edge, sign-off). Set `UI_VARIANT=alpha` and it is served at `/`, with version 2 at `/v2/` and version 1 at `/v1/`; unset, nothing changes. `/api/health` reports `ui_variant`.
+
+| Screen | What the CEO takes away |
+|---|---|
+| Why now | The market moved and the old levers are spent: verified savings by month with the July drop marked, three headwinds measured in the plant's data, the lever matrix, four outcome ranges |
+| The system | The plant as a clickable single-line twin: grid and market, switchboard with PV and battery, the protected classes, the flexible classes; AC-04 red, FN-02 amber; a drawer with live readings, the edge rules and who watches each box |
+| The call | The 13:00 call told as beats. The agent pills light from the live stream; the edge verdict is its own beat; one of three options is struck by the edge; the decision holds for two seconds and posts the real confirm; a badged replay stands in when the model is unavailable |
+| Who changes | Four roles, before and after, with their squad and an "Ask it" chip that opens the live agent |
+| The team | The lead, the specialists, the reviewer and the edge; a deep dive per agent with the value range, the problem it removes, its limits, the five-stage decision flow, "Ask this agent" live and "Play the recorded run" (replay from the evaluation) |
+| How it's built | Zero write access to plant control: the stack top to bottom, the guardrails, four-stage provenance, three grounded questions, and what the demo simulates against what production uses |
+
+| | |
+|---|---|
+| ![Why now](docs/img/alpha/why_1440.jpg) | ![The system](docs/img/alpha/system_1440.jpg) |
+| ![The call, the edge verdict live](docs/img/alpha/call_edge_live_1440.jpg) | ![The decision after the hold, live](docs/img/alpha/call_decide_live_1440.jpg) |
+| ![The team, a live answer](docs/img/alpha/team_ask_live_1440.jpg) | ![How it's built](docs/img/alpha/built_1440.jpg) |
+| ![Why now at 390 px](docs/img/alpha/why_390.jpg) | ![The call at 390 px](docs/img/alpha/call_390.jpg) |
+
+Every figure comes from `/api`; the story text (`ui-alpha/story.js`) carries only placeholders and a test enforces the copy rules (headline at most 10 words, no dashes, no banned words, no hand-typed figure with a unit). New read-only endpoints: `/api/alpha/timeline`, `/api/alpha/schematic`, `/api/alpha/recorded`, `/api/alpha/replay`. The call and the deep-dive question were verified against the live agents on the local DuckDB backend; the replay screenshots say `replay`. All screens are in [docs/img/alpha/](docs/img/alpha/) at 1440 and 390 px.
 
 ## Architecture
 
@@ -97,7 +120,7 @@ The copilot is tested with ADK agent evaluation (tool trajectory, rubric-based r
 | ADK AgentEvaluator: 18 cases, every specialist + end-to-end (trajectory, rubric quality, hallucinations) | **18 / 18** on first attempt |
 | Grounding: 9 scenario probes, truth computed by SQL at test time | **9 / 9 GROUNDED** (0 unverifiable) |
 | Safety: injection in a document, unsafe requests, HITL, authority claim | **8 / 8**; no execute tool exists |
-| pytest | **149 passed**, 1 skipped (BigQuery backend) |
+| pytest | **165 passed**, 1 skipped (BigQuery backend) |
 
 Earlier runs are kept in `eval/results/run1_baseline` and `run2_partial_stopped`; they surfaced one persistent defect (an empty orchestrator turn after parallel specialist calls) and two transients, all fixed and explained in the report. The final figures are a single run (n = 1), not a rate.
 
@@ -110,9 +133,11 @@ data/              generate.py, simulation_parameters.yaml, schema.json, out/*.c
 eval/              evalsets/*.test.json + test_config.json, run_adk_eval.py, grounding_eval.py, safety_eval.py, results/
 server/app.py      FastAPI: /api/* dashboard, /api/chat (SSE), /api/actions (HITL), static ui/ at / and ui/v1/ at /v1/
 server/v2_api.py   read-only v2 endpoints: meta, research, gap, strip, prize, value, proof, personas, compressor-trend
+server/alpha_api.py read-only alpha endpoints: timeline, schematic, recorded (replay from eval evidence), replay (deterministic tools, SSE)
+ui-alpha/          version alpha: index.html, story.js, schematic.js, call.js, app.js, alpha.css + alpha-shell.js (kit), alpha-extra.css
 ui/                v2: index.html + landing.js, case/ (5 chapters), workspace/ (5 pages), kit.css, shell.js, motion.js, signoff.js, app.css, common.js
 ui/v1/             version 1 dashboard, unchanged (ECharts from jsDelivr)
-tests/             generator properties, interlock engine, math, tools + HITL + server, v2 endpoints and pages, BigQuery backend
+tests/             generator properties, interlock engine, math, tools + HITL + server, v2 endpoints and pages, alpha endpoints, routing and copy rules, BigQuery backend
 docs/              PRD, TECHNICAL_DESIGN, DEMO_SCRIPT, EVAL_REPORT
 deploy/DEPLOY.md   BigQuery, Agent Runtime, Cloud Run
 ```

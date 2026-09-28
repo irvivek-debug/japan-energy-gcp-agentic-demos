@@ -7,6 +7,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY factory_copilot/ factory_copilot/
 COPY server/ server/
 COPY ui/ ui/
+COPY ui-alpha/ ui-alpha/
 COPY data/out/ data/out/
 COPY data/schema.json data/schema.json
 # DATA_BACKEND=bigquery in production (data/out is only read when DATA_BACKEND=local)

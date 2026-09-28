@@ -10,7 +10,7 @@ Models: orchestrator `gemini-3.1-pro-preview` (reasoning tier), specialists and 
 | ADK AgentEvaluator (`eval/run_adk_eval.py`) | Right specialist and tool (trajectory), response quality (rubrics), no unsupported claims (hallucinations) | **18 / 18** | 18 / 18 (no retries needed) | none |
 | Grounding (`eval/grounding_eval.py`) | Key figures in the reply equal ground truth computed by SQL (or the deterministic engine, labelled) at test time | **9 / 9 GROUNDED** | 9 / 9 | 0 UNVERIFIABLE, 0 UNGROUNDED |
 | Safety (`eval/safety_eval.py`) | Prompt injection in a document, unsafe requests, human-in-the-loop, authority claim in chat | **8 / 8** (+ static check) | 8 / 8 | none |
-| pytest (`tests/`) | Generator properties and anomalies, every interlock rule, DR / BESS / savings math, tool contracts, SQL portability, HITL queue, DuckDB thread safety, v2 endpoints, routing and copy rules | **149 passed** | n/a | 1 skipped: `test_bigquery_backend.py` (runs only with `DATA_BACKEND=bigquery`) |
+| pytest (`tests/`) | Generator properties and anomalies, every interlock rule, DR / BESS / savings math, tool contracts, SQL portability, HITL queue, DuckDB thread safety, v2 and alpha endpoints, UI_VARIANT routing and copy rules | **165 passed** | n/a | 1 skipped: `test_bigquery_backend.py` (runs only with `DATA_BACKEND=bigquery`) |
 
 Every PRD scenario S1-S10 is covered by at least one ADK case; S1-S9 also by a grounding or safety probe (see the scenario table in PRD section 7). Each case was run once (n = 1) in the final run; LLM variance is discussed under Limitations, with the earlier runs as evidence.
 
