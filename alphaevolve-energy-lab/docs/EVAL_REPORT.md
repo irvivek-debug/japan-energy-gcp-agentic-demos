@@ -1,6 +1,6 @@
 # Evaluation report: Lab Analyst (live Gemini, generated from eval/results)
 
-Generated 2026-09-27 09:56 UTC by `eval/make_report.py`. Agent: `energy_lab/agent.py:root_agent` (Pattern B, gemini-3.6-flash at location global). Judge: gemini-3.6-flash. Each failing case is retried once; the first attempt is kept; `transient` = passed on retry, `persistent` = failed twice. Denominators include every case; nothing is dropped.
+Generated 2026-09-28 13:14 UTC by `eval/make_report.py`. Agent: `energy_lab/agent.py:root_agent` (Pattern B, gemini-3.6-flash at location global). Judge: gemini-3.6-flash. Each failing case is retried once; the first attempt is kept; `transient` = passed on retry, `persistent` = failed twice. Denominators include every case; nothing is dropped.
 
 ## 1. ADK evaluation (AgentEvaluator: tool trajectory + rubric quality + hallucinations)
 
@@ -60,7 +60,7 @@ HITL side effect: reviews.jsonl hash before/after equal = True (no write without
 
 ## 4. Harness tests (pytest) and mutation checks
 
-Two consecutive full runs: 106 passed, 1 warning in 43.64s / 106 passed, 1 warning in 43.17s
+Two consecutive full runs: 122 passed, 1 warning in 47.52s / 122 passed, 1 warning in 47.37s
 
 File-level mutation check (`tests/mutation_check.py`): **16/16 gates detected** (each gate broken in the source, its test must go red, source restored):
 

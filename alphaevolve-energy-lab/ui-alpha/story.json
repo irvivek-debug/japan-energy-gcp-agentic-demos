@@ -1,0 +1,311 @@
+{
+  "_rules": "Lane Reach copy. Headlines at most ten words. Body at most two sentences, forty words. Every number is a {{placeholder}} filled from /api at render time; the only digits typed here are story clocks and beat numbers.",
+  "product": "Energy Lab",
+  "disclaimer": "Concept demo. Synthetic, calibrated data. Not affiliated with or endorsed by TEPCO or Mitsubishi Electric.",
+  "provenance": "local controller, not the managed AlphaEvolve service",
+  "why": {
+    "eyebrow": "AlphaEvolve Energy Lab · Why now",
+    "hero": "Your price book is code, and code can evolve.",
+    "lede": "Tokyo spot power averaged {{fy2025_mean}} JPY/kWh in FY2025, and the FY2026 scenarios the search is judged on run at {{fy2026_mean}} JPY/kWh. A book priced on last year's costs carries that gap as risk.",
+    "timeline": {
+      "title": "The price regime moved. The book did not.",
+      "subtitle": "Monthly Tokyo spot means, FY2023 to FY2025 history, then the two FY2026 scenario banks the search is judged on. The marker is the seed book's tail loss on those scenarios.",
+      "marker": "seed book tail loss {{seed_cvar}} JPY M"
+    },
+    "headwinds_title": "Three headwinds, measured in this data",
+    "headwinds": [
+      {"id": "regime", "label": "FY2026 price regime", "value": "{{fy2026_mean}}", "unit": "JPY/kWh", "baseline": "+{{regime_pct}}% vs FY2025",
+       "desc": "The scenario bank the search is judged on, calibrated to the published FY2026 figures to date.", "cite": "MARKET_FACTS 1.2 · VERIFIED", "bar": "regime_pct"},
+      {"id": "tail", "label": "Tail risk of the fixed book", "value": "{{seed_cvar}}", "unit": "JPY M", "baseline": "CVaR95 shortfall",
+       "desc": "What the cost-plus seed book loses in the worst five percent of FY2026 scenarios, on the train fold.", "cite": "runs/*.json · TRAIN ONLY", "bar": "tail_pct"},
+      {"id": "imbalance", "label": "The imbalance temptation", "value": "{{imb_caught}}", "unit": "candidates", "baseline": "caught before scoring",
+       "desc": "Strategies that lean on the imbalance price score well on paper and were rejected before they could count.", "cite": "MARKET_FACTS 3 · VERIFIED", "bar": "imb_pct"}
+    ],
+    "levers_title": "The usual levers are spent",
+    "levers": [
+      {"tag": "Hire quants", "desc": "Months to hire, one book at a time, and the rules still live in someone's head.", "status": "Slow", "state": "exhausted"},
+      {"tag": "Buy a black box", "desc": "A vendor model you cannot audit, judged on its own back-test.", "status": "Opaque", "state": "exhausted"},
+      {"tag": "Tune by hand", "desc": "{{tariff_failed}} hand-tuned tariff runs, and every champion broke a customer rule on unseen customers.", "status": "Burned two holdouts", "state": "exhausted"},
+      {"tag": "Evolve under guardrails", "desc": "The search proposes code, the rules reject what cheats, and unseen customers judge the rest.", "status": "{{searched_runs}} runs · {{programs}} programs", "state": "active", "highlight": true}
+    ],
+    "outcomes_title": "What the runs so far have shown, as ranges",
+    "outcomes": [
+      {"label": "Trading uplift on held-out days", "range": "trading", "unit": "JPY M/yr", "sub": "validated on held-out days, {{trading_validated}} runs"},
+      {"label": "Tail risk removed from the book", "range": "tail_risk", "unit": "JPY M", "sub": "train fold only, not citable yet"},
+      {"label": "Rule-breakers caught, per run", "range": "caught_per_run", "unit": "candidates", "sub": "{{reached}} reached the population"},
+      {"label": "Cost of one search", "range": "cost", "unit": "USD", "sub": "token estimate, {{programs_per_run}} programs a run"}
+    ]
+  },
+  "system": {
+    "eyebrow": "The system",
+    "hero": "Your search loop as a map, where the rules bite",
+    "lede": "Every candidate walks this loop. Click a station for its live readings and who watches it.",
+    "telemetry_title": "What the loop is reading now",
+    "sor_title": "Systems of record",
+    "sor_note": "Read-mostly in. The only write is a review record, behind a two-second hold."
+  },
+  "run": {
+    "eyebrow": "The 09:00 run",
+    "hero": "One pre-registered search, told beat by beat",
+    "lede": "Tariff run {{run_ordinal}}, as it happened: the rules frozen first, {{programs_in_run}} candidates, one caught, one champion, then the customers it never saw.",
+    "options": [
+      {"id": "full", "name": "Full story", "blurb": "Every beat, from the frozen rules to the value map.", "beats": ["frozen", "first", "caught", "champion", "holdout", "caveat", "analyst", "contrast", "options", "decide", "map"]},
+      {"id": "decision", "name": "The decision only", "blurb": "Unseen customers, the caveat, three candidates, the hold.", "beats": ["holdout", "caveat", "options", "decide"]},
+      {"id": "contrast", "name": "The contrast", "blurb": "Three hand-tuned runs against one pre-registered run, then the hold.", "beats": ["contrast", "decide"]}
+    ],
+    "beats": {
+      "frozen": {
+        "clock": "09:00", "kicker": "1 · THE RULES ARE FROZEN FIRST", "title": "Before the search starts, the judge is chosen",
+        "lines": ["The holdout of {{cohort}} customers and {{scenarios_holdout}} scenarios is generated and its hash written down. Nobody evaluates anything on it until the run itself does.",
+                  "The success rule is fixed in advance: keep every customer rule on those unseen customers and beat the seed there."],
+        "agents": [{"id": "prereg", "name": "Pre-registration", "kind": "critic"}],
+        "findings": [{"fig": "cohort", "unit": "customers", "label": "unseen customers, generated after the rules were written"},
+                     {"fig": "sha_prefix", "mono": true, "label": "content hash, recorded before any evaluation"},
+                     {"fig": "margin_rule", "mono": true, "label": "sampling margin, fixed in advance"}],
+        "note": "docs/PREREGISTRATION_tariff_v4.md, the design sections, written before holdout3 existed.",
+        "cue": "Point at the hash. It is the promise that nothing was tuned afterwards."
+      },
+      "first": {
+        "clock": "09:05", "kicker": "2 · THE FIRST CANDIDATES", "title": "The search starts from your book and edits it",
+        "lines": ["The seed is your cost-plus book, scored at {{seed_train}} JPY M on the train scenarios. The first edits arrive within minutes; some score, some fail, all are recorded.",
+                  "Every candidate runs in a sealed box with no network and no disk, and returns only its pricing decisions."],
+        "agents": [{"id": "controller", "name": "The controller", "kind": "lead"}, {"id": "sandbox", "name": "The sandbox"}, {"id": "evaluator", "name": "The evaluator"}],
+        "findings": [{"fig": "seed_train", "unit": "JPY M", "label": "the seed book on train"},
+                     {"fig": "first_valid_train", "unit": "JPY M", "label": "first valid candidate on train"},
+                     {"fig": "first_count", "unit": "candidates", "label": "in the first batch, {{first_invalid}} rejected"}],
+        "note": "Scores are on the train fold: search progress, never uplift.",
+        "cue": "Read the seed score aloud. Everything is measured against it."
+      },
+      "caught": {
+        "clock": "09:20", "kicker": "3 · A CANDIDATE IS CAUGHT", "title": "A candidate scores well by pricing customers out",
+        "lines": ["Candidate {{caught_id}} would have scored {{caught_raw}} JPY M, better than the seed. It got there by pushing churn past the rule in two segments.",
+                  "The rule rejected it before the score could count, so it never entered the population."],
+        "agents": [{"id": "invariants", "name": "The rules", "kind": "critic"}],
+        "findings": [{"fig": "caught_raw", "unit": "JPY M", "label": "what it would have scored", "tone": "crit"},
+                     {"fig": "caught_word", "label": "before scoring counted", "tone": "crit"},
+                     {"fig": "reached", "unit": "reached", "label": "the population, across every run"}],
+        "quote_fig": "caught_insight",
+        "note": "Pricing customers out is a strategy change, not an uplift.",
+        "cue": "This is the beat that makes the rules real. Let the insight text sit."
+      },
+      "champion": {
+        "clock": "09:40", "kicker": "4 · THE CHAMPION ON TRAIN", "title": "{{programs_in_run}} candidates later, one book leads on train",
+        "lines": ["Candidate {{champion_id}} scores {{champion_train}} JPY M on train, {{champion_gain_train}} JPY M better than the seed. That is search progress, not a result, because these are the scenarios it was tuned on.",
+                  "It moves fixed-price risk onto a market-linked share, sets margins by segment, and shares demand-response value with flexible customers."],
+        "agents": [{"id": "controller", "name": "The controller", "kind": "lead"}, {"id": "evaluator", "name": "The evaluator"}],
+        "findings": [{"fig": "champion_train", "unit": "JPY M", "label": "champion on train"},
+                     {"fig": "champion_gain_train", "unit": "JPY M", "label": "better than the seed on train, not citable"},
+                     {"fig": "lineage_steps", "unit": "edits", "label": "from the seed to the champion"}],
+        "note": "The champion is chosen on train. The holdout is only reported, so it cannot be gamed.",
+        "cue": "Say 'not a result' out loud. The next beat is the result."
+      },
+      "holdout": {
+        "clock": "10:00", "kicker": "5 · JUDGED ON UNSEEN CUSTOMERS", "title": "The top five meet the customers they never saw",
+        "lines": ["The five best train candidates are scored once on the {{cohort}} holdout customers and their harsher scenario bank. The seed scores {{holdout_seed}} JPY M there; the champion {{champion_holdout}} JPY M.",
+                  "The uplift a person may cite is the difference, and it carries a caveat you will see next."],
+        "agents": [{"id": "holdout", "name": "The holdout judge"}],
+        "findings": [{"fig": "holdout_seed", "unit": "JPY M", "label": "seed on unseen customers"},
+                     {"fig": "champion_holdout", "unit": "JPY M", "label": "champion on unseen customers"},
+                     {"delta": true, "label": "the citable uplift"}],
+        "note": "Scale: the holdout scores are about three times the train scores because the cohort is three times larger.",
+        "cue": "Pause on the delta. Then say: and here is what it depends on."
+      },
+      "caveat": {
+        "clock": "10:05", "kicker": "6 · THE CAVEAT", "title": "One small segment passes only with the margin",
+        "lines": ["In the {{fab_n}}-customer semiconductor segment, churn rises {{fab_rise_pp}} points. The point rule allows {{fab_point_pp}}; the pre-registered margin for a segment that small allows {{fab_margin_pp}}.",
+                  "Under the old point rules, ranks {{rank_invalid_v3}} of the top five would be invalid. Ranks {{rank_both}} pass both rule sets, with a smaller uplift."],
+        "agents": [{"id": "holdout", "name": "The holdout judge"}, {"id": "invariants", "name": "The rules", "kind": "critic"}],
+        "findings": [{"fig": "fab_rise_pp", "unit": "pp", "label": "churn rise, semiconductor segment", "tone": "crit"},
+                     {"fig": "fab_margin_pp", "unit": "pp", "label": "margin limit for {{fab_n}} customers"},
+                     {"fig": "rank_both", "mono": true, "label": "ranks that pass both rule sets"}],
+        "note": "The caveat travels with the number: in the tables, in the analyst's answers, and on every screen here.",
+        "cue": "Do not rush this. The caveat is the credibility of the whole demo."
+      },
+      "analyst": {
+        "clock": "10:10", "kicker": "7 · ASK THE ANALYST · LIVE", "title": "Ask the analyst whether every rule held",
+        "lines": ["The Lab Analyst reads the same tables and answers with citations. Watch it choose its tools and reach the caveat on its own.",
+                  "If the model call fails, the page says so and replays a recorded answer, labelled as a replay."],
+        "agents": [{"id": "analyst", "name": "The analyst", "kind": "lead"}, {"id": "tools", "name": "Nine read-only tools"}, {"id": "reviewer", "name": "Evidence rules", "kind": "critic"}, {"id": "signoff", "name": "Your sign-off"}],
+        "live": true, "question": "{{analyst_question}}", "replay_id": "tariff_latest_every_rule",
+        "note": "One live question through the same stream the workspace uses.",
+        "cue": "Let it run. Read the tool names as they light."
+      },
+      "contrast": {
+        "clock": "", "kicker": "8 · THE CONTRAST", "title": "Three hand-tuned runs, then one pre-registered run",
+        "lines": ["On the left, the way it went before: three runs, each with a champion that broke a customer rule on unseen customers, and two holdouts burned for diagnosis.",
+                  "On the right, the run whose rules were frozen first."],
+        "today_head": "Before: tuned by hand", "after_head": "With the guardrails: pre-registered",
+        "after_rows": [{"clock": "09:00", "text": "Holdout of {{cohort}} customers generated after the rules were written; hash recorded."},
+                       {"clock": "09:20", "text": "{{policy_caught_run}} candidates rejected by the churn rule before scoring."},
+                       {"clock": "10:00", "text": "Champion {{champion_id}} judged once on unseen customers."},
+                       {"clock": "10:05", "text": "Uplift with its caveat, in the tables and in every answer."},
+                       {"clock": "10:20", "text": "A person marks the block read. Nothing promotes it."}],
+        "note": "Every earlier run is kept in the evidence; none was modified.",
+        "cue": "Point left, then right. The difference is the order of events."
+      },
+      "options": {
+        "clock": "", "kicker": "9 · THREE CANDIDATES, ONE STRUCK", "title": "The rules strike the best-paying candidate",
+        "lines": ["Three candidates from the same run. The one that pays most on paper got there by pricing customers out, and the rules struck it before anyone had to argue.",
+                  "The other two are valid; one needs the margin, one does not."],
+        "note": "Selection is on train. The holdout figures are reported, never used to choose.",
+        "cue": "Point at the struck card, then at the reason."
+      },
+      "decide": {
+        "clock": "10:20", "kicker": "10 · THE DECISION", "title": "Mark it read. Nothing here promotes it.",
+        "lines": ["What the run could not settle comes first, then the analyst's case. The hold records that a person read the evolved block, and nothing more.",
+                  "Promotion needs a run on the managed service and stays disabled here."],
+        "hold": {"label": "Hold to mark human-reviewed", "done": "Human review recorded", "reviewer": "alpha-demo reviewer", "note": "Read the evolved block on the alpha story screen"},
+        "note": "The hold posts to the same review endpoint the workspace uses; the record lands in runs/reviews.jsonl.",
+        "cue": "Hold with the mouse. They must see you decide, and see what the button cannot do."
+      },
+      "map": {
+        "clock": "", "kicker": "11 · WHERE THE VALUE LANDED", "title": "Where the value landed, on unseen customers",
+        "lines": ["Four readings from the holdout, seed against champion. The first is the citable one and carries its caveat; the rest explain where it comes from.",
+                  "Most of the gain is tail risk removed, not margin per customer."],
+        "note": "Every tile reads the run's evidence file.",
+        "cue": "End on the caveat. It is what makes the number believable."
+      }
+    }
+  },
+  "who": {
+    "eyebrow": "Who changes",
+    "hero": "Four roles, before and after, with their agents",
+    "lede": "The people who own the book, the desk, the battery and the governance. Pick one to see what changes.",
+    "personas": {
+      "pricing_lead": {"jtbd": "Renew the book so it holds margin under FY2026 prices without pricing any segment out.",
+        "today": "A cost-plus renewal book tuned on last year's costs, defended in front of the risk committee with a back-test on the same data it was tuned on.",
+        "after": "The search proposes books, the churn rule rejects any that price a segment out, and unseen customers judge the rest. The number you quote carries its caveat."},
+      "trading_head": {"jtbd": "Lower the cost to serve the balance group while staying inside the plan-based band in every half-hour.",
+        "today": "Rule-based bidding tuned on last year's prices, with an imbalance temptation that no back-test punishes.",
+        "after": "Strategies that lean on the imbalance price are rejected before scoring. Held-out days decide what counts, and every catch is on the record."},
+      "bess_owner": {"jtbd": "Prove the battery's contribution on days it never saw, inside warranty, in a figure the customer can audit.",
+        "today": "A dispatch policy defended with a vendor back-test, and a gain-share the customer cannot check.",
+        "after": "Every validated run shows seed against champion on held-out days, with cycles per day next to the warranty line."},
+      "ai_governance": {"jtbd": "Let an evolved program near production only when the evidence and a named reviewer say so.",
+        "today": "Model output arrives as a recommendation with no audit trail, and nobody can say what it could not do.",
+        "after": "Nothing promotes code here. A two-second hold records a review; the gate lists what stays open, and every run says which controller produced it."}
+    },
+    "squad": [
+      {"id": "invariants", "name": "The rules", "badge": "arbiter", "desc": "Reject any candidate that prices a segment out or leans on the imbalance price, before it can score."},
+      {"id": "holdout", "name": "The holdout judge", "badge": "arbiter", "desc": "Scores the top five once on customers and days the search never saw."},
+      {"id": "lab_analyst", "name": "The Lab Analyst", "badge": "advisory", "desc": "Answers from the tables with citations, and carries the caveat with every uplift.", "ask": true},
+      {"id": "review", "name": "Your sign-off", "badge": "signoff", "desc": "Marks the evolved block as read. Never promotes."}
+    ]
+  },
+  "team": {
+    "eyebrow": "The team",
+    "hero": "Five agents, one loop, one place a person signs",
+    "lede": "The lead proposes, the specialists test and judge, the reviewer strikes, and the analyst explains. Open any of them.",
+    "tiers": [
+      {"id": "lead", "name": "The lead", "kind": "lead", "desc": "Proposes edits to your book and keeps the search inside its budget.", "agents": ["controller"]},
+      {"id": "specialists", "name": "Specialists, working together", "kind": "spec", "desc": "Score every candidate in a sealed box, then judge the best on unseen customers.", "agents": ["evaluator", "holdout_judge"]},
+      {"id": "reviewer", "name": "The reviewer", "kind": "critic", "desc": "Strikes any candidate that breaks a customer or market rule, before it can score.", "agents": ["invariants"]},
+      {"id": "analyst", "name": "The analyst you can ask", "kind": "live", "desc": "Reads the tables and answers with citations, live.", "agents": ["lab_analyst"]}
+    ],
+    "agents": {
+      "controller": {"name": "The controller", "id_badge": "LEAD-01", "apqc": "APQC 3.0 · Market and sell", "title": "Proposes the next edit to your book",
+        "desc": "Picks a parent and two inspirations, asks a model for a code edit, and hands it to the sandbox.",
+        "value_label": "Cost of one search", "value_kind": "cost",
+        "problem": "Tuning a book by hand is slow, unrepeatable, and the rules that made it live in someone's head.",
+        "stake": "Every proposal is a diff against your seed, kept with its rationale.",
+        "rows": [{"k": "Reads", "v": "the seed, the population, the budget ledger"}, {"k": "Decides", "v": "which parent to edit and which model to ask"},
+                 {"k": "Limit", "v": "{{programs_per_run}} programs a run, {{runs_per_day}} runs a day; it never scores its own proposals", "limit": true}],
+        "flow": [{"stage": "trigger", "v": "A run starts under a budget", "biz": "Nothing runs without a ledger entry."},
+                 {"stage": "reads", "v": "seed, population, ledger", "biz": "It only sees code and scores, never customer data."},
+                 {"stage": "decides", "v": "parent, inspirations, model", "biz": "A diff, with its reasoning kept."},
+                 {"stage": "approval", "v": "none: proposals are not decisions", "biz": "It cannot promote or score anything."},
+                 {"stage": "lands", "v": "the sandbox queue", "biz": "Every proposal is scored the same way."}],
+        "ask": "Which evolution runs exist and what did each one find?", "replay_id": "trading_programs_invalid",
+        "tables": ["runs/*.json", "runs/ledger.json"]},
+      "evaluator": {"name": "The evaluator", "id_badge": "SPEC-01", "apqc": "APQC 3.0 · Market and sell", "title": "Scores every candidate on the same market",
+        "desc": "Settles each candidate's decisions against the market model, the customer book and the battery fleet.",
+        "value_label": "Candidates scored across every run", "value_kind": "count",
+        "problem": "A back-test on the data a rule was tuned on proves nothing; scores must come from one trusted simulator.",
+        "stake": "Same customers, same scenarios, same score for everyone.",
+        "rows": [{"k": "Reads", "v": "{{customers}} customers, {{scenarios}} scenarios, the cost stack"}, {"k": "Decides", "v": "the score, and what a candidate would have scored before the rules"},
+                 {"k": "Limit", "v": "it cannot change the rules or the data; the instance hash is checked after every run", "limit": true}],
+        "flow": [{"stage": "trigger", "v": "A candidate returns decisions", "biz": "Only decisions cross the boundary."},
+                 {"stage": "reads", "v": "customers_train, scenario banks, cost_stack", "biz": "The same book every time."},
+                 {"stage": "decides", "v": "expected margin, tail risk, churn, score", "biz": "One number, and the pieces behind it."},
+                 {"stage": "approval", "v": "none: a score is not a decision", "biz": "The rules judge next."},
+                 {"stage": "lands", "v": "the evidence file", "biz": "Never overwritten."}],
+        "ask": "What were the seed and best train scores of the first tariff run?", "replay_id": "tariff_first_seed_best",
+        "tables": ["customers_train", "scenario_monthly", "cost_stack"]},
+      "invariants": {"name": "The rules", "id_badge": "REV-01", "apqc": "APQC 11.0 · Risk and compliance", "title": "Strikes what cheats before it can count",
+        "desc": "Churn, fair pricing, essential facilities, non-discrimination, intentional imbalance, battery limits.",
+        "value_label": "Candidates struck across every run", "value_kind": "caught",
+        "problem": "A search will find the imbalance loophole and the segment to price out. Something has to say no before the score counts.",
+        "stake": "A struck candidate never enters the population, whatever it would have scored.",
+        "rows": [{"k": "Reads", "v": "the settled decisions of every candidate"}, {"k": "Decides", "v": "valid or struck, with the reason in plain words"},
+                 {"k": "Limit", "v": "it cannot soften a rule after the fact; the judgment rules were pre-registered", "limit": true}],
+        "flow": [{"stage": "trigger", "v": "A candidate is scored", "biz": "Every candidate, no exceptions."},
+                 {"stage": "reads", "v": "churn by segment, imbalance by slot, prices vs reference", "biz": "The same rules the risk committee reads."},
+                 {"stage": "decides", "v": "struck, with the reason", "biz": "The reason is kept with the score it would have had."},
+                 {"stage": "approval", "v": "none: a strike is final for the run", "biz": "No appeal inside the search."},
+                 {"stage": "lands", "v": "lab_invariant_catches", "biz": "Every catch is on the record."}],
+        "ask": "Which invariants rejected candidates in the latest tariff run, and what would they have scored?", "replay_id": "regulatory_intentional_imbalance",
+        "tables": ["lab_invariant_catches", "lab_segment_judgments"]},
+      "holdout_judge": {"name": "The holdout judge", "id_badge": "SPEC-02", "apqc": "APQC 11.0 · Risk and compliance", "title": "Judges the best on customers they never saw",
+        "desc": "Scores the top five train candidates once on a fresh cohort and a harsher scenario bank.",
+        "value_label": "Validated uplift, trading", "value_kind": "trading",
+        "problem": "A champion chosen and judged on the same data is a back-test, not a result.",
+        "stake": "The holdout is reported, never used to choose, so it cannot be gamed.",
+        "rows": [{"k": "Reads", "v": "the holdout cohort and bank, the seed on the same cohort"}, {"k": "Decides", "v": "valid or not on unseen customers, and the delta a person may cite"},
+                 {"k": "Limit", "v": "one judgment per cohort; a cohort used for diagnosis is burned", "limit": true}],
+        "flow": [{"stage": "trigger", "v": "The search ends", "biz": "Only then does the holdout open."},
+                 {"stage": "reads", "v": "customers_holdout*, holdout scenario bank", "biz": "Data the search never saw."},
+                 {"stage": "decides", "v": "holdout delta, with the sampling-margin caveat", "biz": "The only number an uplift may cite."},
+                 {"stage": "approval", "v": "a person, later", "biz": "A delta is evidence, not a decision."},
+                 {"stage": "lands", "v": "lab_holdout, lab_segment_judgments", "biz": "The caveat is a column, not a footnote."}],
+        "ask": "Did tariff run {{run_ordinal}} ({{run_id}}) keep every rule on its holdout customers?", "replay_id": "tariff_latest_holdout_delta",
+        "tables": ["lab_holdout", "lab_segment_judgments", "customers_holdout3"]},
+      "lab_analyst": {"name": "The Lab Analyst", "id_badge": "LIVE-01", "apqc": "APQC 11.0 · Risk and compliance", "title": "Explains any run from the tables, with citations",
+        "desc": "A conversational agent with nine read-only tools. It proposes a review; it cannot record one.",
+        "value_label": "Questions answered from the tables", "value_kind": "evals",
+        "problem": "Evidence nobody can question in plain language stays in a JSON file.",
+        "stake": "Every figure it states cites the table it came from; generated text is treated as data.",
+        "rows": [{"k": "Reads", "v": "the lab tables, market history, the cost stack"}, {"k": "Decides", "v": "which tools to call and what to cite"},
+                 {"k": "Limit", "v": "no write tool; the one proposal it can make waits for a human hold", "limit": true}],
+        "flow": [{"stage": "trigger", "v": "You ask a question", "biz": "In your words."},
+                 {"stage": "reads", "v": "lab_runs, lab_holdout, lab_segment_judgments, market_history", "biz": "Only the exported tables."},
+                 {"stage": "decides", "v": "tool calls, then an answer with citations", "biz": "Every number has a table next to it."},
+                 {"stage": "approval", "v": "your hold, for a review record", "biz": "It proposes; you decide."},
+                 {"stage": "lands", "v": "runs/reviews.jsonl, only after the hold", "biz": "Never promotion."}],
+        "ask": "Did tariff run {{run_ordinal}} ({{run_id}}) keep every rule on its holdout customers?", "replay_id": "tariff_latest_every_rule",
+        "tables": ["lab_runs", "lab_holdout", "lab_segment_judgments", "lab_invariant_catches", "market_history", "cost_stack"]}
+    }
+  },
+  "built": {
+    "eyebrow": "How it's built",
+    "hero": "Nothing here promotes code to production",
+    "lede": "Every run so far used the local controller. The managed service is one flag away and is not provisioned here.",
+    "boundary_sub": "The search writes evidence files and the analyst reads tables. The only write a person can trigger is a review record, and the promotion control stays disabled for every local run.",
+    "stack": [
+      {"band": "Screen", "name": "This story", "blurb": "Static files. Every figure comes from /api; nothing is typed in.", "chips": ["ui-alpha/", "hash routes"]},
+      {"band": "Serving", "name": "The demo server", "blurb": "One service serves the pages, the read-only endpoints and the analyst stream.", "chips": ["Cloud Run", "/api", "SSE"]},
+      {"band": "Analyst", "name": "The Lab Analyst", "blurb": "Runs in-process here, on Agent Runtime in production; same agent object either way.", "chips": ["ADK", "Agent Runtime", "9 tools"]},
+      {"band": "Tables", "name": "The lab tables", "blurb": "DuckDB over the committed CSVs here, BigQuery in production; identical SQL.", "chips": ["lab_runs", "lab_holdout", "lab_segment_judgments", "market_history"]},
+      {"band": "Evidence", "name": "Evidence files", "blurb": "One file per run, created once, never overwritten; the tables are exported from them.", "chips": ["runs/*.json", "runs/ledger.json"]},
+      {"band": "Search", "name": "Local controller", "blurb": "Same evaluator, sandbox, budget and evidence schema as the managed service; switching is one flag.", "chips": ["not provisioned", "one flag"], "sim": true},
+      {"band": "Market", "name": "Calibrated synthetic market", "blurb": "History and scenario banks calibrated to published figures.", "chips": ["MARKET_FACTS"], "sim": true},
+      {"band": "Customers", "name": "Fictional customer cohorts", "blurb": "Cohorts with hidden behaviour the candidates never see.", "chips": ["customers_*"], "sim": true}
+    ],
+    "controls": [
+      {"name": "Your sign-off", "rule": "Two seconds of held contact records a review. Nothing else writes."},
+      {"name": "The rules", "rule": "Struck candidates never enter the population, whatever they would have scored."},
+      {"name": "The holdout judge", "rule": "Fresh cohorts, pre-registered rules, the caveat as a column."},
+      {"name": "The budget ledger", "rule": "{{programs_per_day}} programs and {{runs_per_day}} runs a day, counted before a run starts."},
+      {"name": "No keys, no writes", "rule": "Candidates run without network or disk and return only decisions."}
+    ],
+    "provenance": [
+      {"k": "Source", "v": "published market figures and the evidence files"},
+      {"k": "Landed", "v": "calibrated tables and lab_* exports, with schema"},
+      {"k": "Computed", "v": "scores, catches, holdout deltas, the caveat"},
+      {"k": "Cited", "v": "every figure names its table, on screen and in the analyst's answers"}
+    ],
+    "ask_title": "Ask the data directly",
+    "ask_sub": "Three questions the evaluation recorded, with the tables they hit. Press one to ask live.",
+    "ask_ids": ["fy2025_tokyo_mean", "dc_segment_twh", "hv_wheeling_nov26"],
+    "path_title": "What the demo simulates, and what production uses"
+  }
+}

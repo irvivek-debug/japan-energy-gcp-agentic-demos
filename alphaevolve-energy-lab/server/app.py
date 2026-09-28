@@ -50,7 +50,12 @@ class ReviewIn(BaseModel):
 @app.get("/api/health")
 def health():
     return {"ok": True, "agent_backend": os.getenv("AGENT_BACKEND", "local"), "data_backend": os.getenv("DATA_BACKEND", "local"),
-            "dataset": STORE.dataset}
+            "dataset": STORE.dataset, "ui_variant": ui_variant()}
+
+
+def ui_variant() -> str:
+    """'alpha' serves UI version alpha at / (v2 at /v2/, v1 at /v1/); anything else keeps v2 at / and v1 at /v1/."""
+    return "alpha" if os.getenv("UI_VARIANT", "").strip().lower() == "alpha" else "v2"
 
 
 @lru_cache(maxsize=8)
@@ -403,8 +408,22 @@ def audit():
     return {"audit": AUDIT[-50:]}
 
 
+from server.alpha_api import router as alpha_router  # noqa: E402  (read-only endpoints for UI version alpha)
 from server.v2_api import router as v2_router  # noqa: E402  (read-only endpoints for UI version 2)
 
 app.include_router(v2_router)
-app.mount("/v1", StaticFiles(directory=str(ROOT / "ui" / "v1"), html=True), name="ui_v1")   # version 1, unchanged
-app.mount("/", StaticFiles(directory=str(ROOT / "ui"), html=True), name="ui")              # version 2
+app.include_router(alpha_router)
+
+
+def mount_ui(target: FastAPI, variant: str) -> None:
+    """Static mounts. UI_VARIANT=alpha: ui-alpha/ at /, ui/ (version 2) at /v2/, ui/v1/ at /v1/. Otherwise unchanged:
+    version 2 at / and version 1 at /v1/ (no /v2/ mount)."""
+    target.mount("/v1", StaticFiles(directory=str(ROOT / "ui" / "v1"), html=True), name="ui_v1")   # version 1, unchanged
+    if variant == "alpha":
+        target.mount("/v2", StaticFiles(directory=str(ROOT / "ui"), html=True), name="ui_v2")
+        target.mount("/", StaticFiles(directory=str(ROOT / "ui-alpha"), html=True), name="ui")
+    else:
+        target.mount("/", StaticFiles(directory=str(ROOT / "ui"), html=True), name="ui")          # version 2
+
+
+mount_ui(app, ui_variant())

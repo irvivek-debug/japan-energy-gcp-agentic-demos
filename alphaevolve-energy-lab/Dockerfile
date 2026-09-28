@@ -8,4 +8,5 @@ WORKDIR /app
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
+# ui/ (version 2), ui/v1/ and ui-alpha/ (the CEO story) all ship; UI_VARIANT=alpha serves ui-alpha/ at / (v2 at /v2/, v1 at /v1/).
 CMD exec uvicorn server.app:app --host 0.0.0.0 --port ${PORT}

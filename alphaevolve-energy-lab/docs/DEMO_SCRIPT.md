@@ -69,3 +69,39 @@ Footer on every page: Concept demo. Synthetic, calibrated data. Not affiliated w
 Electric.
 
 Version 1 (the control-room dashboard) is unchanged at `/v1/`; its walkthrough is this file at tag v1.0.0.
+
+---
+
+# Version alpha: the CEO walk-through (8 minutes)
+
+Start with `UI_VARIANT=alpha ../../.venv/bin/python -m uvicorn server.app:app --port 8083` and open
+http://localhost:8083. Six tabs, one idea per card, every figure from `/api`. Say once: "synthetic, calibrated data, a
+fictional balance group, and every run you will see used a local controller, not the managed AlphaEvolve service."
+
+## 0:00 Why now (1 min)
+Read the claim: your price book is code, and code can evolve. Trace the timeline: FY2023 to FY2025 history, then the
+FY2026 scenario banks, with the seed book's tail loss marked. Three headwinds, four levers with the fourth lit, then
+the outcomes bar: every figure a range, the tariff tail-risk reduction labelled train only.
+
+## 1:00 The system (1.5 min)
+The loop as a map. Click **Churn rule** (red): the drawer quotes the evaluator's words for the candidate that priced
+customers out and what it would have scored. Click **Holdout**: every run's outcome, the tariff delta with its caveat.
+Click **Managed AlphaEvolve** (dashed): not provisioned here, one flag away. Point at the systems-of-record strip.
+
+## 2:30 The run (3.5 min)
+Choose **Full story** and press Next: 09:00 the rules are frozen (point at the hash); 09:05 the first candidates;
+09:20 the catch (read the rule's own words); 09:40 the champion on train ("search progress, not a result"); 10:00 the
+top five meet unseen customers (pause on the delta); 10:05 the caveat (the 14-customer segment, the margin, ranks 1 to
+2 under the old rules); 10:10 ask the analyst live and watch the tool names light (if the model call fails, the page
+says so and replays a recorded answer badged REPLAY); the contrast; three candidates with one struck; then the
+decision: read what it could not settle, hold two seconds with the mouse to record a human review, and show that
+"Promote to production" stays disabled with its reason. End on the value map.
+
+## 6:00 Who changes and the team (1.5 min)
+Pick the pricing lead: the job to be done, today against with the agents, the assigned squad; press **Ask it**. Then the
+team: open the Lab Analyst deep dive, press **Play the replay** (badged) and **Ask this agent** (live).
+
+## 7:30 How it's built (30 s)
+"Nothing here promotes code to production." The stack top to bottom, the controls on the right, the demo-versus-
+production table. Close: "the managed service is one flag away; the guardrails you saw are what make an evolved result
+safe to believe."

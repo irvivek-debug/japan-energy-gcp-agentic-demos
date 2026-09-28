@@ -29,14 +29,16 @@ the edge verdict, hold-to-approve) · **Who changes** (personas before and after
 stack, simulated versus production). Spec: [`docs/DESIGN_ALPHA.md`](docs/DESIGN_ALPHA.md); kit:
 [`docs/reference/ui-alpha/`](docs/reference/ui-alpha/).
 
-| Screen | Factory Energy Copilot (Mitsubishi Electric) |
-|---|---|
-| Why now | ![Why now](melco-edge-to-grid/docs/img/alpha/why_1440.jpg) |
-| The system | ![The system](melco-edge-to-grid/docs/img/alpha/system_1440.jpg) |
-| The call | ![The call](melco-edge-to-grid/docs/img/alpha/call_edge_live_1440.jpg) |
+| Screen | Factory Energy Copilot (Mitsubishi Electric) | AlphaEvolve Energy Lab |
+|---|---|---|
+| Why now | ![Why now](melco-edge-to-grid/docs/img/alpha/why_1440.jpg) | ![Why now](alphaevolve-energy-lab/docs/img/alpha/why-1440.png) |
+| The system | ![The system](melco-edge-to-grid/docs/img/alpha/system_1440.jpg) | ![The system](alphaevolve-energy-lab/docs/img/alpha/system-1440.png) |
+| The event | ![The call](melco-edge-to-grid/docs/img/alpha/call_edge_live_1440.jpg) | ![The run](alphaevolve-energy-lab/docs/img/alpha/run-live-1440.png) |
 
-Alpha ships first for the Factory Energy Copilot (`melco-edge-to-grid/ui-alpha/`, 165 tests, the 13:00 call
-verified live). The Retail Energy Desk and the Energy Lab keep v2 at `/` until their alpha front ends land.
+Alpha ships for the Factory Energy Copilot (`melco-edge-to-grid/ui-alpha/`, 165 tests, the 13:00 call verified live)
+and the Energy Lab (`alphaevolve-energy-lab/ui-alpha/`, 122 tests, the Lab Analyst beat verified live; every run
+screen says `local controller, not the managed AlphaEvolve service`, and the tariff figure never appears without
+its sampling-margin caveat). The Retail Energy Desk keeps v2 at `/` until its alpha front end lands.
 
 ## Version 2 UI
 

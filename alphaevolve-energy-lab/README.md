@@ -86,6 +86,32 @@ The only write on any page is "Mark human-reviewed", which opens the sign-off sh
 `runs/reviews.jsonl`; "Promote to production" stays disabled with its reason. A failed model call shows the server's
 error line, never a made-up answer. Screenshots at 1440 px and 390 px: `docs/img/v2/`.
 
+## UI version alpha: the CEO story (`UI_VARIANT=alpha`)
+
+A separate front end on the same back end, in the light "mining" design language (`../docs/DESIGN_ALPHA.md`): six
+hash-routed screens, simple language, a visual on every screen, and the deep work behind a click. Start it with
+`UI_VARIANT=alpha ../../.venv/bin/python -m uvicorn server.app:app --port 8083`; version 2 then moves to `/v2/` and
+version 1 stays at `/v1/`. With `UI_VARIANT` unset nothing changes. `/api/health` reports `ui_variant`.
+
+| Screen | What the CEO takes away | Figures from |
+|---|---|---|
+| Why now | The price regime moved and the book did not; the usual levers are spent; evolve under guardrails | `/api/v2/landing`, `/api/market/monthly`, `/api/v2/prize`, `/api/alpha/team` |
+| The system | The evolution loop as a clickable twin: seed, controller, sandbox, evaluator, the rules (red catch nodes), holdout, human review, managed AlphaEvolve (dashed, not provisioned) | `/api/alpha/twin` |
+| The run | Tariff run 4 beat by beat: rules frozen, first candidates, one caught, the champion, unseen customers, the caveat, a live analyst question, the contrast, three candidates with one struck, the hold that records a review (never promotion), where the value landed | `/api/alpha/run`, `POST /api/chat`, `POST /api/runs/{id}/review` |
+| Who changes | The four PRD personas, before and after, with their assigned agents and a live "Ask it" | `/api/v2/personas` |
+| The team | Lead, specialists, reviewer and the live analyst; a deep dive per agent with a live question and a badged recorded replay | `/api/alpha/team`, `/api/alpha/replays` |
+| How it's built | Boundary, stack, controls, provenance, three grounded questions to ask live, the demo-versus-production table | `/api/v2/solution`, `/api/alpha/replays`, `/api/health` |
+
+Copy lives in `ui-alpha/story.json` (headlines of at most ten words, every number a placeholder filled from `/api`;
+`tests/test_ui_alpha.py` enforces it). The tariff uplift is rendered only through a helper that prints its
+sampling-margin caveat next to the number, and every run carries "local controller, not the managed AlphaEvolve
+service". A failed model call shows an error and a replay badged as a replay. Screenshots at 1440 and 390 px:
+`docs/img/alpha/` (`why`, `system`, `run`, `who`, `team`, `built`, plus `run-live`, `run-replay`, `run-decide`,
+`system-drawer`, `team-ask-live`, `who-ask-live`, `who-ask-replay`, `built-ask-live`).
+
+![Why now](docs/img/alpha/why-1440.png)
+![The run, the live analyst beat](docs/img/alpha/run-live-1440.png)
+
 ## Results and evaluation
 
 See `docs/RESULTS.md` (seed vs null vs best on train and holdout, invariant catches, costs) and `docs/EVAL_REPORT.md`.
